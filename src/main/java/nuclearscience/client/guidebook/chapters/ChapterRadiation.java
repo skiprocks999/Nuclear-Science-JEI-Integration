@@ -54,6 +54,24 @@ public class ChapterRadiation extends Chapter {
 				new TextWrapperObject(113, 170, 4210752, "guidebook.nuclearscience.chapter.radiation.p2l14-3"),
 				//
 				new TextWrapperObject(10, 180, 4210752, "guidebook.nuclearscience.chapter.radiation.p2l15"), }));
+		
+		pages.add(new Page(new TextWrapperObject[] { new TextWrapperObject(10, 40, 4210752, "guidebook.nuclearscience.chapter.radiation.p3l1"),
+				//
+				new TextWrapperObject(10, 50, 4210752, "guidebook.nuclearscience.chapter.radiation.p3l2"),
+				//
+				new TextWrapperObject(10, 60, 4210752, "guidebook.nuclearscience.chapter.radiation.p3l3"),
+				//
+				new TextWrapperObject(10, 70, 4210752, "guidebook.nuclearscience.chapter.radiation.p3l4"),
+				//
+				new TextWrapperObject(10, 80, 4210752, "guidebook.nuclearscience.chapter.radiation.p3l5"),
+				//
+				new TextWrapperObject(10, 90, 4210752, "guidebook.nuclearscience.chapter.radiation.p3l6"),
+				//
+				new TextWrapperObject(10, 100, 4210752, "guidebook.nuclearscience.chapter.radiation.p3l7"),
+				//
+				new TextWrapperObject(10, 110, 4210752, "guidebook.nuclearscience.chapter.radiation.p3l8"),
+				//
+				new TextWrapperObject(10, 120, 4210752, "guidebook.nuclearscience.chapter.radiation.p3l9")}));
 		return pages;
 	}
 

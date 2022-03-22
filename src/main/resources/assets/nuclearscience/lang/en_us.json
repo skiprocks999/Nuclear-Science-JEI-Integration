@@ -146,6 +146,16 @@
   "guidebook.nuclearscience.chapter.radiation.p2l14-3" : "and it",
   "guidebook.nuclearscience.chapter.radiation.p2l15" : "will remove the effect.        ",
   
+  "guidebook.nuclearscience.chapter.radiation.p3l1" : "     One final thing of note is", 
+  "guidebook.nuclearscience.chapter.radiation.p3l2" : "that the only way to decrease  ",
+  "guidebook.nuclearscience.chapter.radiation.p3l3" : "the spread of radiation is by  ",
+  "guidebook.nuclearscience.chapter.radiation.p3l4" : "using Ceramic-Lead Radiation   ",
+  "guidebook.nuclearscience.chapter.radiation.p3l5" : "Shielding. Realistically, water",
+  "guidebook.nuclearscience.chapter.radiation.p3l6" : "would be able to stop it with  ",
+  "guidebook.nuclearscience.chapter.radiation.p3l7" : "ease, but it can't in Nuclear  ",
+  "guidebook.nuclearscience.chapter.radiation.p3l8" : "Science to increase the threat ",
+  "guidebook.nuclearscience.chapter.radiation.p3l9" : "posed by radiation.            ",
+  
   "guidebook.nuclearscience.chapter.fissionreactor" : "Fission Reactor",
   "guidebook.nuclearscience.chapter.fissionreactor.p1l1" : "    The Fission Reactor is the ", 
   "guidebook.nuclearscience.chapter.fissionreactor.p1l2" : "first nuclear power source     ",
@@ -214,7 +224,9 @@
   "guidebook.nuclearscience.chapter.fissionreactor.p7l10" : "by placing Dueterium cells in  ",
   "guidebook.nuclearscience.chapter.fissionreactor.p7l11" : "it while running. They will be ",
   "guidebook.nuclearscience.chapter.fissionreactor.p7l12" : "converted randomly above       ",
-  "guidebook.nuclearscience.chapter.fissionreactor.p7l13" : "800 C.                         ",
+  "guidebook.nuclearscience.chapter.fissionreactor.p7l13" : "800 C. Also, when a Fuel Rod is",
+  "guidebook.nuclearscience.chapter.fissionreactor.p7l14" : "used up, it will leave a Spent ",
+  "guidebook.nuclearscience.chapter.fissionreactor.p7l15" : "Fuel Rod in its place.         ",
   
   "guidebook.nuclearscience.chapter.msreactor" : "MS Reactor",
   "guidebook.nuclearscience.chapter.msreactor.p1l1" : "    The Molton Salt Reactor is ", 

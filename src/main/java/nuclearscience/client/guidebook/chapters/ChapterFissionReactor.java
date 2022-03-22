@@ -157,7 +157,11 @@ public class ChapterFissionReactor extends Chapter {
 				//
 				new TextWrapperObject(10, 150, 4210752, "guidebook.nuclearscience.chapter.fissionreactor.p7l12"),
 				//
-				new TextWrapperObject(10, 160, 4210752, "guidebook.nuclearscience.chapter.fissionreactor.p7l13") }));
+				new TextWrapperObject(10, 160, 4210752, "guidebook.nuclearscience.chapter.fissionreactor.p7l13"),
+				//
+				new TextWrapperObject(10, 170, 4210752, "guidebook.nuclearscience.chapter.fissionreactor.p7l14"),
+				//
+				new TextWrapperObject(10, 180, 4210752, "guidebook.nuclearscience.chapter.fissionreactor.p7l15")}));
 
 		pages.add(new Page(new ImageWrapperObject[] {
 				//

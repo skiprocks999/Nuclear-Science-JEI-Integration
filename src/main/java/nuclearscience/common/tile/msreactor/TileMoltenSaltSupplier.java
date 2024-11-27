@@ -1,7 +1,7 @@
 package nuclearscience.common.tile.msreactor;
 
 import electrodynamics.prefab.properties.Property;
-import electrodynamics.prefab.properties.PropertyType;
+import electrodynamics.prefab.properties.PropertyTypes;
 import electrodynamics.prefab.tile.GenericTile;
 import electrodynamics.prefab.tile.components.IComponentType;
 import electrodynamics.prefab.tile.components.type.ComponentContainerProvider;
@@ -19,7 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import nuclearscience.common.inventory.container.ContainerMoltenSaltSupplier;
 import nuclearscience.common.settings.Constants;
-import nuclearscience.registers.NuclearScienceBlockTypes;
+import nuclearscience.registers.NuclearScienceTiles;
 import nuclearscience.registers.NuclearScienceItems;
 
 public class TileMoltenSaltSupplier extends GenericTile {
@@ -29,16 +29,16 @@ public class TileMoltenSaltSupplier extends GenericTile {
 
 	protected CachedTileOutput output;
 
-	public final Property<Double> reactorWaste = property(new Property<>(PropertyType.Double, "reactorwaste", 0.0).setNoSave());
+	public final Property<Double> reactorWaste = property(new Property<>(PropertyTypes.DOUBLE, "reactorwaste", 0.0).setNoSave());
 
 	public TileMoltenSaltSupplier(BlockPos pos, BlockState state) {
 
-		super(NuclearScienceBlockTypes.TILE_MOLTENSALTSUPPLIER.get(), pos, state);
+		super(NuclearScienceTiles.TILE_MOLTENSALTSUPPLIER.get(), pos, state);
 
 		addComponent(new ComponentTickable(this).tickServer(this::tickServer));
 		addComponent(new ComponentPacketHandler(this));
-		addComponent(new ComponentElectrodynamic(this, false, true).voltage(Constants.MOLTENSALTSUPPLIER_VOLTAGE).extractPower((x, y) -> TransferPack.EMPTY).setInputDirections(Direction.DOWN).maxJoules(Constants.MOLTENSALTSUPPLIER_USAGE_PER_TICK * 20));
-		addComponent(new ComponentInventory(this, InventoryBuilder.newInv().inputs(1).outputs(1)).setDirectionsBySlot(0, Direction.NORTH, Direction.UP).setDirectionsBySlot(1, Direction.EAST, Direction.WEST).valid((slot, stack, i) -> stack.getItem() == NuclearScienceItems.ITEM_LIFHT4PUF3.get()));
+		addComponent(new ComponentElectrodynamic(this, false, true).voltage(Constants.MOLTENSALTSUPPLIER_VOLTAGE).extractPower((x, y) -> TransferPack.EMPTY).setInputDirections(BlockEntityUtils.MachineDirection.BOTTOM).maxJoules(Constants.MOLTENSALTSUPPLIER_USAGE_PER_TICK * 20));
+		addComponent(new ComponentInventory(this, InventoryBuilder.newInv().inputs(1).outputs(1)).setDirectionsBySlot(0, BlockEntityUtils.MachineDirection.FRONT, BlockEntityUtils.MachineDirection.TOP).setDirectionsBySlot(1, BlockEntityUtils.MachineDirection.LEFT, BlockEntityUtils.MachineDirection.RIGHT).valid((slot, stack, i) -> stack.getItem() == NuclearScienceItems.ITEM_LIFHT4PUF3.get()));
 		addComponent(new ComponentContainerProvider("container.moltensaltsupplier", this).createMenu((id, player) -> new ContainerMoltenSaltSupplier(id, player, getComponent(IComponentType.Inventory), getCoordsArray())));
 
 		reactorWaste.setNoSave();

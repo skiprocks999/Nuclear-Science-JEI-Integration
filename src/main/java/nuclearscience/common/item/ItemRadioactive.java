@@ -1,9 +1,8 @@
 package nuclearscience.common.item;
 
-import java.util.function.Supplier;
-
 import electrodynamics.common.item.ItemElectrodynamics;
 import electrodynamics.prefab.utilities.object.Location;
+import net.minecraft.core.Holder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.CreativeModeTab;
@@ -14,7 +13,7 @@ import nuclearscience.api.radiation.RadiationSystem;
 
 public class ItemRadioactive extends ItemElectrodynamics {
 
-	public ItemRadioactive(Properties properties, Supplier<CreativeModeTab> creativeTab) {
+	public ItemRadioactive(Properties properties, Holder<CreativeModeTab> creativeTab) {
 		super(properties, creativeTab);
 	}
 

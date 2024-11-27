@@ -5,7 +5,7 @@ import electrodynamics.prefab.screen.component.types.ScreenComponentGeneric;
 import electrodynamics.prefab.screen.component.types.ScreenComponentProgress;
 import electrodynamics.prefab.screen.component.types.ScreenComponentProgress.ProgressBars;
 import electrodynamics.prefab.screen.component.types.ScreenComponentProgress.ProgressTextures;
-import electrodynamics.prefab.screen.component.types.gauges.ScreenComponentFluidGaugeInput;
+import electrodynamics.prefab.screen.component.types.gauges.ScreenComponentFluidGauge;
 import electrodynamics.prefab.screen.component.types.guitab.ScreenComponentElectricInfo;
 import electrodynamics.prefab.screen.component.types.wrapper.InventoryIOWrapper;
 import electrodynamics.prefab.screen.component.utils.AbstractScreenComponentInfo;
@@ -23,7 +23,7 @@ public class ScreenRadioactiveProcessor extends GenericScreen<ContainerRadioacti
 	public ScreenRadioactiveProcessor(ContainerRadioactiveProcessor container, Inventory playerInventory, Component title) {
 		super(container, playerInventory, title);
 		addComponent(new ScreenComponentProgress(ProgressBars.PROGRESS_ARROW_RIGHT, () -> {
-			GenericTile furnace = container.getHostFromIntArray();
+			GenericTile furnace = container.getSafeHost();
 			if (furnace != null) {
 				ComponentProcessor processor = furnace.getComponent(IComponentType.Processor);
 				if (processor.operatingTicks.get() > 0) {
@@ -33,7 +33,7 @@ public class ScreenRadioactiveProcessor extends GenericScreen<ContainerRadioacti
 			return 0;
 		}, 42, 30));
 		addComponent(new ScreenComponentProgress(ProgressBars.PROGRESS_ARROW_RIGHT, () -> {
-			GenericTile furnace = container.getHostFromIntArray();
+			GenericTile furnace = container.getSafeHost();
 			if (furnace != null) {
 				ComponentProcessor processor = furnace.getComponent(IComponentType.Processor);
 				if (processor.operatingTicks.get() > processor.requiredTicks.get() / 2.0) {
@@ -43,8 +43,8 @@ public class ScreenRadioactiveProcessor extends GenericScreen<ContainerRadioacti
 			return 0;
 		}, 98, 30));
 		addComponent(new ScreenComponentGeneric(ProgressTextures.ARROW_LEFT_OFF, 46, 50));
-		addComponent(new ScreenComponentFluidGaugeInput(() -> {
-			TileRadioactiveProcessor boiler = container.getHostFromIntArray();
+		addComponent(new ScreenComponentFluidGauge(() -> {
+			TileRadioactiveProcessor boiler = container.getSafeHost();
 			if (boiler != null) {
 				return boiler.<ComponentFluidHandlerMulti>getComponent(IComponentType.FluidHandler).getInputTanks()[0];
 			}

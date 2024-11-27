@@ -1,15 +1,13 @@
 package nuclearscience.common.block;
 
+import com.mojang.serialization.MapCodec;
 import electrodynamics.prefab.block.GenericEntityBlockWaterloggable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -26,7 +24,7 @@ public class BlockTurbine extends GenericEntityBlockWaterloggable {
 	public static final BooleanProperty RENDER = BooleanProperty.create("render");
 
 	public BlockTurbine() {
-		super(Properties.copy(Blocks.IRON_BLOCK).strength(3.5F).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion());
+		super(Blocks.IRON_BLOCK.properties().strength(3.5F).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion());
 		registerDefaultState(stateDefinition.any().setValue(RENDER, true));
 	}
 
@@ -49,6 +47,11 @@ public class BlockTurbine extends GenericEntityBlockWaterloggable {
 				turbine.constructStructure();
 			}
 		}
+	}
+
+	@Override
+	protected MapCodec<? extends BaseEntityBlock> codec() {
+		return null;
 	}
 
 	@Override

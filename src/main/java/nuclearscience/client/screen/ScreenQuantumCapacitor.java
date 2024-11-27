@@ -6,16 +6,14 @@ import electrodynamics.prefab.screen.GenericScreen;
 import electrodynamics.prefab.screen.component.editbox.ScreenComponentEditBox;
 import electrodynamics.prefab.screen.component.types.ScreenComponentMultiLabel;
 import electrodynamics.prefab.utilities.ElectroTextUtils;
+import electrodynamics.prefab.utilities.math.Color;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import nuclearscience.common.inventory.container.ContainerQuantumCapacitor;
 import nuclearscience.common.tile.TileQuantumCapacitor;
 import nuclearscience.prefab.utils.NuclearTextUtils;
 
-@OnlyIn(Dist.CLIENT)
 public class ScreenQuantumCapacitor extends GenericScreen<ContainerQuantumCapacitor> {
 
 	private ScreenComponentEditBox outputField;
@@ -25,16 +23,16 @@ public class ScreenQuantumCapacitor extends GenericScreen<ContainerQuantumCapaci
 
 	public ScreenQuantumCapacitor(ContainerQuantumCapacitor container, Inventory playerInventory, Component title) {
 		super(container, playerInventory, title);
-		addEditBox(frequencyField = new ScreenComponentEditBox(115, 14, 46, 13, getFontRenderer()).setTextColor(-1).setTextColorUneditable(-1).setMaxLength(6).setResponder(this::updateFreq).setFilter(ScreenComponentEditBox.INTEGER));
-		addEditBox(outputField = new ScreenComponentEditBox(115, 34, 46, 13, getFontRenderer()).setTextColor(-1).setTextColorUneditable(-1).setMaxLength(6).setResponder(this::updateOutput).setFilter(ScreenComponentEditBox.POSITIVE_DECIMAL));
+		addEditBox(frequencyField = new ScreenComponentEditBox(115, 14, 46, 13, getFontRenderer()).setTextColor(Color.WHITE).setTextColorUneditable(Color.WHITE).setMaxLength(6).setResponder(this::updateFreq).setFilter(ScreenComponentEditBox.INTEGER));
+		addEditBox(outputField = new ScreenComponentEditBox(115, 34, 46, 13, getFontRenderer()).setTextColor(Color.WHITE).setTextColorUneditable(Color.WHITE).setMaxLength(6).setResponder(this::updateOutput).setFilter(ScreenComponentEditBox.POSITIVE_DECIMAL));
 		addComponent(new ScreenComponentMultiLabel(0, 0, graphics -> {
-			TileQuantumCapacitor box = menu.getHostFromIntArray();
+			TileQuantumCapacitor box = menu.getSafeHost();
 			if (box == null) {
 				return;
 			}
 			graphics.drawString(font, NuclearTextUtils.gui("machine.current", ChatFormatter.getChatDisplayShort(box.getOutputJoules() * 20.0 / TileQuantumCapacitor.DEFAULT_VOLTAGE, DisplayUnit.AMPERE)), inventoryLabelX, inventoryLabelY - 55, 4210752, false);
-			graphics.drawString(font, NuclearTextUtils.gui("machine.transfer", ChatFormatter.getChatDisplayShort(box.getOutputJoules() * 20.0, DisplayUnit.WATT)), inventoryLabelX, inventoryLabelY - 42, 4210752, false);
-			graphics.drawString(font, NuclearTextUtils.gui("machine.voltage", ChatFormatter.getChatDisplayShort(TileQuantumCapacitor.DEFAULT_VOLTAGE, DisplayUnit.VOLTAGE)), inventoryLabelX, inventoryLabelY - 29, 4210752, false);
+			graphics.drawString(font, NuclearTextUtils.gui("machine.transfer", ChatFormatter.getChatDisplayShort(box.getOutputJoules() * 20.0, DisplayUnit.WATT)), inventoryLabelX, inventoryLabelY - 42, Color.TEXT_GRAY.color(), false);
+			graphics.drawString(font, NuclearTextUtils.gui("machine.voltage", ChatFormatter.getChatDisplayShort(TileQuantumCapacitor.DEFAULT_VOLTAGE, DisplayUnit.VOLTAGE)), inventoryLabelX, inventoryLabelY - 29, Color.TEXT_GRAY.color(), false);
 			graphics.drawString(font, NuclearTextUtils.gui("machine.stored", ElectroTextUtils.ratio(ChatFormatter.getChatDisplayShort(box.storedJoules.get(), DisplayUnit.JOULES), ChatFormatter.getChatDisplayShort(TileQuantumCapacitor.DEFAULT_MAX_JOULES, DisplayUnit.JOULES))), inventoryLabelX, inventoryLabelY - 16, 4210752, false);
 		}));
 	}
@@ -64,15 +62,13 @@ public class ScreenQuantumCapacitor extends GenericScreen<ContainerQuantumCapaci
 			// Not required
 		}
 
-		TileQuantumCapacitor cap = menu.getHostFromIntArray();
+		TileQuantumCapacitor cap = menu.getSafeHost();
 
 		if (cap == null) {
 			return;
 		}
 
 		cap.frequency.set(frequency);
-
-		cap.frequency.updateServer();
 
 	}
 
@@ -89,7 +85,7 @@ public class ScreenQuantumCapacitor extends GenericScreen<ContainerQuantumCapaci
 			// Not required
 		}
 
-		TileQuantumCapacitor cap = menu.getHostFromIntArray();
+		TileQuantumCapacitor cap = menu.getSafeHost();
 
 		if (cap == null) {
 			return;
@@ -97,17 +93,17 @@ public class ScreenQuantumCapacitor extends GenericScreen<ContainerQuantumCapaci
 
 		cap.outputJoules.set(output);
 
-		cap.outputJoules.updateServer();
+		cap.outputJoules.toString();
 
 	}
 
 	@Override
 	public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
 		super.render(graphics, mouseX, mouseY, partialTicks);
-		if (needsUpdate && menu.getHostFromIntArray() != null) {
+		if (needsUpdate && menu.getSafeHost() != null) {
 			needsUpdate = false;
-			outputField.setValue("" + menu.getHostFromIntArray().outputJoules);
-			frequencyField.setValue("" + menu.getHostFromIntArray().frequency);
+			outputField.setValue("" + menu.getSafeHost().outputJoules);
+			frequencyField.setValue("" + menu.getSafeHost().frequency);
 		}
 	}
 

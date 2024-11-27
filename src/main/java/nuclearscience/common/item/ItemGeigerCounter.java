@@ -1,10 +1,9 @@
 package nuclearscience.common.item;
 
-import java.util.function.Supplier;
-
 import electrodynamics.api.electricity.formatting.ChatFormatter;
 import electrodynamics.api.sound.SoundAPI;
 import electrodynamics.common.item.ItemElectrodynamics;
+import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -18,7 +17,7 @@ import nuclearscience.registers.NuclearScienceSounds;
 
 public class ItemGeigerCounter extends ItemElectrodynamics {
 
-	public ItemGeigerCounter(Properties properties, Supplier<CreativeModeTab> creativeTab) {
+	public ItemGeigerCounter(Properties properties, Holder<CreativeModeTab> creativeTab) {
 		super(properties, creativeTab);
 	}
 

@@ -17,7 +17,7 @@ import nuclearscience.registers.NuclearScienceItems;
 
 public class ChapterRadiation extends Chapter {
 
-	private static final ImageWrapperObject LOGO = new ImageWrapperObject(0, 0, 0, 0, 32, 32, 32, 32, new ResourceLocation(References.ID, "textures/item/uranium235.png"));
+	private static final ImageWrapperObject LOGO = new ImageWrapperObject(0, 0, 0, 0, 32, 32, 32, 32, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/item/uranium235.png"));
 
 	public ChapterRadiation(Module module) {
 		super(module);
@@ -45,7 +45,7 @@ public class ChapterRadiation extends Chapter {
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l2")).setIndentions(1).setSeparateStart());
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.hazmatsuit").withStyle(ChatFormatting.BOLD)));
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l3")));
-		pageData.add(new TextWrapperObject(ElectrodynamicsItems.getItem(SubtypePlate.lead).getDescription().copy().withStyle(ChatFormatting.BOLD)));
+		pageData.add(new TextWrapperObject(ElectrodynamicsItems.ITEMS_PLATE.getValue(SubtypePlate.lead).getDescription().copy().withStyle(ChatFormatting.BOLD)));
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l4")));
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l5")).setIndentions(1).setSeparateStart());
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l6")).setIndentions(1).setSeparateStart());

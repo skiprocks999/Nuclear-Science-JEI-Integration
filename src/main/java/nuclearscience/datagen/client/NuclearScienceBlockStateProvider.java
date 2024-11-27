@@ -6,9 +6,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.client.model.generators.ItemModelBuilder;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import nuclearscience.References;
 import nuclearscience.common.block.BlockElectromagneticBooster;
 import nuclearscience.common.block.facing.FacingDirection;
@@ -24,37 +24,37 @@ public class NuclearScienceBlockStateProvider extends ElectrodynamicsBlockStateP
 	@Override
 	protected void registerStatesAndModels() {
 
-		simpleBlock(NuclearScienceBlocks.blocklead, blockLoc("blocklead"), true);
-		simpleColumnBlock(NuclearScienceBlocks.blockElectromagnet, blockLoc("electromagnet"), blockLoc("electromagnettop"), true);
-		glassBlock(NuclearScienceBlocks.blockElectromagneticGlass, blockLoc("electromagneticglass"), true);
-		simpleBlock(NuclearScienceBlocks.blockFreezePlug, existingBlock(NuclearScienceBlocks.blockFreezePlug), true);
-		simpleBlockCustomRenderType(NuclearScienceBlocks.blockPlasma, blockLoc("plasma"), new ResourceLocation("translucent"), true);
-		airBlock(NuclearScienceBlocks.blockRadioactiveAir, "block/plasma", true);
-		snowyBlock(NuclearScienceBlocks.blockRadioactiveSoil, cubeAll(NuclearScienceBlocks.blockRadioactiveSoil), existingBlock(new ResourceLocation("block/grass_block_snow")), true);
-		simpleBlock(NuclearScienceBlocks.blockMeltedReactor, existingBlock(NuclearScienceBlocks.blockMeltedReactor), true);
-		simpleBlock(NuclearScienceBlocks.blockRadioisotopeGenerator, existingBlock(NuclearScienceBlocks.blockRadioisotopeGenerator), true);
-		simpleBlock(NuclearScienceBlocks.blockSiren, blockLoc("siren"), true);
-		simpleBlock(NuclearScienceBlocks.blockTurbine, existingBlock(blockLoc("turbinecasing")), false);
-		simpleColumnBlock(NuclearScienceBlocks.blockSteamFunnel, blockLoc("steamfunnelside"), blockLoc("steamfunneltop"), true);
-		simpleBlock(NuclearScienceBlocks.blockElectromagneticSwitch, existingBlock(NuclearScienceBlocks.blockElectromagneticSwitch), true);
+		simpleBlock(NuclearScienceBlocks.BLOCK_LEAD, blockLoc("blocklead"), true);
+		simpleColumnBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNET.get(), blockLoc("electromagnet"), blockLoc("electromagnettop"), true);
+		glassBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICGLASS, blockLoc("electromagneticglass"), true);
+		simpleBlock(NuclearScienceBlocks.BLOCK_MSRFREEZEPLUG, existingBlock(NuclearScienceBlocks.BLOCK_MSRFREEZEPLUG), true);
+		simpleBlockCustomRenderType(NuclearScienceBlocks.BLOCK_PLASMA, blockLoc("plasma"), ResourceLocation.parse("translucent"), true);
+		airBlock(NuclearScienceBlocks.BLOCK_RADIOACTIVEAIR, "block/plasma", true);
+		snowyBlock(NuclearScienceBlocks.BLOCK_RADIOACTIVESOIL.get(), cubeAll(NuclearScienceBlocks.BLOCK_RADIOACTIVESOIL.get()), existingBlock(ResourceLocation.parse("block/grass_block_snow")), true);
+		simpleBlock(NuclearScienceBlocks.BLOCK_MELTEDREACTOR, existingBlock(NuclearScienceBlocks.BLOCK_MELTEDREACTOR), true);
+		simpleBlock(NuclearScienceBlocks.BLOCK_RADIOISOTOPEGENERATOR, existingBlock(NuclearScienceBlocks.BLOCK_RADIOISOTOPEGENERATOR), true);
+		simpleBlock(NuclearScienceBlocks.BLOCK_SIREN, blockLoc("siren"), true);
+		simpleBlock(NuclearScienceBlocks.BLOCK_TURBINE, existingBlock(blockLoc("turbinecasing")), false);
+		simpleColumnBlock(NuclearScienceBlocks.BLOCK_STEAMFUNNEL.get(), blockLoc("steamfunnelside"), blockLoc("steamfunneltop"), true);
+		simpleBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICSWITCH, existingBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICSWITCH), true);
 
-		horrRotatedBlock(NuclearScienceBlocks.blockAtomicAssembler, existingBlock(NuclearScienceBlocks.blockAtomicAssembler), false);
-		horrRotatedBlock(NuclearScienceBlocks.blockChemicalExtractor, existingBlock(NuclearScienceBlocks.blockChemicalExtractor), true);
-		horrRotatedBlock(NuclearScienceBlocks.blockControlRodAssembly, existingBlock(NuclearScienceBlocks.blockControlRodAssembly), 180, 0, false);
-		rotatedLeftRightBlock(NuclearScienceBlocks.blockElectromagneticBooster, existingBlock(blockLoc("electromagneticbooster")), existingBlock(blockLoc("electromagneticboosterleft")), existingBlock(blockLoc("electromagneticboosterright")), 90, true);
-		horrRotatedLitBlock(NuclearScienceBlocks.blockFuelReprocessor, existingBlock(NuclearScienceBlocks.blockFuelReprocessor), existingBlock(blockLoc("fuelreprocessoron")), true);
-		horrRotatedLitBlock(NuclearScienceBlocks.blockFusionReactorCore, existingBlock(NuclearScienceBlocks.blockFusionReactorCore), existingBlock(blockLoc("fusionreactorcoreon")), true);
-		horrRotatedBlock(NuclearScienceBlocks.blockGasCentrifuge, existingBlock(blockLoc("gascentrifugeoutline")), 180, 0, false);
-		horrRotatedBlock(NuclearScienceBlocks.blockHeatExchanger, existingBlock(NuclearScienceBlocks.blockHeatExchanger), true);
-		horrRotatedLitBlock(NuclearScienceBlocks.blockMoltenSaltSupplier, existingBlock(NuclearScienceBlocks.blockMoltenSaltSupplier), existingBlock(blockLoc("moltensaltsupplieron")), true);
-		horrRotatedBlock(NuclearScienceBlocks.blockMSRFuelPreProcessor, existingBlock(NuclearScienceBlocks.blockMSRFuelPreProcessor), true);
-		horrRotatedBlock(NuclearScienceBlocks.blockMSReactorCore, existingBlock(NuclearScienceBlocks.blockMSReactorCore), 180, 0, true);
-		horrRotatedBlock(NuclearScienceBlocks.blockNuclearBoiler, existingBlock(NuclearScienceBlocks.blockNuclearBoiler), 180, 0, true);
-		horrRotatedBlock(NuclearScienceBlocks.blockParticleInjector, existingBlock(NuclearScienceBlocks.blockParticleInjector), 180, 0, false);
-		horrRotatedBlock(NuclearScienceBlocks.blockQuantumCapacitor, existingBlock(NuclearScienceBlocks.blockQuantumCapacitor), true);
-		horrRotatedLitBlock(NuclearScienceBlocks.blockRadioactiveProcessor, existingBlock(NuclearScienceBlocks.blockRadioactiveProcessor), existingBlock(blockLoc("radioactiveprocessoron")), true);
-		horrRotatedBlock(NuclearScienceBlocks.blockFissionReactorCore, existingBlock(NuclearScienceBlocks.blockFissionReactorCore), true);
-		horrRotatedLitBlock(NuclearScienceBlocks.blockTeleporter, existingBlock(NuclearScienceBlocks.blockTeleporter), existingBlock(blockLoc("teleporteron")), true);
+		horrRotatedBlock(NuclearScienceBlocks.BLOCK_ATOMICASSEMBLER, existingBlock(NuclearScienceBlocks.BLOCK_ATOMICASSEMBLER), false);
+		horrRotatedBlock(NuclearScienceBlocks.BLOCK_CHEMICALEXTRACTOR, existingBlock(NuclearScienceBlocks.BLOCK_CHEMICALEXTRACTOR), true);
+		horrRotatedBlock(NuclearScienceBlocks.BLOCK_CONTROLROD, existingBlock(NuclearScienceBlocks.BLOCK_CONTROLROD), 180, 0, false);
+		rotatedLeftRightBlock(NuclearScienceBlocks.BLOCK_ELECTORMAGNETICBOOSTER.get(), existingBlock(blockLoc("electromagneticbooster")), existingBlock(blockLoc("electromagneticboosterleft")), existingBlock(blockLoc("electromagneticboosterright")), 90, true);
+		horrRotatedLitBlock(NuclearScienceBlocks.BLOCK_FUELREPROCESSOR, existingBlock(NuclearScienceBlocks.BLOCK_FUELREPROCESSOR), existingBlock(blockLoc("fuelreprocessoron")), true);
+		horrRotatedLitBlock(NuclearScienceBlocks.BLOCK_FUSIONREACTORCORE, existingBlock(NuclearScienceBlocks.BLOCK_FUSIONREACTORCORE), existingBlock(blockLoc("fusionreactorcoreon")), true);
+		horrRotatedBlock(NuclearScienceBlocks.BLOCK_GASCENTRIFUGE, existingBlock(blockLoc("gascentrifugeoutline")), 180, 0, false);
+		horrRotatedBlock(NuclearScienceBlocks.BLOCK_HEATEXCHANGER, existingBlock(NuclearScienceBlocks.BLOCK_HEATEXCHANGER), true);
+		horrRotatedLitBlock(NuclearScienceBlocks.BLOCK_MOLTENSALTSUPPLIER, existingBlock(NuclearScienceBlocks.BLOCK_MOLTENSALTSUPPLIER), existingBlock(blockLoc("moltensaltsupplieron")), true);
+		horrRotatedBlock(NuclearScienceBlocks.BLOCK_MSRFUELPREPROCESSOR, existingBlock(NuclearScienceBlocks.BLOCK_MSRFUELPREPROCESSOR), true);
+		horrRotatedBlock(NuclearScienceBlocks.BLOCK_MSREACTORCORE, existingBlock(NuclearScienceBlocks.BLOCK_MSREACTORCORE), 180, 0, true);
+		horrRotatedBlock(NuclearScienceBlocks.BLOCK_NUCLEARBOILER, existingBlock(NuclearScienceBlocks.BLOCK_NUCLEARBOILER), 180, 0, true);
+		horrRotatedBlock(NuclearScienceBlocks.BLOCK_PARTICLEINJECTOR, existingBlock(NuclearScienceBlocks.BLOCK_PARTICLEINJECTOR), 180, 0, false);
+		horrRotatedBlock(NuclearScienceBlocks.BLOCK_QUANTUMCAPACITOR, existingBlock(NuclearScienceBlocks.BLOCK_QUANTUMCAPACITOR), true);
+		horrRotatedLitBlock(NuclearScienceBlocks.BLOCK_RADIOACTIVEPROCESSOR, existingBlock(NuclearScienceBlocks.BLOCK_RADIOACTIVEPROCESSOR), existingBlock(blockLoc("radioactiveprocessoron")), true);
+		horrRotatedBlock(NuclearScienceBlocks.BLOCK_FISSIONREACTORCORE, existingBlock(NuclearScienceBlocks.BLOCK_FISSIONREACTORCORE), true);
+		horrRotatedLitBlock(NuclearScienceBlocks.BLOCK_TELEPORTER, existingBlock(NuclearScienceBlocks.BLOCK_TELEPORTER), existingBlock(blockLoc("teleporteron")), true);
 
 		genPipes();
 
@@ -67,7 +67,7 @@ public class NuclearScienceBlockStateProvider extends ElectrodynamicsBlockStateP
 		String texture = "pipe/";
 
 		for (SubtypeMoltenSaltPipe pipe : SubtypeMoltenSaltPipe.values()) {
-			wire(NuclearScienceBlocks.getBlock(pipe), models().withExistingParent(name + pipe.tag() + "_none", modLoc(parent + "pipe_none")).texture("texture", blockLoc(texture + pipe.tag())).texture("particle", "#texture").renderType("cutout"), models().withExistingParent(name + pipe.tag() + "_side", modLoc(parent + "pipe_side")).texture("texture", blockLoc(texture + pipe.tag())).texture("particle", "#texture").renderType("cutout"), false);
+			wire(NuclearScienceBlocks.BLOCKS_MOLTENSALTPIPE.getValue(pipe), models().withExistingParent(name + pipe.tag() + "_none", modLoc(parent + "pipe_none")).texture("texture", blockLoc(texture + pipe.tag())).texture("particle", "#texture").renderType("cutout"), models().withExistingParent(name + pipe.tag() + "_side", modLoc(parent + "pipe_side")).texture("texture", blockLoc(texture + pipe.tag())).texture("particle", "#texture").renderType("cutout"), false);
 		}
 
 	}

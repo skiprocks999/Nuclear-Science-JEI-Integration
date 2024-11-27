@@ -1,4 +1,4 @@
-package nuclearscience.common.recipe.categories.fluiditem2item.specificmachines;
+package nuclearscience.common.recipe.categories.fluiditem2item;
 
 import electrodynamics.common.recipe.categories.fluiditem2item.FluidItem2ItemRecipe;
 import electrodynamics.common.recipe.recipeutils.CountableIngredient;
@@ -13,14 +13,16 @@ import net.minecraft.world.item.crafting.RecipeType;
 import nuclearscience.References;
 import nuclearscience.common.recipe.NuclearScienceRecipeInit;
 
+import java.util.List;
+
 public class ChemicalExtractorRecipe extends FluidItem2ItemRecipe {
 
 	public static final String RECIPE_GROUP = "chemical_extractor_recipe";
 	public static final String MOD_ID = References.ID;
-	public static final ResourceLocation RECIPE_ID = new ResourceLocation(MOD_ID, RECIPE_GROUP);
+	public static final ResourceLocation RECIPE_ID = ResourceLocation.fromNamespaceAndPath(MOD_ID, RECIPE_GROUP);
 
-	public ChemicalExtractorRecipe(ResourceLocation recipeID, CountableIngredient[] itemInputs, FluidIngredient[] fluidInputs, ItemStack itemOutput, double experience, int ticks, double usagePerTick, ProbableItem[] itemBiproducts, ProbableFluid[] fluidBiproudcts, ProbableGas[] gasBiproducts) {
-		super(recipeID, itemInputs, fluidInputs, itemOutput, experience, ticks, usagePerTick, itemBiproducts, fluidBiproudcts, gasBiproducts);
+	public ChemicalExtractorRecipe(String group, List<CountableIngredient> itemInputs, List<FluidIngredient> fluidInputs, ItemStack itemOutput, double experience, int ticks, double usagePerTick, List<ProbableItem> itemBiproducts, List<ProbableFluid> fluidBiproducts, List<ProbableGas> gasBiproducts) {
+		super(group, itemInputs, fluidInputs, itemOutput, experience, ticks, usagePerTick, itemBiproducts, fluidBiproducts, gasBiproducts);
 	}
 
 	@Override

@@ -4,7 +4,7 @@ import electrodynamics.prefab.screen.component.types.ScreenComponentGeneric;
 import electrodynamics.prefab.screen.component.types.ScreenComponentProgress;
 import electrodynamics.prefab.screen.component.types.ScreenComponentProgress.ProgressBars;
 import electrodynamics.prefab.screen.component.types.ScreenComponentProgress.ProgressTextures;
-import electrodynamics.prefab.screen.component.types.gauges.ScreenComponentFluidGaugeInput;
+import electrodynamics.prefab.screen.component.types.gauges.ScreenComponentFluidGauge;
 import electrodynamics.prefab.screen.component.types.gauges.ScreenComponentGasGauge;
 import electrodynamics.prefab.screen.component.types.guitab.ScreenComponentElectricInfo;
 import electrodynamics.prefab.screen.component.types.guitab.ScreenComponentGasPressure;
@@ -19,17 +19,14 @@ import electrodynamics.prefab.tile.components.type.ComponentGasHandlerMulti;
 import electrodynamics.prefab.tile.components.type.ComponentProcessor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import nuclearscience.common.inventory.container.ContainerNuclearBoiler;
 import nuclearscience.common.tile.TileNuclearBoiler;
 
-@OnlyIn(Dist.CLIENT)
 public class ScreenNuclearBoiler extends GenericMaterialScreen<ContainerNuclearBoiler> {
 	public ScreenNuclearBoiler(ContainerNuclearBoiler container, Inventory playerInventory, Component title) {
 		super(container, playerInventory, title);
 		addComponent(new ScreenComponentProgress(ProgressBars.PROGRESS_ARROW_RIGHT, () -> {
-			GenericTile furnace = container.getHostFromIntArray();
+			GenericTile furnace = container.getSafeHost();
 			if (furnace != null) {
 				ComponentProcessor processor = furnace.getComponent(IComponentType.Processor);
 				if (processor.operatingTicks.get() > 0) {
@@ -39,7 +36,7 @@ public class ScreenNuclearBoiler extends GenericMaterialScreen<ContainerNuclearB
 			return 0;
 		}, 42, 30));
 		addComponent(new ScreenComponentProgress(ProgressBars.PROGRESS_ARROW_RIGHT, () -> {
-			GenericTile furnace = container.getHostFromIntArray();
+			GenericTile furnace = container.getSafeHost();
 			if (furnace != null) {
 				ComponentProcessor processor = furnace.getComponent(IComponentType.Processor);
 				if (processor.operatingTicks.get() > processor.requiredTicks.get() / 2.0) {
@@ -49,15 +46,15 @@ public class ScreenNuclearBoiler extends GenericMaterialScreen<ContainerNuclearB
 			return 0;
 		}, 98, 30));
 		addComponent(new ScreenComponentGeneric(ProgressTextures.ARROW_LEFT_OFF, 42, 50));
-		addComponent(new ScreenComponentFluidGaugeInput(() -> {
-			TileNuclearBoiler boiler = container.getHostFromIntArray();
+		addComponent(new ScreenComponentFluidGauge(() -> {
+			TileNuclearBoiler boiler = container.getSafeHost();
 			if (boiler != null) {
 				return boiler.<ComponentFluidHandlerMulti>getComponent(IComponentType.FluidHandler).getInputTanks()[0];
 			}
 			return null;
 		}, 21, 18));
 		addComponent(new ScreenComponentGasGauge(() -> {
-			TileNuclearBoiler boiler = container.getHostFromIntArray();
+			TileNuclearBoiler boiler = container.getSafeHost();
 			if (boiler != null) {
 				return boiler.<ComponentGasHandlerMulti>getComponent(IComponentType.GasHandler).getOutputTanks()[0];
 			}

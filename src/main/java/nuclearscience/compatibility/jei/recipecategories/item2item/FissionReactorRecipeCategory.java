@@ -19,7 +19,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.world.item.ItemStack;
 import nuclearscience.References;
-import nuclearscience.common.recipe.categories.item2item.specificmachines.FissionReactorRecipe;
+import nuclearscience.common.recipe.categories.item2item.FissionReactorRecipe;
 import nuclearscience.prefab.utils.NuclearTextUtils;
 import nuclearscience.registers.NuclearScienceBlocks;
 import nuclearscience.registers.NuclearScienceItems;

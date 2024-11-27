@@ -1,32 +1,29 @@
 package nuclearscience.datagen.server.recipe.vanilla;
 
-import java.util.function.Consumer;
-
 import electrodynamics.common.block.subtype.SubtypeGlass;
 import electrodynamics.common.block.subtype.SubtypeMachine;
 import electrodynamics.common.block.subtype.SubtypeWire;
 import electrodynamics.common.item.subtype.SubtypeCeramic;
 import electrodynamics.common.tags.ElectrodynamicsTags;
 import electrodynamics.datagen.utils.recipe.AbstractRecipeGenerator;
-import electrodynamics.datagen.utils.recipe.ElectrodynamicsShapedCraftingRecipe;
-import electrodynamics.datagen.utils.recipe.ElectrodynamicsShapelessCraftingRecipe;
+import electrodynamics.datagen.utils.recipe.ShapedCraftingRecipeBuilder;
+import electrodynamics.datagen.utils.recipe.ShapelessCraftingRecipeBuilder;
 import electrodynamics.registers.ElectrodynamicsItems;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.common.Tags;
+import net.neoforged.neoforge.common.Tags;
 import nuclearscience.References;
 import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
 import nuclearscience.common.tags.NuclearScienceTags;
-import nuclearscience.registers.NuclearScienceBlocks;
 import nuclearscience.registers.NuclearScienceItems;
 
 public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator {
 
 	@Override
-	public void addRecipes(Consumer<FinishedRecipe> consumer) {
+	public void addRecipes(RecipeOutput output) {
 
-		ElectrodynamicsShapelessCraftingRecipe.start(NuclearScienceItems.ITEM_ANTIDOTE.get(), 3)
+		ShapelessCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_ANTIDOTE.get(), 3)
 				//
 				.addIngredient(Items.GLASS_BOTTLE)
 				//
@@ -36,9 +33,9 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addIngredient(ItemTags.FISHES)
 				//
-				.complete(References.ID, "antidote", consumer);
+				.complete(References.ID, "antidote", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceBlocks.blocklead.asItem(), 2)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_LEAD.get(), 2)
 				//
 				.addPattern("LLL")
 				//
@@ -48,11 +45,11 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('L', ElectrodynamicsTags.Items.PLATE_LEAD)
 				//
-				.addKey('C', ElectrodynamicsItems.getItem(SubtypeCeramic.plate))
+				.addKey('C', ElectrodynamicsItems.ITEMS_CERAMIC.getValue(SubtypeCeramic.plate))
 				//
-				.complete(References.ID, "leadshielding", consumer);
+				.complete(References.ID, "leadshielding", output);
 
-		ElectrodynamicsShapelessCraftingRecipe.start(NuclearScienceItems.ITEM_CELLANTIMATTERLARGE.get(), 1)
+		ShapelessCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_CELLANTIMATTERLARGE.get(), 1)
 				//
 				.addIngredient(NuclearScienceTags.Items.CELL_ANTIMATTER_SMALL)
 				//
@@ -70,9 +67,9 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addIngredient(NuclearScienceTags.Items.CELL_ANTIMATTER_SMALL)
 				//
-				.complete(References.ID, "cellantimatter_large", consumer);
+				.complete(References.ID, "cellantimatter_large", output);
 
-		ElectrodynamicsShapelessCraftingRecipe.start(NuclearScienceItems.ITEM_CELLANTIMATTERVERYLARGE.get(), 1)
+		ShapelessCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_CELLANTIMATTERVERYLARGE.get(), 1)
 				//
 				.addIngredient(NuclearScienceTags.Items.CELL_ANTIMATTER_LARGE)
 				//
@@ -80,9 +77,9 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addIngredient(NuclearScienceTags.Items.CELL_ANTIMATTER_LARGE)
 				//
-				.complete(References.ID, "cellantimatter_verylarge", consumer);
+				.complete(References.ID, "cellantimatter_verylarge", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceItems.ITEM_CELLELECTROMAGNETIC.get(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_CELLELECTROMAGNETIC.get(), 1)
 				//
 				.addPattern(" C ")
 				//
@@ -94,9 +91,9 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('E', NuclearScienceTags.Items.CELL_EMPTY)
 				//
-				.complete(References.ID, "cellelectromagnetic", consumer);
+				.complete(References.ID, "cellelectromagnetic", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceItems.ITEM_CELLEMPTY.get(), 4)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_CELLEMPTY.get(), 4)
 				//
 				.addPattern("GTG")
 				//
@@ -104,13 +101,13 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addPattern("GTG")
 				//
-				.addKey('G', Tags.Items.GLASS)
+				.addKey('G', Tags.Items.GLASS_BLOCKS)
 				//
 				.addKey('T', ElectrodynamicsTags.Items.INGOT_TIN)
 				//
-				.complete(References.ID, "cellempty_glass", consumer);
+				.complete(References.ID, "cellempty_glass", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceItems.ITEM_CELLEMPTY.get(), 6)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_CELLEMPTY.get(), 6)
 				//
 				.addPattern("GTG")
 				//
@@ -118,13 +115,13 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addPattern("GTG")
 				//
-				.addKey('G', ElectrodynamicsItems.getItem(SubtypeGlass.clear))
+				.addKey('G', ElectrodynamicsItems.ITEMS_CUSTOMGLASS.getValue(SubtypeGlass.clear))
 				//
 				.addKey('T', ElectrodynamicsTags.Items.INGOT_TIN)
 				//
-				.complete(References.ID, "cellempty_clearglass", consumer);
+				.complete(References.ID, "cellempty_clearglass", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceBlocks.blockElectromagnet.asItem(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_ELECTROMAGNET.get(), 1)
 				//
 				.addPattern("BSB")
 				//
@@ -138,9 +135,9 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('M', ElectrodynamicsItems.ITEM_MOTOR.get())
 				//
-				.complete(References.ID, "electromagnet_steelbronze", consumer);
+				.complete(References.ID, "electromagnet_steelbronze", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceBlocks.blockElectromagnet.asItem(), 15)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_ELECTROMAGNET.get(), 15)
 				//
 				.addPattern("THT")
 				//
@@ -154,35 +151,35 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('M', ElectrodynamicsItems.ITEM_MOTOR.get())
 				//
-				.complete(References.ID, "electromagnet_hslatitanium", consumer);
+				.complete(References.ID, "electromagnet_hslatitanium", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceBlocks.blockElectromagneticBooster.asItem(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_ELECTROMAGNETICBOOSTER.get(), 1)
 				//
 				.addPattern("EGE")
 				//
-				.addKey('E', NuclearScienceBlocks.blockElectromagnet.asItem())
+				.addKey('E', NuclearScienceItems.ITEM_ELECTROMAGNET.get())
 				//
-				.addKey('G', NuclearScienceBlocks.blockElectromagneticGlass.asItem())
+				.addKey('G', NuclearScienceItems.ITEM_ELECTROMAGNETICGLASS.get())
 				//
-				.complete(References.ID, "electromagneticbooster", consumer);
+				.complete(References.ID, "electromagneticbooster", output);
 
-		ElectrodynamicsShapelessCraftingRecipe.start(NuclearScienceBlocks.blockElectromagneticGlass.asItem(), 1)
+		ShapelessCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_ELECTROMAGNETICGLASS.get(), 1)
 				//
-				.addIngredient(NuclearScienceBlocks.blockElectromagnet.asItem())
+				.addIngredient(NuclearScienceItems.ITEM_ELECTROMAGNET.get())
 				//
-				.addIngredient(Tags.Items.GLASS)
+				.addIngredient(Tags.Items.GLASS_BLOCKS)
 				//
-				.complete(References.ID, "electromagneticglass", consumer);
+				.complete(References.ID, "electromagneticglass", output);
 
-		ElectrodynamicsShapelessCraftingRecipe.start(NuclearScienceBlocks.blockElectromagneticSwitch.asItem(), 1)
+		ShapelessCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_ELECTROMAGNETICSWITCH.get(), 1)
 				//
-				.addIngredient(NuclearScienceBlocks.blockElectromagneticBooster.asItem())
+				.addIngredient(NuclearScienceItems.ITEM_ELECTROMAGNETICBOOSTER.get())
 				//
 				.addIngredient(ElectrodynamicsItems.ITEM_MOTOR.get())
 				//
-				.complete(References.ID, "electromagneticswitch", consumer);
+				.complete(References.ID, "electromagneticswitch", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceItems.ITEM_FREQUENCYCARD.get(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_FREQUENCYCARD.get(), 1)
 				//
 				.addPattern(" P ")
 				//
@@ -192,19 +189,19 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('P', ElectrodynamicsTags.Items.PLATE_IRON)
 				//
-				.addKey('W', ElectrodynamicsItems.getItem(SubtypeWire.copper))
+				.addKey('W', ElectrodynamicsItems.ITEMS_WIRE.getValue(SubtypeWire.copper))
 				//
 				.addKey('C', ElectrodynamicsTags.Items.CIRCUITS_BASIC)
 				//
-				.complete(References.ID, "frequencycard_new", consumer);
+				.complete(References.ID, "frequencycard_new", output);
 
-		ElectrodynamicsShapelessCraftingRecipe.start(NuclearScienceItems.ITEM_FREQUENCYCARD.get(), 1)
+		ShapelessCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_FREQUENCYCARD.get(), 1)
 				//
 				.addIngredient(NuclearScienceItems.ITEM_FREQUENCYCARD.get())
 				//
-				.complete(References.ID, "frequencycard_reset", consumer);
+				.complete(References.ID, "frequencycard_reset", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceItems.ITEM_FUELHEUO2.get(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_FUELHEUO2.get(), 1)
 				//
 				.addPattern("GLG")
 				//
@@ -212,15 +209,15 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addPattern("GLG")
 				//
-				.addKey('G', Tags.Items.GLASS)
+				.addKey('G', Tags.Items.GLASS_BLOCKS)
 				//
 				.addKey('L', NuclearScienceTags.Items.PELLET_URANIUM238)
 				//
 				.addKey('H', NuclearScienceTags.Items.PELLET_URANIUM235)
 				//
-				.complete(References.ID, "fuelrod_uranium_highenrich", consumer);
+				.complete(References.ID, "fuelrod_uranium_highenrich", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceItems.ITEM_FUELLEUO2.get(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_FUELLEUO2.get(), 1)
 				//
 				.addPattern("GLG")
 				//
@@ -228,13 +225,13 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addPattern("GLG")
 				//
-				.addKey('G', Tags.Items.GLASS)
+				.addKey('G', Tags.Items.GLASS_BLOCKS)
 				//
 				.addKey('L', NuclearScienceTags.Items.PELLET_URANIUM238)
 				//
-				.complete(References.ID, "fuelrod_uranium_lowenrich", consumer);
+				.complete(References.ID, "fuelrod_uranium_lowenrich", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceItems.ITEM_FUELPLUTONIUM.get(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_FUELPLUTONIUM.get(), 1)
 				//
 				.addPattern("GLG")
 				//
@@ -242,15 +239,15 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addPattern("GLG")
 				//
-				.addKey('G', Tags.Items.GLASS)
+				.addKey('G', Tags.Items.GLASS_BLOCKS)
 				//
 				.addKey('L', NuclearScienceTags.Items.PELLET_URANIUM238)
 				//
 				.addKey('P', NuclearScienceTags.Items.PELLET_PLUTONIUM)
 				//
-				.complete(References.ID, "fuelrod_plutonium", consumer);
+				.complete(References.ID, "fuelrod_plutonium", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceItems.getItem(SubtypeMoltenSaltPipe.vanadiumsteelceramic), 2)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_MOLTENSALTPIPTE.getValue(SubtypeMoltenSaltPipe.vanadiumsteelceramic), 2)
 				//
 				.addPattern("CCC")
 				//
@@ -258,13 +255,13 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addPattern("CCC")
 				//
-				.addKey('C', ElectrodynamicsItems.getItem(SubtypeCeramic.plate))
+				.addKey('C', ElectrodynamicsItems.ITEMS_CERAMIC.getValue(SubtypeCeramic.plate))
 				//
 				.addKey('V', ElectrodynamicsTags.Items.PLATE_VANADIUMSTEEL)
 				//
-				.complete(References.ID, "moltensaltpipe_ceramicvanadium", consumer);
+				.complete(References.ID, "moltensaltpipe_ceramicvanadium", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceItems.ITEM_POLONIUM210.get(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_POLONIUM210.get(), 1)
 				//
 				.addPattern("PP")
 				//
@@ -272,15 +269,15 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('P', NuclearScienceTags.Items.NUGGET_POLONIUM)
 				//
-				.complete(References.ID, "poloniumpellet_from_nuggets", consumer);
+				.complete(References.ID, "poloniumpellet_from_nuggets", output);
 
-		addGear(consumer);
-		addMachines(consumer);
+		addGear(output);
+		addMachines(output);
 
 	}
 
-	public void addGear(Consumer<FinishedRecipe> consumer) {
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceItems.ITEM_CANISTERLEAD.get(), 1)
+	public void addGear(RecipeOutput output) {
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_CANISTERLEAD.get(), 1)
 				//
 				.addPattern("VLV")
 				//
@@ -294,9 +291,9 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('C', ElectrodynamicsItems.ITEM_CANISTERREINFORCED.get())
 				//
-				.complete(References.ID, "canisterlead", consumer);
+				.complete(References.ID, "canisterlead", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceItems.ITEM_GEIGERCOUNTER.get(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_GEIGERCOUNTER.get(), 1)
 				//
 				.addPattern("PPP")
 				//
@@ -310,9 +307,9 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('C', ElectrodynamicsItems.ITEM_COIL.get())
 				//
-				.complete(References.ID, "geigercounter", consumer);
+				.complete(References.ID, "geigercounter", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceItems.ITEM_HAZMATHELMET.get(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_HAZMATHELMET.get(), 1)
 				//
 				.addPattern("WWW")
 				//
@@ -328,9 +325,9 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('C', ElectrodynamicsTags.Items.CIRCUITS_BASIC)
 				//
-				.complete(References.ID, "hazmathelmet", consumer);
+				.complete(References.ID, "hazmathelmet", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceItems.ITEM_HAZMATPLATE.get(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_HAZMATPLATE.get(), 1)
 				//
 				.addPattern("WWW")
 				//
@@ -346,9 +343,9 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('C', ElectrodynamicsTags.Items.CIRCUITS_BASIC)
 				//
-				.complete(References.ID, "hazmatchestplate", consumer);
+				.complete(References.ID, "hazmatchestplate", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceItems.ITEM_HAZMATLEGS.get(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_HAZMATLEGS.get(), 1)
 				//
 				.addPattern("WWW")
 				//
@@ -364,9 +361,9 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('C', ElectrodynamicsTags.Items.CIRCUITS_BASIC)
 				//
-				.complete(References.ID, "hazmatleggings", consumer);
+				.complete(References.ID, "hazmatleggings", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceItems.ITEM_HAZMATBOOTS.get(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_HAZMATBOOTS.get(), 1)
 				//
 				.addPattern("WWW")
 				//
@@ -382,9 +379,9 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('C', ElectrodynamicsTags.Items.CIRCUITS_BASIC)
 				//
-				.complete(References.ID, "hazmatboots", consumer);
+				.complete(References.ID, "hazmatboots", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceItems.ITEM_REINFORCEDHAZMATHELMET.get(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_REINFORCEDHAZMATHELMET.get(), 1)
 				//
 				.addPattern("WWW")
 				//
@@ -398,9 +395,9 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('H', NuclearScienceItems.ITEM_HAZMATHELMET.get())
 				//
-				.complete(References.ID, "reinforcedhazmathelmet", consumer);
+				.complete(References.ID, "reinforcedhazmathelmet", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceItems.ITEM_REINFORCEDHAZMATPLATE.get(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_REINFORCEDHAZMATPLATE.get(), 1)
 				//
 				.addPattern("WWW")
 				//
@@ -414,9 +411,9 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('c', NuclearScienceItems.ITEM_HAZMATPLATE.get())
 				//
-				.complete(References.ID, "reinforcedhazmatchestplate", consumer);
+				.complete(References.ID, "reinforcedhazmatchestplate", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceItems.ITEM_REINFORCEDHAZMATLEGS.get(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_REINFORCEDHAZMATLEGS.get(), 1)
 				//
 				.addPattern("WWW")
 				//
@@ -430,9 +427,9 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('l', NuclearScienceItems.ITEM_HAZMATLEGS.get())
 				//
-				.complete(References.ID, "reinforcedhazmatleggings", consumer);
+				.complete(References.ID, "reinforcedhazmatleggings", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceItems.ITEM_REINFORCEDHAZMATBOOTS.get(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_REINFORCEDHAZMATBOOTS.get(), 1)
 				//
 				.addPattern("WWW")
 				//
@@ -446,13 +443,13 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('B', NuclearScienceItems.ITEM_HAZMATBOOTS.get())
 				//
-				.complete(References.ID, "reinforcedhazmatboots", consumer);
+				.complete(References.ID, "reinforcedhazmatboots", output);
 
 	}
 
-	public void addMachines(Consumer<FinishedRecipe> consumer) {
+	public void addMachines(RecipeOutput output) {
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceBlocks.blockAtomicAssembler.asItem(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_ATOMICASSEMBLER.get(), 1)
 				//
 				.addPattern("CCC")
 				//
@@ -464,11 +461,11 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('S', ElectrodynamicsTags.Items.PLATE_STEEL)
 				//
-				.addKey('G', NuclearScienceBlocks.blockGasCentrifuge.asItem())
+				.addKey('G', NuclearScienceItems.ITEM_GASCENTRIFUGE.get())
 				//
-				.complete(References.ID, "atomicassembler", consumer);
+				.complete(References.ID, "atomicassembler", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceBlocks.blockChemicalExtractor.asItem(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_CHEMICALEXTRACTOR.get(), 1)
 				//
 				.addPattern("SPS")
 				//
@@ -484,9 +481,9 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('M', ElectrodynamicsItems.ITEM_MOTOR.get())
 				//
-				.complete(References.ID, "chemicalextractor", consumer);
+				.complete(References.ID, "chemicalextractor", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceBlocks.blockControlRodAssembly.asItem(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_CONTROLROD.get(), 1)
 				//
 				.addPattern("SsS")
 				//
@@ -502,9 +499,9 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('C', ElectrodynamicsTags.Items.CIRCUITS_ADVANCED)
 				//
-				.complete(References.ID, "controlrod", consumer);
+				.complete(References.ID, "controlrod", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceBlocks.blockFreezePlug.asItem(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_FREEZEPLUG.get(), 1)
 				//
 				.addPattern("SCS")
 				//
@@ -518,9 +515,9 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('B', ElectrodynamicsTags.Items.STORAGE_BLOCK_VANADIUMSTEEL)
 				//
-				.complete(References.ID, "freezeplug", consumer);
+				.complete(References.ID, "freezeplug", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceBlocks.blockFuelReprocessor.asItem(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_FUELREPROCESSOR.get(), 1)
 				//
 				.addPattern("VSV")
 				//
@@ -534,9 +531,9 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('T', ElectrodynamicsItems.ITEM_TITANIUM_COIL.get())
 				//
-				.complete(References.ID, "fuelreprocessor", consumer);
+				.complete(References.ID, "fuelreprocessor", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceBlocks.blockFissionReactorCore.asItem(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_FISSIONREACTORCORE.get(), 1)
 				//
 				.addPattern("PCP")
 				//
@@ -552,9 +549,9 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('E', NuclearScienceTags.Items.CELL_EMPTY)
 				//
-				.complete(References.ID, "fissionreactorcore", consumer);
+				.complete(References.ID, "fissionreactorcore", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceBlocks.blockFusionReactorCore.asItem(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_FUSIONREACTORCORE.get(), 1)
 				//
 				.addPattern("UEU")
 				//
@@ -564,13 +561,13 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('U', ElectrodynamicsTags.Items.CIRCUITS_ULTIMATE)
 				//
-				.addKey('E', NuclearScienceBlocks.blockElectromagnet.asItem())
+				.addKey('E', NuclearScienceItems.ITEM_ELECTROMAGNET.get())
 				//
-				.addKey('C', NuclearScienceBlocks.blockMSReactorCore.asItem())
+				.addKey('C', NuclearScienceItems.ITEM_MSREACTORCORE.get())
 				//
-				.complete(References.ID, "fusionreactorcore", consumer);
+				.complete(References.ID, "fusionreactorcore", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceBlocks.blockGasCentrifuge.asItem(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_GASCENTRIFUGE.get(), 1)
 				//
 				.addPattern("SES")
 				//
@@ -590,9 +587,9 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('M', ElectrodynamicsItems.ITEM_MOTOR.get())
 				//
-				.complete(References.ID, "gascentrifuge", consumer);
+				.complete(References.ID, "gascentrifuge", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceBlocks.blockHeatExchanger.asItem(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_HEATEXCHANGER.get(), 1)
 				//
 				.addPattern("PPP")
 				//
@@ -606,9 +603,9 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('C', Tags.Items.STORAGE_BLOCKS_COPPER)
 				//
-				.complete(References.ID, "heatexchanger", consumer);
+				.complete(References.ID, "heatexchanger", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceBlocks.blockMoltenSaltSupplier.asItem(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_MOLTENSALTSUPPLIER.get(), 1)
 				//
 				.addPattern("SVS")
 				//
@@ -622,9 +619,9 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('T', ElectrodynamicsItems.ITEM_TITANIUM_COIL.get())
 				//
-				.complete(References.ID, "moltensaltsupplier", consumer);
+				.complete(References.ID, "moltensaltsupplier", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceBlocks.blockMSRFuelPreProcessor.asItem(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_MSRFUELPREPROCESSOR.get(), 1)
 				//
 				.addPattern("VLV")
 				//
@@ -636,13 +633,13 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('L', ElectrodynamicsTags.Items.PLATE_LEAD)
 				//
-				.addKey('C', ElectrodynamicsItems.getItem(SubtypeMachine.chemicalmixer))
+				.addKey('C', ElectrodynamicsItems.ITEMS_MACHINE.getValue(SubtypeMachine.chemicalmixer))
 				//
 				.addKey('E', ElectrodynamicsTags.Items.CIRCUITS_ELITE)
 				//
-				.complete(References.ID, "msrfuelpreprocessor", consumer);
+				.complete(References.ID, "msrfuelpreprocessor", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceBlocks.blockMSReactorCore.asItem(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_MSREACTORCORE.get(), 1)
 				//
 				.addPattern("SVS")
 				//
@@ -654,13 +651,13 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('V', ElectrodynamicsTags.Items.PLATE_VANADIUMSTEEL)
 				//
-				.addKey('R', NuclearScienceBlocks.blockFissionReactorCore.asItem())
+				.addKey('R', NuclearScienceItems.ITEM_FISSIONREACTORCORE.get())
 				//
 				.addKey('P', NuclearScienceTags.Items.PELLET_PLUTONIUM)
 				//
-				.complete(References.ID, "msrreactorcore", consumer);
+				.complete(References.ID, "msrreactorcore", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceBlocks.blockNuclearBoiler.asItem(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_NUCLEARBOILER.get(), 1)
 				//
 				.addPattern("PCP")
 				//
@@ -674,13 +671,13 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('E', NuclearScienceTags.Items.CELL_EMPTY)
 				//
-				.addKey('F', ElectrodynamicsItems.getItem(SubtypeMachine.electricarcfurnace))
+				.addKey('F', ElectrodynamicsItems.ITEMS_MACHINE.getValue(SubtypeMachine.electricarcfurnace))
 				//
 				.addKey('M', ElectrodynamicsItems.ITEM_MOTOR.get())
 				//
-				.complete(References.ID, "nuclearboiler", consumer);
+				.complete(References.ID, "nuclearboiler", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceBlocks.blockParticleInjector.asItem(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_PARTICLEINJECTOR.get(), 1)
 				//
 				.addPattern("MTM")
 				//
@@ -688,17 +685,17 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addPattern("MTM")
 				//
-				.addKey('M', NuclearScienceBlocks.blockElectromagnet.asItem())
+				.addKey('M', NuclearScienceItems.ITEM_ELECTROMAGNET.get())
 				//
-				.addKey('T', ElectrodynamicsItems.getItem(SubtypeMachine.upgradetransformer))
+				.addKey('T', ElectrodynamicsItems.ITEMS_MACHINE.getValue(SubtypeMachine.upgradetransformer))
 				//
 				.addKey('U', ElectrodynamicsTags.Items.CIRCUITS_ULTIMATE)
 				//
 				.addKey('D', Items.DISPENSER)
 				//
-				.complete(References.ID, "particleinjector", consumer);
+				.complete(References.ID, "particleinjector", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceBlocks.blockQuantumCapacitor.asItem(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_QUANTUMCAPACITOR.get(), 1)
 				//
 				.addPattern("DCD")
 				//
@@ -710,11 +707,11 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('C', ElectrodynamicsTags.Items.CIRCUITS_ULTIMATE)
 				//
-				.addKey('R', NuclearScienceBlocks.blockFusionReactorCore.asItem())
+				.addKey('R', NuclearScienceItems.ITEM_FUSIONREACTORCORE.get())
 				//
-				.complete(References.ID, "quantumcapacitor", consumer);
+				.complete(References.ID, "quantumcapacitor", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceBlocks.blockRadioactiveProcessor.asItem(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_RADIOACTIVEPROCESSOR.get(), 1)
 				//
 				.addPattern("VTV")
 				//
@@ -726,13 +723,13 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('T', ElectrodynamicsItems.ITEM_TITANIUM_COIL.get())
 				//
-				.addKey('M', ElectrodynamicsItems.getItem(SubtypeMachine.chemicalmixer))
+				.addKey('M', ElectrodynamicsItems.ITEMS_MACHINE.getValue(SubtypeMachine.chemicalmixer))
 				//
 				.addKey('C', ElectrodynamicsTags.Items.CIRCUITS_ELITE)
 				//
-				.complete(References.ID, "radioactiveprocessor", consumer);
+				.complete(References.ID, "radioactiveprocessor", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceBlocks.blockRadioisotopeGenerator.asItem(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_RADIOISOTOPEGENERATOR.get(), 1)
 				//
 				.addPattern("VCV")
 				//
@@ -748,9 +745,9 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('E', NuclearScienceTags.Items.CELL_EMPTY)
 				//
-				.complete(References.ID, "radioisotopegenerator", consumer);
+				.complete(References.ID, "radioisotopegenerator", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceBlocks.blockSiren.asItem(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_SIREN.get(), 1)
 				//
 				.addPattern("NPN")
 				//
@@ -758,9 +755,9 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('P', ElectrodynamicsTags.Items.PLATE_BRONZE)
 				//
-				.complete(References.ID, "siren", consumer);
+				.complete(References.ID, "siren", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceBlocks.blockSteamFunnel.asItem(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_STEAMFUNNEL.get(), 1)
 				//
 				.addPattern(" P ")
 				//
@@ -770,9 +767,9 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('P', ElectrodynamicsTags.Items.PLATE_BRONZE)
 				//
-				.complete(References.ID, "steamfunnel_bronze", consumer);
+				.complete(References.ID, "steamfunnel_bronze", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceBlocks.blockSteamFunnel.asItem(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_STEAMFUNNEL.get(), 1)
 				//
 				.addPattern(" P ")
 				//
@@ -782,9 +779,9 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('P', ElectrodynamicsTags.Items.PLATE_STEEL)
 				//
-				.complete(References.ID, "steamfunnel_steel", consumer);
+				.complete(References.ID, "steamfunnel_steel", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceBlocks.blockTeleporter.asItem(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_TELEPORTER.get(), 1)
 				//
 				.addPattern("TCT")
 				//
@@ -794,7 +791,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('T', ElectrodynamicsTags.Items.PLATE_TITANIUMCARBIDE)
 				//
-				.addKey('C', ElectrodynamicsItems.getItem(SubtypeCeramic.fuse))
+				.addKey('C', ElectrodynamicsItems.ITEMS_CERAMIC.getValue(SubtypeCeramic.fuse))
 				//
 				.addKey('H', ElectrodynamicsTags.Items.PLATE_HSLASTEEL)
 				//
@@ -804,9 +801,9 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('D', NuclearScienceTags.Items.CELL_DARK_MATTER)
 				//
-				.complete(References.ID, "teleporter", consumer);
+				.complete(References.ID, "teleporter", output);
 
-		ElectrodynamicsShapedCraftingRecipe.start(NuclearScienceBlocks.blockTurbine.asItem(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_TURBINE.get(), 1)
 				//
 				.addPattern(" W ")
 				//
@@ -814,13 +811,13 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addPattern(" P ")
 				//
-				.addKey('W', ElectrodynamicsItems.getItem(SubtypeWire.gold))
+				.addKey('W', ElectrodynamicsItems.ITEMS_WIRE.getValue(SubtypeWire.gold))
 				//
 				.addKey('P', ElectrodynamicsTags.Items.PLATE_STEEL)
 				//
 				.addKey('M', ElectrodynamicsItems.ITEM_MOTOR.get())
 				//
-				.complete(References.ID, "turbine", consumer);
+				.complete(References.ID, "turbine", output);
 
 	}
 

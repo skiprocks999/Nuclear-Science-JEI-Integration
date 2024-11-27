@@ -18,8 +18,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import nuclearscience.api.fusion.IElectromagnet;
 import nuclearscience.common.block.facing.FacingDirection;
 import nuclearscience.common.block.facing.FacingDirectionProperty;
@@ -28,7 +26,7 @@ public class BlockElectromagneticBooster extends Block implements IElectromagnet
 	public static final FacingDirectionProperty FACINGDIRECTION = FacingDirectionProperty.create("side", FacingDirection.values());
 
 	public BlockElectromagneticBooster() {
-		super(Properties.copy(Blocks.GLASS).strength(3.5f, 20).requiresCorrectToolForDrops().noOcclusion().isRedstoneConductor((x, y, z) -> false));
+		super(Blocks.GLASS.properties().strength(3.5f, 20).requiresCorrectToolForDrops().noOcclusion().isRedstoneConductor((x, y, z) -> false));
 		registerDefaultState(stateDefinition.any().setValue(GenericEntityBlock.FACING, Direction.NORTH).setValue(FACINGDIRECTION, FacingDirection.NONE));
 	}
 
@@ -92,7 +90,6 @@ public class BlockElectromagneticBooster extends Block implements IElectromagnet
 		return Shapes.empty();
 	}
 
-	@OnlyIn(Dist.CLIENT)
 	@Override
 	public float getShadeBrightness(BlockState state, BlockGetter worldIn, BlockPos pos) {
 		return 1.0F;

@@ -1,6 +1,5 @@
 package nuclearscience.common.tile;
 
-import electrodynamics.api.capability.ElectrodynamicsCapabilities;
 import electrodynamics.prefab.tile.GenericTile;
 import electrodynamics.prefab.tile.components.IComponentType;
 import electrodynamics.prefab.tile.components.type.ComponentContainerProvider;
@@ -10,17 +9,18 @@ import electrodynamics.prefab.tile.components.type.ComponentInventory.InventoryB
 import electrodynamics.prefab.tile.components.type.ComponentPacketHandler;
 import electrodynamics.prefab.tile.components.type.ComponentProcessor;
 import electrodynamics.prefab.tile.components.type.ComponentTickable;
+import electrodynamics.prefab.utilities.BlockEntityUtils;
 import electrodynamics.prefab.utilities.object.Location;
+import electrodynamics.registers.ElectrodynamicsCapabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity.RemovalReason;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 import nuclearscience.common.entity.EntityParticle;
 import nuclearscience.common.inventory.container.ContainerParticleInjector;
 import nuclearscience.common.settings.Constants;
-import nuclearscience.registers.NuclearScienceBlockTypes;
+import nuclearscience.registers.NuclearScienceTiles;
 import nuclearscience.registers.NuclearScienceItems;
 
 public class TileParticleInjector extends GenericTile {
@@ -28,11 +28,13 @@ public class TileParticleInjector extends GenericTile {
 	private long timeSinceSpawn = 0;
 
 	public TileParticleInjector(BlockPos pos, BlockState state) {
-		super(NuclearScienceBlockTypes.TILE_PARTICLEINJECTOR.get(), pos, state);
+		super(NuclearScienceTiles.TILE_PARTICLEINJECTOR.get(), pos, state);
 		addComponent(new ComponentTickable(this));
 		addComponent(new ComponentPacketHandler(this));
-		addComponent(new ComponentInventory(this, InventoryBuilder.newInv().inputs(2).outputs(1)).valid((index, stack, i) -> index != 1 || stack.getItem() == NuclearScienceItems.ITEM_CELLELECTROMAGNETIC.get()).setSlotsByDirection(Direction.UP, 0, 1).setSlotsByDirection(Direction.WEST, 0, 1).setDirectionsBySlot(2, Direction.DOWN, Direction.EAST));
-		addComponent(new ComponentElectrodynamic(this, false, true).voltage(ElectrodynamicsCapabilities.DEFAULT_VOLTAGE * 8).setInputDirections(Direction.NORTH).maxJoules(Constants.PARTICLEINJECTOR_USAGE_PER_PARTICLE * 10));
+		addComponent(new ComponentInventory(this, InventoryBuilder.newInv().inputs(2).outputs(1)).valid((index, stack, i) -> index != 1 || stack.getItem() == NuclearScienceItems.ITEM_CELLELECTROMAGNETIC.get()).setSlotsByDirection(BlockEntityUtils.MachineDirection.TOP, 0, 1)
+				//
+				.setSlotsByDirection(BlockEntityUtils.MachineDirection.RIGHT, 0, 1).setDirectionsBySlot(2, BlockEntityUtils.MachineDirection.BOTTOM, BlockEntityUtils.MachineDirection.LEFT));
+		addComponent(new ComponentElectrodynamic(this, false, true).voltage(ElectrodynamicsCapabilities.DEFAULT_VOLTAGE * 8).setInputDirections(BlockEntityUtils.MachineDirection.TOP).maxJoules(Constants.PARTICLEINJECTOR_USAGE_PER_PARTICLE * 10));
 		addComponent(new ComponentProcessor(this).canProcess(this::canProcess).usage(Constants.PARTICLEINJECTOR_USAGE_PER_PARTICLE).process(this::process));
 		addComponent(new ComponentContainerProvider("container.particleinjector", this).createMenu((id, player) -> new ContainerParticleInjector(id, player, getComponent(IComponentType.Inventory), getCoordsArray())));
 	}
@@ -120,9 +122,5 @@ public class TileParticleInjector extends GenericTile {
 		}
 	}
 
-	@Override
-	public AABB getRenderBoundingBox() {
-		return INFINITE_EXTENT_AABB;
-	}
 
 }

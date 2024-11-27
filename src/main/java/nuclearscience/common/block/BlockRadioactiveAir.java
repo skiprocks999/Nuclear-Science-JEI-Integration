@@ -9,16 +9,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AirBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import nuclearscience.References;
 import nuclearscience.api.radiation.RadiationSystem;
 
-@EventBusSubscriber(modid = References.ID, bus = Bus.FORGE)
 public class BlockRadioactiveAir extends AirBlock {
 
 	public BlockRadioactiveAir() {
-		super(Properties.copy(Blocks.AIR).noCollission().air());
+		super(Blocks.AIR.properties().noCollission().air());
 	}
 
 	@Override

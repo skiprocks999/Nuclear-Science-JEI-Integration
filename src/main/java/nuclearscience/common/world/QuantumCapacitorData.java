@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.UUID;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -19,10 +20,30 @@ public class QuantumCapacitorData extends SavedData {
 	public QuantumCapacitorData() {
 	}
 
-	public static QuantumCapacitorData load(CompoundTag source) {
+	@Override
+	public CompoundTag save(CompoundTag tag, HolderLookup.Provider registries) {
+		ListTag list = new ListTag();
+		tag.put("list", list);
+		for (Entry<UUID, HashMap<Integer, Double>> en : powermapping.entrySet()) {
+			CompoundTag compound = new CompoundTag();
+			compound.putUUID("uuid", en.getKey());
+			ListTag entrylist = new ListTag();
+			compound.put("entrylist", entrylist);
+			for (Entry<Integer, Double> entryInside : en.getValue().entrySet()) {
+				CompoundTag inside = new CompoundTag();
+				inside.putInt("frequency", entryInside.getKey());
+				inside.putDouble("joules", entryInside.getValue());
+				entrylist.add(inside);
+			}
+			list.add(compound);
+		}
+		return tag;
+	}
+
+	public static QuantumCapacitorData load(CompoundTag tag, HolderLookup.Provider registries) {
 		QuantumCapacitorData data = new QuantumCapacitorData();
 		data.powermapping.clear();
-		ListTag list = source.getList("list", 10);
+		ListTag list = tag.getList("list", 10);
 		for (Tag en : list) {
 			CompoundTag compound = (CompoundTag) en;
 			UUID id = compound.getUUID("uuid");
@@ -39,30 +60,10 @@ public class QuantumCapacitorData extends SavedData {
 		return data;
 	}
 
-	@Override
-	public CompoundTag save(CompoundTag source) {
-		ListTag list = new ListTag();
-		source.put("list", list);
-		for (Entry<UUID, HashMap<Integer, Double>> en : powermapping.entrySet()) {
-			CompoundTag compound = new CompoundTag();
-			compound.putUUID("uuid", en.getKey());
-			ListTag entrylist = new ListTag();
-			compound.put("entrylist", entrylist);
-			for (Entry<Integer, Double> entryInside : en.getValue().entrySet()) {
-				CompoundTag inside = new CompoundTag();
-				inside.putInt("frequency", entryInside.getKey());
-				inside.putDouble("joules", entryInside.getValue());
-				entrylist.add(inside);
-			}
-			list.add(compound);
-		}
-		return source;
-	}
-
 	public static QuantumCapacitorData get(Level world) {
 		if (world instanceof ServerLevel sl) {
 			DimensionDataStorage storage = sl.getDataStorage();
-			QuantumCapacitorData instance = storage.computeIfAbsent(QuantumCapacitorData::load, QuantumCapacitorData::new, DATANAME);
+			QuantumCapacitorData instance = storage.computeIfAbsent(new Factory<>(QuantumCapacitorData::new, QuantumCapacitorData::load), DATANAME);
 			if (instance == null) {
 				instance = new QuantumCapacitorData();
 				storage.set(DATANAME, instance);

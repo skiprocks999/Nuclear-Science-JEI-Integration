@@ -1,6 +1,6 @@
 /bin
 /out
-/run
+/runs
 /classes
 *.classpath
 *.project
@@ -46,10 +46,12 @@ releaseJarsOnly/
 Physica_Client.launch
 
 Physica_Server.launch
+
+.DS_Store
+
 runClient.launch
 
 runData.launch
 
 runServer.launch
 *.launch
-.DS_Store

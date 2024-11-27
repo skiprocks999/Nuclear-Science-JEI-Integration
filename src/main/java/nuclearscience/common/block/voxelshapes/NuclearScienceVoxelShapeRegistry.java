@@ -82,7 +82,7 @@ public class NuclearScienceVoxelShapeRegistry {
 		chemicalextractor = Shapes.or(chemicalextractor, Block.box(11, 13, 8.5, 12.5, 14, 10.5));
 		chemicalextractor = Shapes.or(chemicalextractor, Block.box(11, 13, 11.5, 12.5, 14, 13.5));
 
-		VoxelShapes.registerShape(NuclearScienceBlocks.blockChemicalExtractor, chemicalextractor, Direction.EAST);
+		VoxelShapes.registerShape(NuclearScienceBlocks.BLOCK_CHEMICALEXTRACTOR.get(), chemicalextractor, Direction.EAST);
 
 		/* FISSION REACTOR CORE */
 
@@ -119,7 +119,7 @@ public class NuclearScienceVoxelShapeRegistry {
 		fissionreactorcore = Shapes.join(fissionreactorcore, Shapes.box(0.25, 0.06565, 0.8125, 0.75, 0.1148875, 0.875), BooleanOp.OR);
 		fissionreactorcore = Shapes.join(fissionreactorcore, Shapes.box(0.875, 0.72215, 0.125, 0.9375, 0.7878, 0.875), BooleanOp.OR);
 		fissionreactorcore = Shapes.join(fissionreactorcore, Shapes.box(0.25, 0.7878, 0.09375, 0.75, 0.8370375, 0.15625), BooleanOp.OR);
-		VoxelShapes.registerShape(NuclearScienceBlocks.blockFissionReactorCore, fissionreactorcore, Direction.NORTH);
+		VoxelShapes.registerShape(NuclearScienceBlocks.BLOCK_FISSIONREACTORCORE.get(), fissionreactorcore, Direction.NORTH);
 
 		/* FREEZE PLUG */
 
@@ -164,7 +164,7 @@ public class NuclearScienceVoxelShapeRegistry {
 		freezeplug = Shapes.join(freezeplug, Shapes.box(0.75, 0.1875, 0.3125, 0.84375, 0.25, 0.375), BooleanOp.OR);
 		freezeplug = Shapes.join(freezeplug, Shapes.box(0.3125, 0, 0.3125, 0.6875, 0.1875, 0.6875), BooleanOp.OR);
 
-		VoxelShapes.registerShape(NuclearScienceBlocks.blockFreezePlug, freezeplug, Direction.EAST);
+		VoxelShapes.registerShape(NuclearScienceBlocks.BLOCK_MSRFREEZEPLUG.get(), freezeplug, Direction.EAST);
 
 		/* FUEL REPROCESSOR */
 
@@ -238,7 +238,7 @@ public class NuclearScienceVoxelShapeRegistry {
 		fuelreprocessor = Shapes.join(fuelreprocessor, Shapes.box(0.8125, 0.6875, 0.375, 0.875, 0.75, 0.4375), BooleanOp.OR);
 		fuelreprocessor = Shapes.join(fuelreprocessor, Shapes.box(0.8125, 0.25, 0.375, 0.875, 0.3125, 0.4375), BooleanOp.OR);
 		fuelreprocessor = Shapes.join(fuelreprocessor, Shapes.box(0.8125, 0.25, 0.5625, 0.875, 0.3125, 0.625), BooleanOp.OR);
-		VoxelShapes.registerShape(NuclearScienceBlocks.blockFuelReprocessor, fuelreprocessor, Direction.WEST);
+		VoxelShapes.registerShape(NuclearScienceBlocks.BLOCK_FUELREPROCESSOR.get(), fuelreprocessor, Direction.WEST);
 
 		/* GAS CENTRIFUGE */
 
@@ -271,7 +271,7 @@ public class NuclearScienceVoxelShapeRegistry {
 		gascentriguge = Shapes.join(gascentriguge, Shapes.box(0.46875, 0.3125, 0.34375, 0.53125, 0.4375, 0.40625), BooleanOp.OR);
 		gascentriguge = Shapes.join(gascentriguge, Shapes.box(0.375, 0.3125, 0.375, 0.4375, 0.4375, 0.4375), BooleanOp.OR);
 		gascentriguge = Shapes.join(gascentriguge, Shapes.box(0.59375, 0.3125, 0.46875, 0.65625, 0.4375, 0.53125), BooleanOp.OR);
-		VoxelShapes.registerShape(NuclearScienceBlocks.blockGasCentrifuge, gascentriguge, Direction.WEST);
+		VoxelShapes.registerShape(NuclearScienceBlocks.BLOCK_GASCENTRIFUGE.get(), gascentriguge, Direction.WEST);
 
 		/* HEAT EXCHANGER */
 
@@ -281,7 +281,7 @@ public class NuclearScienceVoxelShapeRegistry {
 		heatexchanger = Shapes.join(heatexchanger, Block.box(0.5, 3, 0.5, 15.5, 4, 15.5), BooleanOp.OR);
 		heatexchanger = Shapes.join(heatexchanger, Block.box(4, 0, 4, 12, 1, 12), BooleanOp.OR);
 
-		VoxelShapes.registerShape(NuclearScienceBlocks.blockHeatExchanger, heatexchanger, Direction.WEST);
+		VoxelShapes.registerShape(NuclearScienceBlocks.BLOCK_HEATEXCHANGER.get(), heatexchanger, Direction.WEST);
 
 		/* MOLTEN SALT REACTOR CORE */
 
@@ -353,7 +353,7 @@ public class NuclearScienceVoxelShapeRegistry {
 		msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.75, -0.0625, 0.1875, 0.8125, 0, 0.8125), BooleanOp.OR);
 		msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.25, -0.125, 0.0625, 0.3125, 0.125, 0.125), BooleanOp.OR);
 		msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.6875, -0.125, 0.0625, 0.75, 0.125, 0.125), BooleanOp.OR);
-		VoxelShapes.registerShape(NuclearScienceBlocks.blockMSReactorCore, msreactorcore, Direction.WEST);
+		VoxelShapes.registerShape(NuclearScienceBlocks.BLOCK_MSREACTORCORE.get(), msreactorcore, Direction.WEST);
 
 		/* MOLTEN SALT SUPPLIER */
 
@@ -399,7 +399,7 @@ public class NuclearScienceVoxelShapeRegistry {
 		moltensaltsupplier = Shapes.join(moltensaltsupplier, Shapes.box(0.125, 0.6875, 0.1875, 0.1875, 0.75, 0.25), BooleanOp.OR);
 		moltensaltsupplier = Shapes.join(moltensaltsupplier, Shapes.box(0.1875, 0.0625, 0.3125, 0.25, 0.125, 0.375), BooleanOp.OR);
 		moltensaltsupplier = Shapes.join(moltensaltsupplier, Shapes.box(0.1875, 0.0625, 0.625, 0.25, 0.125, 0.6875), BooleanOp.OR);
-		VoxelShapes.registerShape(NuclearScienceBlocks.blockMoltenSaltSupplier, moltensaltsupplier, Direction.EAST);
+		VoxelShapes.registerShape(NuclearScienceBlocks.BLOCK_MOLTENSALTSUPPLIER.get(), moltensaltsupplier, Direction.EAST);
 
 		/* NUCLEAR BOILER */
 
@@ -425,7 +425,7 @@ public class NuclearScienceVoxelShapeRegistry {
 		nuclearboiler = Shapes.or(nuclearboiler, Block.box(7, 2, 9.5, 9, 8, 11));
 		nuclearboiler = Shapes.or(nuclearboiler, Block.box(6, 8, 8.5, 10, 12, 11.5));
 
-		VoxelShapes.registerShape(NuclearScienceBlocks.blockNuclearBoiler, nuclearboiler, Direction.WEST);
+		VoxelShapes.registerShape(NuclearScienceBlocks.BLOCK_NUCLEARBOILER.get(), nuclearboiler, Direction.WEST);
 
 		/* PARTICLE INJECTOR */
 
@@ -459,7 +459,7 @@ public class NuclearScienceVoxelShapeRegistry {
 		//
 		).reduce(Shapes::or).get();
 
-		VoxelShapes.registerShape(NuclearScienceBlocks.blockParticleInjector, particleinjector, Direction.WEST);
+		VoxelShapes.registerShape(NuclearScienceBlocks.BLOCK_PARTICLEINJECTOR.get(), particleinjector, Direction.WEST);
 
 		/* RADIOISOTROPIC GENERATOR */
 
@@ -470,7 +470,7 @@ public class NuclearScienceVoxelShapeRegistry {
 		radiogenerator = Shapes.or(radiogenerator, Block.box(5.25, 0, 5.25, 10.75, 0.25, 10.75));
 		radiogenerator = Shapes.or(radiogenerator, Block.box(5.25, 15.75, 5.25, 10.75, 16, 10.75));
 
-		VoxelShapes.registerShape(NuclearScienceBlocks.blockRadioisotopeGenerator, radiogenerator, Direction.EAST);
+		VoxelShapes.registerShape(NuclearScienceBlocks.BLOCK_RADIOISOTOPEGENERATOR.get(), radiogenerator, Direction.EAST);
 
 		/* TELEPORTER */
 
@@ -590,7 +590,7 @@ public class NuclearScienceVoxelShapeRegistry {
 		//
 		).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get();
 
-		VoxelShapes.registerShape(NuclearScienceBlocks.blockTeleporter, teleporter, Direction.UP);
+		VoxelShapes.registerShape(NuclearScienceBlocks.BLOCK_TELEPORTER.get(), teleporter, Direction.UP);
 
 	}
 

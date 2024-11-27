@@ -6,20 +6,18 @@ import electrodynamics.prefab.screen.component.types.ScreenComponentMultiLabel;
 import electrodynamics.prefab.screen.component.types.ScreenComponentSimpleLabel;
 import electrodynamics.prefab.screen.component.types.wrapper.InventoryIOWrapper;
 import electrodynamics.prefab.screen.component.utils.AbstractScreenComponentInfo;
+import electrodynamics.prefab.utilities.math.Color;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import nuclearscience.References;
 import nuclearscience.common.inventory.container.ContainerReactorCore;
 import nuclearscience.common.tile.fissionreactor.TileFissionReactorCore;
 import nuclearscience.prefab.screen.component.NuclearArrows;
 import nuclearscience.prefab.utils.NuclearTextUtils;
 
-@OnlyIn(Dist.CLIENT)
 public class ScreenFissionReactorCore extends GenericScreen<ContainerReactorCore> {
-	public static final ResourceLocation SCREEN_BACKGROUND = new ResourceLocation(References.ID + ":textures/gui/fissionreactor.png");
+	public static final ResourceLocation SCREEN_BACKGROUND = ResourceLocation.parse(References.ID + ":textures/gui/fissionreactor.png");
 
 	public ScreenFissionReactorCore(ContainerReactorCore container, Inventory playerInventory, Component title) {
 		super(container, playerInventory, title);
@@ -30,9 +28,9 @@ public class ScreenFissionReactorCore extends GenericScreen<ContainerReactorCore
 		addComponent(new ScreenComponentGeneric(NuclearArrows.FISSION_REACTOR_ARROW_LR, 59, 29));
 		addComponent(new ScreenComponentGeneric(NuclearArrows.FISSION_REACTOR_ARROW_DOWN, 117, 53));
 
-		addComponent(new ScreenComponentSimpleLabel(titleLabelX, titleLabelY + 24, height, 4210752, NuclearTextUtils.gui("fissionreactor.deuterium")));
+		addComponent(new ScreenComponentSimpleLabel(titleLabelX, titleLabelY + 24, height, Color.TEXT_GRAY, NuclearTextUtils.gui("fissionreactor.deuterium")));
 		addComponent(new ScreenComponentMultiLabel(0, 0, graphics -> {
-			TileFissionReactorCore core = menu.getHostFromIntArray();
+			TileFissionReactorCore core = menu.getSafeHost();
 			if (core == null) {
 				return;
 			}

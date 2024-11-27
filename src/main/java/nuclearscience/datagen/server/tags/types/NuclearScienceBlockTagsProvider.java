@@ -6,29 +6,133 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.data.BlockTagsProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.data.BlockTagsProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import nuclearscience.References;
 import nuclearscience.registers.NuclearScienceBlocks;
 
 public class NuclearScienceBlockTagsProvider extends BlockTagsProvider {
 
-	public NuclearScienceBlockTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
-		super(output, lookupProvider, References.ID, existingFileHelper);
-	}
+    public NuclearScienceBlockTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
+        super(output, lookupProvider, References.ID, existingFileHelper);
+    }
 
-	@Override
-	protected void addTags(Provider provider) {
+    @Override
+    protected void addTags(Provider provider) {
 
-		tag(BlockTags.MINEABLE_WITH_PICKAXE).add(NuclearScienceBlocks.blockAtomicAssembler, NuclearScienceBlocks.blockChemicalExtractor, NuclearScienceBlocks.blockControlRodAssembly, NuclearScienceBlocks.blockElectromagnet, NuclearScienceBlocks.blockElectromagneticBooster, NuclearScienceBlocks.blockElectromagneticGlass, NuclearScienceBlocks.blockElectromagneticSwitch, NuclearScienceBlocks.blockFreezePlug, NuclearScienceBlocks.blockFuelReprocessor, NuclearScienceBlocks.blockFusionReactorCore, NuclearScienceBlocks.blockGasCentrifuge, NuclearScienceBlocks.blockHeatExchanger, NuclearScienceBlocks.blocklead, NuclearScienceBlocks.blockMeltedReactor, NuclearScienceBlocks.blockMoltenSaltSupplier, NuclearScienceBlocks.blockMSRFuelPreProcessor, NuclearScienceBlocks.blockMSReactorCore, NuclearScienceBlocks.blockNuclearBoiler, NuclearScienceBlocks.blockParticleInjector, NuclearScienceBlocks.blockQuantumCapacitor, NuclearScienceBlocks.blockRadioactiveProcessor, NuclearScienceBlocks.blockRadioisotopeGenerator, NuclearScienceBlocks.blockFissionReactorCore, NuclearScienceBlocks.blockSiren, NuclearScienceBlocks.blockTeleporter, NuclearScienceBlocks.blockTurbine);
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
+                //
+                NuclearScienceBlocks.BLOCK_ATOMICASSEMBLER.get(),
+                //
+                NuclearScienceBlocks.BLOCK_CHEMICALEXTRACTOR.get(),
+                //
+                NuclearScienceBlocks.BLOCK_CONTROLROD.get(),
+                //
+                NuclearScienceBlocks.BLOCK_ELECTROMAGNET.get(),
+                //
+                NuclearScienceBlocks.BLOCK_ELECTORMAGNETICBOOSTER.get(),
+                //
+                NuclearScienceBlocks.BLOCK_ELECTROMAGNETICGLASS.get(),
+                //
+                NuclearScienceBlocks.BLOCK_ELECTROMAGNETICSWITCH.get(),
+                //
+                NuclearScienceBlocks.BLOCK_MSRFREEZEPLUG.get(),
+                //
+                NuclearScienceBlocks.BLOCK_FUELREPROCESSOR.get(),
+                //
+                NuclearScienceBlocks.BLOCK_FUSIONREACTORCORE.get(),
+                //
+                NuclearScienceBlocks.BLOCK_GASCENTRIFUGE.get(),
+                //
+                NuclearScienceBlocks.BLOCK_HEATEXCHANGER.get(),
+                //
+                NuclearScienceBlocks.BLOCK_LEAD.get(),
+                //
+                NuclearScienceBlocks.BLOCK_MELTEDREACTOR.get(),
+                //
+                NuclearScienceBlocks.BLOCK_MOLTENSALTSUPPLIER.get(),
+                //
+                NuclearScienceBlocks.BLOCK_MSRFUELPREPROCESSOR.get(),
+                //
+                NuclearScienceBlocks.BLOCK_MSREACTORCORE.get(),
+                //
+                NuclearScienceBlocks.BLOCK_NUCLEARBOILER.get(),
+                //
+                NuclearScienceBlocks.BLOCK_PARTICLEINJECTOR.get(),
+                //
+                NuclearScienceBlocks.BLOCK_QUANTUMCAPACITOR.get(),
+                //
+                NuclearScienceBlocks.BLOCK_RADIOACTIVEPROCESSOR.get(),
+                //
+                NuclearScienceBlocks.BLOCK_RADIOISOTOPEGENERATOR.get(),
+                //
+                NuclearScienceBlocks.BLOCK_FISSIONREACTORCORE.get(),
+                //
+                NuclearScienceBlocks.BLOCK_SIREN.get(),
+                //
+                NuclearScienceBlocks.BLOCK_TELEPORTER.get(),
+                //
+                NuclearScienceBlocks.BLOCK_TURBINE.get());
 
-		tag(BlockTags.NEEDS_STONE_TOOL).add(NuclearScienceBlocks.blockAtomicAssembler, NuclearScienceBlocks.blockChemicalExtractor, NuclearScienceBlocks.blockControlRodAssembly, NuclearScienceBlocks.blockElectromagnet, NuclearScienceBlocks.blockElectromagneticBooster, NuclearScienceBlocks.blockElectromagneticGlass, NuclearScienceBlocks.blockElectromagneticSwitch, NuclearScienceBlocks.blockFreezePlug, NuclearScienceBlocks.blockFuelReprocessor, NuclearScienceBlocks.blockFusionReactorCore, NuclearScienceBlocks.blockGasCentrifuge, NuclearScienceBlocks.blockHeatExchanger, NuclearScienceBlocks.blocklead, NuclearScienceBlocks.blockMeltedReactor, NuclearScienceBlocks.blockMoltenSaltSupplier, NuclearScienceBlocks.blockMSRFuelPreProcessor, NuclearScienceBlocks.blockMSReactorCore, NuclearScienceBlocks.blockNuclearBoiler, NuclearScienceBlocks.blockParticleInjector, NuclearScienceBlocks.blockQuantumCapacitor, NuclearScienceBlocks.blockRadioactiveProcessor, NuclearScienceBlocks.blockRadioisotopeGenerator, NuclearScienceBlocks.blockFissionReactorCore, NuclearScienceBlocks.blockSiren, NuclearScienceBlocks.blockTeleporter, NuclearScienceBlocks.blockTurbine);
+        tag(BlockTags.NEEDS_STONE_TOOL).add(
+                //
+                NuclearScienceBlocks.BLOCK_ATOMICASSEMBLER.get(),
+                //
+                NuclearScienceBlocks.BLOCK_CHEMICALEXTRACTOR.get(),
+                //
+                NuclearScienceBlocks.BLOCK_CONTROLROD.get(),
+                //
+                NuclearScienceBlocks.BLOCK_ELECTROMAGNET.get(),
+                //
+                NuclearScienceBlocks.BLOCK_ELECTORMAGNETICBOOSTER.get(),
+                //
+                NuclearScienceBlocks.BLOCK_ELECTROMAGNETICGLASS.get(),
+                //
+                NuclearScienceBlocks.BLOCK_ELECTROMAGNETICSWITCH.get(),
+                //
+                NuclearScienceBlocks.BLOCK_MSRFREEZEPLUG.get(),
+                //
+                NuclearScienceBlocks.BLOCK_FUELREPROCESSOR.get(),
+                //
+                NuclearScienceBlocks.BLOCK_FUSIONREACTORCORE.get(),
+                //
+                NuclearScienceBlocks.BLOCK_GASCENTRIFUGE.get(),
+                //
+                NuclearScienceBlocks.BLOCK_HEATEXCHANGER.get(),
+                //
+                NuclearScienceBlocks.BLOCK_LEAD.get(),
+                //
+                NuclearScienceBlocks.BLOCK_MELTEDREACTOR.get(),
+                //
+                NuclearScienceBlocks.BLOCK_MOLTENSALTSUPPLIER.get(),
+                //
+                NuclearScienceBlocks.BLOCK_MSRFUELPREPROCESSOR.get(),
+                //
+                NuclearScienceBlocks.BLOCK_MSREACTORCORE.get(),
+                //
+                NuclearScienceBlocks.BLOCK_NUCLEARBOILER.get(),
+                //
+                NuclearScienceBlocks.BLOCK_PARTICLEINJECTOR.get(),
+                //
+                NuclearScienceBlocks.BLOCK_QUANTUMCAPACITOR.get(),
+                //
+                NuclearScienceBlocks.BLOCK_RADIOACTIVEPROCESSOR.get(),
+                //
+                NuclearScienceBlocks.BLOCK_RADIOISOTOPEGENERATOR.get(),
+                //
+                NuclearScienceBlocks.BLOCK_FISSIONREACTORCORE.get(),
+                //
+                NuclearScienceBlocks.BLOCK_SIREN.get(),
+                //
+                NuclearScienceBlocks.BLOCK_TELEPORTER.get(),
+                //
+                NuclearScienceBlocks.BLOCK_TURBINE.get());
 
-		tag(BlockTags.MINEABLE_WITH_SHOVEL).add(NuclearScienceBlocks.blockRadioactiveSoil);
+        tag(BlockTags.MINEABLE_WITH_SHOVEL).add(NuclearScienceBlocks.BLOCK_RADIOACTIVESOIL.get());
 
-		tag(Tags.Blocks.NEEDS_WOOD_TOOL).add(NuclearScienceBlocks.blockRadioactiveSoil);
+        tag(Tags.Blocks.NEEDS_WOOD_TOOL).add(NuclearScienceBlocks.BLOCK_RADIOACTIVESOIL.get());
 
-	}
+    }
 
 }

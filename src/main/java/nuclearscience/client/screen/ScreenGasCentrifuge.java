@@ -1,7 +1,7 @@
 package nuclearscience.client.screen;
 
 import electrodynamics.prefab.screen.component.types.ScreenComponentMultiLabel;
-import electrodynamics.prefab.screen.component.types.gauges.ScreenComponentGasGaugeInput;
+import electrodynamics.prefab.screen.component.types.gauges.ScreenComponentGasGauge;
 import electrodynamics.prefab.screen.component.types.guitab.ScreenComponentElectricInfo;
 import electrodynamics.prefab.screen.component.types.guitab.ScreenComponentGasPressure;
 import electrodynamics.prefab.screen.component.types.guitab.ScreenComponentGasTemperature;
@@ -12,46 +12,43 @@ import electrodynamics.prefab.tile.components.IComponentType;
 import electrodynamics.prefab.tile.components.type.ComponentGasHandlerMulti;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import nuclearscience.common.inventory.container.ContainerGasCentrifuge;
 import nuclearscience.common.tile.TileGasCentrifuge;
 import nuclearscience.prefab.screen.component.ScreenComponentGasCentrifuge;
 
-@OnlyIn(Dist.CLIENT)
 public class ScreenGasCentrifuge extends GenericMaterialScreen<ContainerGasCentrifuge> {
 
 	public ScreenGasCentrifuge(ContainerGasCentrifuge container, Inventory playerInventory, Component title) {
 		super(container, playerInventory, title);
 
-		addComponent(new ScreenComponentGasGaugeInput(() -> {
-			TileGasCentrifuge boiler = container.getHostFromIntArray();
+		addComponent(new ScreenComponentGasGauge(() -> {
+			TileGasCentrifuge boiler = container.getSafeHost();
 			if (boiler != null) {
 				return boiler.<ComponentGasHandlerMulti>getComponent(IComponentType.GasHandler).getInputTanks()[0];
 			}
 			return null;
 		}, 18, 19));
 		addComponent(new ScreenComponentGasCentrifuge(() -> {
-			TileGasCentrifuge box = menu.getHostFromIntArray();
+			TileGasCentrifuge box = menu.getSafeHost();
 			if (box != null && box.isRunning.get()) {
 				// return (box.ticks % 100) / 100.0;
 				return 13;
 			}
 			return 0;
 		}, () -> {
-			TileGasCentrifuge boiler = container.getHostFromIntArray();
+			TileGasCentrifuge boiler = container.getSafeHost();
 			if (boiler != null) {
 				return boiler.stored235.get() / TileGasCentrifuge.REQUIRED;
 			}
 			return 0;
 		}, () -> {
-			TileGasCentrifuge boiler = container.getHostFromIntArray();
+			TileGasCentrifuge boiler = container.getSafeHost();
 			if (boiler != null) {
 				return boiler.stored238.get() / TileGasCentrifuge.REQUIRED;
 			}
 			return 0;
 		}, () -> {
-			TileGasCentrifuge boiler = container.getHostFromIntArray();
+			TileGasCentrifuge boiler = container.getSafeHost();
 			if (boiler != null) {
 				return boiler.storedWaste.get() / TileGasCentrifuge.REQUIRED;
 			}
@@ -64,7 +61,7 @@ public class ScreenGasCentrifuge extends GenericMaterialScreen<ContainerGasCentr
 		addComponent(new ScreenComponentElectricInfo(-AbstractScreenComponentInfo.SIZE + 1, 2));
 
 		addComponent(new ScreenComponentMultiLabel(0, 0, graphics -> {
-			TileGasCentrifuge centrifuge = menu.getHostFromIntArray();
+			TileGasCentrifuge centrifuge = menu.getSafeHost();
 			if (centrifuge == null) {
 				return;
 			}

@@ -8,16 +8,18 @@ import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import nuclearscience.registers.NuclearScienceBlockTypes;
+import nuclearscience.registers.NuclearScienceTiles;
 import nuclearscience.registers.NuclearScienceSounds;
 
 public class TileSiren extends GenericTile {
 
 	public TileSiren(BlockPos worldPos, BlockState blockState) {
-		super(NuclearScienceBlockTypes.TILE_SIREN.get(), worldPos, blockState);
+		super(NuclearScienceTiles.TILE_SIREN.get(), worldPos, blockState);
 		addComponent(new ComponentTickable(this).tickClient(this::tickClient));
 	}
 
@@ -36,8 +38,14 @@ public class TileSiren extends GenericTile {
 	}
 
 	@Override
-	public InteractionResult use(Player arg0, InteractionHand arg1, BlockHitResult arg2) {
+	public InteractionResult useWithoutItem(Player player, BlockHitResult hit) {
 		return InteractionResult.PASS;
 	}
+
+	@Override
+	public ItemInteractionResult useWithItem(ItemStack used, Player player, InteractionHand hand, BlockHitResult hit) {
+		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+	}
+
 
 }

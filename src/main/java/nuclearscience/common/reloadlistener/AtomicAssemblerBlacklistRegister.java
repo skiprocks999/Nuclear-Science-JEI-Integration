@@ -13,6 +13,10 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.function.Consumer;
 
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.OnDatapackSyncEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
@@ -33,12 +37,6 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.OnDatapackSyncEvent;
-import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.network.PacketDistributor.PacketTarget;
-import net.minecraftforge.network.simple.SimpleChannel;
-import net.minecraftforge.registries.ForgeRegistries;
 import nuclearscience.common.packet.type.client.PacketSetClientAtomicAssemblerBlacklistVals;
 
 public class AtomicAssemblerBlacklistRegister extends SimplePreparableReloadListener<JsonObject> {
@@ -73,7 +71,7 @@ public class AtomicAssemblerBlacklistRegister extends SimplePreparableReloadList
 			final String filePath = loc.getPath();
 			final String dataPath = filePath.substring(FOLDER.length() + 1, filePath.length() - JSON_EXTENSION_LENGTH);
 
-			final ResourceLocation jsonFile = new ResourceLocation(namespace, dataPath);
+			final ResourceLocation jsonFile = ResourceLocation.fromNamespaceAndPath(namespace, dataPath);
 
 			Resource resource = entry.getValue();
 			try (final InputStream inputStream = resource.open(); final Reader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));) {
@@ -96,9 +94,9 @@ public class AtomicAssemblerBlacklistRegister extends SimplePreparableReloadList
 		ArrayList<String> list = GSON.fromJson(json.get(KEY).getAsJsonArray(), ArrayList.class);
 		list.forEach(key -> {
 			if (key.charAt(0) == '#') {
-				tags.add(ItemTags.create(new ResourceLocation(key.substring(1))));
+				tags.add(ItemTags.create(ResourceLocation.parse(key.substring(1))));
 			} else {
-				blacklistedItems.add(ForgeRegistries.ITEMS.getValue(new ResourceLocation(key)));
+				blacklistedItems.add(BuiltInRegistries.ITEM.get(ResourceLocation.parse(key)));
 			}
 		});
 
@@ -118,8 +116,8 @@ public class AtomicAssemblerBlacklistRegister extends SimplePreparableReloadList
 		this.blacklistedItems.addAll(fuels);
 	}
 
-	public AtomicAssemblerBlacklistRegister subscribeAsSyncable(final SimpleChannel channel) {
-		MinecraftForge.EVENT_BUS.addListener(getDatapackSyncListener(channel));
+	public AtomicAssemblerBlacklistRegister subscribeAsSyncable() {
+		NeoForge.EVENT_BUS.addListener(getDatapackSyncListener());
 		return this;
 	}
 
@@ -131,13 +129,16 @@ public class AtomicAssemblerBlacklistRegister extends SimplePreparableReloadList
 		return blacklistedItems.contains(item);
 	}
 
-	private Consumer<OnDatapackSyncEvent> getDatapackSyncListener(final SimpleChannel channel) {
+	private Consumer<OnDatapackSyncEvent> getDatapackSyncListener() {
 		return event -> {
 			generateTagValues();
 			ServerPlayer player = event.getPlayer();
 			PacketSetClientAtomicAssemblerBlacklistVals packet = new PacketSetClientAtomicAssemblerBlacklistVals(blacklistedItems);
-			PacketTarget target = player == null ? PacketDistributor.ALL.noArg() : PacketDistributor.PLAYER.with(() -> player);
-			channel.send(target, packet);
+			if(player == null) {
+				PacketDistributor.sendToAllPlayers(packet);
+			} else {
+				PacketDistributor.sendToPlayer(player, packet);
+			}
 		};
 	}
 

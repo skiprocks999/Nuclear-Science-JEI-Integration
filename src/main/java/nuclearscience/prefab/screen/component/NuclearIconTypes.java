@@ -5,8 +5,8 @@ import net.minecraft.resources.ResourceLocation;
 import nuclearscience.References;
 
 public enum NuclearIconTypes implements ITexture {
-	PELLET_DARK(0, 0, 14, 14, 14, 14, new ResourceLocation(References.ID, "textures/screen/component/icon/pelletdark.png")),
-	FUEL_CELL_DARK(0, 0, 12, 12, 12, 12, new ResourceLocation(References.ID, "textures/screen/component/icon/fuelcelldark.png"));
+	PELLET_DARK(0, 0, 14, 14, 14, 14, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/component/icon/pelletdark.png")),
+	FUEL_CELL_DARK(0, 0, 12, 12, 12, 12, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/component/icon/fuelcelldark.png"));
 
 	private final int textU;
 	private final int textV;

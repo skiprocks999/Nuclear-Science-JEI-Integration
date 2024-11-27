@@ -3,7 +3,7 @@ package nuclearscience.datagen.client;
 import electrodynamics.datagen.client.ElectrodynamicsItemModelsProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import nuclearscience.References;
 import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
 import nuclearscience.registers.NuclearScienceBlocks;
@@ -62,12 +62,12 @@ public class NuclearScienceItemModelsProvider extends ElectrodynamicsItemModelsP
 		layeredItem(NuclearScienceItems.ITEM_REINFORCEDHAZMATLEGS, Parent.GENERATED, itemLoc("reinforcedhazmatlegs"));
 		layeredItem(NuclearScienceItems.ITEM_REINFORCEDHAZMATBOOTS, Parent.GENERATED, itemLoc("reinforcedhazmatboots"));
 
-		simpleBlockItem(NuclearScienceBlocks.blockAtomicAssembler, existingBlock(blockLoc("atomicassemblersingle")));
-		simpleBlockItem(NuclearScienceBlocks.blockControlRodAssembly, existingBlock(blockLoc("controlrodassembly"))).transforms().transform(ItemDisplayContext.GUI).rotation(30.0F, 225.0F, 0.0F).translation(0.0F, -0.9F, 0.0F).scale(0.5F).end();
-		simpleBlockItem(NuclearScienceBlocks.blockGasCentrifuge, existingBlock(blockLoc("gascentrifuge")));
-		layeredItem(NuclearScienceItems.getItem(SubtypeMoltenSaltPipe.vanadiumsteelceramic), Parent.GENERATED, itemLoc("pipe/" + SubtypeMoltenSaltPipe.vanadiumsteelceramic.tag()));
-		simpleBlockItem(NuclearScienceBlocks.blockParticleInjector, existingBlock(blockLoc("particleinjector"))).transforms().transform(ItemDisplayContext.GUI).rotation(45.0F, 45.0F, 0).scale(0.5F).translation(0.0F, -1.0F, 0.0F);
-		simpleBlockItem(NuclearScienceBlocks.blockTurbine, existingBlock(blockLoc("turbine")));
+		simpleBlockItem(NuclearScienceBlocks.BLOCK_ATOMICASSEMBLER.get(), existingBlock(blockLoc("atomicassemblersingle")));
+		simpleBlockItem(NuclearScienceBlocks.BLOCK_CONTROLROD.get(), existingBlock(blockLoc("controlrodassembly"))).transforms().transform(ItemDisplayContext.GUI).rotation(30.0F, 225.0F, 0.0F).translation(0.0F, -0.9F, 0.0F).scale(0.5F).end();
+		simpleBlockItem(NuclearScienceBlocks.BLOCK_GASCENTRIFUGE.get(), existingBlock(blockLoc("gascentrifuge")));
+		layeredItem(NuclearScienceItems.ITEMS_MOLTENSALTPIPTE.getValue(SubtypeMoltenSaltPipe.vanadiumsteelceramic), Parent.GENERATED, itemLoc("pipe/" + SubtypeMoltenSaltPipe.vanadiumsteelceramic.tag()));
+		simpleBlockItem(NuclearScienceBlocks.BLOCK_PARTICLEINJECTOR.get(), existingBlock(blockLoc("particleinjector"))).transforms().transform(ItemDisplayContext.GUI).rotation(45.0F, 45.0F, 0).scale(0.5F).translation(0.0F, -1.0F, 0.0F);
+		simpleBlockItem(NuclearScienceBlocks.BLOCK_TURBINE.get(), existingBlock(blockLoc("turbine")));
 
 	}
 

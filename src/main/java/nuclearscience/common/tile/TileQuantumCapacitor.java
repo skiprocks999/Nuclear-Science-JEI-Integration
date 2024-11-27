@@ -2,12 +2,14 @@ package nuclearscience.common.tile;
 
 import java.util.UUID;
 
-import org.jetbrains.annotations.NotNull;
+import electrodynamics.prefab.properties.PropertyTypes;
+import electrodynamics.prefab.utilities.BlockEntityUtils;
+import electrodynamics.prefab.utilities.CapabilityUtils;
+import electrodynamics.registers.ElectrodynamicsCapabilities;
+import net.neoforged.neoforge.energy.IEnergyStorage;
 
-import electrodynamics.api.capability.ElectrodynamicsCapabilities;
 import electrodynamics.api.capability.types.electrodynamic.ICapabilityElectrodynamic.LoadProfile;
 import electrodynamics.prefab.properties.Property;
-import electrodynamics.prefab.properties.PropertyType;
 import electrodynamics.prefab.tile.GenericTile;
 import electrodynamics.prefab.tile.components.IComponentType;
 import electrodynamics.prefab.tile.components.type.ComponentContainerProvider;
@@ -23,29 +25,31 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level.ExplosionInteraction;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
 import nuclearscience.common.inventory.container.ContainerQuantumCapacitor;
 import nuclearscience.common.world.QuantumCapacitorData;
-import nuclearscience.registers.NuclearScienceBlockTypes;
+import nuclearscience.registers.NuclearScienceTiles;
+import org.jetbrains.annotations.Nullable;
 
 public class TileQuantumCapacitor extends GenericTile implements IEnergyStorage {
 	public static final double DEFAULT_MAX_JOULES = Double.MAX_VALUE;
 	public static final double DEFAULT_VOLTAGE = 1920.0;
-	public Property<Double> outputJoules = property(new Property<>(PropertyType.Double, "outputJoules", 359.0));
-	public Property<Integer> frequency = property(new Property<>(PropertyType.Integer, "frequency", 0));
-	public Property<Double> storedJoules = property(new Property<>(PropertyType.Double, "capjoules", 0.0));// Work around for now until we make a capability for the overworld
-	public Property<UUID> uuid = property(new Property<>(PropertyType.UUID, "uuid", UUID.randomUUID()));
+	public Property<Double> outputJoules = property(new Property<>(PropertyTypes.DOUBLE, "outputJoules", 359.0));
+	public Property<Integer> frequency = property(new Property<>(PropertyTypes.INTEGER, "frequency", 0));
+	public Property<Double> storedJoules = property(new Property<>(PropertyTypes.DOUBLE, "capjoules", 0.0));// Work around for now until we make a capability for the overworld
+	public Property<UUID> uuid = property(new Property<>(PropertyTypes.UUID, "uuid", UUID.randomUUID()));
 	private CachedTileOutput outputCache;
 	private CachedTileOutput outputCache2;
 
+	private final CapabilityUtils.FEInputDispatcher inputDispatcher = new CapabilityUtils.FEInputDispatcher(this);
+	private final CapabilityUtils.FEOutputDispatcher outputDispatcher = new CapabilityUtils.FEOutputDispatcher(this);
+
 	public TileQuantumCapacitor(BlockPos pos, BlockState state) {
-		super(NuclearScienceBlockTypes.TILE_QUANTUMCAPACITOR.get(), pos, state);
+		super(NuclearScienceTiles.TILE_QUANTUMCAPACITOR.get(), pos, state);
 		addComponent(new ComponentTickable(this).tickServer(this::tickServer));
 		addComponent(new ComponentPacketHandler(this));
-		addComponent(new ComponentElectrodynamic(this, true, true).voltage(16 * ElectrodynamicsCapabilities.DEFAULT_VOLTAGE).setOutputDirections(Direction.UP, Direction.DOWN).setInputDirections(Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST).receivePower(this::receivePower).setJoules(this::setJoulesStored).getJoules(this::getJoulesStored).getConnectedLoad(this::getConnectedLoad));
+		addComponent(new ComponentElectrodynamic(this, true, true).voltage(16 * ElectrodynamicsCapabilities.DEFAULT_VOLTAGE).setOutputDirections(BlockEntityUtils.MachineDirection.TOP, BlockEntityUtils.MachineDirection.BOTTOM)
+				//
+				.setInputDirections(BlockEntityUtils.MachineDirection.FRONT, BlockEntityUtils.MachineDirection.BACK, BlockEntityUtils.MachineDirection.LEFT, BlockEntityUtils.MachineDirection.RIGHT).receivePower(this::receivePower).setJoules(this::setJoulesStored).getJoules(this::getJoulesStored).getConnectedLoad(this::getConnectedLoad));
 		addComponent(new ComponentInventory(this));
 		addComponent(new ComponentContainerProvider("container.quantumcapacitor", this).createMenu((id, player) -> new ContainerQuantumCapacitor(id, player, getComponent(IComponentType.Inventory), getCoordsArray())));
 
@@ -79,12 +83,16 @@ public class TileQuantumCapacitor extends GenericTile implements IEnergyStorage 
 		storedJoules.set(getJoulesStored());
 	}
 
-	@Override
-	public <T> @NotNull LazyOptional<T> getCapability(@NotNull Capability<T> capability, Direction facing) {
-		if (capability == ForgeCapabilities.ENERGY) {
-			return (LazyOptional<T>) LazyOptional.of(() -> this);
+	@Nullable
+	public IEnergyStorage getFECapability(@Nullable Direction side) {
+		if (side == null) {
+			return null;
+		} else if(side == Direction.UP || side == Direction.DOWN ){
+			return inputDispatcher;
+		} else {
+			return outputDispatcher;
 		}
-		return super.getCapability(capability, facing);
+
 	}
 
 	public TransferPack receivePower(TransferPack transfer, boolean debug) {

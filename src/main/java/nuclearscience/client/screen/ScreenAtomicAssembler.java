@@ -8,13 +8,10 @@ import electrodynamics.prefab.screen.component.types.wrapper.InventoryIOWrapper;
 import electrodynamics.prefab.screen.component.utils.AbstractScreenComponentInfo;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import nuclearscience.common.inventory.container.ContainerAtomicAssembler;
 import nuclearscience.common.settings.Constants;
 import nuclearscience.common.tile.TileAtomicAssembler;
 
-@OnlyIn(Dist.CLIENT)
 public class ScreenAtomicAssembler extends GenericScreen<ContainerAtomicAssembler> {
 
 	public ScreenAtomicAssembler(ContainerAtomicAssembler container, Inventory playerInventory, Component title) {
@@ -23,7 +20,7 @@ public class ScreenAtomicAssembler extends GenericScreen<ContainerAtomicAssemble
 		imageHeight += 64;
 		inventoryLabelY += 64;
 		addComponent(new ScreenComponentProgress(ProgressBars.PROGRESS_ARROW_RIGHT, () -> {
-			TileAtomicAssembler assembler = container.getHostFromIntArray();
+			TileAtomicAssembler assembler = container.getSafeHost();
 			if (assembler != null) {
 				return assembler.progress.get() / (double) Constants.ATOMICASSEMBLER_REQUIRED_TICKS;
 			}

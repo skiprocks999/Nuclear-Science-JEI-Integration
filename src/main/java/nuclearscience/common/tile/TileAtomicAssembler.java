@@ -1,7 +1,7 @@
 package nuclearscience.common.tile;
 
 import electrodynamics.prefab.properties.Property;
-import electrodynamics.prefab.properties.PropertyType;
+import electrodynamics.prefab.properties.PropertyTypes;
 import electrodynamics.prefab.tile.GenericTile;
 import electrodynamics.prefab.tile.components.IComponentType;
 import electrodynamics.prefab.tile.components.type.ComponentContainerProvider;
@@ -10,32 +10,35 @@ import electrodynamics.prefab.tile.components.type.ComponentInventory;
 import electrodynamics.prefab.tile.components.type.ComponentInventory.InventoryBuilder;
 import electrodynamics.prefab.tile.components.type.ComponentPacketHandler;
 import electrodynamics.prefab.tile.components.type.ComponentTickable;
+import electrodynamics.prefab.utilities.BlockEntityUtils;
 import electrodynamics.prefab.utilities.ItemUtils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import nuclearscience.common.inventory.container.ContainerAtomicAssembler;
 import nuclearscience.common.reloadlistener.AtomicAssemblerBlacklistRegister;
 import nuclearscience.common.settings.Constants;
-import nuclearscience.registers.NuclearScienceBlockTypes;
+import nuclearscience.registers.NuclearScienceTiles;
 import nuclearscience.registers.NuclearScienceBlocks;
 import nuclearscience.registers.NuclearScienceItems;
 
 public class TileAtomicAssembler extends GenericTile {
 
-	public final Property<Integer> progress = property(new Property<>(PropertyType.Integer, "progress", 0));
+	public final Property<Integer> progress = property(new Property<>(PropertyTypes.INTEGER, "progress", 0));
 
 	public TileAtomicAssembler(BlockPos pos, BlockState state) {
-		super(NuclearScienceBlockTypes.TILE_ATOMICASSEMBLER.get(), pos, state);
+		super(NuclearScienceTiles.TILE_ATOMICASSEMBLER.get(), pos, state);
 
 		addComponent(new ComponentTickable(this).tickCommon(this::tickServer));
 		addComponent(new ComponentPacketHandler(this));
-		addComponent(new ComponentElectrodynamic(this, false, true).maxJoules(Constants.ATOMICASSEMBLER_USAGE_PER_TICK * 20).voltage(Constants.ATOMICASSEMBLER_VOLTAGE).setInputDirections(Direction.DOWN));
+		addComponent(new ComponentElectrodynamic(this, false, true).maxJoules(Constants.ATOMICASSEMBLER_USAGE_PER_TICK * 20).voltage(Constants.ATOMICASSEMBLER_VOLTAGE).setInputDirections(BlockEntityUtils.MachineDirection.BOTTOM));
 		// The slot == 6 has to be there to allow items into the input slot.
-		addComponent(new ComponentInventory(this, InventoryBuilder.newInv().inputs(7).outputs(1)).setSlotsByDirection(Direction.UP, 0, 1, 2, 3, 4, 5).setDirectionsBySlot(6, Direction.EAST, Direction.SOUTH).setDirectionsBySlot(7, Direction.WEST, Direction.NORTH).valid((slot, stack, i) -> slot == 6 || slot < 6 && stack.is(NuclearScienceItems.ITEM_CELLDARKMATTER.get())));
+		addComponent(new ComponentInventory(this, InventoryBuilder.newInv().inputs(7).outputs(1)).setSlotsByDirection(BlockEntityUtils.MachineDirection.TOP, 0, 1, 2, 3, 4, 5).setDirectionsBySlot(6, BlockEntityUtils.MachineDirection.RIGHT, BlockEntityUtils.MachineDirection.BACK)
+				//
+				.setDirectionsBySlot(7, BlockEntityUtils.MachineDirection.LEFT, BlockEntityUtils.MachineDirection.FRONT).valid((slot, stack, i) -> slot == 6 || slot < 6 && stack.is(NuclearScienceItems.ITEM_CELLDARKMATTER.get())));
 		addComponent(new ComponentContainerProvider("container.atomicassembler", this).createMenu((id, player) -> new ContainerAtomicAssembler(id, player, getComponent(IComponentType.Inventory), getCoordsArray())));
 	}
 
@@ -116,17 +119,17 @@ public class TileAtomicAssembler extends GenericTile {
 
 	private boolean validateDupeItem(ItemStack stack) {
 
-		if (stack.hasTag()) { // this should filter out shulker boxes with items
+		if (stack.has(DataComponents.CONTAINER)) { // this should filter out shulker boxes with items
 			return false;
 		}
 
-		if (ItemUtils.testItems(stack.getItem(), NuclearScienceItems.ITEM_CELLDARKMATTER.get()) && !stack.getCapability(ForgeCapabilities.ITEM_HANDLER).isPresent()) {
+		if (ItemUtils.testItems(stack.getItem(), NuclearScienceItems.ITEM_CELLDARKMATTER.get()) && stack.getCapability(Capabilities.ItemHandler.ITEM) != null) {
 			return false;
 		}
 
 		if (stack.getItem() instanceof BlockItem blockItem) {
 
-			if (blockItem.getBlock() == NuclearScienceBlocks.blockQuantumCapacitor) {
+			if (blockItem.getBlock() == NuclearScienceBlocks.BLOCK_QUANTUMCAPACITOR.get()) {
 				return false;
 			}
 

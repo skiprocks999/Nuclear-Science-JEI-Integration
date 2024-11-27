@@ -3,12 +3,15 @@ package nuclearscience.common.tile;
 import java.util.List;
 import java.util.function.Function;
 
-import org.jetbrains.annotations.NotNull;
+import electrodynamics.prefab.properties.PropertyTypes;
+import electrodynamics.registers.ElectrodynamicsCapabilities;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.server.ServerLifecycleHooks;
 import org.jetbrains.annotations.Nullable;
 
-import electrodynamics.api.capability.ElectrodynamicsCapabilities;
 import electrodynamics.prefab.properties.Property;
-import electrodynamics.prefab.properties.PropertyType;
 import electrodynamics.prefab.tile.GenericTile;
 import electrodynamics.prefab.tile.components.IComponentType;
 import electrodynamics.prefab.tile.components.type.ComponentElectrodynamic;
@@ -17,7 +20,6 @@ import electrodynamics.prefab.tile.components.type.ComponentTickable;
 import electrodynamics.prefab.utilities.BlockEntityUtils;
 import electrodynamics.prefab.utilities.NBTUtils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -29,35 +31,27 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.portal.PortalInfo;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.util.ITeleporter;
-import net.minecraftforge.server.ServerLifecycleHooks;
-import nuclearscience.registers.NuclearScienceBlockTypes;
+import nuclearscience.registers.NuclearScienceTiles;
 
 public class TileTeleporter extends GenericTile {
 
 	private static final DimensionManager MANAGER = new DimensionManager();
 
-	public final Property<BlockPos> destination = property(new Property<>(PropertyType.BlockPos, "location", getBlockPos()));
-	public final Property<Integer> cooldown = property(new Property<>(PropertyType.Integer, "cooldown", 0));
+	public final Property<BlockPos> destination = property(new Property<>(PropertyTypes.BLOCK_POS, "location", getBlockPos()));
+	public final Property<Integer> cooldown = property(new Property<>(PropertyTypes.INTEGER, "cooldown", 0));
 
 	public ResourceKey<Level> dimension = Level.OVERWORLD;
 
 	public TileTeleporter(BlockPos pos, BlockState state) {
-		super(NuclearScienceBlockTypes.TILE_TELEPORTER.get(), pos, state);
+		super(NuclearScienceTiles.TILE_TELEPORTER.get(), pos, state);
 
 		addComponent(new ComponentTickable(this).tickServer(this::tickServer));
 		addComponent(new ComponentPacketHandler(this));
-		addComponent(new ComponentElectrodynamic(this, false, true).maxJoules(5000000).voltage(ElectrodynamicsCapabilities.DEFAULT_VOLTAGE * 4).setInputDirections(Direction.DOWN));
+		addComponent(new ComponentElectrodynamic(this, false, true).maxJoules(5000000).voltage(ElectrodynamicsCapabilities.DEFAULT_VOLTAGE * 4).setInputDirections(BlockEntityUtils.MachineDirection.BOTTOM));
 
-	}
-
-	@Override
-	public AABB getRenderBoundingBox() {
-		return super.getRenderBoundingBox().inflate(3);
 	}
 
 	protected void tickServer(ComponentTickable tickable) {
@@ -79,7 +73,7 @@ public class TileTeleporter extends GenericTile {
 			return;
 		}
 
-		AABB entityCheckArea = new AABB(getBlockPos(), getBlockPos().offset(1, 2, 1));
+		AABB entityCheckArea = AABB.encapsulatingFullBlocks(getBlockPos(), getBlockPos().offset(1, 2, 1));
 
 		List<Player> players = getLevel().getEntities(EntityType.PLAYER, entityCheckArea, en -> true);
 
@@ -105,8 +99,13 @@ public class TileTeleporter extends GenericTile {
 	}
 
 	@Override
-	public InteractionResult use(Player arg0, InteractionHand arg1, BlockHitResult arg2) {
-		return InteractionResult.FAIL;
+	public InteractionResult useWithoutItem(Player player, BlockHitResult hit) {
+		return InteractionResult.PASS;
+	}
+
+	@Override
+	public ItemInteractionResult useWithItem(ItemStack used, Player player, InteractionHand hand, BlockHitResult hit) {
+		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
 	private ServerLevel getDestinationLevel() {
@@ -118,15 +117,15 @@ public class TileTeleporter extends GenericTile {
 	}
 
 	@Override
-	public void saveAdditional(@NotNull CompoundTag compound) {
+	protected void saveAdditional(CompoundTag compound, HolderLookup.Provider registries) {
 		compound.put(NBTUtils.DIMENSION, NBTUtils.writeDimensionToTag(dimension));
-		super.saveAdditional(compound);
+		super.saveAdditional(compound, registries);
 	}
 
 	@Override
-	public void load(@NotNull CompoundTag compound) {
+	protected void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
 		dimension = NBTUtils.readDimensionFromTag(compound.getCompound(NBTUtils.DIMENSION));
-		super.load(compound);
+		super.loadAdditional(compound, registries);
 	}
 
 	private static final class DimensionManager implements ITeleporter {

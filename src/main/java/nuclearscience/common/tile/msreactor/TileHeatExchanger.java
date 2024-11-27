@@ -3,7 +3,7 @@ package nuclearscience.common.tile.msreactor;
 import java.util.List;
 
 import electrodynamics.prefab.properties.Property;
-import electrodynamics.prefab.properties.PropertyType;
+import electrodynamics.prefab.properties.PropertyTypes;
 import electrodynamics.prefab.tile.GenericTile;
 import electrodynamics.prefab.tile.components.type.ComponentPacketHandler;
 import electrodynamics.prefab.tile.components.type.ComponentTickable;
@@ -12,8 +12,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -27,16 +29,16 @@ import net.minecraft.world.phys.Vec3;
 import nuclearscience.api.turbine.ISteamReceiver;
 import nuclearscience.common.settings.Constants;
 import nuclearscience.common.tile.fissionreactor.TileFissionReactorCore;
-import nuclearscience.registers.NuclearScienceBlockTypes;
+import nuclearscience.registers.NuclearScienceTiles;
 
 public class TileHeatExchanger extends GenericTile {
 	public static final int STEAM_GEN_DIAMETER = 5;
 	public static final int STEAM_GEN_HEIGHT = 2;
 	private ISteamReceiver[][][] cachedReceivers = new ISteamReceiver[STEAM_GEN_DIAMETER][STEAM_GEN_HEIGHT][STEAM_GEN_DIAMETER];
-	public Property<Double> temperature = property(new Property<>(PropertyType.Double, "temperature", 0.0));
+	public Property<Integer> temperature = property(new Property<>(PropertyTypes.INTEGER, "temperature", 0));
 
 	public TileHeatExchanger(BlockPos pos, BlockState state) {
-		super(NuclearScienceBlockTypes.TILE_HEATEXCHANGER.get(), pos, state);
+		super(NuclearScienceTiles.TILE_HEATEXCHANGER.get(), pos, state);
 
 		addComponent(new ComponentTickable(this).tickCommon(this::tickCommon));
 		addComponent(new ComponentPacketHandler(this));
@@ -90,7 +92,7 @@ public class TileHeatExchanger extends GenericTile {
 									if (turbine.isStillValid()) {
 										cachedReceivers[i][j][k] = null;
 									}
-									turbine.receiveSteam(Constants.MSRREACTOR_MAXENERGYTARGET / (STEAM_GEN_DIAMETER * STEAM_GEN_DIAMETER * 20.0 * (TileMSReactorCore.MELTDOWN_TEMPERATURE / temperature.get())), temperature.get());
+									turbine.receiveSteam((int) (Constants.MSRREACTOR_MAXENERGYTARGET / (STEAM_GEN_DIAMETER * STEAM_GEN_DIAMETER * 20.0 * (TileMSReactorCore.MELTDOWN_TEMPERATURE / (double) temperature.get()))), temperature.get());
 								}
 								if (level.random.nextFloat() < temperature.get() / (TileMSReactorCore.MELTDOWN_TEMPERATURE * 20.0 * STEAM_GEN_DIAMETER * STEAM_GEN_DIAMETER * STEAM_GEN_HEIGHT)) {
 									level.setBlockAndUpdate(offpos, Blocks.AIR.defaultBlockState());
@@ -126,8 +128,12 @@ public class TileHeatExchanger extends GenericTile {
 	}
 
 	@Override
-	public InteractionResult use(Player arg0, InteractionHand arg1, BlockHitResult arg2) {
+	public InteractionResult useWithoutItem(Player player, BlockHitResult hit) {
 		return InteractionResult.PASS;
 	}
 
+	@Override
+	public ItemInteractionResult useWithItem(ItemStack used, Player player, InteractionHand hand, BlockHitResult hit) {
+		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+	}
 }

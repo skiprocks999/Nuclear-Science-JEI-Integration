@@ -11,7 +11,7 @@ import nuclearscience.prefab.utils.NuclearTextUtils;
 
 public class ChapterMisc extends Chapter {
 
-	private static final ImageWrapperObject LOGO = new ImageWrapperObject(0, 0, 0, 0, 32, 32, 32, 32, new ResourceLocation(References.ID, "textures/item/cellempty.png"));
+	private static final ImageWrapperObject LOGO = new ImageWrapperObject(0, 0, 0, 0, 32, 32, 32, 32, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/item/cellempty.png"));
 
 	public ChapterMisc(Module module) {
 		super(module);

@@ -16,7 +16,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.world.item.ItemStack;
 import nuclearscience.References;
-import nuclearscience.common.recipe.categories.item2item.specificmachines.FuelReprocessorRecipe;
+import nuclearscience.common.recipe.categories.item2item.FuelReprocessorRecipe;
 import nuclearscience.prefab.utils.NuclearTextUtils;
 import nuclearscience.registers.NuclearScienceBlocks;
 

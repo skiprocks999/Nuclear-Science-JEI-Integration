@@ -2,12 +2,10 @@ package nuclearscience.datagen.client;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.common.data.SoundDefinition;
-import net.minecraftforge.common.data.SoundDefinition.Sound;
-import net.minecraftforge.common.data.SoundDefinition.SoundType;
-import net.minecraftforge.common.data.SoundDefinitionsProvider;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.SoundDefinition;
+import net.neoforged.neoforge.common.data.SoundDefinitionsProvider;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import nuclearscience.References;
 import nuclearscience.registers.NuclearScienceSounds;
 
@@ -26,8 +24,8 @@ public class NuclearScienceSoundProvider extends SoundDefinitionsProvider {
 		add(NuclearScienceSounds.SOUND_TURBINE);
 	}
 
-	private void add(RegistryObject<SoundEvent> sound) {
-		add(sound.get(), SoundDefinition.definition().subtitle("subtitles." + References.ID + "." + sound.getId().getPath()).with(Sound.sound(sound.getId(), SoundType.SOUND)));
+	private void add(DeferredHolder<SoundEvent, SoundEvent> sound) {
+		add(sound.get(), SoundDefinition.definition().subtitle("subtitles." + References.ID + "." + sound.getId().getPath()).with(SoundDefinition.Sound.sound(sound.getId(), SoundDefinition.SoundType.SOUND)));
 	}
 
 }

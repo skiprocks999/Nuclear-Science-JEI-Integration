@@ -3,7 +3,7 @@ package nuclearscience.common.tile.msreactor;
 import java.util.ArrayList;
 
 import electrodynamics.prefab.properties.Property;
-import electrodynamics.prefab.properties.PropertyType;
+import electrodynamics.prefab.properties.PropertyTypes;
 import electrodynamics.prefab.tile.GenericTile;
 import electrodynamics.prefab.tile.components.type.ComponentContainerProvider;
 import electrodynamics.prefab.tile.components.type.ComponentPacketHandler;
@@ -20,7 +20,7 @@ import nuclearscience.common.inventory.container.ContainerMSRReactorCore;
 import nuclearscience.common.network.MoltenSaltNetwork;
 import nuclearscience.common.tile.TileControlRodAssembly;
 import nuclearscience.common.tile.fissionreactor.TileFissionReactorCore;
-import nuclearscience.registers.NuclearScienceBlockTypes;
+import nuclearscience.registers.NuclearScienceTiles;
 
 public class TileMSReactorCore extends GenericTile {
 
@@ -31,18 +31,18 @@ public class TileMSReactorCore extends GenericTile {
 	public static final double WASTE_CAP = 1000;
 	public static final double WASTE_PER_MB = 0.01;
 
-	public Property<Double> temperature = property(new Property<>(PropertyType.Double, "temperature", TileFissionReactorCore.AIR_TEMPERATURE));
-	public Property<Double> currentFuel = property(new Property<>(PropertyType.Double, "currentfuel", 0.0));
-	public Property<Double> currentWaste = property(new Property<>(PropertyType.Double, "currentwaste", 0.0));
+	public Property<Double> temperature = property(new Property<>(PropertyTypes.DOUBLE, "temperature", TileFissionReactorCore.AIR_TEMPERATURE));
+	public Property<Double> currentFuel = property(new Property<>(PropertyTypes.DOUBLE, "currentfuel", 0.0));
+	public Property<Double> currentWaste = property(new Property<>(PropertyTypes.DOUBLE, "currentwaste", 0.0));
 
-	public Property<Boolean> wasteIsFull = property(new Property<>(PropertyType.Boolean, "wasteisfull", false));
+	public Property<Boolean> wasteIsFull = property(new Property<>(PropertyTypes.BOOLEAN, "wasteisfull", false));
 
 	public int ticksOverheating = 0;
 	private CachedTileOutput outputCache;
 	public CachedTileOutput plugCache;
 
 	public TileMSReactorCore(BlockPos pos, BlockState state) {
-		super(NuclearScienceBlockTypes.TILE_MSRREACTORCORE.get(), pos, state);
+		super(NuclearScienceTiles.TILE_MSRREACTORCORE.get(), pos, state);
 
 		addComponent(new ComponentTickable(this).tickServer(this::tickServer).tickCommon(this::tickCommon));
 		addComponent(new ComponentPacketHandler(this));

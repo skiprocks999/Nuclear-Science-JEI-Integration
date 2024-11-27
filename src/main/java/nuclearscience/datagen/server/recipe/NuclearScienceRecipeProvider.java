@@ -2,11 +2,12 @@ package nuclearscience.datagen.server.recipe;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
+import java.util.concurrent.CompletableFuture;
 
 import electrodynamics.datagen.utils.recipe.AbstractRecipeGenerator;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import nuclearscience.datagen.server.recipe.custom.fluiditem2fluid.NuclearScienceChemicalMixerRecipes;
 import nuclearscience.datagen.server.recipe.custom.fluiditem2gas.NuclearScienceNuclaerBoilerRecipes;
@@ -21,8 +22,8 @@ public class NuclearScienceRecipeProvider extends RecipeProvider {
 
 	public final List<AbstractRecipeGenerator> GENERATORS = new ArrayList<>();
 
-	public NuclearScienceRecipeProvider(PackOutput output) {
-		super(output);
+	public NuclearScienceRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		super(output, lookupProvider);
 		addRecipes();
 	}
 
@@ -38,9 +39,9 @@ public class NuclearScienceRecipeProvider extends RecipeProvider {
 	}
 
 	@Override
-	protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+	protected void buildRecipes(RecipeOutput output) {
 		for (AbstractRecipeGenerator generator : GENERATORS) {
-			generator.addRecipes(consumer);
+			generator.addRecipes(output);
 		}
 	}
 

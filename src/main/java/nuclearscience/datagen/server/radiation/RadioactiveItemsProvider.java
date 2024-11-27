@@ -6,12 +6,12 @@ import java.util.concurrent.CompletableFuture;
 import com.google.gson.JsonObject;
 
 import electrodynamics.common.tags.ElectrodynamicsTags;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.registries.ForgeRegistries;
 import nuclearscience.References;
 import nuclearscience.common.reloadlistener.RadioactiveItemLoader;
 import nuclearscience.common.tags.NuclearScienceTags;
@@ -71,7 +71,7 @@ public class RadioactiveItemsProvider implements DataProvider {
 
 	@SuppressWarnings("unused")
 	private void addItem(Item item, double radiationStrength, JsonObject json) {
-		json.addProperty(ForgeRegistries.ITEMS.getKey(item).toString(), radiationStrength);
+		json.addProperty(BuiltInRegistries.ITEM.getKey(item).toString(), radiationStrength);
 	}
 
 	private void addTag(TagKey<Item> fluid, double radiationStrength, JsonObject json) {

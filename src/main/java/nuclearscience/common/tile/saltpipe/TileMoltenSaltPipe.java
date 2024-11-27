@@ -1,21 +1,21 @@
 package nuclearscience.common.tile.saltpipe;
 
-import org.jetbrains.annotations.NotNull;
+import electrodynamics.prefab.properties.PropertyTypes;
+import net.minecraft.core.HolderLookup;
 
 import electrodynamics.prefab.properties.Property;
-import electrodynamics.prefab.properties.PropertyType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.state.BlockState;
 import nuclearscience.common.block.connect.BlockMoltenSaltPipe;
 import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
-import nuclearscience.registers.NuclearScienceBlockTypes;
+import nuclearscience.registers.NuclearScienceTiles;
 
 public class TileMoltenSaltPipe extends GenericTileMoltenSaltPipe {
-	public Property<Double> transmit = property(new Property<>(PropertyType.Double, "transmit", 0.0));
+	public Property<Double> transmit = property(new Property<>(PropertyTypes.DOUBLE, "transmit", 0.0));
 
 	public TileMoltenSaltPipe(BlockPos pos, BlockState state) {
-		super(NuclearScienceBlockTypes.TILE_MOLTENSALTPIPE.get(), pos, state);
+		super(NuclearScienceTiles.TILE_MOLTENSALTPIPE.get(), pos, state);
 	}
 
 	public SubtypeMoltenSaltPipe pipe = null;
@@ -29,14 +29,15 @@ public class TileMoltenSaltPipe extends GenericTileMoltenSaltPipe {
 	}
 
 	@Override
-	public void saveAdditional(@NotNull CompoundTag compound) {
+	protected void saveAdditional(CompoundTag compound, HolderLookup.Provider registries) {
+		super.saveAdditional(compound, registries);
 		compound.putInt("ord", getPipeType().ordinal());
-		super.saveAdditional(compound);
 	}
 
 	@Override
-	public void load(@NotNull CompoundTag compound) {
-		super.load(compound);
+	protected void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
+		super.loadAdditional(compound, registries);
 		pipe = SubtypeMoltenSaltPipe.values()[compound.getInt("ord")];
 	}
+
 }

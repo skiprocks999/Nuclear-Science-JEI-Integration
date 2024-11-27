@@ -16,20 +16,18 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.TickEvent.ClientTickEvent;
-import net.minecraftforge.event.TickEvent.Phase;
-import net.minecraftforge.event.TickEvent.ServerTickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.LogicalSide;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import nuclearscience.References;
 import nuclearscience.common.item.ItemGeigerCounter;
 import nuclearscience.common.item.ItemHazmatArmor;
 import nuclearscience.registers.NuclearScienceBlocks;
 import nuclearscience.registers.NuclearScienceEffects;
 
-@EventBusSubscriber(modid = References.ID, bus = Bus.FORGE)
+@EventBusSubscriber(modid = References.ID, bus = EventBusSubscriber.Bus.GAME)
 public class RadiationSystem {
 	public static ThreadLocal<HashMap<Player, Double>> radiationMap = ThreadLocal.withInitial(HashMap::new);
 
@@ -75,7 +73,7 @@ public class RadiationSystem {
 						float damage = (float) (strength * 2.15f) / 2169.9975f;
 						if (Math.random() < damage) {
 							int integerDamage = Math.round(damage);
-							if (next.getDamageValue() > next.getMaxDamage() || next.hurt(integerDamage, entity.level().random, player instanceof ServerPlayer s ? s : null)) {
+							if (next.getDamageValue() > next.getMaxDamage() || next.hurthurt(integerDamage, entity.level().random, player instanceof ServerPlayer s ? s : null)) {
 								player.getInventory().armor.set(i, ItemStack.EMPTY);
 							}
 						}
@@ -114,24 +112,20 @@ public class RadiationSystem {
 	}
 
 	@SubscribeEvent
-	public static void onTick(ServerTickEvent event) {
-		if (event.side == LogicalSide.SERVER && event.phase == Phase.START) {
-			radiationMap.get().clear();
-		}
+	public static void onTick(ServerTickEvent.Pre event) {
+		radiationMap.get().clear();
 	}
 
 	private static int tick = 0;
 
 	@SubscribeEvent
-	public static void onTickC(ClientTickEvent event) {
-		if (event.side == LogicalSide.CLIENT && event.phase == Phase.END) {
-			tick++;
-			if (tick % 20 == 0) {
-				for (Map.Entry<Player, Double> en : ((HashMap<Player, Double>) radiationMap.get().clone()).entrySet()) {
-					radiationMap.get().put(en.getKey(), en.getValue() * 0.3);
-				}
-				tick = 0;
+	public static void onTickC(ClientTickEvent.Post event) {
+		tick++;
+		if (tick % 20 == 0) {
+			for (Map.Entry<Player, Double> en : ((HashMap<Player, Double>) radiationMap.get().clone()).entrySet()) {
+				radiationMap.get().put(en.getKey(), en.getValue() * 0.3);
 			}
+			tick = 0;
 		}
 	}
 }

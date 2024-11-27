@@ -2,6 +2,7 @@ package nuclearscience.common.block.connect;
 
 import java.util.HashSet;
 
+import com.mojang.serialization.MapCodec;
 import electrodynamics.api.network.cable.IRefreshableCable;
 import electrodynamics.common.block.connect.util.AbstractRefreshingConnectBlock;
 import electrodynamics.common.block.connect.util.EnumConnectType;
@@ -9,6 +10,7 @@ import electrodynamics.prefab.tile.types.GenericConnectTile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -27,7 +29,7 @@ public class BlockMoltenSaltPipe extends AbstractRefreshingConnectBlock {
 	public final SubtypeMoltenSaltPipe pipe;
 
 	public BlockMoltenSaltPipe(SubtypeMoltenSaltPipe pipe) {
-		super(Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.METAL).strength(0.15f).dynamicShape(), 3);
+		super(Blocks.IRON_BLOCK.properties().sound(SoundType.METAL).strength(0.15f).dynamicShape(), 3);
 		this.pipe = pipe;
 		PIPESET.add(this);
 	}
@@ -66,4 +68,8 @@ public class BlockMoltenSaltPipe extends AbstractRefreshingConnectBlock {
 		return state;
 	}
 
+	@Override
+	protected MapCodec<? extends BaseEntityBlock> codec() {
+		return null;
+	}
 }

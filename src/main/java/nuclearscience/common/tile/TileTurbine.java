@@ -1,10 +1,12 @@
 package nuclearscience.common.tile;
 
-import org.jetbrains.annotations.NotNull;
+import electrodynamics.api.capability.types.electrodynamic.ICapabilityElectrodynamic;
+import electrodynamics.prefab.properties.PropertyTypes;
+import electrodynamics.prefab.utilities.BlockEntityUtils;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.item.ItemStack;
 
-import electrodynamics.common.tile.machines.quarry.TileQuarry;
 import electrodynamics.prefab.properties.Property;
-import electrodynamics.prefab.properties.PropertyType;
 import electrodynamics.prefab.sound.SoundBarrierMethods;
 import electrodynamics.prefab.sound.utils.ITickableSound;
 import electrodynamics.prefab.tile.GenericTile;
@@ -22,41 +24,35 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
 import nuclearscience.api.turbine.ISteamReceiver;
 import nuclearscience.common.block.BlockTurbine;
-import nuclearscience.registers.NuclearScienceBlockTypes;
+import nuclearscience.registers.NuclearScienceTiles;
 import nuclearscience.registers.NuclearScienceSounds;
+import org.jetbrains.annotations.Nullable;
 
 public class TileTurbine extends GenericTile implements ITickableSound, ISteamReceiver {
 
-	public static final double MAX_STEAM = 3000000;
-	public Property<Integer> spinSpeed = property(new Property<>(PropertyType.Integer, "spinSpeed", 0));
-	public Property<Boolean> hasCore = property(new Property<>(PropertyType.Boolean, "hasCore", false));
-	public Property<Boolean> isCore = property(new Property<>(PropertyType.Boolean, "isCore", false));
-	public Property<BlockPos> coreLocation = property(new Property<>(PropertyType.BlockPos, "coreLocation", TileQuarry.OUT_OF_REACH));
-	public Property<Integer> currentVoltage = property(new Property<>(PropertyType.Integer, "turbinecurvoltage", 0));
-	public Property<Double> steam = property(new Property<>(PropertyType.Double, "steam", 0.0));
-	public Property<Integer> wait = property(new Property<>(PropertyType.Integer, "wait", 30));
+	public static final int MAX_STEAM = 3000000;
+	public Property<Integer> spinSpeed = property(new Property<>(PropertyTypes.INTEGER, "spinSpeed", 0));
+	public Property<Boolean> hasCore = property(new Property<>(PropertyTypes.BOOLEAN, "hasCore", false));
+	public Property<Boolean> isCore = property(new Property<>(PropertyTypes.BOOLEAN, "isCore", false));
+	public Property<BlockPos> coreLocation = property(new Property<>(PropertyTypes.BLOCK_POS, "coreLocation", BlockEntityUtils.OUT_OF_REACH));
+	public Property<Integer> currentVoltage = property(new Property<>(PropertyTypes.INTEGER, "turbinecurvoltage", 0));
+	public Property<Integer> steam = property(new Property<>(PropertyTypes.INTEGER, "steam", 0));
+	public Property<Integer> wait = property(new Property<>(PropertyTypes.INTEGER, "wait", 30));
 	protected CachedTileOutput output;
 
 	private boolean isSoundPlaying = false;
 
 	private boolean destroyed = false;
 
-	@Override
-	public AABB getRenderBoundingBox() {
-		return isCore.get() ? super.getRenderBoundingBox().inflate(1, 0, 1) : super.getRenderBoundingBox();
-	}
 
 	public TileTurbine(BlockPos pos, BlockState state) {
-		super(NuclearScienceBlockTypes.TILE_TURBINE.get(), pos, state);
+		super(NuclearScienceTiles.TILE_TURBINE.get(), pos, state);
 		addComponent(new ComponentTickable(this).tickServer(this::tickServer).tickClient(this::tickClient));
 		addComponent(new ComponentPacketHandler(this));
-		addComponent(new ComponentElectrodynamic(this, true, false).setOutputDirections(Direction.UP).setCapabilityTest(() -> (!hasCore.get() || isCore.get())));
+		addComponent(new ComponentElectrodynamic(this, true, false).setOutputDirections(BlockEntityUtils.MachineDirection.TOP).setCapabilityTest(() -> (!hasCore.get() || isCore.get())));
 	}
 
 	public void constructStructure() {
@@ -103,7 +99,7 @@ public class TileTurbine extends GenericTile implements ITickableSound, ISteamRe
 			}
 			isCore.set(false);
 			hasCore.set(false);
-			coreLocation.set(TileQuarry.OUT_OF_REACH);
+			coreLocation.set(BlockEntityUtils.OUT_OF_REACH);
 			BlockState state = getBlockState();
 			if (state.hasProperty(BlockTurbine.RENDER) && !destroyed) {
 				level.setBlockAndUpdate(worldPosition, getBlockState().setValue(BlockTurbine.RENDER, true));
@@ -168,14 +164,19 @@ public class TileTurbine extends GenericTile implements ITickableSound, ISteamRe
 	}
 
 	@Override
-	public InteractionResult use(Player arg0, InteractionHand arg1, BlockHitResult arg2) {
+	public InteractionResult useWithoutItem(Player player, BlockHitResult hit) {
 		return InteractionResult.PASS;
 	}
 
 	@Override
-	public double receiveSteam(double temperature, double amount) {
-		double room = MAX_STEAM * (isCore.get() ? 9 : 1) - steam.get();
-		double accepted = room < amount ? room : amount;
+	public ItemInteractionResult useWithItem(ItemStack used, Player player, InteractionHand hand, BlockHitResult hit) {
+		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+	}
+
+	@Override
+	public int receiveSteam(int temperature, int amount) {
+		int room = MAX_STEAM * (isCore.get() ? 9 : 1) - steam.get();
+		int accepted = room < amount ? room : amount;
 		this.steam.set(steam.get() + accepted);
 		if (temperature < 4300) {
 			currentVoltage.set(120);
@@ -209,12 +210,13 @@ public class TileTurbine extends GenericTile implements ITickableSound, ISteamRe
 		deconstructStructure();
 
 	}
-	
+
 	@Override
-	public <T> @NotNull LazyOptional<T> getCapability(@NotNull Capability<T> cap, Direction side) {
+	public @Nullable ICapabilityElectrodynamic getElectrodynamicCapability(@Nullable Direction side) {
 		if(!getBlockState().getValue(BlockTurbine.RENDER) && !isCore.get()) {
-			return LazyOptional.empty();
+			return null;
 		}
-		return super.getCapability(cap, side);
+		return super.getElectrodynamicCapability(side);
 	}
+
 }

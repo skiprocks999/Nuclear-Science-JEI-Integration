@@ -1,7 +1,7 @@
 package nuclearscience.common.inventory.container;
 
-import electrodynamics.prefab.inventory.container.GenericContainerBlockEntity;
 import electrodynamics.prefab.inventory.container.slot.item.type.SlotRestricted;
+import electrodynamics.prefab.inventory.container.types.GenericContainerBlockEntity;
 import electrodynamics.prefab.screen.component.types.ScreenComponentSlot.SlotType;
 import electrodynamics.prefab.utilities.math.Color;
 import net.minecraft.world.Container;

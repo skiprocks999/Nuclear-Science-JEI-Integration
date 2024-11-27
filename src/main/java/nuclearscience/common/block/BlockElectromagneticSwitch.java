@@ -1,8 +1,10 @@
 package nuclearscience.common.block;
 
+import com.mojang.serialization.MapCodec;
 import electrodynamics.prefab.block.GenericEntityBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -21,7 +23,7 @@ public class BlockElectromagneticSwitch extends GenericEntityBlock implements IE
 	}
 
 	public BlockElectromagneticSwitch() {
-		super(Properties.copy(Blocks.IRON_BLOCK).strength(3.5f, 20).requiresCorrectToolForDrops().noOcclusion().isRedstoneConductor((p1, p2, p3) -> false));
+		super(Blocks.IRON_BLOCK.properties().strength(3.5f, 20).requiresCorrectToolForDrops().noOcclusion().isRedstoneConductor((p1, p2, p3) -> false));
 	}
 
 	@Override
@@ -29,4 +31,8 @@ public class BlockElectromagneticSwitch extends GenericEntityBlock implements IE
 		return new TileElectromagneticSwitch(pos, state);
 	}
 
+	@Override
+	protected MapCodec<? extends BaseEntityBlock> codec() {
+		return null;
+	}
 }

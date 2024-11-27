@@ -1,17 +1,16 @@
 package nuclearscience.common.inventory.container;
 
 import electrodynamics.common.item.subtype.SubtypeItemUpgrade;
-import electrodynamics.prefab.inventory.container.GenericContainerBlockEntity;
 import electrodynamics.prefab.inventory.container.slot.item.SlotGeneric;
 import electrodynamics.prefab.inventory.container.slot.item.type.SlotFluid;
 import electrodynamics.prefab.inventory.container.slot.item.type.SlotRestricted;
 import electrodynamics.prefab.inventory.container.slot.item.type.SlotUpgrade;
+import electrodynamics.prefab.inventory.container.types.GenericContainerBlockEntity;
 import electrodynamics.prefab.utilities.math.Color;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.SimpleContainerData;
 import nuclearscience.common.tile.TileChemicalExtractor;
 import nuclearscience.registers.NuclearScienceMenuTypes;
@@ -26,10 +25,6 @@ public class ContainerChemicalExtractor extends GenericContainerBlockEntity<Tile
 
 	public ContainerChemicalExtractor(int id, Inventory playerinv, Container inventory, ContainerData inventorydata) {
 		super(NuclearScienceMenuTypes.CONTAINER_CHEMICALEXTRACTOR.get(), id, playerinv, inventory, inventorydata);
-	}
-
-	public ContainerChemicalExtractor(MenuType<?> type, int id, Inventory playerinv, Container inventory, ContainerData inventorydata) {
-		super(type, id, playerinv, inventory, inventorydata);
 	}
 
 	@Override

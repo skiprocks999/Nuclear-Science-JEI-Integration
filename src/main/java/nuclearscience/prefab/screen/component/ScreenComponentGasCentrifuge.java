@@ -10,7 +10,7 @@ import nuclearscience.References;
 
 public class ScreenComponentGasCentrifuge extends ScreenComponentGeneric {
 
-	private static final ResourceLocation TEXTURE = new ResourceLocation(References.ID + ":textures/screen/component/nsprocessingarrows.png");
+	private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/component/nsprocessingarrows.png");
 
 	private final DoubleSupplier progressInfoHandlerBulbs;
 	private final DoubleSupplier progressInfoHandlerProgressTop;

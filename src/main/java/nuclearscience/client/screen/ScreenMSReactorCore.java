@@ -14,15 +14,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import nuclearscience.common.inventory.container.ContainerMSRReactorCore;
 import nuclearscience.common.tile.msreactor.TileFreezePlug;
 import nuclearscience.common.tile.msreactor.TileMSReactorCore;
 import nuclearscience.prefab.screen.component.ScreenComponentReactorFuel;
 import nuclearscience.prefab.utils.NuclearTextUtils;
 
-@OnlyIn(Dist.CLIENT)
 public class ScreenMSReactorCore extends GenericScreen<ContainerMSRReactorCore> {
 
 	public ScreenMSReactorCore(ContainerMSRReactorCore container, Inventory playerInventory, Component title) {
@@ -31,7 +28,7 @@ public class ScreenMSReactorCore extends GenericScreen<ContainerMSRReactorCore> 
 
 			List<FormattedCharSequence> list = new ArrayList<>();
 
-			TileMSReactorCore core = menu.getHostFromIntArray();
+			TileMSReactorCore core = menu.getSafeHost();
 			if (core == null) {
 				return list;
 			}
@@ -51,7 +48,7 @@ public class ScreenMSReactorCore extends GenericScreen<ContainerMSRReactorCore> 
 			return list;
 		}, -AbstractScreenComponentInfo.SIZE + 1, 2));
 		addComponent(new ScreenComponentMultiLabel(0, 0, graphics -> {
-			TileMSReactorCore core = menu.getHostFromIntArray();
+			TileMSReactorCore core = menu.getSafeHost();
 			if (core == null) {
 				return;
 			}

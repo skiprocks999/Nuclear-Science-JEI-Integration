@@ -6,7 +6,9 @@ import electrodynamics.prefab.utilities.object.Location;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
@@ -14,7 +16,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import nuclearscience.api.radiation.RadiationSystem;
-import nuclearscience.registers.NuclearScienceBlockTypes;
+import nuclearscience.registers.NuclearScienceTiles;
 import nuclearscience.registers.NuclearScienceBlocks;
 
 public class TileMeltedReactor extends GenericTile {
@@ -24,7 +26,7 @@ public class TileMeltedReactor extends GenericTile {
 	public int temperature = 6000;
 
 	public TileMeltedReactor(BlockPos pos, BlockState state) {
-		super(NuclearScienceBlockTypes.TILE_MELTEDREACTOR.get(), pos, state);
+		super(NuclearScienceTiles.TILE_MELTEDREACTOR.get(), pos, state);
 		addComponent(new ComponentTickable(this).tickServer(this::tickServer));
 	}
 
@@ -87,7 +89,7 @@ public class TileMeltedReactor extends GenericTile {
 				BlockState st = level.getBlockState(p);
 				Block block = st.getBlock();
 				if (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT) {
-					level.setBlockAndUpdate(p, NuclearScienceBlocks.blockRadioactiveSoil.defaultBlockState());
+					level.setBlockAndUpdate(p, NuclearScienceBlocks.BLOCK_RADIOACTIVESOIL.get().defaultBlockState());
 				}
 			}
 		}
@@ -99,8 +101,14 @@ public class TileMeltedReactor extends GenericTile {
 	}
 
 	@Override
-	public InteractionResult use(Player arg0, InteractionHand arg1, BlockHitResult arg2) {
+	public ItemInteractionResult useWithItem(ItemStack used, Player player, InteractionHand hand, BlockHitResult hit) {
+		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+	}
+
+	@Override
+	public InteractionResult useWithoutItem(Player player, BlockHitResult hit) {
 		return InteractionResult.PASS;
 	}
+
 
 }

@@ -13,7 +13,7 @@ import nuclearscience.api.radiation.RadiationSystem;
 public class BlockRadioactiveSoil extends SnowyDirtBlock {
 
 	public BlockRadioactiveSoil() {
-		super(Properties.copy(Blocks.GRASS_BLOCK).randomTicks().strength(0.6F).sound(SoundType.GRASS));
+		super(Blocks.GRASS_BLOCK.properties().randomTicks().strength(0.6F).sound(SoundType.GRASS));
 	}
 
 	@Override

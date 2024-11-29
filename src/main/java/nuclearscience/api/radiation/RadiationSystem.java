@@ -1,34 +1,57 @@
 package nuclearscience.api.radiation;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import electrodynamics.prefab.utilities.object.Location;
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.LogicalSide;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.ClientTickEvent;
-import net.neoforged.neoforge.event.tick.ServerTickEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import nuclearscience.References;
-import nuclearscience.common.item.ItemGeigerCounter;
-import nuclearscience.common.item.ItemHazmatArmor;
-import nuclearscience.registers.NuclearScienceBlocks;
-import nuclearscience.registers.NuclearScienceEffects;
+import nuclearscience.api.radiation.util.IRadiationRecipient;
+import nuclearscience.registers.NuclearScienceAttachmentTypes;
+import nuclearscience.registers.NuclearScienceCapabilities;
 
 @EventBusSubscriber(modid = References.ID, bus = EventBusSubscriber.Bus.GAME)
 public class RadiationSystem {
+
+	@SubscribeEvent
+	public static void tickServer(LevelTickEvent.Pre event) {
+
+		Level level = event.getLevel();
+
+		if(level.isClientSide()) {
+			return;
+		}
+
+		RadiationManager manager = level.getData(NuclearScienceAttachmentTypes.RADIATION_MANAGER);
+
+		manager.tick(level);
+
+
+	}
+
+	@SubscribeEvent
+	public static void entityTick(EntityTickEvent.Post event) {
+		if(event.getEntity().level().isClientSide() || !(event.getEntity() instanceof LivingEntity)) {
+			return;
+		}
+		IRadiationRecipient capability = event.getEntity().getCapability(NuclearScienceCapabilities.CAPABILITY_RADIATIONRECIPIENT);
+		if(capability == null) {
+			return;
+		}
+		capability.tick((LivingEntity) event.getEntity());
+
+	}
+
+	public static void addRadiationSource(Level world, SimpleRadiationSource source) {
+		RadiationManager manager = world.getData(NuclearScienceAttachmentTypes.RADIATION_MANAGER);
+		manager.addRadiationSource(source);
+		world.setData(NuclearScienceAttachmentTypes.RADIATION_MANAGER, manager);
+
+	}
+
+
+	/*
 	public static ThreadLocal<HashMap<Player, Double>> radiationMap = ThreadLocal.withInitial(HashMap::new);
 
 	private static double getRadiationModifier(Level world, Location source, Location end) {
@@ -128,4 +151,6 @@ public class RadiationSystem {
 			tick = 0;
 		}
 	}
+
+	 */
 }

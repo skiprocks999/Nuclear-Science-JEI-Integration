@@ -10,6 +10,7 @@ public class UnifiedNuclearScienceRegister {
 
 	public static void register(IEventBus bus) {
 		NuclearScienceArmorMaterials.ARMOR_MATERIALS.register(bus);
+		NuclearScienceAttachmentTypes.ATTACHMENT_TYPES.register(bus);
 		NuclearScienceBlocks.BLOCKS.register(bus);
 		NuclearScienceItems.ITEMS.register(bus);
 		NuclearScienceTiles.BLOCK_ENTITY_TYPES.register(bus);

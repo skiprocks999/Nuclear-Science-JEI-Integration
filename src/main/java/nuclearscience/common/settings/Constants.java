@@ -42,4 +42,7 @@ public class Constants {
 	@IntValue(def = 1200)
 	public static int ATOMICASSEMBLER_REQUIRED_TICKS = 12000;
 
+	@DoubleValue(def = 100)
+	public static double BACKROUND_RADIATION_DISSIPATION = 100;
+
 }

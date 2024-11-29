@@ -1,9 +1,8 @@
 package nuclearscience.common.item;
 
-import java.util.function.Supplier;
-
 import electrodynamics.common.item.ItemElectrodynamics;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -15,17 +14,18 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import nuclearscience.api.radiation.EffectRadiation;
 
 public class ItemAntidote extends ItemElectrodynamics {
 
-    public ItemAntidote(Properties properties, Supplier<CreativeModeTab> creativeTab) {
+    public ItemAntidote(Properties properties, Holder<CreativeModeTab> creativeTab) {
         super(properties, creativeTab);
     }
 
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
         if (!worldIn.isClientSide) {
-            entityLiving.curePotionEffects(stack);
+            entityLiving.removeEffectsCuredBy(EffectRadiation.CURE);
         }
         if (entityLiving instanceof ServerPlayer serverplayerentity) {
             CriteriaTriggers.CONSUME_ITEM.trigger(serverplayerentity, stack);

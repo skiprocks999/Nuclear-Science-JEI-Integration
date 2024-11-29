@@ -1,4 +1,4 @@
-package nuclearscience.api.radiation.rework;
+package nuclearscience.api.radiation.util;
 
 import net.minecraft.core.BlockPos;
 
@@ -27,6 +27,12 @@ public interface IRadiationSource {
      */
     double getRadiationStrength();
 
+    /**
+     * The radius a radiation source will emit to
+     * @return
+     */
+    int getDistanceSpread();
+
 
     /**
      * This method is used by the radiation manager to determine if this source is temporary or not. If true
@@ -41,7 +47,7 @@ public interface IRadiationSource {
     }
 
     /**
-     * This value will be checked if #isTemporary() returns true. Otherwise it will be ignored entirely.
+     * This value will be checked if #isTemporary() returns true. Otherwise it will be checked
      *
      * @return How long in game ticks this radiation source will persist for the manager
      */
@@ -49,11 +55,9 @@ public interface IRadiationSource {
         return 1;
     }
 
-    /**
-     *
-     * @return Where this radiation source is eminating from in the world
-     */
-    BlockPos getRadiationLocation();
+    BlockPos getSourceLocation();
+
+    boolean shouldLeaveLingeringSource();
 
 
 }

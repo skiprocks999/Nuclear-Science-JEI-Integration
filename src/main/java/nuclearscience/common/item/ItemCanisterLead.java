@@ -42,12 +42,9 @@ public class ItemCanisterLead extends ItemCanister {
 
             if (fluidStack.getFluid() instanceof IRadioactiveFluid) {
 
-                double radiationMultiplier =
-                        (double) fluidStack.getAmount() / (double) cap.getTankCapacity(0);
+                double radiationMultiplier = (double) fluidStack.getAmount() / (double) cap.getTankCapacity(0);
 
-                RadiationSystem.emitRadiationFromLocation(world,
-                        new Location(entity.getX(), entity.getY(), entity.getZ()),
-                        radiationMultiplier * RAD_RANGE, radiationMultiplier * RAD_STRENGTH);
+                RadiationSystem.emitRadiationFromLocation(world, new Location(entity.getX(), entity.getY(), entity.getZ()), radiationMultiplier * RAD_RANGE, radiationMultiplier * RAD_STRENGTH);
 
             }
 

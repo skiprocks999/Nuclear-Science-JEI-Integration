@@ -1,9 +1,12 @@
 package nuclearscience.registers;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffect;
+import net.neoforged.neoforge.common.EffectCure;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import nuclearscience.References;
 import nuclearscience.api.radiation.EffectRadiation;
 

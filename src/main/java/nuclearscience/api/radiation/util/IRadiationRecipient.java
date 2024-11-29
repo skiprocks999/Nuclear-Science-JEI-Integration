@@ -1,4 +1,6 @@
-package nuclearscience.api.radiation.rework;
+package nuclearscience.api.radiation.util;
+
+import net.minecraft.world.entity.LivingEntity;
 
 /**
  * Instead of the radiation manager directly apply affects like radiation and hunger to radiation recipients,
@@ -9,17 +11,9 @@ package nuclearscience.api.radiation.rework;
  */
 public interface IRadiationRecipient {
 
-    void setRadiation(double rads);
+    void recieveRadiation(LivingEntity entity, double rads, double strength);
 
-    double getCurrentRadiation(double rads);
-
-    void setDisipation(double disipation);
-
-    void setTolerance(double tolerance);
-
-    double getTolerance();
-
-    void tick();
+    void tick(LivingEntity entity);
 
 
 }

@@ -43,7 +43,7 @@ public record SimpleRadiationSource(double amount, double strength, int distance
 
     @Override
     public boolean isTemporary() {
-        return isTemporary();
+        return isTemporary;
     }
 
     @Override

@@ -25,7 +25,7 @@ public interface IRadiationManager {
      *
      * @return
      */
-    public List<SimpleRadiationSource> getPermanentSources();
+    public List<SimpleRadiationSource> getPermanentSources(Level level);
 
 
     /**
@@ -33,18 +33,18 @@ public interface IRadiationManager {
      *
      * @param source
      */
-    public void addRadiationSource(SimpleRadiationSource source);
+    public void addRadiationSource(SimpleRadiationSource source, Level level);
 
     /**
      * The default rate at which this manager will disipate any FadingRadiationSources
      *
      * @param radiationDisipation
      */
-    public void setDisipation(double radiationDisipation);
+    public void setDisipation(double radiationDisipation, Level level);
 
-    public void setLocalizedDisipation(double disipation, BlockPosVolume area);
+    public void setLocalizedDisipation(double disipation, BlockPosVolume area, Level level);
 
-    public void removeLocalizedDisipation(BlockPosVolume area);
+    public void removeLocalizedDisipation(BlockPosVolume area, Level level);
 
     /**
      * Removes a radiation source from this manager
@@ -53,9 +53,15 @@ public interface IRadiationManager {
      * @param shouldLeaveFadingSource Whether the removed source should leave behind a fading radiation source
      * @return
      */
-    public boolean removeRadiationSource(BlockPos pos, boolean shouldLeaveFadingSource);
+    public boolean removeRadiationSource(BlockPos pos, boolean shouldLeaveFadingSource, Level level);
 
 
+    /**
+     * Returns whether the handler has changed during the tick
+     *
+     * @param world
+     * @return
+     */
     public void tick(Level world);
 
 

@@ -8,6 +8,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import nuclearscience.References;
+import nuclearscience.api.radiation.util.IRadiationManager;
 import nuclearscience.api.radiation.util.IRadiationRecipient;
 import nuclearscience.registers.NuclearScienceAttachmentTypes;
 import nuclearscience.registers.NuclearScienceCapabilities;
@@ -24,7 +25,7 @@ public class RadiationSystem {
 			return;
 		}
 
-		RadiationManager manager = level.getData(NuclearScienceAttachmentTypes.RADIATION_MANAGER);
+		IRadiationManager manager = level.getData(NuclearScienceAttachmentTypes.RADIATION_MANAGER);
 
 		manager.tick(level);
 
@@ -45,16 +46,20 @@ public class RadiationSystem {
 	}
 
 	public static void addRadiationSource(Level world, SimpleRadiationSource source) {
-		RadiationManager manager = world.getData(NuclearScienceAttachmentTypes.RADIATION_MANAGER);
-		manager.addRadiationSource(source);
-		world.setData(NuclearScienceAttachmentTypes.RADIATION_MANAGER, manager);
+		if(source == null) {
+			throw new UnsupportedOperationException("source cannot be null");
+		}
+		IRadiationManager manager = world.getData(NuclearScienceAttachmentTypes.RADIATION_MANAGER);
+		manager.addRadiationSource(source, world);
 
 	}
 
 	public static void removeRadiationSource(Level world, BlockPos pos, boolean shouldLinger) {
-		RadiationManager manager = world.getData(NuclearScienceAttachmentTypes.RADIATION_MANAGER);
-		manager.removeRadiationSource(pos, shouldLinger);
-		world.setData(NuclearScienceAttachmentTypes.RADIATION_MANAGER, manager);
+		if(pos == null) {
+			throw new UnsupportedOperationException("position cannot be null");
+		}
+		IRadiationManager manager = world.getData(NuclearScienceAttachmentTypes.RADIATION_MANAGER);
+		manager.removeRadiationSource(pos, shouldLinger, world);
 	}
 
 

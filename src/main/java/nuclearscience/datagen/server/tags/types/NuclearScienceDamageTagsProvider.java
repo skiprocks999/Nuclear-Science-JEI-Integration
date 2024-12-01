@@ -20,6 +20,7 @@ public class NuclearScienceDamageTagsProvider extends DamageTypeTagsProvider {
     protected void addTags(Provider provider) {
         tag(DamageTypeTags.BYPASSES_ARMOR).add(NuclearScienceDamageTypes.PLASMA, NuclearScienceDamageTypes.RADIATION);
         tag(DamageTypeTags.BYPASSES_EFFECTS).add(NuclearScienceDamageTypes.PLASMA, NuclearScienceDamageTypes.RADIATION); // bypasses magic
+        tag(DamageTypeTags.NO_KNOCKBACK).add(NuclearScienceDamageTypes.PLASMA, NuclearScienceDamageTypes.RADIATION);
     }
 
 }

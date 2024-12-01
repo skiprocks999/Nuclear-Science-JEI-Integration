@@ -1,7 +1,5 @@
 package nuclearscience.api.radiation;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
@@ -9,7 +7,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.AABB;
 import nuclearscience.api.radiation.util.*;
 import nuclearscience.common.reloadlistener.RadiationShieldingRegister;
-import nuclearscience.common.settings.Constants;
 import nuclearscience.registers.NuclearScienceAttachmentTypes;
 import nuclearscience.registers.NuclearScienceCapabilities;
 
@@ -20,77 +17,59 @@ import java.util.Map;
 
 public class RadiationManager implements IRadiationManager {
 
-    private Map<BlockPos, SimpleRadiationSource> permanentSources = new HashMap<>();
-    private Map<BlockPos, TemporaryRadiationSource> temporarySources = new HashMap<>();
-    private Map<BlockPos, FadingRadiationSource> fadingSources = new HashMap<>();
-    private Map<BlockPosVolume, Double> localizedDisipations = new HashMap<>();
-
-    private double defaultRadiationDisipation = Constants.BACKROUND_RADIATION_DISSIPATION;
-
-
-    public static final Codec<RadiationManager> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-
-                    Codec.unboundedMap(BlockPos.CODEC, SimpleRadiationSource.CODEC).fieldOf("permanentsources").forGetter(instance0 -> instance0.permanentSources),
-                    Codec.unboundedMap(BlockPos.CODEC, TemporaryRadiationSource.CODEC).fieldOf("temporarysources").forGetter(instance0 -> instance0.temporarySources),
-                    Codec.unboundedMap(BlockPos.CODEC, FadingRadiationSource.CODEC).fieldOf("fadingsources").forGetter(instance0 -> instance0.fadingSources),
-                    Codec.unboundedMap(BlockPosVolume.CODEC, Codec.DOUBLE).fieldOf("localizeddissipations").forGetter(instance0 -> instance0.localizedDisipations),
-                    Codec.DOUBLE.fieldOf("dissipation").forGetter(instance0 -> instance0.defaultRadiationDisipation)
-
-            ).apply(instance, RadiationManager::new)
-    );
-
     public RadiationManager() {
 
     }
 
-    private RadiationManager(Map<BlockPos, SimpleRadiationSource> permanentSources, Map<BlockPos, TemporaryRadiationSource> temporarySources, Map<BlockPos, FadingRadiationSource> fadingSources, Map<BlockPosVolume, Double> localizedDisipation, double defaultRadiationDisipation) {
-        this.permanentSources = permanentSources;
-        this.temporarySources = temporarySources;
-        this.fadingSources = fadingSources;
-        this.localizedDisipations = localizedDisipation;
-        this.defaultRadiationDisipation = defaultRadiationDisipation;
-    }
-
-
     @Override
-    public List<SimpleRadiationSource> getPermanentSources() {
-        return new ArrayList<>(permanentSources.values());
+    public List<SimpleRadiationSource> getPermanentSources(Level world) {
+        return new ArrayList<>(world.getData(NuclearScienceAttachmentTypes.PERMANENT_RADIATION_SOURCES).values());
     }
 
     @Override
-    public void addRadiationSource(SimpleRadiationSource source) {
+    public void addRadiationSource(SimpleRadiationSource source, Level world) {
         if (source.isTemporary()) {
-            temporarySources.put(source.getSourceLocation(), new TemporaryRadiationSource(source.ticks(), source.getRadiationStrength(), source.getRadiationAmount(), source.shouldLeaveLingeringSource(), source.distance()));
+            HashMap<BlockPos, TemporaryRadiationSource> sources = world.getData(NuclearScienceAttachmentTypes.TEMPORARY_RADIATION_SOURCES);
+            sources.put(source.getSourceLocation(), new TemporaryRadiationSource(source.ticks(), source.getRadiationStrength(), source.getRadiationAmount(), source.shouldLeaveLingeringSource(), source.distance()));
+            world.setData(NuclearScienceAttachmentTypes.TEMPORARY_RADIATION_SOURCES, sources);
         } else {
-            permanentSources.put(source.getSourceLocation(), source);
+            HashMap<BlockPos, SimpleRadiationSource> sources = world.getData(NuclearScienceAttachmentTypes.PERMANENT_RADIATION_SOURCES);
+            sources.put(source.getSourceLocation(), source);
+            world.setData(NuclearScienceAttachmentTypes.PERMANENT_RADIATION_SOURCES, sources);
         }
     }
 
     @Override
-    public void setDisipation(double radiationDisipation) {
-        this.defaultRadiationDisipation = radiationDisipation;
+    public void setDisipation(double radiationDisipation, Level world) {
+        world.setData(NuclearScienceAttachmentTypes.DEFAULT_DISSIPATION, radiationDisipation);
     }
 
     @Override
-    public void setLocalizedDisipation(double disipation, BlockPosVolume area) {
-        localizedDisipations.put(area, disipation);
-
+    public void setLocalizedDisipation(double disipation, BlockPosVolume area, Level world) {
+        HashMap<BlockPosVolume, Double> values = world.getData(NuclearScienceAttachmentTypes.LOCALIZED_DISSIPATIONS);
+        values.put(area, disipation);
+        world.setData(NuclearScienceAttachmentTypes.LOCALIZED_DISSIPATIONS, values);
     }
 
     @Override
-    public void removeLocalizedDisipation(BlockPosVolume area) {
-        localizedDisipations.remove(area);
-
+    public void removeLocalizedDisipation(BlockPosVolume area, Level world) {
+        HashMap<BlockPosVolume, Double> values = world.getData(NuclearScienceAttachmentTypes.LOCALIZED_DISSIPATIONS);
+        values.remove(area);
+        world.setData(NuclearScienceAttachmentTypes.LOCALIZED_DISSIPATIONS, values);
     }
 
     @Override
-    public boolean removeRadiationSource(BlockPos pos, boolean shouldLeaveFadingSource) {
-        IRadiationSource source = permanentSources.remove(pos);
+    public boolean removeRadiationSource(BlockPos pos, boolean shouldLeaveFadingSource, Level world) {
+        HashMap<BlockPos, SimpleRadiationSource> sources = world.getData(NuclearScienceAttachmentTypes.PERMANENT_RADIATION_SOURCES);
+        IRadiationSource source = sources.remove(pos);
+        world.setData(NuclearScienceAttachmentTypes.PERMANENT_RADIATION_SOURCES, sources);
         if (source == null) {
             return false;
         }
         if (shouldLeaveFadingSource) {
+            HashMap<BlockPos, FadingRadiationSource> fadingSources = world.getData(NuclearScienceAttachmentTypes.FADING_RADIATION_SOURCES);
             fadingSources.put(pos, new FadingRadiationSource(source.getDistanceSpread(), source.getRadiationStrength(), source.getRadiationAmount()));
+            world.setData(NuclearScienceAttachmentTypes.FADING_RADIATION_SOURCES, fadingSources);
         }
         return true;
     }
@@ -100,67 +79,67 @@ public class RadiationManager implements IRadiationManager {
 
         /* Apply Radiation */
 
-        permanentSources.forEach((pos, source) -> {
+        BlockPos position;
 
-            AABB area = new AABB(pos).inflate(source.getDistanceSpread());
-            List<LivingEntity> entites = world.getEntitiesOfClass(LivingEntity.class, area);
+        SimpleRadiationSource permanentSource;
 
-            entites.forEach(entity -> {
 
+        for (Map.Entry<BlockPos, SimpleRadiationSource> entry : world.getData(NuclearScienceAttachmentTypes.PERMANENT_RADIATION_SOURCES).entrySet()) {
+            position = entry.getKey();
+            permanentSource = entry.getValue();
+
+            for (LivingEntity entity : world.getEntitiesOfClass(LivingEntity.class, new AABB(position).inflate(permanentSource.getDistanceSpread()))) {
                 IRadiationRecipient capability = entity.getCapability(NuclearScienceCapabilities.CAPABILITY_RADIATIONRECIPIENT);
                 if (capability == null) {
-                    return;
+                    continue;
                 }
 
 
-                capability.recieveRadiation(entity, getAppliedRadiation(world, pos, entity.getOnPos(), source.getRadiationAmount(), source.getRadiationStrength()), source.getRadiationStrength());
+                capability.recieveRadiation(entity, getAppliedRadiation(world, position, entity.getOnPos(), permanentSource.getRadiationAmount(), permanentSource.getRadiationStrength()), permanentSource.getRadiationStrength());
+            }
+        }
 
+        TemporaryRadiationSource temporarySource;
 
-            });
+        HashMap<BlockPos, TemporaryRadiationSource> temporarySources = world.getData(NuclearScienceAttachmentTypes.TEMPORARY_RADIATION_SOURCES);
 
+        for (Map.Entry<BlockPos, TemporaryRadiationSource> entry : temporarySources.entrySet()) {
+            position = entry.getKey();
+            temporarySource = entry.getValue();
 
-        });
-
-        temporarySources.forEach((pos, source) -> {
-
-            AABB area = new AABB(pos).inflate(source.distance);
-            List<LivingEntity> entites = world.getEntitiesOfClass(LivingEntity.class, area);
-
-            entites.forEach(entity -> {
-
-                IRadiationRecipient capability = entity.getCapability(NuclearScienceCapabilities.CAPABILITY_RADIATIONRECIPIENT);
-                if (capability == null) {
-                    return;
-                }
-
-                capability.recieveRadiation(entity, getAppliedRadiation(world, pos, entity.getOnPos(), source.radiation, source.strength), source.strength);
-
-
-            });
-
-
-        });
-
-        fadingSources.forEach((pos, source) -> {
-
-            AABB area = new AABB(pos).inflate(source.distance);
-            List<LivingEntity> entites = world.getEntitiesOfClass(LivingEntity.class, area);
-
-            entites.forEach(entity -> {
+            for (LivingEntity entity : world.getEntitiesOfClass(LivingEntity.class, new AABB(position).inflate(temporarySource.distance))) {
 
                 IRadiationRecipient capability = entity.getCapability(NuclearScienceCapabilities.CAPABILITY_RADIATIONRECIPIENT);
                 if (capability == null) {
-                    return;
+                    continue;
                 }
 
-                capability.recieveRadiation(entity, getAppliedRadiation(world, pos, entity.getOnPos(), source.radiation, source.strength), source.strength);
+                capability.recieveRadiation(entity, getAppliedRadiation(world, position, entity.getOnPos(), temporarySource.radiation, temporarySource.strength), temporarySource.strength);
+
+            }
 
 
-            });
+        }
 
+        FadingRadiationSource fadingSource;
 
-        });
+        HashMap<BlockPos, FadingRadiationSource> fadingSources = world.getData(NuclearScienceAttachmentTypes.FADING_RADIATION_SOURCES);
 
+        for (Map.Entry<BlockPos, FadingRadiationSource> entry : fadingSources.entrySet()) {
+
+            position = entry.getKey();
+            fadingSource = entry.getValue();
+
+            for (LivingEntity entity : world.getEntitiesOfClass(LivingEntity.class, new AABB(position).inflate(fadingSource.distance))) {
+                IRadiationRecipient capability = entity.getCapability(NuclearScienceCapabilities.CAPABILITY_RADIATIONRECIPIENT);
+                if (capability == null) {
+                    continue;
+                }
+
+                capability.recieveRadiation(entity, getAppliedRadiation(world, position, entity.getOnPos(), fadingSource.radiation, fadingSource.strength), fadingSource.strength);
+            }
+
+        }
 
 
         /* Handle Temporary Sources */
@@ -168,51 +147,78 @@ public class RadiationManager implements IRadiationManager {
 
         ArrayList<BlockPos> toRemove = new ArrayList<>();
 
-        temporarySources.forEach((pos, source) -> {
-            source.ticks = source.ticks - 1;
-            if (source.ticks < 0) {
-                toRemove.add(pos);
-                if (source.leaveFading) {
-                    fadingSources.put(new BlockPos(pos), new FadingRadiationSource(source.distance, source.strength, source.radiation));
+        boolean changed = false;
+
+        for (Map.Entry<BlockPos, TemporaryRadiationSource> entry : temporarySources.entrySet()) {
+            position = entry.getKey();
+            temporarySource = entry.getValue();
+
+            temporarySource.ticks = temporarySource.ticks - 1;
+            if (temporarySource.ticks < 0) {
+                changed = true;
+                toRemove.add(position);
+                if (temporarySource.leaveFading) {
+                    fadingSources.put(new BlockPos(position), new FadingRadiationSource(temporarySource.distance, temporarySource.strength, temporarySource.radiation));
                 }
             }
-        });
 
-        toRemove.forEach(pos -> temporarySources.remove(pos));
+        }
+
+        for (BlockPos pos : toRemove) {
+            temporarySources.remove(pos);
+        }
 
         toRemove.clear();
+
+        if(changed) {
+            world.setData(NuclearScienceAttachmentTypes.TEMPORARY_RADIATION_SOURCES, temporarySources);
+        }
 
 
         /* Handle Fading Sources */
 
+        changed = false;
 
-        fadingSources.forEach((pos, source) -> {
+        double defaultRadiationDisipation = world.getData(NuclearScienceAttachmentTypes.DEFAULT_DISSIPATION);
+
+        HashMap<BlockPosVolume, Double> localizedDissipations = world.getData(NuclearScienceAttachmentTypes.LOCALIZED_DISSIPATIONS);
+
+        for (Map.Entry<BlockPos, FadingRadiationSource> entry : fadingSources.entrySet()) {
+
+            changed = true;
+
+            position = entry.getKey();
+            fadingSource = entry.getValue();
 
             boolean hit = false;
 
-            for (Map.Entry<BlockPosVolume, Double> entry : localizedDisipations.entrySet()) {
-                if (entry.getKey().isIn(pos)) {
-                    source.radiation = source.radiation - entry.getValue();
+            for (Map.Entry<BlockPosVolume, Double> localized : localizedDissipations.entrySet()) {
+                if (localized.getKey().isIn(position)) {
+                    fadingSource.radiation = fadingSource.radiation - localized.getValue();
                     hit = true;
                     break;
                 }
             }
 
             if (!hit) {
-                source.radiation = source.radiation - defaultRadiationDisipation;
+                fadingSource.radiation = fadingSource.radiation - defaultRadiationDisipation;
             }
 
-            if (source.radiation <= 0) {
-                toRemove.add(pos);
+            if (fadingSource.radiation <= 0) {
+                toRemove.add(position);
             }
 
+        }
 
-        });
+        for (BlockPos pos : toRemove) {
+            fadingSources.remove(pos);
+        }
 
-        toRemove.forEach(pos -> fadingSources.remove(pos));
+        toRemove.clear();
 
-        world.setData(NuclearScienceAttachmentTypes.RADIATION_MANAGER, this);
-
+        if(changed) {
+            world.setData(NuclearScienceAttachmentTypes.FADING_RADIATION_SOURCES, fadingSources);
+        }
 
     }
 
@@ -264,7 +270,7 @@ public class RadiationManager implements IRadiationManager {
 
         List<Block> blocks = raycastToBlockPos(world, source, entity);
 
-        if(blocks.isEmpty()) {
+        if (blocks.isEmpty()) {
             return amount;
         }
 
@@ -272,11 +278,11 @@ public class RadiationManager implements IRadiationManager {
 
         for (Block block : blocks) {
             shielding = RadiationShieldingRegister.getValue(block);
-            if(shielding.level() < strength) {
+            if (shielding.level() < strength) {
                 continue;
             }
             amount -= shielding.amount();
-            if(amount <= 0) {
+            if (amount <= 0) {
                 return 0;
             }
 

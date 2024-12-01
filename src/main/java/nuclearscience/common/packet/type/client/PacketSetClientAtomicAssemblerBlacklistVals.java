@@ -22,7 +22,7 @@ public class PacketSetClientAtomicAssemblerBlacklistVals implements CustomPacket
             int count = buf.readInt();
             HashSet<Item> items = new HashSet<>();
             for (int i = 0; i < count; i++) {
-                items.add(ItemStack.STREAM_CODEC.decode(buf).getItem());
+                items.add(ItemStack.OPTIONAL_STREAM_CODEC.decode(buf).getItem());
             }
             return new PacketSetClientAtomicAssemblerBlacklistVals(items);
         }
@@ -31,7 +31,7 @@ public class PacketSetClientAtomicAssemblerBlacklistVals implements CustomPacket
         public void encode(RegistryFriendlyByteBuf buf, PacketSetClientAtomicAssemblerBlacklistVals packet) {
             buf.writeInt(packet.items.size());
             packet.items.forEach(item -> {
-                ItemStack.STREAM_CODEC.encode(buf, new ItemStack(item));
+                ItemStack.OPTIONAL_STREAM_CODEC.encode(buf, new ItemStack(item));
             });
 
         }

@@ -8,6 +8,7 @@ import electrodynamics.prefab.utilities.ItemUtils;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
@@ -57,4 +58,8 @@ public class ItemCanisterLead extends ItemCanister {
         });
     }
 
+    @Override
+    public void addCreativeModeItems(CreativeModeTab group, List<ItemStack> items) {
+        items.add(new ItemStack(this));
+    }
 }

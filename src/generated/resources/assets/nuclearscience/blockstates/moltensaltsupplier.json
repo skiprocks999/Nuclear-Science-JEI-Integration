@@ -1,17 +1,32 @@
 {
   "variants": {
-    "facing=east": {
+    "facing=east,lit=false": {
+      "model": "nuclearscience:block/moltensaltsupplier"
+    },
+    "facing=east,lit=true": {
       "model": "nuclearscience:block/moltensaltsupplieron"
     },
-    "facing=north": {
+    "facing=north,lit=false": {
+      "model": "nuclearscience:block/moltensaltsupplier",
+      "y": 270
+    },
+    "facing=north,lit=true": {
       "model": "nuclearscience:block/moltensaltsupplieron",
       "y": 270
     },
-    "facing=south": {
+    "facing=south,lit=false": {
+      "model": "nuclearscience:block/moltensaltsupplier",
+      "y": 90
+    },
+    "facing=south,lit=true": {
       "model": "nuclearscience:block/moltensaltsupplieron",
       "y": 90
     },
-    "facing=west": {
+    "facing=west,lit=false": {
+      "model": "nuclearscience:block/moltensaltsupplier",
+      "y": 180
+    },
+    "facing=west,lit=true": {
       "model": "nuclearscience:block/moltensaltsupplieron",
       "y": 180
     }

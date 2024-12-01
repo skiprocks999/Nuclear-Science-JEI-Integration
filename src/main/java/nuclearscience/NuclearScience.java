@@ -9,12 +9,12 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import nuclearscience.api.radiation.RadiationRegister;
 import nuclearscience.client.ClientRegister;
 import nuclearscience.common.block.voxelshapes.NuclearScienceVoxelShapeRegistry;
-import nuclearscience.common.packet.NetworkHandler;
 import nuclearscience.common.reloadlistener.AtomicAssemblerBlacklistRegister;
-import nuclearscience.common.reloadlistener.RadioactiveItemLoader;
+import nuclearscience.common.reloadlistener.RadioactiveFluidRegister;
+import nuclearscience.common.reloadlistener.RadioactiveGasRegister;
+import nuclearscience.common.reloadlistener.RadioactiveItemRegister;
 import nuclearscience.common.settings.Constants;
 import nuclearscience.common.tags.NuclearScienceTags;
 import nuclearscience.registers.UnifiedNuclearScienceRegister;
@@ -26,7 +26,6 @@ public class NuclearScience {
 	public NuclearScience(IEventBus bus) {
 		ConfigurationHandler.registerConfig(Constants.class);
 		UnifiedNuclearScienceRegister.register(bus);
-		RadiationRegister.init();
 	}
 
 	@SubscribeEvent
@@ -40,7 +39,9 @@ public class NuclearScience {
 	@SubscribeEvent
 	public static void onCommonSetup(FMLCommonSetupEvent event) {
 		NuclearScienceTags.init();
-		RadioactiveItemLoader.INSTANCE = new RadioactiveItemLoader().subscribeAsSyncable(NetworkHandler.CHANNEL);
+		RadioactiveItemRegister.INSTANCE = new RadioactiveItemRegister().subscribeAsSyncable();
+		RadioactiveFluidRegister.INSTANCE = new RadioactiveFluidRegister().subscribeAsSyncable();
+		RadioactiveGasRegister.INSTANCE = new RadioactiveGasRegister().subscribeAsSyncable();
 		AtomicAssemblerBlacklistRegister.INSTANCE = new AtomicAssemblerBlacklistRegister().subscribeAsSyncable();
 		NuclearScienceVoxelShapeRegistry.init();
 	}

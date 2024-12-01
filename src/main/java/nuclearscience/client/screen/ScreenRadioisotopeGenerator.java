@@ -19,9 +19,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
-import nuclearscience.api.radiation.IRadioactiveObject;
-import nuclearscience.api.radiation.RadiationRegister;
+import nuclearscience.api.radiation.util.RadioactiveObject;
 import nuclearscience.common.inventory.container.ContainerRadioisotopeGenerator;
+import nuclearscience.common.reloadlistener.RadioactiveItemRegister;
 import nuclearscience.common.settings.Constants;
 import nuclearscience.prefab.utils.NuclearTextUtils;
 
@@ -31,8 +31,8 @@ public class ScreenRadioisotopeGenerator extends GenericScreen<ContainerRadioiso
 		super(container, playerInventory, title);
 		addComponent(new ScreenComponentProgress(ProgressBars.COUNTDOWN_FLAME, () -> {
 			ItemStack in = container.getSlot(0).getItem();
-			IRadioactiveObject rad = RadiationRegister.get(in.getItem());
-			double currentOutput = in.getCount() * Constants.RADIOISOTOPEGENERATOR_OUTPUT_MULTIPLIER * rad.getRadiationStrength();
+			RadioactiveObject rad = RadioactiveItemRegister.getValue(in.getItem());
+			double currentOutput = in.getCount() * Constants.RADIOISOTOPEGENERATOR_OUTPUT_MULTIPLIER * rad.amount();
 			if (currentOutput > 0) {
 				return 1;
 			}
@@ -42,8 +42,8 @@ public class ScreenRadioisotopeGenerator extends GenericScreen<ContainerRadioiso
 
 		addComponent(new ScreenComponentMultiLabel(0, 0, graphics -> {
 			ItemStack in = menu.getSlot(0).getItem();
-			IRadioactiveObject rad = RadiationRegister.get(in.getItem());
-			double currentOutput = in.getCount() * Constants.RADIOISOTOPEGENERATOR_OUTPUT_MULTIPLIER * rad.getRadiationStrength();
+			RadioactiveObject rad = RadioactiveItemRegister.getValue(in.getItem());
+			double currentOutput = in.getCount() * Constants.RADIOISOTOPEGENERATOR_OUTPUT_MULTIPLIER * rad.amount();
 			TransferPack transfer = TransferPack.ampsVoltage(currentOutput / Constants.RADIOISOTOPEGENERATOR_VOLTAGE, Constants.RADIOISOTOPEGENERATOR_VOLTAGE);
 			graphics.drawString(font, NuclearTextUtils.gui("machine.current", ChatFormatter.getChatDisplayShort(transfer.getAmps(), DisplayUnit.AMPERE)), inventoryLabelX + 60, inventoryLabelY - 48, Color.TEXT_GRAY.color(), false);
 			graphics.drawString(font, NuclearTextUtils.gui("machine.output", ChatFormatter.getChatDisplayShort(transfer.getWatts(), DisplayUnit.WATT)), inventoryLabelX + 60, inventoryLabelY - 35, Color.TEXT_GRAY.color(), false);
@@ -56,8 +56,8 @@ public class ScreenRadioisotopeGenerator extends GenericScreen<ContainerRadioiso
 	private List<? extends FormattedCharSequence> getEnergyInformation() {
 		ArrayList<FormattedCharSequence> list = new ArrayList<>();
 		ItemStack in = menu.getSlot(0).getItem();
-		IRadioactiveObject rad = RadiationRegister.get(in.getItem());
-		double currentOutput = in.getCount() * Constants.RADIOISOTOPEGENERATOR_OUTPUT_MULTIPLIER * rad.getRadiationStrength();
+		RadioactiveObject rad = RadioactiveItemRegister.getValue(in.getItem());
+		double currentOutput = in.getCount() * Constants.RADIOISOTOPEGENERATOR_OUTPUT_MULTIPLIER * rad.amount();
 		TransferPack transfer = TransferPack.ampsVoltage(currentOutput / Constants.RADIOISOTOPEGENERATOR_VOLTAGE, Constants.RADIOISOTOPEGENERATOR_VOLTAGE);
 		list.add(NuclearTextUtils.gui("machine.current", ChatFormatter.getChatDisplayShort(transfer.getAmps(), DisplayUnit.AMPERE)).withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.DARK_GRAY).getVisualOrderText());
 		list.add(NuclearTextUtils.gui("machine.output", ChatFormatter.getChatDisplayShort(transfer.getWatts(), DisplayUnit.WATT).withStyle(ChatFormatting.GRAY)).withStyle(ChatFormatting.DARK_GRAY).getVisualOrderText());

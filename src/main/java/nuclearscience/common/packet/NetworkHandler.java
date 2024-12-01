@@ -7,6 +7,9 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import nuclearscience.References;
 import nuclearscience.common.packet.type.client.PacketSetClientAtomicAssemblerBlacklistVals;
+import nuclearscience.common.packet.type.client.PacketSetClientRadioactiveFluids;
+import nuclearscience.common.packet.type.client.PacketSetClientRadioactiveGases;
+import nuclearscience.common.packet.type.client.PacketSetClientRadioactiveItems;
 
 @EventBusSubscriber(modid = References.ID, bus = EventBusSubscriber.Bus.MOD)
 public class NetworkHandler {
@@ -16,16 +19,12 @@ public class NetworkHandler {
 		final PayloadRegistrar registry = event.registrar(electrodynamics.api.References.ID).versioned(PROTOCOL_VERSION).optional();
 
 		//CLIENT
-		registry.playToClient(PacketSetClientAtomicAssemblerBlacklistVals.TYPE, PacketSetClientAtomicAssemblerBlacklistVals.CODEC, (packet, context) -> PacketSetClientAtomicAssemblerBlacklistVals.handle(packet, context));
+		registry.playToClient(PacketSetClientAtomicAssemblerBlacklistVals.TYPE, PacketSetClientAtomicAssemblerBlacklistVals.CODEC, PacketSetClientAtomicAssemblerBlacklistVals::handle);
+		registry.playToClient(PacketSetClientRadioactiveItems.TYPE, PacketSetClientRadioactiveItems.CODEC, PacketSetClientRadioactiveItems::handle);
+		registry.playToClient(PacketSetClientRadioactiveFluids.TYPE, PacketSetClientRadioactiveFluids.CODEC, PacketSetClientRadioactiveFluids::handle);
+		registry.playToClient(PacketSetClientRadioactiveGases.TYPE, PacketSetClientRadioactiveGases.CODEC, PacketSetClientRadioactiveGases::handle);
 
 	}
-	/*
-	public static void init() {
-		CHANNEL.registerMessage(disc++, PacketSetClientRadRegisterItemVals.class, PacketSetClientRadRegisterItemVals::encode, PacketSetClientRadRegisterItemVals::decode, PacketSetClientRadRegisterItemVals::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
-		CHANNEL.registerMessage(disc++, PacketSetClientAtomicAssemblerBlacklistVals.class, PacketSetClientAtomicAssemblerBlacklistVals::encode, PacketSetClientAtomicAssemblerBlacklistVals::decode, PacketSetClientAtomicAssemblerBlacklistVals::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
-	}
-
-	 */
 
 	public static ResourceLocation id(String name) {
 		return ResourceLocation.fromNamespaceAndPath(References.ID, name);

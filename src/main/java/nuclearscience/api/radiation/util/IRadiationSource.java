@@ -8,7 +8,6 @@ import net.minecraft.core.BlockPos;
  * A radiation source is defined as a constant source of radiation. When the source is added to the manager,
  * the manager will continually apply its radiation to the surrounding area.
  *
- * @author skip999
  */
 public interface IRadiationSource {
 

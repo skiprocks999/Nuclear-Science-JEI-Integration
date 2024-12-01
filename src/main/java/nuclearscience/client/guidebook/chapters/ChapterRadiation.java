@@ -11,9 +11,12 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import nuclearscience.References;
-import nuclearscience.api.radiation.RadiationRegister;
+import nuclearscience.api.radiation.util.RadioactiveObject;
+import nuclearscience.common.reloadlistener.RadioactiveItemRegister;
 import nuclearscience.prefab.utils.NuclearTextUtils;
 import nuclearscience.registers.NuclearScienceItems;
+
+import java.util.Map;
 
 public class ChapterRadiation extends Chapter {
 
@@ -37,9 +40,9 @@ public class ChapterRadiation extends Chapter {
 	public void addData() {
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l1")).setIndentions(1));
 		blankLine();
-		for (Item item : RadiationRegister.getRadioactiveItems()) {
-			pageData.add(new TextWrapperObject(item.getDescription()).setSeparateStart());
-			pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.radrating", RadiationRegister.get(item).getRadiationStrength())).setSeparateStart().setIndentions(1));
+		for (Map.Entry<Item, RadioactiveObject> entry : RadioactiveItemRegister.getValues().entrySet()) {
+			pageData.add(new TextWrapperObject(entry.getKey().getDescription()).setSeparateStart());
+			pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.radrating", entry.getValue().amount())).setSeparateStart().setIndentions(1));
 		}
 		blankLine();
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l2")).setIndentions(1).setSeparateStart());

@@ -16,7 +16,6 @@ import java.util.List;
  * to surrounding recipients, however the logic is left to the implementer. It is also assumed this manager will be
  * ticked to perform its logic.
  *
- * @author skip999
  */
 public interface IRadiationManager {
 

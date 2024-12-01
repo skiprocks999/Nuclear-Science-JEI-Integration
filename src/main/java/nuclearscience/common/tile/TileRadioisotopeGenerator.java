@@ -17,8 +17,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import nuclearscience.api.radiation.IRadioactiveObject;
-import nuclearscience.api.radiation.RadiationRegister;
 import nuclearscience.api.radiation.RadiationSystem;
 import nuclearscience.common.inventory.container.ContainerRadioisotopeGenerator;
 import nuclearscience.common.settings.Constants;

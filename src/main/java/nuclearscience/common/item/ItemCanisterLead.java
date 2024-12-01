@@ -5,7 +5,6 @@ import java.util.List;
 
 import electrodynamics.common.item.gear.tools.ItemCanister;
 import electrodynamics.prefab.utilities.ItemUtils;
-import electrodynamics.prefab.utilities.object.Location;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
@@ -13,13 +12,14 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 import nuclearscience.api.radiation.RadiationSystem;
-import nuclearscience.common.fluid.IRadioactiveFluid;
+import nuclearscience.api.radiation.util.RadioactiveObject;
+import nuclearscience.api.radiation.SimpleRadiationSource;
+import nuclearscience.common.reloadlistener.RadioactiveFluidRegister;
 import nuclearscience.registers.NuclearScienceItems;
 
 public class ItemCanisterLead extends ItemCanister {
 
-    public static final double RAD_RANGE = 10.0;
-    public static final double RAD_STRENGTH = 4.0;
+    public static final int RAD_RANGE = 10;
 
     public static List<ResourceLocation> TAG_NAMES = new ArrayList<>();
 
@@ -40,13 +40,19 @@ public class ItemCanisterLead extends ItemCanister {
 
             FluidStack fluidStack = cap.getFluidInTank(0);
 
-            if (fluidStack.getFluid() instanceof IRadioactiveFluid) {
-
-                double radiationMultiplier = (double) fluidStack.getAmount() / (double) cap.getTankCapacity(0);
-
-                RadiationSystem.emitRadiationFromLocation(world, new Location(entity.getX(), entity.getY(), entity.getZ()), radiationMultiplier * RAD_RANGE, radiationMultiplier * RAD_STRENGTH);
-
+            if (fluidStack.isEmpty()) {
+                return;
             }
+
+            RadioactiveObject radiation = RadioactiveFluidRegister.getValue(fluidStack.getFluid());
+
+            if (radiation.amount() <= 0) {
+                return;
+            }
+
+            double radiationMultiplier = (double) fluidStack.getAmount() / (double) cap.getTankCapacity(0);
+
+            RadiationSystem.addRadiationSource(world, new SimpleRadiationSource(radiation.amount() * radiationMultiplier, radiation.strength(), RAD_RANGE, true, 0, entity.getOnPos(), false));
 
         });
     }

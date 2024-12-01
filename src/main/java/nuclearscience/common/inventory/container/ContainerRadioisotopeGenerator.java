@@ -9,7 +9,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.item.ItemStack;
-import nuclearscience.api.radiation.RadiationRegister;
 import nuclearscience.common.tile.TileRadioisotopeGenerator;
 import nuclearscience.registers.NuclearScienceMenuTypes;
 

@@ -6,9 +6,10 @@ import electrodynamics.common.item.gear.armor.ItemElectrodynamicsArmor;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.world.item.*;
+import nuclearscience.api.radiation.util.IHazmatSuit;
 import nuclearscience.registers.NuclearScienceArmorMaterials;
 
-public class ItemHazmatArmor extends ItemElectrodynamicsArmor {
+public class ItemHazmatArmor extends ItemElectrodynamicsArmor implements IHazmatSuit {
 
 	public static final EnumMap<Type, Integer> DEFENSE_MAP_BASE = Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
 		map.put(Type.HELMET, 2);
@@ -24,12 +25,23 @@ public class ItemHazmatArmor extends ItemElectrodynamicsArmor {
 		map.put(Type.BOOTS, 4);
 	});
 
-	public ItemHazmatArmor(Holder<ArmorMaterial> materialIn, Type slot, Properties properties, Holder<CreativeModeTab> creativeTab) {
+	private final double radiationProtection;
+	private final double radiationStrengthProtection;
+
+	public ItemHazmatArmor(Holder<ArmorMaterial> materialIn, Type slot, Properties properties, Holder<CreativeModeTab> creativeTab, double radiationProtection, double radiationStrengthRating) {
 		super(materialIn, slot, properties, creativeTab);
+		this.radiationProtection = radiationProtection;
+		this.radiationStrengthProtection = radiationStrengthRating;
 	}
 
-	public ItemHazmatArmor(Type slot, Properties properties, Holder<CreativeModeTab> creativeTab) {
-		this(NuclearScienceArmorMaterials.HAZMAT_BASE, slot, properties, creativeTab);
+	@Override
+	public double getRadResistance() {
+		return radiationProtection;
+	}
+
+	@Override
+	public double getRadStrengthProtection() {
+		return radiationStrengthProtection;
 	}
 
 	/*

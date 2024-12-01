@@ -13,12 +13,12 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import nuclearscience.References;
-import nuclearscience.common.reloadlistener.RadioactiveItemLoader;
+import nuclearscience.common.reloadlistener.RadioactiveItemRegister;
 import nuclearscience.common.tags.NuclearScienceTags;
 
 public class RadioactiveItemsProvider implements DataProvider {
 
-	public static final String LOC = "data/" + References.ID + "/" + RadioactiveItemLoader.FOLDER + "/" + RadioactiveItemLoader.FILE_NAME;
+	public static final String LOC = "data/" + References.ID + "/" + RadioactiveItemRegister.FOLDER + "/" + RadioactiveItemRegister.FILE_NAME;
 
 	private final PackOutput output;
 

@@ -42,7 +42,7 @@ public class NuclearBoilerRecipeCategory extends FluidItem2GasRecipeCategory<Nuc
 
 	public static final int ANIM_TIME = 50;
 
-	public static ItemStack INPUT_MACHINE = new ItemStack(NuclearScienceBlocks.blockNuclearBoiler);
+	public static ItemStack INPUT_MACHINE = new ItemStack(NuclearScienceBlocks.BLOCK_NUCLEARBOILER.get());
 
 	public static final RecipeType<NuclearBoilerRecipe> RECIPE_TYPE = RecipeType.create(References.ID, NuclearBoilerRecipe.RECIPE_GROUP, NuclearBoilerRecipe.class);
 

@@ -15,7 +15,6 @@ import electrodynamics.prefab.tile.components.type.ComponentInventory.InventoryB
 import electrodynamics.prefab.tile.components.type.ComponentPacketHandler;
 import electrodynamics.prefab.tile.components.type.ComponentTickable;
 import electrodynamics.prefab.utilities.BlockEntityUtils;
-import electrodynamics.prefab.utilities.object.Location;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
@@ -35,6 +34,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import nuclearscience.api.radiation.RadiationSystem;
+import nuclearscience.api.radiation.SimpleRadiationSource;
 import nuclearscience.api.turbine.ISteamReceiver;
 import nuclearscience.common.inventory.container.ContainerReactorCore;
 import nuclearscience.common.recipe.NuclearScienceRecipeInit;
@@ -176,15 +176,12 @@ public class TileFissionReactorCore extends GenericTile {
             level.getLightEngine().checkBlock(worldPosition);
         }
         if (fuelCount.get() > 0 && ticks > 50) {
+            double totstrength = temperature.get() * 10;
+            int range = (int) (Math.sqrt(totstrength) / (5 * Math.sqrt(2)) * 2);
+            RadiationSystem.addRadiationSource(getLevel(), new SimpleRadiationSource(totstrength, 1, range, true, 0, getBlockPos(), false));
             if (level.getLevelData().getGameTime() % 10 == 0) {
-                Location source = new Location(worldPosition);
-                double totstrength = temperature.get() * 10;
-                double range = Math.sqrt(totstrength) / (5 * Math.sqrt(2)) * 2;
-                if (level.getLevelData().getGameTime() % 10 == 0) {
-                    RadiationSystem.emitRadiationFromLocation(level, source, range, totstrength);
-                }
                 if (temperature.get() > 100) {
-                    AABB bb = AABB.ofSize(new Vec3(source.x(), source.y(), source.z()), 4, 4, 4);
+                    AABB bb = AABB.ofSize(new Vec3(getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ()), 4, 4, 4);
                     List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, bb);
                     for (LivingEntity living : list) {
                         FluidState state = level.getBlockState(living.getOnPos()).getFluidState();

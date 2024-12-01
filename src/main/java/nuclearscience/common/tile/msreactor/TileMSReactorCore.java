@@ -9,13 +9,13 @@ import electrodynamics.prefab.tile.components.type.ComponentContainerProvider;
 import electrodynamics.prefab.tile.components.type.ComponentPacketHandler;
 import electrodynamics.prefab.tile.components.type.ComponentTickable;
 import electrodynamics.prefab.utilities.object.CachedTileOutput;
-import electrodynamics.prefab.utilities.object.Location;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import nuclearscience.api.network.moltensalt.IMoltenSaltPipe;
 import nuclearscience.api.radiation.RadiationSystem;
+import nuclearscience.api.radiation.SimpleRadiationSource;
 import nuclearscience.common.inventory.container.ContainerMSRReactorCore;
 import nuclearscience.common.network.MoltenSaltNetwork;
 import nuclearscience.common.tile.TileControlRodAssembly;
@@ -36,15 +36,13 @@ public class TileMSReactorCore extends GenericTile {
 	public Property<Double> currentWaste = property(new Property<>(PropertyTypes.DOUBLE, "currentwaste", 0.0));
 
 	public Property<Boolean> wasteIsFull = property(new Property<>(PropertyTypes.BOOLEAN, "wasteisfull", false));
-
-	public int ticksOverheating = 0;
 	private CachedTileOutput outputCache;
 	public CachedTileOutput plugCache;
 
 	public TileMSReactorCore(BlockPos pos, BlockState state) {
 		super(NuclearScienceTiles.TILE_MSRREACTORCORE.get(), pos, state);
 
-		addComponent(new ComponentTickable(this).tickServer(this::tickServer).tickCommon(this::tickCommon));
+		addComponent(new ComponentTickable(this).tickServer(this::tickServer));
 		addComponent(new ComponentPacketHandler(this));
 		addComponent(new ComponentContainerProvider("container.msrreactorcore", this).createMenu((id, player) -> new ContainerMSRReactorCore(id, player, null, getCoordsArray())));
 	}
@@ -61,6 +59,17 @@ public class TileMSReactorCore extends GenericTile {
 
 		if (currentFuel.get() < FUEL_USAGE_RATE) {
 			return;
+		}
+
+		if (outputCache == null) {
+			outputCache = new CachedTileOutput(level, new BlockPos(worldPosition).relative(Direction.UP));
+		}
+		if (plugCache == null) {
+			plugCache = new CachedTileOutput(level, new BlockPos(worldPosition).relative(Direction.DOWN));
+		}
+		if (tick.getTicks() % 40 == 0) {
+			outputCache.update(new BlockPos(worldPosition).relative(Direction.UP));
+			plugCache.update(new BlockPos(worldPosition).relative(Direction.DOWN));
 		}
 
 		int insertion = 0;
@@ -99,32 +108,10 @@ public class TileMSReactorCore extends GenericTile {
 			net.emit(temperature.get() * ((TileFreezePlug) plugCache.getSafe()).getSaltBonus(), new ArrayList<>(), false);
 		}
 
-	}
+		double totstrength = temperature.get() * Math.pow(3, Math.pow(temperature.get() / MELTDOWN_TEMPERATURE, 9));
+		int range = (int) (Math.sqrt(totstrength) / (5 * Math.sqrt(2)) * 2);
+		RadiationSystem.addRadiationSource(getLevel(), new SimpleRadiationSource(totstrength, 1, range, true, 0, getBlockPos(), false));
 
-	protected void tickCommon(ComponentTickable tick) {
-		if (outputCache == null) {
-			outputCache = new CachedTileOutput(level, new BlockPos(worldPosition).relative(Direction.UP));
-		}
-		if (plugCache == null) {
-			plugCache = new CachedTileOutput(level, new BlockPos(worldPosition).relative(Direction.DOWN));
-		}
-		if (tick.getTicks() % 40 == 0) {
-			outputCache.update(new BlockPos(worldPosition).relative(Direction.UP));
-			plugCache.update(new BlockPos(worldPosition).relative(Direction.DOWN));
-		}
-
-		if (!plugCache.valid() || !(plugCache.getSafe() instanceof TileFreezePlug freeze && freeze.isFrozen())) {
-			return;
-		}
-
-		if (currentFuel.get() < FUEL_USAGE_RATE) {
-			return;
-		}
-		if (level.getLevelData().getGameTime() % 10 == 0) {
-			double totstrength = temperature.get() * Math.pow(3, Math.pow(temperature.get() / MELTDOWN_TEMPERATURE, 9));
-			double range = Math.sqrt(totstrength) / (5 * Math.sqrt(2)) * 2;
-			RadiationSystem.emitRadiationFromLocation(level, new Location(worldPosition), range, totstrength);
-		}
 	}
 
 }

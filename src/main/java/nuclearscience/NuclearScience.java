@@ -11,10 +11,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import nuclearscience.client.ClientRegister;
 import nuclearscience.common.block.voxelshapes.NuclearScienceVoxelShapeRegistry;
-import nuclearscience.common.reloadlistener.AtomicAssemblerBlacklistRegister;
-import nuclearscience.common.reloadlistener.RadioactiveFluidRegister;
-import nuclearscience.common.reloadlistener.RadioactiveGasRegister;
-import nuclearscience.common.reloadlistener.RadioactiveItemRegister;
+import nuclearscience.common.reloadlistener.*;
 import nuclearscience.common.settings.Constants;
 import nuclearscience.common.tags.NuclearScienceTags;
 import nuclearscience.registers.UnifiedNuclearScienceRegister;
@@ -43,6 +40,7 @@ public class NuclearScience {
 		RadioactiveFluidRegister.INSTANCE = new RadioactiveFluidRegister().subscribeAsSyncable();
 		RadioactiveGasRegister.INSTANCE = new RadioactiveGasRegister().subscribeAsSyncable();
 		AtomicAssemblerBlacklistRegister.INSTANCE = new AtomicAssemblerBlacklistRegister().subscribeAsSyncable();
+		RadiationShieldingRegister.INSTANCE = new RadiationShieldingRegister().subscribeAsSyncable();
 		NuclearScienceVoxelShapeRegistry.init();
 	}
 

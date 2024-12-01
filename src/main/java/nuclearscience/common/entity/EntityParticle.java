@@ -2,6 +2,7 @@ package nuclearscience.common.entity;
 
 import java.util.HashSet;
 
+import nuclearscience.api.radiation.SimpleRadiationSource;
 import org.joml.Vector3f;
 
 import electrodynamics.prefab.block.GenericEntityBlock;
@@ -80,7 +81,7 @@ public class EntityParticle extends Entity {
 			direction = entityData.get(DIRECTION);
 			speed = entityData.get(SPEED);
 		}
-		RadiationSystem.emitRadiationFromLocation(level(), new Location(blockPosition()), 1.5, 1000);
+		RadiationSystem.addRadiationSource(level(), new SimpleRadiationSource(1000, 1, 2, true, 0, blockPosition(), false));
 		if (direction != null && direction != Direction.UP) {
 			int checks = (int) (Math.ceil(speed) * 2);
 			float localSpeed = speed / checks;

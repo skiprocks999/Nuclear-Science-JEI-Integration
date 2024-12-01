@@ -14,6 +14,7 @@ import electrodynamics.compatibility.jei.utils.gui.types.ItemSlotObject;
 import electrodynamics.compatibility.jei.utils.gui.types.gasgauge.GasGaugeObject;
 import electrodynamics.compatibility.jei.utils.label.types.LabelWrapperGeneric;
 import electrodynamics.prefab.screen.component.types.ScreenComponentSlot.SlotType;
+import electrodynamics.prefab.utilities.math.Color;
 import mezz.jei.api.gui.drawable.IDrawableAnimated.StartDirection;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.RecipeIngredientRole;
@@ -29,6 +30,8 @@ import nuclearscience.registers.NuclearScienceBlocks;
 
 public class GasCentrifugeRecipeCategory extends AbstractRecipeCategory<PsuedoGasCentrifugeRecipe> {
 
+	public static final Color LABEL_COLOR = new Color(97, 97, 97, 255);
+
 	public static final BackgroundObject BACK_WRAP = new BackgroundObject(132, 68);
 
 	public static final ScreenObject GASCENTRIFUGE_ARROW_STATIC = new ScreenObject(NuclearJeiTextures.GASCENTRIFUGE_ARROW_STATIC, 19, 5);
@@ -41,15 +44,15 @@ public class GasCentrifugeRecipeCategory extends AbstractRecipeCategory<PsuedoGa
 
 	public static final GasGaugeObject IN_GAUGE = new GasGaugeObject(2, 6, 5000);
 
-	public static final LabelWrapperGeneric U235 = new LabelWrapperGeneric(0xFF616161, 7, 36, false, ChatFormatter.getChatDisplayShort(TileGasCentrifuge.PERCENT_U235 * 100, DisplayUnit.PERCENTAGE));
-	public static final LabelWrapperGeneric U238 = new LabelWrapperGeneric(0xFF616161, 28, 36, false, ChatFormatter.getChatDisplayShort((1 - TileGasCentrifuge.PERCENT_U235) * 100, DisplayUnit.PERCENTAGE));
-	public static final LabelWrapperGeneric BIPROD = new LabelWrapperGeneric(0xFF616161, 49, 36, false, ChatFormatter.getChatDisplayShort(TileGasCentrifuge.WASTE_MULTIPLIER * 100, DisplayUnit.PERCENTAGE));
+	public static final LabelWrapperGeneric U235 = new LabelWrapperGeneric(LABEL_COLOR, 7, 36, false, ChatFormatter.getChatDisplayShort(TileGasCentrifuge.PERCENT_U235 * 100, DisplayUnit.PERCENTAGE));
+	public static final LabelWrapperGeneric U238 = new LabelWrapperGeneric(LABEL_COLOR, 28, 36, false, ChatFormatter.getChatDisplayShort((1 - TileGasCentrifuge.PERCENT_U235) * 100, DisplayUnit.PERCENTAGE));
+	public static final LabelWrapperGeneric BIPROD = new LabelWrapperGeneric(LABEL_COLOR, 49, 36, false, ChatFormatter.getChatDisplayShort(TileGasCentrifuge.WASTE_MULTIPLIER * 100, DisplayUnit.PERCENTAGE));
 
-	public static final LabelWrapperGeneric POWER_LABEL = new LabelWrapperGeneric(0xFF808080, 58, 2, false, ChatFormatter.getChatDisplayShort(960, DisplayUnit.VOLTAGE).append(" ").append(ChatFormatter.getChatDisplayShort(Constants.PARTICLEINJECTOR_USAGE_PER_PARTICLE, DisplayUnit.JOULES)));
+	public static final LabelWrapperGeneric POWER_LABEL = new LabelWrapperGeneric(LABEL_COLOR, 58, 2, false, ChatFormatter.getChatDisplayShort(960, DisplayUnit.VOLTAGE).append(" ").append(ChatFormatter.getChatDisplayShort(Constants.PARTICLEINJECTOR_USAGE_PER_PARTICLE, DisplayUnit.JOULES)));
 
 	public static final int ANIM_TIME = 100;
 
-	public static ItemStack INPUT_MACHINE = new ItemStack(NuclearScienceBlocks.blockGasCentrifuge);
+	public static ItemStack INPUT_MACHINE = new ItemStack(NuclearScienceBlocks.BLOCK_GASCENTRIFUGE.get());
 
 	public static final String RECIPE_GROUP = "gascentrifuge";
 

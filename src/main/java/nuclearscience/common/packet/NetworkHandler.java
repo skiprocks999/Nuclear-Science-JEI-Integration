@@ -6,10 +6,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import nuclearscience.References;
-import nuclearscience.common.packet.type.client.PacketSetClientAtomicAssemblerBlacklistVals;
-import nuclearscience.common.packet.type.client.PacketSetClientRadioactiveFluids;
-import nuclearscience.common.packet.type.client.PacketSetClientRadioactiveGases;
-import nuclearscience.common.packet.type.client.PacketSetClientRadioactiveItems;
+import nuclearscience.common.packet.type.client.*;
 
 @EventBusSubscriber(modid = References.ID, bus = EventBusSubscriber.Bus.MOD)
 public class NetworkHandler {
@@ -23,6 +20,7 @@ public class NetworkHandler {
 		registry.playToClient(PacketSetClientRadioactiveItems.TYPE, PacketSetClientRadioactiveItems.CODEC, PacketSetClientRadioactiveItems::handle);
 		registry.playToClient(PacketSetClientRadioactiveFluids.TYPE, PacketSetClientRadioactiveFluids.CODEC, PacketSetClientRadioactiveFluids::handle);
 		registry.playToClient(PacketSetClientRadioactiveGases.TYPE, PacketSetClientRadioactiveGases.CODEC, PacketSetClientRadioactiveGases::handle);
+		registry.playToClient(PacketSetClientRadiationShielding.TYPE, PacketSetClientRadiationShielding.CODEC, PacketSetClientRadiationShielding::handle);
 
 	}
 

@@ -19,6 +19,7 @@ import electrodynamics.compatibility.jei.utils.gui.types.ItemSlotObject;
 import electrodynamics.compatibility.jei.utils.label.types.LabelWrapperGeneric;
 import electrodynamics.prefab.screen.component.types.ScreenComponentSlot.SlotType;
 import electrodynamics.prefab.utilities.RenderingUtils;
+import electrodynamics.prefab.utilities.math.Color;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawableAnimated.StartDirection;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -47,11 +48,11 @@ public class ParticleAcceleratorDarkMatterRecipeCategory extends AbstractRecipeC
 	public static final ArrowAnimatedObject ANIM_RIGHT_LEFT = new ArrowAnimatedObject(NuclearJeiTextures.PARTICLEACCELERATOR_DMARROWOFF_LEFT, NuclearJeiTextures.PARTICLEACCELERATOR_DMARROWON_LEFT, 25, 22, StartDirection.TOP);
 	public static final ArrowAnimatedObject ANIM_RIGHT_RIGHT = new ArrowAnimatedObject(NuclearJeiTextures.PARTICLEACCELERATOR_DMARROWOFF_RIGHT, NuclearJeiTextures.PARTICLEACCELERATOR_DMARROWON_RIGHT, 72, 39, StartDirection.BOTTOM);
 
-	public static final LabelWrapperGeneric POWER_LABEL = new LabelWrapperGeneric(0xFF808080, 124, 2, false, ChatFormatter.getChatDisplayShort(960, DisplayUnit.VOLTAGE).append(" ").append(ChatFormatter.getChatDisplayShort(Constants.PARTICLEINJECTOR_USAGE_PER_PARTICLE, DisplayUnit.JOULES)));
+	public static final LabelWrapperGeneric POWER_LABEL = new LabelWrapperGeneric(Color.JEI_TEXT_GRAY, 124, 2, false, ChatFormatter.getChatDisplayShort(960, DisplayUnit.VOLTAGE).append(" ").append(ChatFormatter.getChatDisplayShort(Constants.PARTICLEINJECTOR_USAGE_PER_PARTICLE, DisplayUnit.JOULES)));
 
 	public static final int ANIM_TIME = 50;
 
-	public static ItemStack INPUT_MACHINE = new ItemStack(NuclearScienceBlocks.blockParticleInjector);
+	public static ItemStack INPUT_MACHINE = new ItemStack(NuclearScienceBlocks.BLOCK_PARTICLEINJECTOR.get());
 
 	public static final String RECIPE_GROUP = "particalacceleratordarkmatter";
 

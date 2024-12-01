@@ -17,7 +17,6 @@ import electrodynamics.prefab.tile.components.type.ComponentPacketHandler;
 import electrodynamics.prefab.tile.components.type.ComponentProcessor;
 import electrodynamics.prefab.tile.components.type.ComponentTickable;
 import electrodynamics.prefab.utilities.BlockEntityUtils;
-import electrodynamics.prefab.utilities.object.Location;
 import electrodynamics.registers.ElectrodynamicsCapabilities;
 import electrodynamics.registers.ElectrodynamicsGases;
 import net.minecraft.core.BlockPos;
@@ -25,6 +24,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import nuclearscience.api.radiation.RadiationSystem;
+import nuclearscience.api.radiation.SimpleRadiationSource;
 import nuclearscience.common.inventory.container.ContainerGasCentrifuge;
 import nuclearscience.common.settings.Constants;
 import nuclearscience.common.tags.NuclearScienceTags;
@@ -45,7 +45,7 @@ public class TileGasCentrifuge extends GenericTile implements ITickableSound {
 	public Property<Boolean> isRunning = property(new Property<>(PropertyTypes.BOOLEAN, "isRunning", false));
 
 	private static final int RADATION_RADIUS_BLOCKS = 5;
-	private static final int RADIATION_STRENGTH = 5000;
+	private static final int RADIADION_AMOUNT = 5000;
 
 	private boolean isSoundPlaying = false;
 
@@ -130,9 +130,10 @@ public class TileGasCentrifuge extends GenericTile implements ITickableSound {
 	}
 
 	protected void tickServer(ComponentTickable tickable) {
-		if (level.getLevelData().getGameTime() % 10 == 0 && isRunning.get()) {
-			RadiationSystem.emitRadiationFromLocation(level, new Location(worldPosition), RADATION_RADIUS_BLOCKS, RADIATION_STRENGTH);
+		if(!isRunning.get()) {
+			return;
 		}
+		RadiationSystem.addRadiationSource(getLevel(), new SimpleRadiationSource(RADIADION_AMOUNT, 1, RADATION_RADIUS_BLOCKS, true, 0, getBlockPos(), false));
 	}
 
 	@Override

@@ -25,6 +25,7 @@ import nuclearscience.datagen.client.NuclearScienceLangKeyProvider;
 import nuclearscience.datagen.client.NuclearScienceSoundProvider;
 import nuclearscience.datagen.server.AtomicAssemblerBlacklistProvider;
 import nuclearscience.datagen.server.NuclearScienceLootTablesProvider;
+import nuclearscience.datagen.server.radiation.RadiationShieldingProvider;
 import nuclearscience.datagen.server.radiation.RadioactiveItemsProvider;
 import nuclearscience.datagen.server.recipe.NuclearScienceRecipeProvider;
 import nuclearscience.datagen.server.tags.NuclearScienceTagsProvider;
@@ -49,6 +50,7 @@ public class DataGenerators {
 			generator.addProvider(true, new LootTableProvider(output, Collections.emptySet(), List.of(new LootTableProvider.SubProviderEntry(NuclearScienceLootTablesProvider::new, LootContextParamSets.BLOCK)), lookupProvider));
 			generator.addProvider(true, new NuclearScienceRecipeProvider(output, lookupProvider));
 			generator.addProvider(true, new RadioactiveItemsProvider(output));
+			generator.addProvider(true, new RadiationShieldingProvider(output));
 			generator.addProvider(true, new AtomicAssemblerBlacklistProvider(output));
 
 			DatapackBuiltinEntriesProvider datapacks = new DatapackBuiltinEntriesProvider(output, lookupProvider, new RegistrySetBuilder()

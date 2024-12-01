@@ -3,9 +3,9 @@ package nuclearscience.compatibility.jei.recipecategories.item2item;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import electrodynamics.common.recipe.categories.item2item.Item2ItemRecipe;
-import electrodynamics.common.recipe.recipeutils.CountableIngredient;
 import electrodynamics.compatibility.jei.recipecategories.item2item.Item2ItemRecipeCategory;
 import electrodynamics.compatibility.jei.utils.gui.types.ArrowAnimatedObject;
 import electrodynamics.compatibility.jei.utils.gui.types.BackgroundObject;
@@ -13,6 +13,7 @@ import electrodynamics.compatibility.jei.utils.gui.types.ItemSlotObject;
 import electrodynamics.compatibility.jei.utils.label.types.LabelWrapperGeneric;
 import electrodynamics.prefab.screen.component.types.ScreenComponentProgress.ProgressTextures;
 import electrodynamics.prefab.screen.component.types.ScreenComponentSlot.SlotType;
+import electrodynamics.prefab.utilities.math.Color;
 import mezz.jei.api.gui.drawable.IDrawableAnimated.StartDirection;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.RecipeIngredientRole;
@@ -38,11 +39,11 @@ public class FissionReactorRecipeCategory extends Item2ItemRecipeCategory<Fissio
 
 	public static final ArrowAnimatedObject ARROW = new ArrowAnimatedObject(ProgressTextures.FEYNMAN_DIAGRAM_OFF, ProgressTextures.FEYNMAN_DIAGRAM_ON, 35, 43, StartDirection.TOP);
 
-	public static final LabelWrapperGeneric POWER_LABEL = new LabelWrapperGeneric(0xFF808080, 122, 2, false, NuclearTextUtils.jeiTranslated("gui.reactorcore.info.temp"));
+	public static final LabelWrapperGeneric POWER_LABEL = new LabelWrapperGeneric(Color.JEI_TEXT_GRAY, 122, 2, false, NuclearTextUtils.jeiTranslated("gui.reactorcore.info.temp"));
 
 	public static final int ANIM_TIME = 50;
 
-	public static ItemStack INPUT_MACHINE = new ItemStack(NuclearScienceBlocks.blockFissionReactorCore);
+	public static ItemStack INPUT_MACHINE = new ItemStack(NuclearScienceBlocks.BLOCK_FISSIONREACTORCORE.get());
 
 	public static final RecipeType<FissionReactorRecipe> RECIPE_TYPE = RecipeType.create(References.ID, FissionReactorRecipe.RECIPE_GROUP, FissionReactorRecipe.class);
 
@@ -66,7 +67,7 @@ public class FissionReactorRecipeCategory extends Item2ItemRecipeCategory<Fissio
 		fuels.add(plutoniumCell);
 
 		List<List<ItemStack>> inputSlots = new ArrayList<>();
-		inputSlots.add(((CountableIngredient) recipe.getIngredients().get(0)).fetchCountedStacks());
+		inputSlots.add(recipe.getCountedIngredients().get(0).getItems().collect(Collectors.toList()));
 
 		inputSlots.add(fuels);
 

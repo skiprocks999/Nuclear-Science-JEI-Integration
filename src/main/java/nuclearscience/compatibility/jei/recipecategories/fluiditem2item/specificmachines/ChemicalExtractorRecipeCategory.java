@@ -40,7 +40,7 @@ public class ChemicalExtractorRecipeCategory extends FluidItem2ItemRecipeCategor
 
 	public static final int ANIM_TIME = 50;
 
-	public static ItemStack INPUT_MACHINE = new ItemStack(NuclearScienceBlocks.blockChemicalExtractor);
+	public static ItemStack INPUT_MACHINE = new ItemStack(NuclearScienceBlocks.BLOCK_CHEMICALEXTRACTOR.get());
 
 	public static final RecipeType<ChemicalExtractorRecipe> RECIPE_TYPE = RecipeType.create(References.ID, ChemicalExtractorRecipe.RECIPE_GROUP, ChemicalExtractorRecipe.class);
 

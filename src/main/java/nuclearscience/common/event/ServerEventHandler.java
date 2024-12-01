@@ -5,10 +5,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import nuclearscience.References;
-import nuclearscience.common.reloadlistener.AtomicAssemblerBlacklistRegister;
-import nuclearscience.common.reloadlistener.RadioactiveFluidRegister;
-import nuclearscience.common.reloadlistener.RadioactiveGasRegister;
-import nuclearscience.common.reloadlistener.RadioactiveItemRegister;
+import nuclearscience.common.reloadlistener.*;
 
 @EventBusSubscriber(modid = References.ID, bus = EventBusSubscriber.Bus.GAME)
 public class ServerEventHandler {
@@ -19,6 +16,7 @@ public class ServerEventHandler {
 		event.addListener(AtomicAssemblerBlacklistRegister.INSTANCE);
 		event.addListener(RadioactiveFluidRegister.INSTANCE);
 		event.addListener(RadioactiveGasRegister.INSTANCE);
+		event.addListener(RadiationShieldingRegister.INSTANCE);
 	}
 
 	@SubscribeEvent
@@ -27,6 +25,7 @@ public class ServerEventHandler {
 		AtomicAssemblerBlacklistRegister.INSTANCE.generateTagValues();
 		RadioactiveFluidRegister.INSTANCE.generateTagValues();
 		RadioactiveGasRegister.INSTANCE.generateTagValues();
+		RadiationShieldingRegister.INSTANCE.generateTagValues();
 	}
 
 }

@@ -40,7 +40,7 @@ public class RadioactiveProcessorRecipeCategory extends FluidItem2ItemRecipeCate
 
 	public static final int ANIM_TIME = 50;
 
-	public static ItemStack INPUT_MACHINE = new ItemStack(NuclearScienceBlocks.blockRadioactiveProcessor);
+	public static ItemStack INPUT_MACHINE = new ItemStack(NuclearScienceBlocks.BLOCK_RADIOACTIVEPROCESSOR.get());
 
 	public static final RecipeType<RadioactiveProcessorRecipe> RECIPE_TYPE = RecipeType.create(References.ID, RadioactiveProcessorRecipe.RECIPE_GROUP, RadioactiveProcessorRecipe.class);
 

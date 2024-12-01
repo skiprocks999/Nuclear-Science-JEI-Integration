@@ -41,7 +41,7 @@ public class MSRProcessorRecipeCategory extends FluidItem2ItemRecipeCategory<MSR
 
 	public static final int ANIM_TIME = 50;
 
-	public static ItemStack INPUT_MACHINE = new ItemStack(NuclearScienceBlocks.blockMSRFuelPreProcessor);
+	public static ItemStack INPUT_MACHINE = new ItemStack(NuclearScienceBlocks.BLOCK_MSRFUELPREPROCESSOR.get());
 
 	public static final RecipeType<MSRFuelPreProcessorRecipe> RECIPE_TYPE = RecipeType.create(References.ID, MSRFuelPreProcessorRecipe.RECIPE_GROUP, MSRFuelPreProcessorRecipe.class);
 

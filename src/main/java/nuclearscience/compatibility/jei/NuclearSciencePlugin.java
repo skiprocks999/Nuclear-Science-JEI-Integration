@@ -48,101 +48,101 @@ import nuclearscience.compatibility.jei.utils.psuedorecipes.PsuedoGasCentrifugeR
 @JeiPlugin
 public class NuclearSciencePlugin implements IModPlugin {
 
-	@Override
-	public ResourceLocation getPluginUid() {
-		return new ResourceLocation(nuclearscience.References.ID, "jei");
-	}
+    @Override
+    public ResourceLocation getPluginUid() {
+        return ResourceLocation.fromNamespaceAndPath(nuclearscience.References.ID, "jei");
+    }
 
-	@Override
-	public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-		registration.addRecipeCatalyst(GasCentrifugeRecipeCategory.INPUT_MACHINE, GasCentrifugeRecipeCategory.RECIPE_TYPE);
-		registration.addRecipeCatalyst(NuclearBoilerRecipeCategory.INPUT_MACHINE, NuclearBoilerRecipeCategory.RECIPE_TYPE);
-		registration.addRecipeCatalyst(ChemicalExtractorRecipeCategory.INPUT_MACHINE, ChemicalExtractorRecipeCategory.RECIPE_TYPE);
-		registration.addRecipeCatalyst(FissionReactorRecipeCategory.INPUT_MACHINE, FissionReactorRecipeCategory.RECIPE_TYPE);
-		registration.addRecipeCatalyst(ParticleAcceleratorAntiMatterRecipeCategory.INPUT_MACHINE, ParticleAcceleratorAntiMatterRecipeCategory.RECIPE_TYPE);
-		registration.addRecipeCatalyst(ParticleAcceleratorDarkMatterRecipeCategory.INPUT_MACHINE, ParticleAcceleratorDarkMatterRecipeCategory.RECIPE_TYPE);
-		registration.addRecipeCatalyst(FuelReprocessorRecipeCategory.INPUT_MACHINE, FuelReprocessorRecipeCategory.RECIPE_TYPE);
-		registration.addRecipeCatalyst(RadioactiveProcessorRecipeCategory.INPUT_MACHINE, RadioactiveProcessorRecipeCategory.RECIPE_TYPE);
-		registration.addRecipeCatalyst(MSRProcessorRecipeCategory.INPUT_MACHINE, MSRProcessorRecipeCategory.RECIPE_TYPE);
-	}
+    @Override
+    public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
+        registration.addRecipeCatalyst(GasCentrifugeRecipeCategory.INPUT_MACHINE, GasCentrifugeRecipeCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(NuclearBoilerRecipeCategory.INPUT_MACHINE, NuclearBoilerRecipeCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(ChemicalExtractorRecipeCategory.INPUT_MACHINE, ChemicalExtractorRecipeCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(FissionReactorRecipeCategory.INPUT_MACHINE, FissionReactorRecipeCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(ParticleAcceleratorAntiMatterRecipeCategory.INPUT_MACHINE, ParticleAcceleratorAntiMatterRecipeCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(ParticleAcceleratorDarkMatterRecipeCategory.INPUT_MACHINE, ParticleAcceleratorDarkMatterRecipeCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(FuelReprocessorRecipeCategory.INPUT_MACHINE, FuelReprocessorRecipeCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(RadioactiveProcessorRecipeCategory.INPUT_MACHINE, RadioactiveProcessorRecipeCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(MSRProcessorRecipeCategory.INPUT_MACHINE, MSRProcessorRecipeCategory.RECIPE_TYPE);
+    }
 
-	@Override
-	public void registerRecipes(IRecipeRegistration registration) {
-		NuclearSciencePsuedoRecipes.addNuclearScienceRecipes();
-		Minecraft mc = Minecraft.getInstance();
-		ClientLevel world = Objects.requireNonNull(mc.level);
-		RecipeManager recipeManager = world.getRecipeManager();
+    @Override
+    public void registerRecipes(IRecipeRegistration registration) {
+        NuclearSciencePsuedoRecipes.addNuclearScienceRecipes();
+        Minecraft mc = Minecraft.getInstance();
+        ClientLevel world = Objects.requireNonNull(mc.level);
+        RecipeManager recipeManager = world.getRecipeManager();
 
-		// Gas Centrifuge
-		List<PsuedoGasCentrifugeRecipe> gasCentrifugeRecipes = new ArrayList<>(NuclearSciencePsuedoRecipes.GAS_CENTRIFUGE_RECIPES);
-		registration.addRecipes(GasCentrifugeRecipeCategory.RECIPE_TYPE, gasCentrifugeRecipes);
+        // Gas Centrifuge
+        List<PsuedoGasCentrifugeRecipe> gasCentrifugeRecipes = new ArrayList<>(NuclearSciencePsuedoRecipes.GAS_CENTRIFUGE_RECIPES);
+        registration.addRecipes(GasCentrifugeRecipeCategory.RECIPE_TYPE, gasCentrifugeRecipes);
 
-		// Nuclear Boiler
-		List<NuclearBoilerRecipe> nuclearBoilerRecipes = recipeManager.getAllRecipesFor(NuclearScienceRecipeInit.NUCLEAR_BOILER_TYPE.get());
-		registration.addRecipes(NuclearBoilerRecipeCategory.RECIPE_TYPE, nuclearBoilerRecipes);
+        // Nuclear Boiler
+        List<NuclearBoilerRecipe> nuclearBoilerRecipes = recipeManager.getAllRecipesFor(NuclearScienceRecipeInit.NUCLEAR_BOILER_TYPE.get()).stream().map(val -> val.value()).toList();
+        registration.addRecipes(NuclearBoilerRecipeCategory.RECIPE_TYPE, nuclearBoilerRecipes);
 
-		// Chemical Extractor
-		List<ChemicalExtractorRecipe> chemicalExtractorRecipes = recipeManager.getAllRecipesFor(NuclearScienceRecipeInit.CHEMICAL_EXTRACTOR_TYPE.get());
-		registration.addRecipes(ChemicalExtractorRecipeCategory.RECIPE_TYPE, chemicalExtractorRecipes);
+        // Chemical Extractor
+        List<ChemicalExtractorRecipe> chemicalExtractorRecipes = recipeManager.getAllRecipesFor(NuclearScienceRecipeInit.CHEMICAL_EXTRACTOR_TYPE.get()).stream().map(val -> val.value()).toList();
+        registration.addRecipes(ChemicalExtractorRecipeCategory.RECIPE_TYPE, chemicalExtractorRecipes);
 
-		// Fission Reactor
-		List<FissionReactorRecipe> fissionReactorRecipes = recipeManager.getAllRecipesFor(NuclearScienceRecipeInit.FISSION_REACTOR_TYPE.get());
-		registration.addRecipes(FissionReactorRecipeCategory.RECIPE_TYPE, fissionReactorRecipes);
+        // Fission Reactor
+        List<FissionReactorRecipe> fissionReactorRecipes = recipeManager.getAllRecipesFor(NuclearScienceRecipeInit.FISSION_REACTOR_TYPE.get()).stream().map(val -> val.value()).toList();
+        registration.addRecipes(FissionReactorRecipeCategory.RECIPE_TYPE, fissionReactorRecipes);
 
-		// Anti-Matter
-		List<PsuedoItem2ItemRecipe> antiMatterRecipes = new ArrayList<>(NuclearSciencePsuedoRecipes.ANTI_MATTER_RECIPES);
-		registration.addRecipes(ParticleAcceleratorAntiMatterRecipeCategory.RECIPE_TYPE, antiMatterRecipes);
+        // Anti-Matter
+        List<PsuedoItem2ItemRecipe> antiMatterRecipes = new ArrayList<>(NuclearSciencePsuedoRecipes.ANTI_MATTER_RECIPES);
+        registration.addRecipes(ParticleAcceleratorAntiMatterRecipeCategory.RECIPE_TYPE, antiMatterRecipes);
 
-		// Dark Mattere
-		List<PsuedoItem2ItemRecipe> darkMatterRecipes = new ArrayList<>(NuclearSciencePsuedoRecipes.DARK_MATTER_RECIPES);
-		registration.addRecipes(ParticleAcceleratorDarkMatterRecipeCategory.RECIPE_TYPE, darkMatterRecipes);
+        // Dark Mattere
+        List<PsuedoItem2ItemRecipe> darkMatterRecipes = new ArrayList<>(NuclearSciencePsuedoRecipes.DARK_MATTER_RECIPES);
+        registration.addRecipes(ParticleAcceleratorDarkMatterRecipeCategory.RECIPE_TYPE, darkMatterRecipes);
 
-		// Fuel Reprocessor
-		List<FuelReprocessorRecipe> fuelReprocessorRecipes = recipeManager.getAllRecipesFor(NuclearScienceRecipeInit.FUEL_REPROCESSOR_TYPE.get());
-		registration.addRecipes(FuelReprocessorRecipeCategory.RECIPE_TYPE, fuelReprocessorRecipes);
+        // Fuel Reprocessor
+        List<FuelReprocessorRecipe> fuelReprocessorRecipes = recipeManager.getAllRecipesFor(NuclearScienceRecipeInit.FUEL_REPROCESSOR_TYPE.get()).stream().map(val -> val.value()).toList();
+        registration.addRecipes(FuelReprocessorRecipeCategory.RECIPE_TYPE, fuelReprocessorRecipes);
 
-		// Radioactive Processor
-		List<RadioactiveProcessorRecipe> radioactiveProcessorRecipes = recipeManager.getAllRecipesFor(NuclearScienceRecipeInit.RADIOACTIVE_PROCESSOR_TYPE.get());
-		registration.addRecipes(RadioactiveProcessorRecipeCategory.RECIPE_TYPE, radioactiveProcessorRecipes);
+        // Radioactive Processor
+        List<RadioactiveProcessorRecipe> radioactiveProcessorRecipes = recipeManager.getAllRecipesFor(NuclearScienceRecipeInit.RADIOACTIVE_PROCESSOR_TYPE.get()).stream().map(val -> val.value()).toList();
+        registration.addRecipes(RadioactiveProcessorRecipeCategory.RECIPE_TYPE, radioactiveProcessorRecipes);
 
-		// MSR Processor
-		List<MSRFuelPreProcessorRecipe> msrProcessorRecipes = recipeManager.getAllRecipesFor(NuclearScienceRecipeInit.MSR_FUEL_PREPROCESSOR_TYPE.get());
-		registration.addRecipes(MSRProcessorRecipeCategory.RECIPE_TYPE, msrProcessorRecipes);
+        // MSR Processor
+        List<MSRFuelPreProcessorRecipe> msrProcessorRecipes = recipeManager.getAllRecipesFor(NuclearScienceRecipeInit.MSR_FUEL_PREPROCESSOR_TYPE.get()).stream().map(val -> val.value()).toList();
+        registration.addRecipes(MSRProcessorRecipeCategory.RECIPE_TYPE, msrProcessorRecipes);
 
-		nuclearScienceInfoTabs(registration);
-	}
+        nuclearScienceInfoTabs(registration);
+    }
 
-	@Override
-	public void registerCategories(IRecipeCategoryRegistration registration) {
+    @Override
+    public void registerCategories(IRecipeCategoryRegistration registration) {
 
-		IGuiHelper helper = registration.getJeiHelpers().getGuiHelper();
+        IGuiHelper helper = registration.getJeiHelpers().getGuiHelper();
 
-		registration.addRecipeCategories(new GasCentrifugeRecipeCategory(helper));
-		registration.addRecipeCategories(new NuclearBoilerRecipeCategory(helper));
-		registration.addRecipeCategories(new ChemicalExtractorRecipeCategory(helper));
-		registration.addRecipeCategories(new FissionReactorRecipeCategory(helper));
-		registration.addRecipeCategories(new ParticleAcceleratorAntiMatterRecipeCategory(helper));
-		registration.addRecipeCategories(new ParticleAcceleratorDarkMatterRecipeCategory(helper));
-		registration.addRecipeCategories(new FuelReprocessorRecipeCategory(helper));
-		registration.addRecipeCategories(new RadioactiveProcessorRecipeCategory(helper));
-		registration.addRecipeCategories(new MSRProcessorRecipeCategory(helper));
+        registration.addRecipeCategories(new GasCentrifugeRecipeCategory(helper));
+        registration.addRecipeCategories(new NuclearBoilerRecipeCategory(helper));
+        registration.addRecipeCategories(new ChemicalExtractorRecipeCategory(helper));
+        registration.addRecipeCategories(new FissionReactorRecipeCategory(helper));
+        registration.addRecipeCategories(new ParticleAcceleratorAntiMatterRecipeCategory(helper));
+        registration.addRecipeCategories(new ParticleAcceleratorDarkMatterRecipeCategory(helper));
+        registration.addRecipeCategories(new FuelReprocessorRecipeCategory(helper));
+        registration.addRecipeCategories(new RadioactiveProcessorRecipeCategory(helper));
+        registration.addRecipeCategories(new MSRProcessorRecipeCategory(helper));
 
-	}
+    }
 
-	@Override
-	public void registerGuiHandlers(IGuiHandlerRegistration registry) {
-		registry.addRecipeClickArea(ScreenO2OProcessor.class, 48, 35, 22, 15, ElectrodynamicsJEIPlugin.O2O_CLICK_AREAS.toArray(new RecipeType<?>[ElectrodynamicsJEIPlugin.O2O_CLICK_AREAS.size()]));
-		registry.addRecipeClickArea(ScreenNuclearBoiler.class, 97, 31, 22, 15, NuclearBoilerRecipeCategory.RECIPE_TYPE);
-		registry.addRecipeClickArea(ScreenRadioactiveProcessor.class, 97, 31, 22, 15, RadioactiveProcessorRecipeCategory.RECIPE_TYPE);
-		registry.addRecipeClickArea(ScreenChemicalExtractor.class, 97, 31, 22, 15, ChemicalExtractorRecipeCategory.RECIPE_TYPE);
-		registry.addRecipeClickArea(ScreenGasCentrifuge.class, 105, 13, 20, 54, GasCentrifugeRecipeCategory.RECIPE_TYPE);
-		registry.addRecipeClickArea(ScreenFissionReactorCore.class, 117, 53, 14, 13, FissionReactorRecipeCategory.RECIPE_TYPE);
-		registry.addRecipeClickArea(ScreenParticleInjector.class, 102, 43, 28, 14, ParticleAcceleratorAntiMatterRecipeCategory.RECIPE_TYPE, ParticleAcceleratorDarkMatterRecipeCategory.RECIPE_TYPE);
-		registry.addRecipeClickArea(ScreenMSRFuelPreProcessor.class, 98, 40, 16, 16, MSRProcessorRecipeCategory.RECIPE_TYPE);
-	}
+    @Override
+    public void registerGuiHandlers(IGuiHandlerRegistration registry) {
+        registry.addRecipeClickArea(ScreenO2OProcessor.class, 48, 35, 22, 15, ElectrodynamicsJEIPlugin.O2O_CLICK_AREAS.toArray(new RecipeType<?>[ElectrodynamicsJEIPlugin.O2O_CLICK_AREAS.size()]));
+        registry.addRecipeClickArea(ScreenNuclearBoiler.class, 97, 31, 22, 15, NuclearBoilerRecipeCategory.RECIPE_TYPE);
+        registry.addRecipeClickArea(ScreenRadioactiveProcessor.class, 97, 31, 22, 15, RadioactiveProcessorRecipeCategory.RECIPE_TYPE);
+        registry.addRecipeClickArea(ScreenChemicalExtractor.class, 97, 31, 22, 15, ChemicalExtractorRecipeCategory.RECIPE_TYPE);
+        registry.addRecipeClickArea(ScreenGasCentrifuge.class, 105, 13, 20, 54, GasCentrifugeRecipeCategory.RECIPE_TYPE);
+        registry.addRecipeClickArea(ScreenFissionReactorCore.class, 117, 53, 14, 13, FissionReactorRecipeCategory.RECIPE_TYPE);
+        registry.addRecipeClickArea(ScreenParticleInjector.class, 102, 43, 28, 14, ParticleAcceleratorAntiMatterRecipeCategory.RECIPE_TYPE, ParticleAcceleratorDarkMatterRecipeCategory.RECIPE_TYPE);
+        registry.addRecipeClickArea(ScreenMSRFuelPreProcessor.class, 98, 40, 16, 16, MSRProcessorRecipeCategory.RECIPE_TYPE);
+    }
 
-	private static void nuclearScienceInfoTabs(IRecipeRegistration registration) {
+    private static void nuclearScienceInfoTabs(IRecipeRegistration registration) {
 
-	}
+    }
 
 }

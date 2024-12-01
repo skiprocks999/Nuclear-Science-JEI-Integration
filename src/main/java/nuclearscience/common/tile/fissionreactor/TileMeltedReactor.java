@@ -2,7 +2,6 @@ package nuclearscience.common.tile.fissionreactor;
 
 import electrodynamics.prefab.tile.GenericTile;
 import electrodynamics.prefab.tile.components.type.ComponentTickable;
-import electrodynamics.prefab.utilities.object.Location;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -16,6 +15,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import nuclearscience.api.radiation.RadiationSystem;
+import nuclearscience.api.radiation.SimpleRadiationSource;
 import nuclearscience.registers.NuclearScienceTiles;
 import nuclearscience.registers.NuclearScienceBlocks;
 
@@ -39,7 +39,6 @@ public class TileMeltedReactor extends GenericTile {
 				level.setBlockAndUpdate(worldPosition, Blocks.AIR.defaultBlockState());
 				BlockEntity tile = level.getBlockEntity(worldPosition.below());
 				if (tile instanceof TileMeltedReactor newTile) {
-					newTile.radiation = radiation;
 					newTile.radiation = radiation;
 				}
 				return;
@@ -93,11 +92,9 @@ public class TileMeltedReactor extends GenericTile {
 				}
 			}
 		}
-		if (level.getLevelData().getGameTime() % 10 == 0) {
-			double totstrength = 120000 * (radiation / START_RADIATION);
-			double range = Math.sqrt(totstrength) / (5 * Math.sqrt(2)) * 2;
-			RadiationSystem.emitRadiationFromLocation(level, new Location(worldPosition), range, totstrength);
-		}
+		double totstrength = 120000 * (radiation / START_RADIATION);
+		int range = (int) (Math.sqrt(totstrength) / (5 * Math.sqrt(2)) * 2);
+		RadiationSystem.addRadiationSource(getLevel(), new SimpleRadiationSource(totstrength, 1, range, true, 0, getBlockPos(), false));
 	}
 
 	@Override

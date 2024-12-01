@@ -9,6 +9,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.item.ItemStack;
+import nuclearscience.common.reloadlistener.RadioactiveItemRegister;
 import nuclearscience.common.tile.TileRadioisotopeGenerator;
 import nuclearscience.registers.NuclearScienceMenuTypes;
 
@@ -27,7 +28,7 @@ public class ContainerRadioisotopeGenerator extends GenericContainerBlockEntity<
 		addSlot(new SlotRestricted(inv, nextIndex(), 25, 42) {
 			@Override
 			public boolean mayPlace(ItemStack stack) {
-				return !RadiationRegister.get(stack.getItem()).isNull();
+				return RadioactiveItemRegister.getValue(stack.getItem()).amount() > 0;
 			}
 		}.setIOColor(new Color(0, 240, 255, 255)));
 	}

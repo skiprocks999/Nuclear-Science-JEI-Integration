@@ -1,0 +1,26 @@
+{
+  "type": "nuclearscience:nuclear_boiler_recipe",
+  "fluidinputs": [
+    {
+      "amount": 1600,
+      "tag": "c:hydrochloric_acid"
+    }
+  ],
+  "group": "nuclearscience",
+  "iteminputs": [
+    {
+      "count": 1,
+      "ingredient": {
+        "tag": "c:pellets/uranium238"
+      }
+    }
+  ],
+  "output": {
+    "amount": 2000,
+    "gas": "nuclearscience:uraniumhexafluoride",
+    "pressure": 1,
+    "temp": 293
+  },
+  "ticks": 800,
+  "usagepertick": 750.0
+}

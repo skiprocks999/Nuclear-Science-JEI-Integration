@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "c:circuits/elite"
+    },
+    "E": {
+      "tag": "c:cells/empty"
+    },
+    "F": {
+      "item": "electrodynamics:electricarcfurnace"
+    },
+    "M": {
+      "item": "electrodynamics:motor"
+    },
+    "P": {
+      "tag": "c:plates/steel"
+    }
+  },
+  "pattern": [
+    "PCP",
+    "EFE",
+    "PMP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearscience:nuclearboiler"
+  }
+}

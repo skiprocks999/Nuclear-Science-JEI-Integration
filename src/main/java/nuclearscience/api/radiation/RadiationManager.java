@@ -7,10 +7,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.AABB;
-import nuclearscience.api.radiation.util.BlockPosVolume;
-import nuclearscience.api.radiation.util.IRadiationManager;
-import nuclearscience.api.radiation.util.IRadiationRecipient;
-import nuclearscience.api.radiation.util.IRadiationSource;
+import nuclearscience.api.radiation.util.*;
+import nuclearscience.common.reloadlistener.RadiationShieldingRegister;
 import nuclearscience.common.settings.Constants;
 import nuclearscience.registers.NuclearScienceAttachmentTypes;
 import nuclearscience.registers.NuclearScienceCapabilities;
@@ -264,16 +262,27 @@ public class RadiationManager implements IRadiationManager {
 
     public static double getAppliedRadiation(Level world, BlockPos source, BlockPos entity, double amount, double strength) {
 
-        List<Block> shielding = raycastToBlockPos(world, source, entity);
+        List<Block> blocks = raycastToBlockPos(world, source, entity);
 
-        //TODO implement radiation shielding register
+        if(blocks.isEmpty()) {
+            return amount;
+        }
 
-        for (Block block : shielding) {
+        RadiationShielding shielding;
+
+        for (Block block : blocks) {
+            shielding = RadiationShieldingRegister.getValue(block);
+            if(shielding.level() < strength) {
+                continue;
+            }
+            amount -= shielding.amount();
+            if(amount <= 0) {
+                return 0;
+            }
 
         }
 
-
-        return 0;
+        return amount;
 
     }
 

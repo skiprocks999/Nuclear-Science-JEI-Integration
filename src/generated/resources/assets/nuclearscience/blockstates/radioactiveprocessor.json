@@ -1,32 +1,17 @@
 {
   "variants": {
-    "facing=east,lit=false": {
-      "model": "nuclearscience:block/radioactiveprocessor"
-    },
-    "facing=east,lit=true": {
+    "facing=east": {
       "model": "nuclearscience:block/radioactiveprocessoron"
     },
-    "facing=north,lit=false": {
-      "model": "nuclearscience:block/radioactiveprocessor",
-      "y": 270
-    },
-    "facing=north,lit=true": {
+    "facing=north": {
       "model": "nuclearscience:block/radioactiveprocessoron",
       "y": 270
     },
-    "facing=south,lit=false": {
-      "model": "nuclearscience:block/radioactiveprocessor",
-      "y": 90
-    },
-    "facing=south,lit=true": {
+    "facing=south": {
       "model": "nuclearscience:block/radioactiveprocessoron",
       "y": 90
     },
-    "facing=west,lit=false": {
-      "model": "nuclearscience:block/radioactiveprocessor",
-      "y": 180
-    },
-    "facing=west,lit=true": {
+    "facing=west": {
       "model": "nuclearscience:block/radioactiveprocessoron",
       "y": 180
     }

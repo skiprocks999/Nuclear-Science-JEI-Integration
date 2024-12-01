@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "c:cells/anti_matter_large"
+    },
+    {
+      "tag": "c:cells/anti_matter_large"
+    },
+    {
+      "tag": "c:cells/anti_matter_large"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearscience:cellantimatterverylarge"
+  }
+}

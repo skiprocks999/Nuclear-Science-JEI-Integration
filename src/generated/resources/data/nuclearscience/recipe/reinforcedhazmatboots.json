@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "nuclearscience:hazmatboots"
+    },
+    "L": {
+      "tag": "c:plates/lead"
+    },
+    "W": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "pattern": [
+    "WWW",
+    "LBL",
+    "WLW"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearscience:reinforcedhazmatboots"
+  }
+}

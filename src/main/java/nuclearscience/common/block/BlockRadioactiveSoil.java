@@ -1,14 +1,13 @@
 package nuclearscience.common.block;
 
-import electrodynamics.prefab.utilities.object.Location;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SnowyDirtBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import nuclearscience.api.radiation.RadiationSystem;
+import nuclearscience.api.radiation.SimpleRadiationSource;
 
 public class BlockRadioactiveSoil extends SnowyDirtBlock {
 
@@ -17,9 +16,18 @@ public class BlockRadioactiveSoil extends SnowyDirtBlock {
 	}
 
 	@Override
-	public void stepOn(Level lvl, BlockPos pos, BlockState state, Entity entityIn) {
-		if (lvl.getLevelData().getGameTime() % 10 == 0) {
-			RadiationSystem.emitRadiationFromLocation(lvl, new Location(pos), 3, 300);
+	protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
+		super.onPlace(state, level, pos, oldState, movedByPiston);
+		if(level.isClientSide()) {
+			return;
 		}
+		RadiationSystem.addRadiationSource(level, new SimpleRadiationSource(300, 1, 3, false, 100, pos, true));
 	}
+
+	@Override
+	protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+		super.onRemove(state, level, pos, newState, movedByPiston);
+		RadiationSystem.removeRadiationSource(level, pos, true);
+	}
+
 }

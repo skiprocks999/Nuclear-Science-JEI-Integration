@@ -1,5 +1,6 @@
 package nuclearscience.api.radiation;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -48,6 +49,12 @@ public class RadiationSystem {
 		manager.addRadiationSource(source);
 		world.setData(NuclearScienceAttachmentTypes.RADIATION_MANAGER, manager);
 
+	}
+
+	public static void removeRadiationSource(Level world, BlockPos pos, boolean shouldLinger) {
+		RadiationManager manager = world.getData(NuclearScienceAttachmentTypes.RADIATION_MANAGER);
+		manager.removeRadiationSource(pos, shouldLinger);
+		world.setData(NuclearScienceAttachmentTypes.RADIATION_MANAGER, manager);
 	}
 
 

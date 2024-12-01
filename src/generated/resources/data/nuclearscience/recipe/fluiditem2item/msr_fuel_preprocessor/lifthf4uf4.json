@@ -1,0 +1,36 @@
+{
+  "type": "nuclearscience:msrfuel_preprocessor_recipe",
+  "fluidinputs": [
+    {
+      "amount": 2500,
+      "tag": "c:hydrofluoric_acid"
+    }
+  ],
+  "group": "nuclearscience",
+  "iteminputs": [
+    {
+      "count": 1,
+      "ingredient": {
+        "tag": "c:dusts/lithium"
+      }
+    },
+    {
+      "count": 2,
+      "ingredient": {
+        "tag": "c:dusts/thorium"
+      }
+    },
+    {
+      "count": 2,
+      "ingredient": {
+        "tag": "c:yellow_cake_uranium"
+      }
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "nuclearscience:lifthf4uf4"
+  },
+  "ticks": 200,
+  "usagepertick": 1200.0
+}

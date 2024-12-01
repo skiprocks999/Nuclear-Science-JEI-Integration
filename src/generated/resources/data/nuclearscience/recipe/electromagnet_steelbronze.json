@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "c:plates/bronze"
+    },
+    "M": {
+      "item": "electrodynamics:motor"
+    },
+    "S": {
+      "tag": "c:plates/steel"
+    }
+  },
+  "pattern": [
+    "BSB",
+    "SMS",
+    "BSB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearscience:electromagnet"
+  }
+}

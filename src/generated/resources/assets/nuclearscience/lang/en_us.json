@@ -49,7 +49,6 @@
   "death.attack.plasma": "%s was ionized!",
   "death.attack.radiation": "%s just did a speedrun of evolution!",
   "effect.nuclearscience.radiation": "Radiation",
-  "fluid.nuclearscience.fluidammonia": "Ammonia",
   "gas.nuclearscience.uraniumhexafluoride": "Uranium Hexafluoride",
   "gui.nuclearscience.fissionreactor.deuterium": "Deuterium",
   "gui.nuclearscience.fissionreactor.temperature": "Temp: %s",

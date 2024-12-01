@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "H": {
+      "tag": "c:plates/hslasteel"
+    },
+    "M": {
+      "item": "electrodynamics:motor"
+    },
+    "T": {
+      "tag": "c:plates/titanium"
+    }
+  },
+  "pattern": [
+    "THT",
+    "HMH",
+    "THT"
+  ],
+  "result": {
+    "count": 15,
+    "id": "nuclearscience:electromagnet"
+  }
+}

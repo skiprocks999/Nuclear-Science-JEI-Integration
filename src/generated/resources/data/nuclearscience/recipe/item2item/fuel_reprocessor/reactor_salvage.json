@@ -1,0 +1,27 @@
+{
+  "type": "nuclearscience:fuel_reprocessor_recipe",
+  "group": "nuclearscience",
+  "itembi": [
+    {
+      "chance": 1.0,
+      "item": {
+        "count": 1,
+        "id": "nuclearscience:plutonium239"
+      }
+    }
+  ],
+  "iteminputs": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearscience:meltedreactor"
+      }
+    }
+  ],
+  "output": {
+    "count": 2,
+    "id": "electrodynamics:ingotsteel"
+  },
+  "ticks": 200,
+  "usagepertick": 480.0
+}

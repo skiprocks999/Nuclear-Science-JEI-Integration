@@ -74,14 +74,12 @@ public class RadioactiveItemsProvider implements DataProvider {
 	@SuppressWarnings("unused")
 	private void addItem(Item item, double radiationAmount, double radiationStrength, JsonObject json) {
 		JsonObject data = new JsonObject();
-		RadioactiveObject.CODEC.encode(new RadioactiveObject(radiationStrength, radiationAmount), JsonOps.INSTANCE, data);
-		json.add(BuiltInRegistries.ITEM.getKey(item).toString(), data);
+		json.add(BuiltInRegistries.ITEM.getKey(item).toString(), RadioactiveObject.CODEC.encode(new RadioactiveObject(radiationStrength, radiationAmount), JsonOps.INSTANCE, data).getOrThrow());
 	}
 
 	private void addTag(TagKey<Item> tag, double radiationAmount, double radiationStrength, JsonObject json) {
 		JsonObject data = new JsonObject();
-		RadioactiveObject.CODEC.encode(new RadioactiveObject(radiationStrength, radiationAmount), JsonOps.INSTANCE, data);
-		json.add("#" + tag.location().toString(), data);
+		json.add("#" + tag.location().toString(), RadioactiveObject.CODEC.encode(new RadioactiveObject(radiationStrength, radiationAmount), JsonOps.INSTANCE, data).getOrThrow());
 	}
 
 	@Override

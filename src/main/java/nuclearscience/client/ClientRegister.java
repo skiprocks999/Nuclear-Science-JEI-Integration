@@ -24,19 +24,7 @@ import nuclearscience.client.render.tile.RenderRadioactiveProcessor;
 import nuclearscience.client.render.tile.RenderRodAssembly;
 import nuclearscience.client.render.tile.RenderTeleporter;
 import nuclearscience.client.render.tile.RenderTurbine;
-import nuclearscience.client.screen.ScreenAtomicAssembler;
-import nuclearscience.client.screen.ScreenChemicalExtractor;
-import nuclearscience.client.screen.ScreenFissionReactorCore;
-import nuclearscience.client.screen.ScreenFreezePlug;
-import nuclearscience.client.screen.ScreenGasCentrifuge;
-import nuclearscience.client.screen.ScreenMSRFuelPreProcessor;
-import nuclearscience.client.screen.ScreenMSReactorCore;
-import nuclearscience.client.screen.ScreenMoltenSaltSupplier;
-import nuclearscience.client.screen.ScreenNuclearBoiler;
-import nuclearscience.client.screen.ScreenParticleInjector;
-import nuclearscience.client.screen.ScreenQuantumCapacitor;
-import nuclearscience.client.screen.ScreenRadioactiveProcessor;
-import nuclearscience.client.screen.ScreenRadioisotopeGenerator;
+import nuclearscience.client.screen.*;
 import nuclearscience.registers.NuclearScienceTiles;
 import nuclearscience.registers.NuclearScienceEntities;
 import nuclearscience.registers.NuclearScienceMenuTypes;
@@ -88,6 +76,7 @@ public class ClientRegister {
         event.register(NuclearScienceMenuTypes.CONTAINER_MSRREACTORCORE.get(), ScreenMSReactorCore::new);
         event.register(NuclearScienceMenuTypes.CONTAINER_MOLTENSALTSUPPLIER.get(), ScreenMoltenSaltSupplier::new);
         event.register(NuclearScienceMenuTypes.CONTAINER_ATOMICASSEMBLER.get(), ScreenAtomicAssembler::new);
+        event.register(NuclearScienceMenuTypes.CONTAINER_TELEPORTER.get(), ScreenTeleporter::new);
     }
 
     @SubscribeEvent

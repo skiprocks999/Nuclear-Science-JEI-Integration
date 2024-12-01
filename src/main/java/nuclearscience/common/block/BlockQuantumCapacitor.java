@@ -22,6 +22,8 @@ public class BlockQuantumCapacitor extends GenericMachineBlock {
 		super(TileQuantumCapacitor::new);
 	}
 
+	/*
+
 	@Override
 	public List<ItemStack> getDrops(BlockState state, Builder builder) {
 		ItemStack addstack = new ItemStack(this);
@@ -53,4 +55,6 @@ public class BlockQuantumCapacitor extends GenericMachineBlock {
 			super.setPlacedBy(worldIn, pos, state, placer, stack);
 		}
 	}
+
+	 */
 }

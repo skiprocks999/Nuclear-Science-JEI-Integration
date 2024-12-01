@@ -43,15 +43,6 @@ public class EntityParticle extends Entity {
 		super(NuclearScienceEntities.ENTITY_PARTICLE.get(), worldIn);
 	}
 
-	@Override
-	protected void defineSynchedData(SynchedEntityData.Builder builder) {
-		if (direction == null) {
-			direction = Direction.UP;
-		}
-		builder.define(DIRECTION, direction);
-		builder.define(SPEED, speed);
-	}
-
 	public EntityParticle(Direction direction, Level worldIn, Location pos) {
 		this(NuclearScienceEntities.ENTITY_PARTICLE.get(), worldIn);
 		setPos(new Vec3(pos.x(), pos.y(), pos.z()));
@@ -60,6 +51,15 @@ public class EntityParticle extends Entity {
 		if (worldIn.isClientSide) {
 			setViewScale(4);
 		}
+	}
+
+	@Override
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		if (direction == null) {
+			direction = Direction.UP;
+		}
+		builder.define(DIRECTION, direction);
+		builder.define(SPEED, speed);
 	}
 
 	@Override
@@ -75,9 +75,8 @@ public class EntityParticle extends Entity {
 				direction = Direction.UP;
 			}
 			entityData.set(DIRECTION, direction);
-
 			entityData.set(SPEED, speed);
-		} else if (!entityData.) {
+		} else {
 			direction = entityData.get(DIRECTION);
 			speed = entityData.get(SPEED);
 		}

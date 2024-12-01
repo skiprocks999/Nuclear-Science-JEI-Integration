@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "tag": "c:glass_blocks"
+    },
+    "T": {
+      "tag": "c:ingots/tin"
+    }
+  },
+  "pattern": [
+    "GTG",
+    "T T",
+    "GTG"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearscience:cellempty"
+  }
+}

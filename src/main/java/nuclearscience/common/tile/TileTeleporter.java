@@ -1,32 +1,26 @@
 package nuclearscience.common.tile;
 
 import java.util.List;
-import java.util.function.Function;
 
 import electrodynamics.prefab.properties.PropertyTypes;
+import electrodynamics.prefab.tile.components.type.*;
 import electrodynamics.registers.ElectrodynamicsCapabilities;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.portal.DimensionTransition;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
-import org.jetbrains.annotations.Nullable;
 
 import electrodynamics.prefab.properties.Property;
 import electrodynamics.prefab.tile.GenericTile;
 import electrodynamics.prefab.tile.components.IComponentType;
-import electrodynamics.prefab.tile.components.type.ComponentElectrodynamic;
-import electrodynamics.prefab.tile.components.type.ComponentPacketHandler;
-import electrodynamics.prefab.tile.components.type.ComponentTickable;
 import electrodynamics.prefab.utilities.BlockEntityUtils;
-import electrodynamics.prefab.utilities.NBTUtils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -34,16 +28,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import nuclearscience.common.inventory.container.ContainerTeleporter;
 import nuclearscience.registers.NuclearScienceTiles;
 
 public class TileTeleporter extends GenericTile {
 
-	private static final DimensionManager MANAGER = new DimensionManager();
-
 	public final Property<BlockPos> destination = property(new Property<>(PropertyTypes.BLOCK_POS, "location", getBlockPos()));
 	public final Property<Integer> cooldown = property(new Property<>(PropertyTypes.INTEGER, "cooldown", 0));
-
-	public ResourceKey<Level> dimension = Level.OVERWORLD;
+	public final Property<ResourceLocation> dimension = property(new Property<>(PropertyTypes.RESOURCE_LOCATION, "dimension", Level.OVERWORLD.location()));
 
 	public TileTeleporter(BlockPos pos, BlockState state) {
 		super(NuclearScienceTiles.TILE_TELEPORTER.get(), pos, state);
@@ -51,6 +43,8 @@ public class TileTeleporter extends GenericTile {
 		addComponent(new ComponentTickable(this).tickServer(this::tickServer));
 		addComponent(new ComponentPacketHandler(this));
 		addComponent(new ComponentElectrodynamic(this, false, true).maxJoules(5000000).voltage(ElectrodynamicsCapabilities.DEFAULT_VOLTAGE * 4).setInputDirections(BlockEntityUtils.MachineDirection.BOTTOM));
+		addComponent(new ComponentInventory(this, ComponentInventory.InventoryBuilder.newInv().inputs(1)));
+		addComponent(new ComponentContainerProvider("container.teleporter", this).createMenu((id, player) -> new ContainerTeleporter(id, player, getComponent(IComponentType.Inventory), getCoordsArray())));
 
 	}
 
@@ -86,11 +80,9 @@ public class TileTeleporter extends GenericTile {
 
 		Player player = players.get(0);
 
-		player.changeDimension(destinationLevel, MANAGER);
-
 		BlockPos destPos = destination.get();
 
-		player.teleportToWithTicket(destPos.getX() + 0.5, destPos.getY() + 1.0, destPos.getZ() + 0.5);
+		player.changeDimension(new DimensionTransition(destinationLevel, new Vec3(destPos.getX(), destPos.getY(), destPos.getZ()), Vec3.ZERO, player.getXRot(), player.getYRot(), false, DimensionTransition.PLACE_PORTAL_TICKET));
 
 		cooldown.set(80);
 
@@ -109,46 +101,11 @@ public class TileTeleporter extends GenericTile {
 	}
 
 	private ServerLevel getDestinationLevel() {
-		ServerLevel level = ServerLifecycleHooks.getCurrentServer().getLevel(dimension);
+		ServerLevel level = ServerLifecycleHooks.getCurrentServer().getLevel(ResourceKey.create(Registries.DIMENSION, dimension.get()));
 		if (level == null) {
 			return (ServerLevel) getLevel();
 		}
 		return level;
 	}
 
-	@Override
-	protected void saveAdditional(CompoundTag compound, HolderLookup.Provider registries) {
-		compound.put(NBTUtils.DIMENSION, NBTUtils.writeDimensionToTag(dimension));
-		super.saveAdditional(compound, registries);
-	}
-
-	@Override
-	protected void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
-		dimension = NBTUtils.readDimensionFromTag(compound.getCompound(NBTUtils.DIMENSION));
-		super.loadAdditional(compound, registries);
-	}
-
-	private static final class DimensionManager implements ITeleporter {
-
-		@Override
-		public Entity placeEntity(Entity entity, ServerLevel currentWorld, ServerLevel destWorld, float yaw, Function<Boolean, Entity> repositionEntity) {
-			return repositionEntity.apply(false);
-		}
-
-		@Override
-		public @Nullable PortalInfo getPortalInfo(Entity entity, ServerLevel destWorld, Function<ServerLevel, PortalInfo> defaultPortalInfo) {
-			return new PortalInfo(entity.position(), Vec3.ZERO, entity.getYRot(), entity.getXRot());
-		}
-
-		@Override
-		public boolean isVanilla() {
-			return false;
-		}
-
-		@Override
-		public boolean playTeleportSound(ServerPlayer player, ServerLevel sourceWorld, ServerLevel destWorld) {
-			return false;
-		}
-
-	}
 }

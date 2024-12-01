@@ -8,19 +8,7 @@ import net.minecraft.world.inventory.MenuType.MenuSupplier;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import nuclearscience.References;
-import nuclearscience.common.inventory.container.ContainerAtomicAssembler;
-import nuclearscience.common.inventory.container.ContainerChemicalExtractor;
-import nuclearscience.common.inventory.container.ContainerFreezePlug;
-import nuclearscience.common.inventory.container.ContainerGasCentrifuge;
-import nuclearscience.common.inventory.container.ContainerMSRFuelPreProcessor;
-import nuclearscience.common.inventory.container.ContainerMSRReactorCore;
-import nuclearscience.common.inventory.container.ContainerMoltenSaltSupplier;
-import nuclearscience.common.inventory.container.ContainerNuclearBoiler;
-import nuclearscience.common.inventory.container.ContainerParticleInjector;
-import nuclearscience.common.inventory.container.ContainerQuantumCapacitor;
-import nuclearscience.common.inventory.container.ContainerRadioactiveProcessor;
-import nuclearscience.common.inventory.container.ContainerRadioisotopeGenerator;
-import nuclearscience.common.inventory.container.ContainerReactorCore;
+import nuclearscience.common.inventory.container.*;
 
 public class NuclearScienceMenuTypes {
 	public static final DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(Registries.MENU, References.ID);
@@ -38,6 +26,7 @@ public class NuclearScienceMenuTypes {
 	public static final DeferredHolder<MenuType<?>, MenuType<ContainerMSRReactorCore>> CONTAINER_MSRREACTORCORE = register("msrreactorcore", ContainerMSRReactorCore::new);
 	public static final DeferredHolder<MenuType<?>, MenuType<ContainerMoltenSaltSupplier>> CONTAINER_MOLTENSALTSUPPLIER = register("moltensaltsupplier", ContainerMoltenSaltSupplier::new);
 	public static final DeferredHolder<MenuType<?>, MenuType<ContainerAtomicAssembler>> CONTAINER_ATOMICASSEMBLER = register("atomicassembler", ContainerAtomicAssembler::new);
+	public static final DeferredHolder<MenuType<?>, MenuType<ContainerTeleporter>> CONTAINER_TELEPORTER = register("teleporter", ContainerTeleporter::new);
 
 	private static <T extends AbstractContainerMenu> DeferredHolder<MenuType<?>, MenuType<T>> register(String id, MenuSupplier<T> supplier) {
 		return MENU_TYPES.register(id, () -> new MenuType<>(supplier, FeatureFlags.VANILLA_SET));

@@ -19,13 +19,13 @@ public class NuclearScienceChemicalMixerRecipes extends ElectrodynamicsChemicalM
 	public void addRecipes(RecipeOutput output) {
 
 
-		newRecipe(new FluidStack(ElectrodynamicsFluids.FLUIDS_SULFATE.getValue(SubtypeSulfateFluid.iron), 1000), 0, CHEMICALMIXER_REQUIRED_TICKS, CHEMICALMIXER_USAGE_PER_TICK, "ironsulfate_from_ironblock", this.modId)
+		newRecipe(new FluidStack(ElectrodynamicsFluids.FLUIDS_SULFATE.getValue(SubtypeSulfateFluid.iron), 1000), 0, CHEMICALMIXER_REQUIRED_TICKS, CHEMICALMIXER_USAGE_PER_TICK, "ironsulfate_from_ironblock", this.modID)
 				//
 				.addFluidTagInput(ElectrodynamicsTags.Fluids.SULFURIC_ACID, 1000)
 				//
 				.addItemTagInput(Tags.Items.STORAGE_BLOCKS_RAW_IRON, 1)
 				//
-				.complete(output);
+				.save(output);
 
 	}
 

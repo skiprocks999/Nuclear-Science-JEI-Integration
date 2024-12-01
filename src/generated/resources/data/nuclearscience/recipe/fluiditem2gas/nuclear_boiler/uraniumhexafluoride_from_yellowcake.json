@@ -1,0 +1,27 @@
+{
+  "type": "nuclearscience:nuclear_boiler_recipe",
+  "experience": 0.25,
+  "fluidinputs": [
+    {
+      "amount": 800,
+      "tag": "c:hydrofluoric_acid"
+    }
+  ],
+  "group": "nuclearscience",
+  "iteminputs": [
+    {
+      "count": 1,
+      "ingredient": {
+        "tag": "c:yellow_cake_uranium"
+      }
+    }
+  ],
+  "output": {
+    "amount": 2500,
+    "gas": "nuclearscience:uraniumhexafluoride",
+    "pressure": 1,
+    "temp": 293
+  },
+  "ticks": 800,
+  "usagepertick": 750.0
+}

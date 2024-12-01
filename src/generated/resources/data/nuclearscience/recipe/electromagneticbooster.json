@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "nuclearscience:electromagnet"
+    },
+    "G": {
+      "item": "nuclearscience:electromagneticglass"
+    }
+  },
+  "pattern": [
+    "EGE"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearscience:electromagneticbooster"
+  }
+}

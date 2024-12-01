@@ -19,29 +19,13 @@ public class NuclearScienceAttachmentTypes {
 
     public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, References.ID);
 
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<HashMap<BlockPos, SimpleRadiationSource>>> PERMANENT_RADIATION_SOURCES = ATTACHMENT_TYPES.register("permanentradiationsources", () -> AttachmentType.builder(() -> new HashMap<BlockPos, SimpleRadiationSource>()).serialize(Codec.unboundedMap(BlockPos.CODEC, SimpleRadiationSource.CODEC).xmap(map -> {
-        HashMap<BlockPos, SimpleRadiationSource> values = new HashMap<>();
-        values.putAll(map);
-        return values;
-    }, value -> value)).build());
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<HashMap<BlockPos, SimpleRadiationSource>>> PERMANENT_RADIATION_SOURCES = ATTACHMENT_TYPES.register("permanentradiationsources", () -> AttachmentType.builder(() -> new HashMap<BlockPos, SimpleRadiationSource>()).serialize(Codec.unboundedMap(BlockPos.CODEC, SimpleRadiationSource.CODEC).xmap(HashMap::new, HashMap::new)).build());
 
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<HashMap<BlockPos, IRadiationManager.TemporaryRadiationSource>>> TEMPORARY_RADIATION_SOURCES = ATTACHMENT_TYPES.register("temporaryradiationsources", () -> AttachmentType.builder(() -> new HashMap<BlockPos, IRadiationManager.TemporaryRadiationSource>()).serialize(Codec.unboundedMap(BlockPos.CODEC, IRadiationManager.TemporaryRadiationSource.CODEC).xmap(map -> {
-        HashMap<BlockPos, IRadiationManager.TemporaryRadiationSource> values = new HashMap<>();
-        values.putAll(map);
-        return values;
-    }, value -> value)).build());
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<HashMap<BlockPos, IRadiationManager.TemporaryRadiationSource>>> TEMPORARY_RADIATION_SOURCES = ATTACHMENT_TYPES.register("temporaryradiationsources", () -> AttachmentType.builder(() -> new HashMap<BlockPos, IRadiationManager.TemporaryRadiationSource>()).serialize(Codec.unboundedMap(BlockPos.CODEC, IRadiationManager.TemporaryRadiationSource.CODEC).xmap(HashMap::new, HashMap::new)).build());
 
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<HashMap<BlockPos, IRadiationManager.FadingRadiationSource>>> FADING_RADIATION_SOURCES = ATTACHMENT_TYPES.register("fadingradiationsources", () -> AttachmentType.builder(() -> new HashMap<BlockPos, IRadiationManager.FadingRadiationSource>()).serialize(Codec.unboundedMap(BlockPos.CODEC, IRadiationManager.FadingRadiationSource.CODEC).xmap(map -> {
-        HashMap<BlockPos, IRadiationManager.FadingRadiationSource> values = new HashMap<>();
-        values.putAll(map);
-        return values;
-    }, value -> value)).build());
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<HashMap<BlockPos, IRadiationManager.FadingRadiationSource>>> FADING_RADIATION_SOURCES = ATTACHMENT_TYPES.register("fadingradiationsources", () -> AttachmentType.builder(() -> new HashMap<BlockPos, IRadiationManager.FadingRadiationSource>()).serialize(Codec.unboundedMap(BlockPos.CODEC, IRadiationManager.FadingRadiationSource.CODEC).xmap(HashMap::new, HashMap::new)).build());
 
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<HashMap<BlockPosVolume, Double>>> LOCALIZED_DISSIPATIONS = ATTACHMENT_TYPES.register("localizeddissipations", () -> AttachmentType.builder(() -> new HashMap<BlockPosVolume, Double>()).serialize(Codec.unboundedMap(BlockPosVolume.CODEC, Codec.DOUBLE).xmap(map -> {
-        HashMap<BlockPosVolume, Double> values = new HashMap<>();
-        values.putAll(map);
-        return values;
-    }, value -> value)).build());
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<HashMap<BlockPosVolume, Double>>> LOCALIZED_DISSIPATIONS = ATTACHMENT_TYPES.register("localizeddissipations", () -> AttachmentType.builder(() -> new HashMap<BlockPosVolume, Double>()).serialize(Codec.unboundedMap(BlockPosVolume.CODEC, Codec.DOUBLE).xmap(HashMap::new, HashMap::new)).build());
 
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Double>> DEFAULT_DISSIPATION = ATTACHMENT_TYPES.register("defaultdissipation", () -> AttachmentType.builder(() -> Constants.BACKROUND_RADIATION_DISSIPATION).serialize(Codec.DOUBLE).build());
 

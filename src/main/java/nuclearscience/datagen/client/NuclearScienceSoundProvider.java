@@ -18,7 +18,12 @@ public class NuclearScienceSoundProvider extends SoundDefinitionsProvider {
 	@Override
 	public void registerSounds() {
 		add(NuclearScienceSounds.SOUND_GASCENTRIFUGE);
-		add(NuclearScienceSounds.SOUND_GEIGER);
+		add(NuclearScienceSounds.SOUND_GEIGERCOUNTER_1);
+		add(NuclearScienceSounds.SOUND_GEIGERCOUNTER_2);
+		add(NuclearScienceSounds.SOUND_GEIGERCOUNTER_3);
+		add(NuclearScienceSounds.SOUND_GEIGERCOUNTER_4);
+		add(NuclearScienceSounds.SOUND_GEIGERCOUNTER_5);
+		add(NuclearScienceSounds.SOUND_GEIGERCOUNTER_6);
 		add(NuclearScienceSounds.SOUND_NUCLEARBOILER);
 		add(NuclearScienceSounds.SOUND_SIREN);
 		add(NuclearScienceSounds.SOUND_TURBINE);

@@ -44,12 +44,12 @@ public class RadiationShieldingProvider implements DataProvider {
     @SuppressWarnings("unused")
     private void addBlock(Block block, double radiationAmount, double radiationLevel, JsonObject json) {
         JsonObject data = new JsonObject();
-        json.add(BuiltInRegistries.BLOCK.getKey(block).toString(), RadiationShielding.CODEC.encode(new RadiationShielding(radiationLevel, radiationAmount), JsonOps.INSTANCE, data).getOrThrow());
+        json.add(BuiltInRegistries.BLOCK.getKey(block).toString(), RadiationShielding.CODEC.encode(new RadiationShielding(radiationAmount, radiationLevel), JsonOps.INSTANCE, data).getOrThrow());
     }
 
     private void addTag(TagKey<Block> tag, double radiationAmount, double radiationLevel, JsonObject json) {
         JsonObject data = new JsonObject();
-        json.add("#" + tag.location().toString(), RadiationShielding.CODEC.encode(new RadiationShielding(radiationLevel, radiationAmount), JsonOps.INSTANCE, data).getOrThrow());
+        json.add("#" + tag.location().toString(), RadiationShielding.CODEC.encode(new RadiationShielding(radiationAmount, radiationLevel), JsonOps.INSTANCE, data).getOrThrow());
     }
 
     @Override

@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import nuclearscience.api.radiation.util.*;
 import nuclearscience.common.reloadlistener.RadiationShieldingRegister;
@@ -88,14 +89,14 @@ public class RadiationManager implements IRadiationManager {
             position = entry.getKey();
             permanentSource = entry.getValue();
 
-            for (LivingEntity entity : world.getEntitiesOfClass(LivingEntity.class, new AABB(position).inflate(permanentSource.getDistanceSpread()))) {
+            for (LivingEntity entity : world.getEntitiesOfClass(LivingEntity.class, new AABB(position.getX() - permanentSource.distance(), position.getY() - permanentSource.distance(), position.getZ() - permanentSource.distance(), position.getX() + permanentSource.distance() + 1, position.getY() + permanentSource.distance() + 1, position.getZ() + permanentSource.distance() + 1))) {
                 IRadiationRecipient capability = entity.getCapability(NuclearScienceCapabilities.CAPABILITY_RADIATIONRECIPIENT);
                 if (capability == null) {
                     continue;
                 }
 
 
-                capability.recieveRadiation(entity, getAppliedRadiation(world, position, entity.getOnPos(), permanentSource.getRadiationAmount(), permanentSource.getRadiationStrength()), permanentSource.getRadiationStrength());
+                capability.recieveRadiation(entity, getAppliedRadiation(world, position, entity.getOnPos().above(), permanentSource.getRadiationAmount(), permanentSource.getRadiationStrength()), permanentSource.getRadiationStrength());
             }
         }
 
@@ -107,14 +108,14 @@ public class RadiationManager implements IRadiationManager {
             position = entry.getKey();
             temporarySource = entry.getValue();
 
-            for (LivingEntity entity : world.getEntitiesOfClass(LivingEntity.class, new AABB(position).inflate(temporarySource.distance))) {
+            for (LivingEntity entity : world.getEntitiesOfClass(LivingEntity.class, new AABB(position.getX() - temporarySource.distance, position.getY() - temporarySource.distance, position.getZ() - temporarySource.distance, position.getX() + temporarySource.distance + 1, position.getY() + temporarySource.distance + 1, position.getZ() + temporarySource.distance + 1))) {
 
                 IRadiationRecipient capability = entity.getCapability(NuclearScienceCapabilities.CAPABILITY_RADIATIONRECIPIENT);
                 if (capability == null) {
                     continue;
                 }
 
-                capability.recieveRadiation(entity, getAppliedRadiation(world, position, entity.getOnPos(), temporarySource.radiation, temporarySource.strength), temporarySource.strength);
+                capability.recieveRadiation(entity, getAppliedRadiation(world, position, entity.getOnPos().above(), temporarySource.radiation, temporarySource.strength), temporarySource.strength);
 
             }
 
@@ -130,13 +131,13 @@ public class RadiationManager implements IRadiationManager {
             position = entry.getKey();
             fadingSource = entry.getValue();
 
-            for (LivingEntity entity : world.getEntitiesOfClass(LivingEntity.class, new AABB(position).inflate(fadingSource.distance))) {
+            for (LivingEntity entity : world.getEntitiesOfClass(LivingEntity.class, new AABB(position.getX() - fadingSource.distance, position.getY() - fadingSource.distance, position.getZ() - fadingSource.distance, position.getX() + fadingSource.distance + 1, position.getY() + fadingSource.distance + 1, position.getZ() + fadingSource.distance + 1))) {
                 IRadiationRecipient capability = entity.getCapability(NuclearScienceCapabilities.CAPABILITY_RADIATIONRECIPIENT);
                 if (capability == null) {
                     continue;
                 }
 
-                capability.recieveRadiation(entity, getAppliedRadiation(world, position, entity.getOnPos(), fadingSource.radiation, fadingSource.strength), fadingSource.strength);
+                capability.recieveRadiation(entity, getAppliedRadiation(world, position, entity.getOnPos().above(), fadingSource.radiation, fadingSource.strength), fadingSource.strength);
             }
 
         }
@@ -170,7 +171,7 @@ public class RadiationManager implements IRadiationManager {
 
         toRemove.clear();
 
-        if(changed) {
+        if (changed) {
             world.setData(NuclearScienceAttachmentTypes.TEMPORARY_RADIATION_SOURCES, temporarySources);
         }
 
@@ -216,7 +217,7 @@ public class RadiationManager implements IRadiationManager {
 
         toRemove.clear();
 
-        if(changed) {
+        if (changed) {
             world.setData(NuclearScienceAttachmentTypes.FADING_RADIATION_SOURCES, fadingSources);
         }
 
@@ -240,6 +241,8 @@ public class RadiationManager implements IRadiationManager {
 
         double magnitude = Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
 
+        int maxChecks = (int) magnitude;
+
         double incX = deltaX / magnitude;
         double incY = deltaY / magnitude;
         double incZ = deltaZ / magnitude;
@@ -248,18 +251,22 @@ public class RadiationManager implements IRadiationManager {
         double y = 0;
         double z = 0;
 
-        BlockPos toCheck;
+        BlockPos toCheck = start;
 
-        while (Math.abs(x) < Math.abs(deltaX) && Math.abs(y) < Math.abs(deltaY) && Math.abs(z) < Math.abs(deltaZ)) {
+        int i = 0;
+
+        while (i < maxChecks) {
 
             x += incX;
             y += incY;
             z += incZ;
-            toCheck = new BlockPos((int) Math.ceil(start.getX() + x), (int) Math.ceil(start.getY() + y), (int) Math.ceil(start.getZ() + z));
+            toCheck = new BlockPos((int) (start.getX() + x), (int) (start.getY() + y), (int) (start.getZ() + z));
             if (!toCheck.equals(start) && !toCheck.equals(end)) {
                 blocks.add(world.getBlockState(toCheck).getBlock());
+                //world.setBlockAndUpdate(toCheck, Blocks.COBBLESTONE.defaultBlockState());
             }
 
+            i++;
 
         }
 

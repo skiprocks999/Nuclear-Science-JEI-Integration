@@ -153,6 +153,10 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addGuiLabel("saltsupplier.waste", "Waste");
 			addGuiLabel("saltsupplier.wastecont", "Waste: %s");
 
+			addGuiLabel("displayunit.radsymbol", "Rad");
+			addGuiLabel("displayunit.radname", "Rad");
+			addGuiLabel("displayunit.radnameplural", "Rads");
+
 			addGuiLabel("freezeplug.status", "Status: %s");
 			addGuiLabel("freezeplug.frozen", "FROZEN");
 			addGuiLabel("freezeplug.off", "OFF");
@@ -169,12 +173,19 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addTooltip("deuteriumlevel", "Deuterium: %s");
 			addTooltip("tritiumlevel", "Tritium: %s");
 			addTooltip("steamfunneluse", "Collects and emits steam");
+			addTooltip("radiationshieldingamount", "Shielding Amount: %s");
+			addTooltip("radiationshieldinglevel", "Shielding Level: %s");
 
 			addSubtitle(NuclearScienceSounds.SOUND_GASCENTRIFUGE, "Gas Centrifuge spins");
 			addSubtitle(NuclearScienceSounds.SOUND_NUCLEARBOILER, "Nuclear Boiler boils");
 			addSubtitle(NuclearScienceSounds.SOUND_TURBINE, "Steam Turbine spins");
 			addSubtitle(NuclearScienceSounds.SOUND_SIREN, "Siren blares!");
-			addSubtitle(NuclearScienceSounds.SOUND_GEIGER, "Geiger Counter ticks!");
+			addSubtitle(NuclearScienceSounds.SOUND_GEIGERCOUNTER_1, "Geiger Counter ticks!");
+			addSubtitle(NuclearScienceSounds.SOUND_GEIGERCOUNTER_2, "Geiger Counter ticks!");
+			addSubtitle(NuclearScienceSounds.SOUND_GEIGERCOUNTER_3, "Geiger Counter ticks!");
+			addSubtitle(NuclearScienceSounds.SOUND_GEIGERCOUNTER_4, "Geiger Counter ticks!");
+			addSubtitle(NuclearScienceSounds.SOUND_GEIGERCOUNTER_5, "Geiger Counter ticks!");
+			addSubtitle(NuclearScienceSounds.SOUND_GEIGERCOUNTER_6, "Geiger Counter ticks!");
 
 			addJei(NuclearBoilerRecipe.RECIPE_GROUP, "Nuclear Boiler");
 			addJei(ChemicalExtractorRecipe.RECIPE_GROUP, "Chemical Extractor");

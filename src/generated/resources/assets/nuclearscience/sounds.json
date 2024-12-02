@@ -5,11 +5,41 @@
     ],
     "subtitle": "subtitles.nuclearscience.gascentrifuge"
   },
-  "geiger": {
+  "geigercountersound1": {
     "sounds": [
-      "nuclearscience:geiger"
+      "nuclearscience:geigercountersound1"
     ],
-    "subtitle": "subtitles.nuclearscience.geiger"
+    "subtitle": "subtitles.nuclearscience.geigercountersound1"
+  },
+  "geigercountersound2": {
+    "sounds": [
+      "nuclearscience:geigercountersound2"
+    ],
+    "subtitle": "subtitles.nuclearscience.geigercountersound2"
+  },
+  "geigercountersound3": {
+    "sounds": [
+      "nuclearscience:geigercountersound3"
+    ],
+    "subtitle": "subtitles.nuclearscience.geigercountersound3"
+  },
+  "geigercountersound4": {
+    "sounds": [
+      "nuclearscience:geigercountersound4"
+    ],
+    "subtitle": "subtitles.nuclearscience.geigercountersound4"
+  },
+  "geigercountersound5": {
+    "sounds": [
+      "nuclearscience:geigercountersound5"
+    ],
+    "subtitle": "subtitles.nuclearscience.geigercountersound5"
+  },
+  "geigercountersound6": {
+    "sounds": [
+      "nuclearscience:geigercountersound6"
+    ],
+    "subtitle": "subtitles.nuclearscience.geigercountersound6"
   },
   "nuclearboiler": {
     "sounds": [

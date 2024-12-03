@@ -72,6 +72,7 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addItem(NuclearScienceItems.ITEM_REINFORCEDHAZMATBOOTS, "Reinforced Hazmat Boots");
 
 			addItem(NuclearScienceItems.ITEM_ANTIDOTE, "Antidote");
+			addItem(NuclearScienceItems.ITEM_IODINETABLET, "Iodine Tablet");
 			addItem(NuclearScienceItems.ITEM_FREQUENCYCARD, "Frequency Card");
 			addItem(NuclearScienceItems.ITEM_CANISTERLEAD, "Lead-Lined Canister");
 
@@ -162,11 +163,10 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addGuiLabel("freezeplug.off", "OFF");
 			addGuiLabel("freezeplug.saltbonus", "Thermal Bonus: %s");
 
-			addChatMessage("geigercounter.text", "%s Rads/hour");
-
 			addDamageSource("radiation", "%s just did a speedrun of evolution!");
 			addDamageSource("plasma", "%s was ionized!");
 			add("effect.nuclearscience.radiation", "Radiation");
+			add("effect.nuclearscience.radiationresistance", "Radiation Resistance");
 
 			addTooltip("frequencycard.linked", "Linked to %s");
 			addTooltip("frequencycard.notag", "No Link");
@@ -200,18 +200,27 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addGuidebook(References.ID, "Nuclear Science");
 
 			addGuidebook("chapter.radiation", "Radiation");
-			addGuidebook("chapter.radiation.l1", "Radiation is one of the key mechanics of Nuclear Science. Many items are radioactive and will harm you if not handled with the proper equipment. The following items are radioactive:");
-			addGuidebook("chapter.radiation.radrating", "Rads: %s");
-			addGuidebook("chapter.radiation.l2", "You will need to wear a ");
+			addGuidebook("chapter.radiation.l1.1", "Radiation is one of the key mechanics of Nuclear Science. Radiation is measured in rads and is ray casting-based. Each radiation source will be cast out to entities within a certain radius from the source position. If you are outside the radius, you will not be affected by that particular source. Below, the following" +
+					" radiation source has a value of 300 Rads and affects entities in a 3 block radius. By standing outside that 3 block radius, you are not afflicted by it:");
+
+			addGuidebook("chapter.radiation.l1.2", "It is important to understand that the strength of a radiation source does not diminish while you are inside its area of affect. Further, radiation application takes into account how tall an entity is. For example, the below source is only 300 Rads strong, but because the player is two blocks tall, the total amount absorbed is 600 rads:");
+			addGuidebook("chapter.radiation.l1.3", "It is worth noting before continuing however that the ray-casting system isn't perfect, and it will struggle in some edge cases!");
+			addGuidebook("chapter.radiation.l2.1", "But you may be asking \"what emits radiation?\" Radiation is emitted by various items, blocks, and machines. To see how radioactive an item is, hover over it in your inventory and hold the Control key:");
+			addGuidebook("chapter.radiation.l2.2", "It is left up to the player to discover what other sources of radiation there are! A good rule of thumb though is that if it works with radioactive materials, there is a good chance it emits radiation. A useful tool to craft early on is the %s. The Geiger Counter is an invaluable tool that will allow you to view the radiation exposure " +
+					"at a current location. When in your inventory, it will tick if exposed to radiation, making it a useful warning device.");
+
+			addGuidebook("chapter.radiation.l3", "Up until now, we have discussed how radiation works and what emits it, but there has been no mention of if it is possible to mitigate it. Radiation is lethal if exposed to it for long enough. Fortunately, there are various methods offered to deal with this.");
+			addGuidebook("chapter.radiation.l4", "The first option is to consume an %1$s. Iodine Tablets offer limited radiation resistance, and are capable of protecting you from up to %2$s Rads for up to %3$s Minutes per pill. Even if you are exposed to radiation greater than what the Iodine is rated for, the tablet will still reduce received rads by %4$s. Keep in mind however that the " +
+					"effect is limited, so you will need to keep eating Iodine Tablets!");
+			addGuidebook("chapter.radiation.l5", "The next option is to wear a %1$s. The Hazmat Suit is far more robust than an Iodine Tablet, and will protect you from radiation at the expense of durability. You can craft a reinforced variant with more durability, but ultimately it too can break. Fortunately, Hazmat Suits can be repaired using a %2$s in an Anvil.");
 			addGuidebook("chapter.radiation.hazmatsuit", "Hazmat Suit");
-			addGuidebook("chapter.radiation.l3", " to avoid getting radiation poisoning. You must be wearing a full suit in order to benifit from its protection. Radiation will slowly damage the suit over time, and it has limited durability, so do not hang around in a radioactive zone for long! The suit can be repaired in an Anvil with a ");
+			addGuidebook("chapter.radiation.l6.1", "But all these options seem temporary you might be saying. \"Surely there has to be a more permanent method.\" Well, you're in luck! The third option for radiation mitigation is to use blocks that provide radiation shielding. You can view how much shielding a block provides by hovering over it in your inventory and holding the Shift key:");
+			addGuidebook("chapter.radiation.l6.2", "Shielding functions as an impediment, and will reduce radiation by the value displayed. When placing radiation shielding, it is important to remember that the radiation system takes height into account as discussed earlier. Remember the 300 Rad source we previously used? If you only place one block of shielding, it will only shield you " +
+					"from half the radiation:");
+			addGuidebook("chapter.radiation.l6.3", "If you wanted to fully shield yourself using blocks, you would need to use two:");
 
-			addGuidebook("chapter.radiation.l4", ". If the longevity of your suit is a real concern, a reinforced variant of the suit is available which sports more durability. It too can be repaired with a Lead Plate.");
+			addGuidebook("chapter.radiation.l7", "But what to do if all of this fails? What happens if you get exposed to radiation even after all of these precautions. To remove the radiation effect, you can consume %s, which will remove the radiation effect completely. Antidote is extracted from fish, so you will probably want to get good at fishing!");
 
-			addGuidebook("chapter.radiation.l5", "Radiation is also emitted from machines that process radioactive materials. The radiation spills out in a radius from the machine, becoming weaker the further you are away from the source. The more radioactive a material is, the bigger the area that will be affected.");
-
-			addGuidebook("chapter.radiation.l6", "However, what if you forget your Hazmat suit and become ill with Radiation Poisoning? No fear, for there is a solution to that! If you are suffering from Radiation Poisoning, you can take some ");
-			addGuidebook("chapter.radiation.l7", " and it will remove the effect. Antidote is extracted from fish, so you will probably want to get good at fishing.");
 
 			addGuidebook("chapter.turbines", "Steam Turbines");
 			addGuidebook("chapter.turbines.l1", "Steam Turbines are what actually produce power in Nuclear Science. Turbines will produce at different voltages depending on what temperature of steam is venting through them. Turbines produce the following voltages under the following temperatures: ");

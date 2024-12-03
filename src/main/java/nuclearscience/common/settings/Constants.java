@@ -41,8 +41,11 @@ public class Constants {
 	public static double ATOMICASSEMBLER_VOLTAGE = 480.0;
 	@IntValue(def = 1200)
 	public static int ATOMICASSEMBLER_REQUIRED_TICKS = 12000;
-
 	@DoubleValue(def = 100)
 	public static double BACKROUND_RADIATION_DISSIPATION = 100;
+	@DoubleValue(def = 300)
+	public static double IODINE_RESISTANCE_THRESHHOLD = 300;
+	@DoubleValue(def = 0.8)
+	public static double IODINE_RAD_REDUCTION = 0.8;
 
 }

@@ -2,6 +2,7 @@ package nuclearscience.api.radiation;
 
 import java.util.Set;
 
+import electrodynamics.prefab.utilities.math.Color;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -12,6 +13,8 @@ import nuclearscience.registers.NuclearScienceDamageTypes;
 
 public class EffectRadiation extends MobEffect {
 
+	public static final Color COLOR = new Color(78, 174, 49, 255);
+
 	public static final EffectCure CURE = EffectCure.get("radiationcure");
 
 	public EffectRadiation(MobEffectCategory typeIn, int liquidColorIn) {
@@ -19,7 +22,7 @@ public class EffectRadiation extends MobEffect {
 	}
 
 	public EffectRadiation() {
-		this(MobEffectCategory.HARMFUL, 5149489);
+		this(MobEffectCategory.HARMFUL, COLOR.color());
 	}
 
 	@Override

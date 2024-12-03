@@ -20,12 +20,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import nuclearscience.References;
 import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
-import nuclearscience.common.item.ItemAntidote;
-import nuclearscience.common.item.ItemCanisterLead;
-import nuclearscience.common.item.ItemFrequencyCard;
-import nuclearscience.common.item.ItemGeigerCounter;
-import nuclearscience.common.item.ItemHazmatArmor;
-import nuclearscience.common.item.ItemRadioactive;
+import nuclearscience.common.item.*;
 
 public class NuclearScienceItems {
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, References.ID);
@@ -107,15 +102,16 @@ public class NuclearScienceItems {
 	public static final DeferredHolder<Item, Item> ITEM_FUELPLUTONIUM = ITEMS.register("fuelplutonium", () -> new ItemRadioactive(new Item.Properties().stacksTo(1).durability(120000), NuclearScienceCreativeTabs.MAIN));
 
 	public static final DeferredHolder<Item, Item> ITEM_GEIGERCOUNTER = ITEMS.register("geigercounter", () -> new ItemGeigerCounter(new Item.Properties().durability(26000), NuclearScienceCreativeTabs.MAIN));
-	public static final DeferredHolder<Item, Item> ITEM_HAZMATBOOTS = ITEMS.register("hazmatboots", () -> new ItemHazmatArmor(NuclearScienceArmorMaterials.HAZMAT_BASE, Type.BOOTS, new Item.Properties().durability(26000), NuclearScienceCreativeTabs.MAIN, 1000, 1));
 	public static final DeferredHolder<Item, Item> ITEM_HAZMATHELMET = ITEMS.register("hazmathelmet", () -> new ItemHazmatArmor(NuclearScienceArmorMaterials.HAZMAT_BASE, Type.HELMET, new Item.Properties().durability(26000), NuclearScienceCreativeTabs.MAIN, 1000, 1));
-	public static final DeferredHolder<Item, Item> ITEM_HAZMATLEGS = ITEMS.register("hazmatlegs", () -> new ItemHazmatArmor(NuclearScienceArmorMaterials.HAZMAT_BASE, Type.LEGGINGS, new Item.Properties().durability(26000), NuclearScienceCreativeTabs.MAIN, 1000, 1));
 	public static final DeferredHolder<Item, Item> ITEM_HAZMATPLATE = ITEMS.register("hazmatplate", () -> new ItemHazmatArmor(NuclearScienceArmorMaterials.HAZMAT_BASE, Type.CHESTPLATE, new Item.Properties().durability(26000), NuclearScienceCreativeTabs.MAIN, 1000, 1));
-	public static final DeferredHolder<Item, Item> ITEM_REINFORCEDHAZMATBOOTS = ITEMS.register("reinforcedhazmatboots", () -> new ItemHazmatArmor(NuclearScienceArmorMaterials.HAZMAT_REINFORCED, Type.BOOTS, new Item.Properties().stacksTo(1).durability(26000 * 5), NuclearScienceCreativeTabs.MAIN, 1000, 1));
+	public static final DeferredHolder<Item, Item> ITEM_HAZMATLEGS = ITEMS.register("hazmatlegs", () -> new ItemHazmatArmor(NuclearScienceArmorMaterials.HAZMAT_BASE, Type.LEGGINGS, new Item.Properties().durability(26000), NuclearScienceCreativeTabs.MAIN, 1000, 1));
+	public static final DeferredHolder<Item, Item> ITEM_HAZMATBOOTS = ITEMS.register("hazmatboots", () -> new ItemHazmatArmor(NuclearScienceArmorMaterials.HAZMAT_BASE, Type.BOOTS, new Item.Properties().durability(26000), NuclearScienceCreativeTabs.MAIN, 1000, 1));
 	public static final DeferredHolder<Item, Item> ITEM_REINFORCEDHAZMATHELMET = ITEMS.register("reinforcedhazmathelmet", () -> new ItemHazmatArmor(NuclearScienceArmorMaterials.HAZMAT_REINFORCED, Type.HELMET, new Item.Properties().stacksTo(1).durability(26000 * 5), NuclearScienceCreativeTabs.MAIN, 1000, 1));
-	public static final DeferredHolder<Item, Item> ITEM_REINFORCEDHAZMATLEGS = ITEMS.register("reinforcedhazmatlegs", () -> new ItemHazmatArmor(NuclearScienceArmorMaterials.HAZMAT_REINFORCED, Type.LEGGINGS, new Item.Properties().stacksTo(1).durability(26000 * 5), NuclearScienceCreativeTabs.MAIN, 1000, 1));
 	public static final DeferredHolder<Item, Item> ITEM_REINFORCEDHAZMATPLATE = ITEMS.register("reinforcedhazmatplate", () -> new ItemHazmatArmor(NuclearScienceArmorMaterials.HAZMAT_REINFORCED, Type.CHESTPLATE, new Item.Properties().stacksTo(1).durability(26000 * 5), NuclearScienceCreativeTabs.MAIN, 1000, 1));
+	public static final DeferredHolder<Item, Item> ITEM_REINFORCEDHAZMATLEGS = ITEMS.register("reinforcedhazmatlegs", () -> new ItemHazmatArmor(NuclearScienceArmorMaterials.HAZMAT_REINFORCED, Type.LEGGINGS, new Item.Properties().stacksTo(1).durability(26000 * 5), NuclearScienceCreativeTabs.MAIN, 1000, 1));
+	public static final DeferredHolder<Item, Item> ITEM_REINFORCEDHAZMATBOOTS = ITEMS.register("reinforcedhazmatboots", () -> new ItemHazmatArmor(NuclearScienceArmorMaterials.HAZMAT_REINFORCED, Type.BOOTS, new Item.Properties().stacksTo(1).durability(26000 * 5), NuclearScienceCreativeTabs.MAIN, 1000, 1));
 	public static final DeferredHolder<Item, Item> ITEM_ANTIDOTE = ITEMS.register("antidote", () -> new ItemAntidote(new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
+	public static final DeferredHolder<Item, Item> ITEM_IODINETABLET = ITEMS.register("iodinetablet", () -> new ItemIodineTablet(new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, Item> ITEM_FREQUENCYCARD = ITEMS.register("frequencycard", () -> new ItemFrequencyCard(new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, Item> ITEM_CANISTERLEAD = ITEMS.register("canisterlead", () -> new ItemCanisterLead(new Item.Properties().stacksTo(1), NuclearScienceCreativeTabs.MAIN));
 

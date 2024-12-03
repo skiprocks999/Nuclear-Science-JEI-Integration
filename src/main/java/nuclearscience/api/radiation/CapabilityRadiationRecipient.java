@@ -9,6 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import nuclearscience.api.radiation.util.IHazmatSuit;
 import nuclearscience.api.radiation.util.IRadiationRecipient;
 import nuclearscience.api.radiation.util.RadioactiveObject;
+import nuclearscience.common.settings.Constants;
 import nuclearscience.registers.NuclearScienceAttachmentTypes;
 import nuclearscience.registers.NuclearScienceEffects;
 
@@ -27,6 +28,16 @@ public class CapabilityRadiationRecipient implements IRadiationRecipient {
             player.setData(NuclearScienceAttachmentTypes.RECIEVED_RADIATIONAMOUNT, player.getData(NuclearScienceAttachmentTypes.RECIEVED_RADIATIONAMOUNT) + rads);
             player.setData(NuclearScienceAttachmentTypes.RECIEVED_RADIATIONSTRENGTH, player.getData(NuclearScienceAttachmentTypes.RECIEVED_RADIATIONSTRENGTH) + strength);
             return;
+        }
+
+        if(entity.hasEffect(NuclearScienceEffects.RADIATION_RESISTANCE)) {
+            if(rads <= Constants.IODINE_RESISTANCE_THRESHHOLD) {
+                entity.setData(NuclearScienceAttachmentTypes.RECIEVED_RADIATIONAMOUNT, entity.getData(NuclearScienceAttachmentTypes.RECIEVED_RADIATIONAMOUNT) + rads);
+                entity.setData(NuclearScienceAttachmentTypes.RECIEVED_RADIATIONSTRENGTH, entity.getData(NuclearScienceAttachmentTypes.RECIEVED_RADIATIONSTRENGTH) + strength);
+                return;
+            } else {
+                rads = rads * Constants.IODINE_RAD_REDUCTION;
+            }
         }
 
         int count = 0;

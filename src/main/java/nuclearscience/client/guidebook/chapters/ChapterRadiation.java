@@ -1,5 +1,7 @@
 package nuclearscience.client.guidebook.chapters;
 
+import electrodynamics.api.electricity.formatting.ChatFormatter;
+import electrodynamics.api.electricity.formatting.DisplayUnit;
 import electrodynamics.client.guidebook.utils.components.Chapter;
 import electrodynamics.client.guidebook.utils.components.Module;
 import electrodynamics.client.guidebook.utils.pagedata.graphics.ImageWrapperObject;
@@ -7,12 +9,15 @@ import electrodynamics.client.guidebook.utils.pagedata.text.TextWrapperObject;
 import electrodynamics.common.item.subtype.SubtypePlate;
 import electrodynamics.registers.ElectrodynamicsItems;
 import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import nuclearscience.References;
 import nuclearscience.api.radiation.util.RadioactiveObject;
+import nuclearscience.common.item.ItemIodineTablet;
 import nuclearscience.common.reloadlistener.RadioactiveItemRegister;
+import nuclearscience.common.settings.Constants;
 import nuclearscience.prefab.utils.NuclearTextUtils;
 import nuclearscience.registers.NuclearScienceItems;
 
@@ -38,22 +43,38 @@ public class ChapterRadiation extends Chapter {
 
 	@Override
 	public void addData() {
-		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l1")).setIndentions(1));
+		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l1.1")).setIndentions(1).setSeparateStart());
+		pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/radiationradius1.png")));
+		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l1.2")));
+		pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/radiationradius2.png")));
+		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l1.3")));
+		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l2.1")).setIndentions(1).setSeparateStart());
+		pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/radiationtooltip.png")));
+		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l2.2",  NuclearScienceItems.ITEM_GEIGERCOUNTER.get().getDescription().copy().withStyle(ChatFormatting.BOLD))));
 		blankLine();
-		for (Map.Entry<Item, RadioactiveObject> entry : RadioactiveItemRegister.getValues().entrySet()) {
-			pageData.add(new TextWrapperObject(entry.getKey().getDescription()).setSeparateStart());
-			pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.radrating", entry.getValue().amount())).setSeparateStart().setIndentions(1));
-		}
+		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l3")).setIndentions(1).setSeparateStart());
+		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l4",
+				//
+				NuclearScienceItems.ITEM_IODINETABLET.get().getDescription().copy().withStyle(ChatFormatting.BOLD),
+				//
+				Component.literal("" + Constants.IODINE_RESISTANCE_THRESHHOLD).withStyle(ChatFormatting.BOLD),
+				//
+				Component.literal("" + ItemIodineTablet.TIME_MINUTES).withStyle(ChatFormatting.BOLD),
+				//
+				ChatFormatter.getChatDisplayShort((1.0 - Constants.IODINE_RAD_REDUCTION) * 100, DisplayUnit.PERCENTAGE).withStyle(ChatFormatting.BOLD))).setIndentions(1).setSeparateStart());
+		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l5",
+				//
+				NuclearTextUtils.guidebook("chapter.radiation.hazmatsuit").withStyle(ChatFormatting.BOLD),
+				//
+				ElectrodynamicsItems.ITEMS_PLATE.getValue(SubtypePlate.lead).getDescription().copy().withStyle(ChatFormatting.BOLD))).setIndentions(1).setSeparateStart());
+		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l6.1")).setIndentions(1).setSeparateStart());
+		pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/radiationshieldingtooltip.png")));
+		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l6.2")).setSeparateStart());
+		pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/radiationshielding1.png")));
+		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l6.3")).setSeparateStart());
+		pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/radiationshielding2.png")));
 		blankLine();
-		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l2")).setIndentions(1).setSeparateStart());
-		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.hazmatsuit").withStyle(ChatFormatting.BOLD)));
-		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l3")));
-		pageData.add(new TextWrapperObject(ElectrodynamicsItems.ITEMS_PLATE.getValue(SubtypePlate.lead).getDescription().copy().withStyle(ChatFormatting.BOLD)));
-		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l4")));
-		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l5")).setIndentions(1).setSeparateStart());
-		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l6")).setIndentions(1).setSeparateStart());
-		pageData.add(new TextWrapperObject(NuclearScienceItems.ITEM_ANTIDOTE.get().getDescription().copy().withStyle(ChatFormatting.BOLD)));
-		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l7")));
+		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l7", NuclearScienceItems.ITEM_ANTIDOTE.get().getDescription().copy().withStyle(ChatFormatting.BOLD))));
 
 	}
 

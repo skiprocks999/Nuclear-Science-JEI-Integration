@@ -49,6 +49,7 @@ public class NuclearScienceItemModelsProvider extends ElectrodynamicsItemModelsP
 
 		layeredItem(NuclearScienceItems.ITEM_GEIGERCOUNTER, Parent.GENERATED, itemLoc("geigercounter"));
 		layeredItem(NuclearScienceItems.ITEM_ANTIDOTE, Parent.GENERATED, itemLoc("antidote"));
+		layeredItem(NuclearScienceItems.ITEM_IODINETABLET, Parent.GENERATED, itemLoc("iodinetablet"));
 		layeredItem(NuclearScienceItems.ITEM_CANISTERLEAD, Parent.GENERATED, itemLoc("canisterlead"));
 		layeredBuilder(name(NuclearScienceItems.ITEM_FREQUENCYCARD), Parent.GENERATED, itemLoc("frequencycard")).transforms().transform(ItemDisplayContext.GUI).scale(0.75F).end();
 

@@ -4,7 +4,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import nuclearscience.api.radiation.util.*;
 import nuclearscience.common.reloadlistener.RadiationShieldingRegister;
@@ -95,8 +94,11 @@ public class RadiationManager implements IRadiationManager {
                     continue;
                 }
 
+                for (int i = 0; i < (int) Math.ceil(entity.getBbHeight()); i++) {
 
-                capability.recieveRadiation(entity, getAppliedRadiation(world, position, entity.getOnPos().above(), permanentSource.getRadiationAmount(), permanentSource.getRadiationStrength()), permanentSource.getRadiationStrength());
+                    capability.recieveRadiation(entity, getAppliedRadiation(world, position, entity.getOnPos().above(i + 1), permanentSource.getRadiationAmount(), permanentSource.getRadiationStrength()), permanentSource.getRadiationStrength());
+
+                }
             }
         }
 
@@ -115,7 +117,10 @@ public class RadiationManager implements IRadiationManager {
                     continue;
                 }
 
-                capability.recieveRadiation(entity, getAppliedRadiation(world, position, entity.getOnPos().above(), temporarySource.radiation, temporarySource.strength), temporarySource.strength);
+                for (int i = 0; i < (int) Math.ceil(entity.getBbHeight()); i++) {
+                    capability.recieveRadiation(entity, getAppliedRadiation(world, position, entity.getOnPos().above(i + 1), temporarySource.radiation, temporarySource.strength), temporarySource.strength);
+                }
+
 
             }
 
@@ -137,7 +142,10 @@ public class RadiationManager implements IRadiationManager {
                     continue;
                 }
 
-                capability.recieveRadiation(entity, getAppliedRadiation(world, position, entity.getOnPos().above(), fadingSource.radiation, fadingSource.strength), fadingSource.strength);
+                for (int i = 0; i < (int) Math.ceil(entity.getBbHeight()); i++) {
+                    capability.recieveRadiation(entity, getAppliedRadiation(world, position, entity.getOnPos().above(i + 1), fadingSource.radiation, fadingSource.strength), fadingSource.strength);
+                }
+
             }
 
         }

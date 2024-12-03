@@ -64,6 +64,8 @@ public class NuclearScienceTags {
 
 	public static class Fluids {
 
+		public static final TagKey<Fluid> IODINE_SOLUTION = forgeTag("iodine_solution");
+
 		private static void init() {
 
 		}

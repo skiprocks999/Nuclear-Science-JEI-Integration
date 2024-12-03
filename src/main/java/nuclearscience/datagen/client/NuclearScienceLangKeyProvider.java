@@ -10,10 +10,7 @@ import nuclearscience.common.recipe.categories.fluiditem2item.MSRFuelPreProcesso
 import nuclearscience.common.recipe.categories.fluiditem2item.RadioactiveProcessorRecipe;
 import nuclearscience.common.recipe.categories.item2item.FissionReactorRecipe;
 import nuclearscience.common.recipe.categories.item2item.FuelReprocessorRecipe;
-import nuclearscience.registers.NuclearScienceBlocks;
-import nuclearscience.registers.NuclearScienceGases;
-import nuclearscience.registers.NuclearScienceItems;
-import nuclearscience.registers.NuclearScienceSounds;
+import nuclearscience.registers.*;
 
 public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvider {
 
@@ -109,7 +106,7 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 
 			addBlock(NuclearScienceBlocks.BLOCKS_MOLTENSALTPIPE.getValue(SubtypeMoltenSaltPipe.vanadiumsteelceramic), "VS-Ceramic Pipe");
 
-			// addFluid(NuclearScienceFluids.fluidUraniumHexafluoride, "Uranium Hexafluoride");
+			addFluid(NuclearScienceFluids.FLUID_IODINESOLUTION, "Iodine Solution");
 			//addFluid(NuclearScienceFluids.fluidAmmonia, "Ammonia");
 
 			addGas(NuclearScienceGases.URANIUM_HEXAFLUORIDE, "Uranium Hexafluoride");

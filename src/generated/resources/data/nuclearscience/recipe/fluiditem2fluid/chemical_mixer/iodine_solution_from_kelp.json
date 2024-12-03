@@ -1,0 +1,24 @@
+{
+  "type": "electrodynamics:chemical_mixer_recipe",
+  "fluidinputs": [
+    {
+      "amount": 200,
+      "tag": "c:sulfuric_acid"
+    }
+  ],
+  "group": "nuclearscience",
+  "iteminputs": [
+    {
+      "count": 1,
+      "ingredient": {
+        "tag": "c:storage_blocks/dried_kelp"
+      }
+    }
+  ],
+  "output": {
+    "amount": 100,
+    "id": "nuclearscience:iodinesolution"
+  },
+  "ticks": 200,
+  "usagepertick": 400.0
+}

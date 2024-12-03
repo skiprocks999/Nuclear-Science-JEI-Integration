@@ -8,6 +8,8 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.FluidTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import nuclearscience.References;
+import nuclearscience.common.tags.NuclearScienceTags;
+import nuclearscience.registers.NuclearScienceFluids;
 
 public class NuclearScienceFluidTagsProvider extends FluidTagsProvider {
 
@@ -18,6 +20,7 @@ public class NuclearScienceFluidTagsProvider extends FluidTagsProvider {
     @Override
     protected void addTags(Provider provider) {
 
+        tag(NuclearScienceTags.Fluids.IODINE_SOLUTION).add(NuclearScienceFluids.FLUID_IODINESOLUTION.get());
 
     }
 

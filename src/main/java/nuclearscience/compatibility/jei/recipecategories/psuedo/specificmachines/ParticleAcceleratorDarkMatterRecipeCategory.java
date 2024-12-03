@@ -9,7 +9,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 
 import electrodynamics.api.electricity.formatting.ChatFormatter;
 import electrodynamics.api.electricity.formatting.DisplayUnit;
-import electrodynamics.client.texture.atlas.AtlasHolderElectrodynamicsCustom;
 import electrodynamics.compatibility.jei.recipecategories.utils.AbstractRecipeCategory;
 import electrodynamics.compatibility.jei.recipecategories.utils.psuedorecipes.types.PsuedoItem2ItemRecipe;
 import electrodynamics.compatibility.jei.utils.gui.ScreenObject;
@@ -18,7 +17,6 @@ import electrodynamics.compatibility.jei.utils.gui.types.BackgroundObject;
 import electrodynamics.compatibility.jei.utils.gui.types.ItemSlotObject;
 import electrodynamics.compatibility.jei.utils.label.types.LabelWrapperGeneric;
 import electrodynamics.prefab.screen.component.types.ScreenComponentSlot.SlotType;
-import electrodynamics.prefab.utilities.RenderingUtils;
 import electrodynamics.prefab.utilities.math.Color;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawableAnimated.StartDirection;
@@ -26,7 +24,9 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.world.item.ItemStack;
 import nuclearscience.References;
@@ -87,11 +87,7 @@ public class ParticleAcceleratorDarkMatterRecipeCategory extends AbstractRecipeC
 
 		NuclearJeiTextures texture = NuclearJeiTextures.PARTICLEACCELERATOR_DMBLACKHOLE;
 
-		TextureAtlasSprite blackHole = AtlasHolderElectrodynamicsCustom.get(ClientRegister.TEXTURE_JEIBLACKHOLE);
-
-		RenderSystem.enableBlend();
-
-		RenderingUtils.resetShaderColor();
+		TextureAtlasSprite blackHole = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(ClientRegister.TEXTURE_JEIBLACKHOLE);
 
 		RenderSystem.blendFuncSeparate(SourceFactor.ONE_MINUS_SRC_COLOR, DestFactor.ONE_MINUS_SRC_ALPHA, SourceFactor.ONE, DestFactor.ZERO);
 

@@ -1,7 +1,8 @@
 package nuclearscience.client;
 
 import electrodynamics.client.guidebook.ScreenGuidebook;
-import net.minecraft.client.renderer.RenderType;
+import electrodynamics.client.misc.SWBFClientExtensions;
+import electrodynamics.common.fluid.SimpleWaterBasedFluidType;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
@@ -10,6 +11,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import nuclearscience.References;
 import nuclearscience.client.guidebook.ModuleNuclearScience;
 import nuclearscience.client.render.entity.RenderParticle;
@@ -25,6 +27,7 @@ import nuclearscience.client.render.tile.RenderRodAssembly;
 import nuclearscience.client.render.tile.RenderTeleporter;
 import nuclearscience.client.render.tile.RenderTurbine;
 import nuclearscience.client.screen.*;
+import nuclearscience.registers.NuclearScienceFluids;
 import nuclearscience.registers.NuclearScienceTiles;
 import nuclearscience.registers.NuclearScienceEntities;
 import nuclearscience.registers.NuclearScienceMenuTypes;
@@ -41,7 +44,7 @@ public class ClientRegister {
     public static final ModelResourceLocation MODEL_CONTROLRODASSEMBLYSTRUCTURE = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/controlrodassemblystructure"));
     public static final ModelResourceLocation MODEL_CONTROLRODASSEMBLYSROD = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/controlrodassemblyrod"));
 
-    public static final ResourceLocation TEXTURE_JEIBLACKHOLE = ResourceLocation.fromNamespaceAndPath(References.ID, "custom/particleaccelerator_dmblackhole");
+    public static final ResourceLocation TEXTURE_JEIBLACKHOLE = ResourceLocation.fromNamespaceAndPath(References.ID, "block/custom/particleaccelerator_dmblackhole");
 
     public static void setup() {
 
@@ -97,8 +100,13 @@ public class ClientRegister {
 
     }
 
-    public static boolean shouldMultilayerRender(RenderType type) {
-        return type == RenderType.translucent() || type == RenderType.solid();
+    @SubscribeEvent
+    public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
+
+        NuclearScienceFluids.FLUIDS.getEntries().forEach((fluid) -> {
+            event.registerFluidType(new SWBFClientExtensions((SimpleWaterBasedFluidType) fluid.get().getFluidType()), fluid.get().getFluidType());
+        });
+
     }
 
 }

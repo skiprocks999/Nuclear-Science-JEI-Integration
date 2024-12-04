@@ -26,7 +26,7 @@ public class TileRadioactiveProcessor extends GenericTile {
         super(NuclearScienceTiles.TILE_RADIOACTIVEPROCESSOR.get(), pos, state);
         addComponent(new ComponentTickable(this));
         addComponent(new ComponentPacketHandler(this));
-        addComponent(new ComponentElectrodynamic(this, false, true).voltage(ElectrodynamicsCapabilities.DEFAULT_VOLTAGE * 4).setInputDirections(BlockEntityUtils.MachineDirection.FRONT));
+        addComponent(new ComponentElectrodynamic(this, false, true).voltage(ElectrodynamicsCapabilities.DEFAULT_VOLTAGE * 4).setInputDirections(BlockEntityUtils.MachineDirection.BACK));
         addComponent(new ComponentFluidHandlerMulti(this).setInputTanks(1, MAX_TANK_CAPACITY).setInputDirections(BlockEntityUtils.MachineDirection.TOP).setRecipeType(NuclearScienceRecipeInit.RADIOACTIVE_PROCESSOR_TYPE.get()));
         addComponent(new ComponentInventory(this, InventoryBuilder.newInv().processors(1, 1, 1, 0).bucketInputs(1).upgrades(3)).validUpgrades(ContainerRadioactiveProcessor.VALID_UPGRADES).valid(machineValidator())
                 //

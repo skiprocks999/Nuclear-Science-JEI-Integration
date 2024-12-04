@@ -73,6 +73,8 @@ public interface IRadiationManager {
      */
     public static class FadingRadiationSource {
 
+        public static final FadingRadiationSource NONE = new FadingRadiationSource(0, 0, 0);
+
         public static final Codec<FadingRadiationSource> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 Codec.INT.fieldOf("distance").forGetter(instance0 -> instance0.distance),
                 Codec.DOUBLE.fieldOf("strength").forGetter(instance0 -> instance0.strength),
@@ -94,6 +96,8 @@ public interface IRadiationManager {
     }
 
     public static class TemporaryRadiationSource {
+
+        public static final TemporaryRadiationSource NONE = new TemporaryRadiationSource(0, 0, 0, false, 0);
 
         public static final Codec<TemporaryRadiationSource> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 Codec.INT.fieldOf("ticks").forGetter(instance0 -> instance0.ticks),

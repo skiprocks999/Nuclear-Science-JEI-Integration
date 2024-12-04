@@ -1,6 +1,8 @@
 package nuclearscience.common.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SnowyDirtBlock;
@@ -30,4 +32,11 @@ public class BlockRadioactiveSoil extends SnowyDirtBlock {
 		RadiationSystem.removeRadiationSource(level, pos, true);
 	}
 
+	@Override
+	protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+		super.randomTick(state, level, pos, random);
+		if(level.getRandom().nextFloat() < 0.03) {
+			//level.addPa
+		}
+	}
 }

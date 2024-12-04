@@ -2,6 +2,7 @@ package nuclearscience.api.radiation;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import electrodynamics.prefab.utilities.BlockEntityUtils;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -9,6 +10,8 @@ import net.minecraft.network.codec.StreamCodec;
 import nuclearscience.api.radiation.util.IRadiationSource;
 
 public record SimpleRadiationSource(double amount, double strength, int distance, boolean isTemporary, int ticks, BlockPos location, boolean shouldLinger) implements IRadiationSource {
+
+    public static final SimpleRadiationSource NONE = new SimpleRadiationSource(0, 0, 0, false, 0, BlockEntityUtils.OUT_OF_REACH, false);
 
     public static final Codec<SimpleRadiationSource> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 

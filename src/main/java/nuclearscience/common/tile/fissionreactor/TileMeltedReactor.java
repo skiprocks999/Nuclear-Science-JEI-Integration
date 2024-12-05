@@ -3,6 +3,10 @@ package nuclearscience.common.tile.fissionreactor;
 import electrodynamics.prefab.tile.GenericTile;
 import electrodynamics.prefab.tile.components.type.ComponentTickable;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
@@ -14,10 +18,11 @@ import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.neoforged.neoforge.common.Tags;
 import nuclearscience.api.radiation.RadiationSystem;
 import nuclearscience.api.radiation.SimpleRadiationSource;
+import nuclearscience.common.block.BlockIrradiated;
 import nuclearscience.registers.NuclearScienceTiles;
-import nuclearscience.registers.NuclearScienceBlocks;
 
 public class TileMeltedReactor extends GenericTile {
 	public static final float RADIATION_RADIUS = 30;
@@ -54,23 +59,23 @@ public class TileMeltedReactor extends GenericTile {
 			double d5 = worldPosition.getZ() - z2;
 			double distanceSq = d3 * d3 + d4 * d4 + d5 * d5;
 			if (distanceSq < RADIATION_RADIUS * RADIATION_RADIUS && level.random.nextDouble() > distanceSq / (RADIATION_RADIUS * RADIATION_RADIUS)) {
-				BlockPos p = new BlockPos((int) Math.floor(x2), (int) Math.floor(y2), (int) Math.floor(z2));
-				BlockState st = level.getBlockState(p);
-				Block block = st.getBlock();
-				if (st.isAir()) {
-					if (!level.getBlockState(p.below()).isAir()) {
-						level.setBlockAndUpdate(p, Blocks.AIR.defaultBlockState());
+				BlockPos pos = new BlockPos((int) Math.floor(x2), (int) Math.floor(y2), (int) Math.floor(z2));
+				BlockState state = level.getBlockState(pos);
+				Block block = state.getBlock();
+				if (state.isAir()) {
+					if (!level.getBlockState(pos.below()).isAir()) {
+						level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
 					}
-				} else if (block == Blocks.STONE) {
+				} else if (state.is(BlockTags.BASE_STONE_OVERWORLD)) {
 					if (temperature > 2100) {
-						level.setBlockAndUpdate(p, Blocks.COBBLESTONE.defaultBlockState());
+						level.setBlockAndUpdate(pos, Blocks.COBBLESTONE.defaultBlockState());
 					}
-				} else if (block == Blocks.COBBLESTONE) {
-					level.setBlockAndUpdate(p, Blocks.LAVA.defaultBlockState());
-				} else if (block == Blocks.WATER) {
-					level.setBlockAndUpdate(p, Blocks.AIR.defaultBlockState());
-				} else if (block == Blocks.SAND) {
-					level.setBlockAndUpdate(p, Blocks.GLASS.defaultBlockState());
+				} else if (state.is(Tags.Blocks.COBBLESTONES)) {
+					level.setBlockAndUpdate(pos, Blocks.LAVA.defaultBlockState());
+				} else if (level.getFluidState(pos).is(FluidTags.WATER)) {
+					level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+				} else if (state.is(BlockTags.SAND)) {
+					level.setBlockAndUpdate(pos, Blocks.GLASS.defaultBlockState());
 				}
 			}
 		}
@@ -84,11 +89,11 @@ public class TileMeltedReactor extends GenericTile {
 			double d5 = worldPosition.getZ() - z2;
 			double distanceSq = d3 * d3 + d4 * d4 + d5 * d5;
 			if (distanceSq < RADIATION_RADIUS * RADIATION_RADIUS && level.random.nextDouble() > distanceSq / (RADIATION_RADIUS * RADIATION_RADIUS)) {
-				BlockPos p = new BlockPos((int) Math.floor(x2), (int) Math.floor(y2), (int) Math.floor(z2));
-				BlockState st = level.getBlockState(p);
-				Block block = st.getBlock();
-				if (block == Blocks.GRASS_BLOCK || block == Blocks.DIRT) {
-					level.setBlockAndUpdate(p, NuclearScienceBlocks.BLOCK_RADIOACTIVESOIL.get().defaultBlockState());
+				BlockPos pos = new BlockPos((int) Math.floor(x2), (int) Math.floor(y2), (int) Math.floor(z2));
+				BlockState state = level.getBlockState(pos);
+				Block block = state.getBlock();
+				if (BlockIrradiated.isValidPlacement(state)) {
+					level.setBlockAndUpdate(pos, BlockIrradiated.getIrradiatedBlockstate(state));
 				}
 			}
 		}
@@ -107,5 +112,17 @@ public class TileMeltedReactor extends GenericTile {
 		return InteractionResult.PASS;
 	}
 
+	@Override
+	protected void saveAdditional(CompoundTag compound, HolderLookup.Provider registries) {
+		compound.putInt("rads", radiation);
+		compound.putInt("temp", temperature);
+		super.saveAdditional(compound, registries);
+	}
 
+	@Override
+	protected void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
+		radiation = compound.getInt("rads");
+		temperature = compound.getInt("temp");
+		super.loadAdditional(compound, registries);
+	}
 }

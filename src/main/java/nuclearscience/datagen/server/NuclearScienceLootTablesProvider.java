@@ -6,6 +6,7 @@ import electrodynamics.datagen.server.ElectrodynamicsLootTablesProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.level.block.Block;
 import nuclearscience.References;
+import nuclearscience.common.block.subtype.SubtypeIrradiatedBlock;
 import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
 import nuclearscience.registers.NuclearScienceTiles;
 import nuclearscience.registers.NuclearScienceBlocks;
@@ -40,7 +41,9 @@ public class NuclearScienceLootTablesProvider extends ElectrodynamicsLootTablesP
 		addMachineTable(NuclearScienceBlocks.BLOCK_PARTICLEINJECTOR.get(), NuclearScienceTiles.TILE_PARTICLEINJECTOR, true, false, false, true, false);
 		addMachineTable(NuclearScienceBlocks.BLOCK_QUANTUMCAPACITOR.get(), NuclearScienceTiles.TILE_QUANTUMCAPACITOR, false, false, false, true, false);
 		addMachineTable(NuclearScienceBlocks.BLOCK_RADIOACTIVEPROCESSOR.get(), NuclearScienceTiles.TILE_RADIOACTIVEPROCESSOR, true, true, false, false, false);
-		addSimpleBlock(NuclearScienceBlocks.BLOCK_RADIOACTIVESOIL.get());
+		addSimpleBlock(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.soil));
+		addSimpleBlock(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.petrifiedwood));
+		add(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.grass), createSilkTouchOnlyTable(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.grass)));
 		addMachineTable(NuclearScienceBlocks.BLOCK_RADIOISOTOPEGENERATOR.get(), NuclearScienceTiles.TILE_RADIOISOTOPEGENERATOR, true, false, false, false, false);
 		addMachineTable(NuclearScienceBlocks.BLOCK_FISSIONREACTORCORE.get(), NuclearScienceTiles.TILE_REACTORCORE, true, false, false, false, false);
 		addSimpleBlock(NuclearScienceBlocks.BLOCK_SIREN.get());

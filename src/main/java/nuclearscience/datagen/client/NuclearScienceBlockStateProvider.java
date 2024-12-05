@@ -6,12 +6,15 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
+import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import nuclearscience.References;
 import nuclearscience.common.block.BlockElectromagneticBooster;
 import nuclearscience.common.block.facing.FacingDirection;
+import nuclearscience.common.block.subtype.SubtypeIrradiatedBlock;
 import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
 import nuclearscience.registers.NuclearScienceBlocks;
 
@@ -30,7 +33,15 @@ public class NuclearScienceBlockStateProvider extends ElectrodynamicsBlockStateP
 		simpleBlock(NuclearScienceBlocks.BLOCK_MSRFREEZEPLUG, existingBlock(NuclearScienceBlocks.BLOCK_MSRFREEZEPLUG), true);
 		simpleBlockCustomRenderType(NuclearScienceBlocks.BLOCK_PLASMA, blockLoc("plasma"), ResourceLocation.parse("translucent"), true);
 		airBlock(NuclearScienceBlocks.BLOCK_RADIOACTIVEAIR, "block/plasma", true);
-		snowyBlock(NuclearScienceBlocks.BLOCK_RADIOACTIVESOIL.get(), cubeAll(NuclearScienceBlocks.BLOCK_RADIOACTIVESOIL.get()), existingBlock(ResourceLocation.parse("block/grass_block_snow")), true);
+		simpleBlock(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.soil), blockLoc("irradiatedblocksoil"), true);
+		simpleColumnBlock(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.petrifiedwood), modLoc("block/irradiatedblockpetrifiedwood"), modLoc("block/irradiatedblockpetrifiedwoodtop"), true);
+
+		Block block = NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.grass);
+
+		BlockModelBuilder builder = models().cube(name(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.grass)), modLoc("block/irradiatedblocksoil"), modLoc("block/irradiatedblockgrass"), modLoc("block/irradiatedblockgrassside"), modLoc("block/irradiatedblockgrassside"), modLoc("block/irradiatedblockgrassside"), modLoc("block/irradiatedblockgrassside")).texture("particle", modLoc("block/irradiatedblocksoil"));
+		getVariantBuilder(block).partialState().setModels(new ConfiguredModel[]{new ConfiguredModel(builder)});
+		blockItem(block, builder);
+
 		simpleBlock(NuclearScienceBlocks.BLOCK_MELTEDREACTOR, existingBlock(NuclearScienceBlocks.BLOCK_MELTEDREACTOR), true);
 		simpleBlock(NuclearScienceBlocks.BLOCK_RADIOISOTOPEGENERATOR, existingBlock(NuclearScienceBlocks.BLOCK_RADIOISOTOPEGENERATOR), true);
 		simpleBlock(NuclearScienceBlocks.BLOCK_SIREN, blockLoc("siren"), true);

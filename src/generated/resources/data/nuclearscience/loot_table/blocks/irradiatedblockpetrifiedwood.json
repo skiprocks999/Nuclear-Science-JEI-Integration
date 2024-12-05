@@ -6,12 +6,12 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "nuclearscience:radioactivesoil"
+          "name": "nuclearscience:irradiatedblockpetrifiedwood"
         }
       ],
-      "name": "radioactivesoil",
+      "name": "irradiatedblockpetrifiedwood",
       "rolls": 1.0
     }
   ],
-  "random_sequence": "nuclearscience:blocks/radioactivesoil"
+  "random_sequence": "nuclearscience:blocks/irradiatedblockpetrifiedwood"
 }

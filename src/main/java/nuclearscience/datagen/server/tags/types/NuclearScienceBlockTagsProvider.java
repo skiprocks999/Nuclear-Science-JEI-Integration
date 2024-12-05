@@ -10,6 +10,7 @@ import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import nuclearscience.References;
+import nuclearscience.common.block.subtype.SubtypeIrradiatedBlock;
 import nuclearscience.registers.NuclearScienceBlocks;
 
 public class NuclearScienceBlockTagsProvider extends BlockTagsProvider {
@@ -129,9 +130,11 @@ public class NuclearScienceBlockTagsProvider extends BlockTagsProvider {
                 //
                 NuclearScienceBlocks.BLOCK_TURBINE.get());
 
-        tag(BlockTags.MINEABLE_WITH_SHOVEL).add(NuclearScienceBlocks.BLOCK_RADIOACTIVESOIL.get());
+        tag(BlockTags.MINEABLE_WITH_SHOVEL).add(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.soil), NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.grass));
 
-        tag(Tags.Blocks.NEEDS_WOOD_TOOL).add(NuclearScienceBlocks.BLOCK_RADIOACTIVESOIL.get());
+        tag(BlockTags.MINEABLE_WITH_AXE).add(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.petrifiedwood));
+
+        tag(Tags.Blocks.NEEDS_WOOD_TOOL).add(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.soil), NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.grass), NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.petrifiedwood));
 
     }
 

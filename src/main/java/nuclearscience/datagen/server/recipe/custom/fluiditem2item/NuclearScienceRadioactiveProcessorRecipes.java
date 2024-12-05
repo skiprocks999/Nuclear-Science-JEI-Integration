@@ -9,6 +9,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import nuclearscience.References;
+import nuclearscience.common.block.subtype.SubtypeIrradiatedBlock;
 import nuclearscience.common.recipe.categories.fluiditem2item.RadioactiveProcessorRecipe;
 import nuclearscience.common.tags.NuclearScienceTags;
 import nuclearscience.registers.NuclearScienceBlocks;
@@ -48,9 +49,17 @@ public class NuclearScienceRadioactiveProcessorRecipes extends AbstractRecipeGen
 				//
 				.save(output);
 
-		newRecipe(new ItemStack(Items.DIRT), 0.0F, RADIOACTIVEPROCESSOR_REQUIRED_TICKS, RADIOACTIVEPROCESSOR_USAGE_PER_TICK, "dirt_from_radioactivesoil", modID)
+		newRecipe(new ItemStack(Items.DIRT), 0.0F, RADIOACTIVEPROCESSOR_REQUIRED_TICKS, RADIOACTIVEPROCESSOR_USAGE_PER_TICK, "dirt_from_irradiated_soil", modID)
 				//
-				.addItemStackInput(new ItemStack(NuclearScienceBlocks.BLOCK_RADIOACTIVESOIL.get()))
+				.addItemStackInput(new ItemStack(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.soil)))
+				//
+				.addFluidTagInput(FluidTags.WATER, 100)
+				//
+				.save(output);
+
+		newRecipe(new ItemStack(Items.COAL), 0.0F, RADIOACTIVEPROCESSOR_REQUIRED_TICKS, RADIOACTIVEPROCESSOR_USAGE_PER_TICK, "coal_from_petrified_wood", modID)
+				//
+				.addItemStackInput(new ItemStack(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.petrifiedwood)))
 				//
 				.addFluidTagInput(FluidTags.WATER, 100)
 				//

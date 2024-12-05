@@ -3,6 +3,7 @@ package nuclearscience.datagen.client;
 import electrodynamics.datagen.client.ElectrodynamicsLangKeyProvider;
 import net.minecraft.data.PackOutput;
 import nuclearscience.References;
+import nuclearscience.common.block.subtype.SubtypeIrradiatedBlock;
 import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
 import nuclearscience.common.recipe.categories.fluiditem2gas.NuclearBoilerRecipe;
 import nuclearscience.common.recipe.categories.fluiditem2item.ChemicalExtractorRecipe;
@@ -100,8 +101,10 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addBlock(NuclearScienceBlocks.BLOCK_SIREN, "Siren");
 			addBlock(NuclearScienceBlocks.BLOCK_ATOMICASSEMBLER, "Atomic Assembler");
 			addBlock(NuclearScienceBlocks.BLOCK_MOLTENSALTSUPPLIER, "Molten Salt Supplier");
-			addBlock(NuclearScienceBlocks.BLOCK_RADIOACTIVESOIL, "Radioactive Soil");
-			addBlock(NuclearScienceBlocks.BLOCK_RADIOACTIVEAIR, "Radioactive Air");
+			addBlock(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.soil), "Irradiated Soil");
+			addBlock(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.grass), "Irradiated Grass");
+			addBlock(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.petrifiedwood), "Petrified Wood");
+			//addBlock(NuclearScienceBlocks.BLOCK_RADIOACTIVEAIR, "Radioactive Air");
 			addBlock(NuclearScienceBlocks.BLOCK_LEAD, "Radiation Shielding");
 
 			addBlock(NuclearScienceBlocks.BLOCKS_MOLTENSALTPIPE.getValue(SubtypeMoltenSaltPipe.vanadiumsteelceramic), "VS-Ceramic Pipe");
@@ -203,8 +206,8 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addGuidebook("chapter.radiation.l1.2", "It is important to understand that the strength of a radiation source does not diminish while you are inside its area of affect. Further, radiation application takes into account how tall an entity is. For example, the below source is only 300 Rads strong, but because the player is two blocks tall, the total amount absorbed is 600 rads:");
 			addGuidebook("chapter.radiation.l1.3", "It is worth noting before continuing however that the ray-casting system isn't perfect, and it will struggle in some edge cases!");
 			addGuidebook("chapter.radiation.l2.1", "But you may be asking \"what emits radiation?\" Radiation is emitted by various items, blocks, and machines. To see how radioactive an item is, hover over it in your inventory and hold the Control key:");
-			addGuidebook("chapter.radiation.l2.2", "It is left up to the player to discover what other sources of radiation there are! A good rule of thumb though is that if it works with radioactive materials, there is a good chance it emits radiation. A useful tool to craft early on is the %s. The Geiger Counter is an invaluable tool that will allow you to view the radiation exposure " +
-					"at a current location. When in your inventory, it will tick if exposed to radiation, making it a useful warning device.");
+			addGuidebook("chapter.radiation.l2.2", "It is left up to the player to discover what other sources of radiation there are! A good rule of thumb though is that if it works with radioactive materials, there is a good chance it emits radiation. A useful tool to craft early on is the %1$s. The Geiger Counter is an invaluable tool that will allow you to view the radiation exposure " +
+					"at a current location. When in your inventory, it will tick if exposed to radiation, making it a useful warning device. Note that Geiger Counter will consume %2$s Joules for every tick it detects radiation.");
 
 			addGuidebook("chapter.radiation.l3", "Up until now, we have discussed how radiation works and what emits it, but there has been no mention of if it is possible to mitigate it. Radiation is lethal if exposed to it for long enough. Fortunately, there are various methods offered to deal with this.");
 			addGuidebook("chapter.radiation.l4", "The first option is to consume an %1$s. Iodine Tablets offer limited radiation resistance, and are capable of protecting you from up to %2$s Rads for up to %3$s Minutes per pill. Even if you are exposed to radiation greater than what the Iodine is rated for, the tablet will still reduce received rads by %4$s. Keep in mind however that the " +

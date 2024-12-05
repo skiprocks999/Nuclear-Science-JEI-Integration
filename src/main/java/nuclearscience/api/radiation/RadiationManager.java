@@ -43,6 +43,11 @@ public class RadiationManager implements IRadiationManager {
     }
 
     @Override
+    public int getReachOfSource(Level world, BlockPos pos) {
+        return Math.max(world.getData(NuclearScienceAttachmentTypes.TEMPORARY_RADIATION_SOURCES).getOrDefault(pos, TemporaryRadiationSource.NONE).distance, Math.max(world.getData(NuclearScienceAttachmentTypes.PERMANENT_RADIATION_SOURCES).getOrDefault(pos, SimpleRadiationSource.NONE).getDistanceSpread(), world.getData(NuclearScienceAttachmentTypes.FADING_RADIATION_SOURCES).getOrDefault(pos, FadingRadiationSource.NONE).distance));
+    }
+
+    @Override
     public void setDisipation(double radiationDisipation, Level world) {
         world.setData(NuclearScienceAttachmentTypes.DEFAULT_DISSIPATION, radiationDisipation);
     }

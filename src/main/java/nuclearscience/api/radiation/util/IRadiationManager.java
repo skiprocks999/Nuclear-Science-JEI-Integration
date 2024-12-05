@@ -35,6 +35,8 @@ public interface IRadiationManager {
      */
     public void addRadiationSource(SimpleRadiationSource source, Level level);
 
+    public int getReachOfSource(Level world, BlockPos pos);
+
     /**
      * The default rate at which this manager will disipate any FadingRadiationSources
      *

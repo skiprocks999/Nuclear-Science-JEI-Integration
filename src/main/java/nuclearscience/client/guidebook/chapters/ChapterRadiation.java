@@ -13,12 +13,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import nuclearscience.References;
+import nuclearscience.common.item.ItemGeigerCounter;
 import nuclearscience.common.item.ItemIodineTablet;
 import nuclearscience.common.settings.Constants;
 import nuclearscience.prefab.utils.NuclearTextUtils;
 import nuclearscience.registers.NuclearScienceItems;
-
-import java.util.Map;
 
 public class ChapterRadiation extends Chapter {
 
@@ -47,7 +46,7 @@ public class ChapterRadiation extends Chapter {
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l1.3")));
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l2.1")).setIndentions(1).setSeparateStart());
 		pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/radiationtooltip.png")));
-		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l2.2",  NuclearScienceItems.ITEM_GEIGERCOUNTER.get().getDescription().copy().withStyle(ChatFormatting.BOLD))));
+		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l2.2",  NuclearScienceItems.ITEM_GEIGERCOUNTER.get().getDescription().copy().withStyle(ChatFormatting.BOLD), ChatFormatter.roundDecimals(ItemGeigerCounter.POWER_USAGE, 2))));
 		blankLine();
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l3")).setIndentions(1).setSeparateStart());
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l4",

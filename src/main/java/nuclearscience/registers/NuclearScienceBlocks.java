@@ -9,24 +9,9 @@ import net.minecraft.world.level.block.SoundType;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import nuclearscience.References;
-import nuclearscience.common.block.BlockControlRodAssembly;
-import nuclearscience.common.block.BlockElectromagnet;
-import nuclearscience.common.block.BlockElectromagneticBooster;
-import nuclearscience.common.block.BlockElectromagneticSwitch;
-import nuclearscience.common.block.BlockFissionReactorCore;
-import nuclearscience.common.block.BlockFuelReprocessor;
-import nuclearscience.common.block.BlockFusionReactorCore;
-import nuclearscience.common.block.BlockMSRFuelPreprocessor;
-import nuclearscience.common.block.BlockMeltedReactor;
-import nuclearscience.common.block.BlockMoltenSaltSupplier;
-import nuclearscience.common.block.BlockPlasma;
-import nuclearscience.common.block.BlockQuantumCapacitor;
-import nuclearscience.common.block.BlockRadioactiveAir;
-import nuclearscience.common.block.BlockRadioactiveProcessor;
-import nuclearscience.common.block.BlockRadioactiveSoil;
-import nuclearscience.common.block.BlockTeleporter;
-import nuclearscience.common.block.BlockTurbine;
+import nuclearscience.common.block.*;
 import nuclearscience.common.block.connect.BlockMoltenSaltPipe;
+import nuclearscience.common.block.subtype.SubtypeIrradiatedBlock;
 import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
 import nuclearscience.common.tile.TileAtomicAssembler;
 import nuclearscience.common.tile.TileChemicalExtractor;
@@ -75,7 +60,8 @@ public class NuclearScienceBlocks {
 	public static final BulkDeferredHolder<Block, BlockMoltenSaltPipe, SubtypeMoltenSaltPipe> BLOCKS_MOLTENSALTPIPE = new BulkDeferredHolder<>(SubtypeMoltenSaltPipe.values(), subtype -> BLOCKS.register(subtype.tag(), () -> new BlockMoltenSaltPipe(subtype)));
 	public static final DeferredHolder<Block, BlockMeltedReactor> BLOCK_MELTEDREACTOR = BLOCKS.register("meltedreactor", () -> new BlockMeltedReactor());
 	public static final DeferredHolder<Block, BlockRadioactiveAir> BLOCK_RADIOACTIVEAIR = BLOCKS.register("radioactiveair", () -> new BlockRadioactiveAir());
-	public static final DeferredHolder<Block, BlockRadioactiveSoil> BLOCK_RADIOACTIVESOIL = BLOCKS.register("radioactivesoil", () -> new BlockRadioactiveSoil());
+	public static final BulkDeferredHolder<Block, BlockIrradiated, SubtypeIrradiatedBlock> BLOCKS_IRRADIATED = new BulkDeferredHolder<>(SubtypeIrradiatedBlock.values(), subtype -> BLOCKS.register(subtype.tag(), () -> new BlockIrradiated(subtype)));
+	//public static final DeferredHolder<Block, BlockRadioactiveSoil> BLOCK_RADIOACTIVESOIL = BLOCKS.register("radioactivesoil", () -> new BlockRadioactiveSoil());
 
 
 }

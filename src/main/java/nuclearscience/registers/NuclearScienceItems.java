@@ -12,7 +12,6 @@ import electrodynamics.prefab.utilities.object.TransferPack;
 import electrodynamics.registers.ElectrodynamicsItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.ArmorItem.Type;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
@@ -24,6 +23,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import nuclearscience.References;
 import nuclearscience.common.block.subtype.SubtypeIrradiatedBlock;
 import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
+import nuclearscience.common.block.subtype.SubtypeRadiationShielding;
 import nuclearscience.common.item.*;
 
 public class NuclearScienceItems {
@@ -31,7 +31,7 @@ public class NuclearScienceItems {
 
 	/* BLOCKS */
 
-	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_LEAD = ITEMS.register("blocklead", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_LEAD.get(), new BlockItem.Properties(), NuclearScienceCreativeTabs.MAIN));
+	public static final BulkDeferredHolder<Item, BlockItemDescriptable, SubtypeRadiationShielding> ITEMS_RADIATION_SHIELDING = new BulkDeferredHolder<>(SubtypeRadiationShielding.values(), subtype -> ITEMS.register(subtype.tag(), () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getValue(subtype), new Item.Properties(), NuclearScienceCreativeTabs.MAIN)));
 
 	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_GASCENTRIFUGE = ITEMS.register("gascentrifuge", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_GASCENTRIFUGE.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_NUCLEARBOILER = ITEMS.register("nuclearboiler", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_NUCLEARBOILER.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));

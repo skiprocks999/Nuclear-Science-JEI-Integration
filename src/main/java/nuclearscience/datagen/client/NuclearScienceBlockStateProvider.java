@@ -6,6 +6,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.TrapDoorBlock;
 import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
@@ -16,6 +18,7 @@ import nuclearscience.common.block.BlockElectromagneticBooster;
 import nuclearscience.common.block.facing.FacingDirection;
 import nuclearscience.common.block.subtype.SubtypeIrradiatedBlock;
 import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
+import nuclearscience.common.block.subtype.SubtypeRadiationShielding;
 import nuclearscience.registers.NuclearScienceBlocks;
 
 public class NuclearScienceBlockStateProvider extends ElectrodynamicsBlockStateProvider {
@@ -27,7 +30,11 @@ public class NuclearScienceBlockStateProvider extends ElectrodynamicsBlockStateP
 	@Override
 	protected void registerStatesAndModels() {
 
-		simpleBlock(NuclearScienceBlocks.BLOCK_LEAD, blockLoc("blocklead"), true);
+		simpleBlock(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.base), blockLoc("leadlinedblock"), true);
+		doorBlock((DoorBlock) NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.door), blockLoc("leadlineddoor_bottom"), blockLoc("leadlineddoor_top"));
+		glassBlock(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.glass), blockLoc("leadlinedglass"), true);
+		trapdoorBlock((TrapDoorBlock) NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.trapdoor), blockLoc("leadlinedtrapdoor"), true);
+
 		simpleColumnBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNET.get(), blockLoc("electromagnet"), blockLoc("electromagnettop"), true);
 		glassBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICGLASS, blockLoc("electromagneticglass"), true);
 		simpleBlock(NuclearScienceBlocks.BLOCK_MSRFREEZEPLUG, existingBlock(NuclearScienceBlocks.BLOCK_MSRFREEZEPLUG), true);

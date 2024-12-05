@@ -15,6 +15,7 @@ import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.Tags;
 import nuclearscience.References;
 import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
+import nuclearscience.common.block.subtype.SubtypeRadiationShielding;
 import nuclearscience.common.tags.NuclearScienceTags;
 import nuclearscience.registers.NuclearScienceItems;
 
@@ -35,7 +36,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.complete(References.ID, "antidote", output);
 
-		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_LEAD.get(), 2)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.base), 2)
 				//
 				.addPattern("LLL")
 				//
@@ -47,7 +48,43 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('C', ElectrodynamicsItems.ITEMS_CERAMIC.getValue(SubtypeCeramic.plate))
 				//
-				.complete(References.ID, "leadshielding", output);
+				.complete(References.ID, "leadlined_block", output);
+
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.door), 1)
+				//
+				.addPattern("BB")
+				//
+				.addPattern("BB")
+				//
+				.addPattern("BB")
+				//
+				.addKey('B', NuclearScienceItems.ITEMS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.base))
+				//
+				.complete(References.ID, "leadlined_door", output);
+
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.trapdoor), 1)
+				//
+				.addPattern("BB")
+				//
+				.addPattern("BB")
+				//
+				.addKey('B', NuclearScienceItems.ITEMS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.base))
+				//
+				.complete(References.ID, "leadlined_trapdoor", output);
+
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.glass), 8)
+				//
+				.addPattern("GGG")
+				//
+				.addPattern("GBG")
+				//
+				.addPattern("GGG")
+				//
+				.addKey('B', NuclearScienceItems.ITEMS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.base))
+				//
+				.addKey('G', Tags.Items.GLASS_BLOCKS)
+				//
+				.complete(References.ID, "leadlined_glass", output);
 
 		ShapelessCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_CELLANTIMATTERLARGE.get(), 1)
 				//

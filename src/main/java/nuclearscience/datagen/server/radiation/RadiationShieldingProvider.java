@@ -10,6 +10,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import nuclearscience.References;
 import nuclearscience.api.radiation.util.RadiationShielding;
+import nuclearscience.common.block.subtype.SubtypeRadiationShielding;
 import nuclearscience.common.reloadlistener.RadiationShieldingRegister;
 import nuclearscience.registers.NuclearScienceBlocks;
 
@@ -37,7 +38,10 @@ public class RadiationShieldingProvider implements DataProvider {
     }
 
     private void getRadiationShielding(JsonObject json) {
-        addBlock(NuclearScienceBlocks.BLOCK_LEAD.get(), 20000, 1, json);
+        addBlock(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.base), 20000, 1, json);
+        addBlock(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.door), 20000, 1, json);
+        addBlock(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.trapdoor), 20000, 1, json);
+        addBlock(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.glass), 5000, 1, json);
 
     }
 

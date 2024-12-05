@@ -1,11 +1,11 @@
 package nuclearscience.registers;
 
 import electrodynamics.api.registration.BulkDeferredHolder;
+import electrodynamics.common.block.BlockCustomGlass;
 import electrodynamics.prefab.block.GenericMachineBlock;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import nuclearscience.References;
@@ -13,6 +13,7 @@ import nuclearscience.common.block.*;
 import nuclearscience.common.block.connect.BlockMoltenSaltPipe;
 import nuclearscience.common.block.subtype.SubtypeIrradiatedBlock;
 import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
+import nuclearscience.common.block.subtype.SubtypeRadiationShielding;
 import nuclearscience.common.tile.TileAtomicAssembler;
 import nuclearscience.common.tile.TileChemicalExtractor;
 import nuclearscience.common.tile.TileGasCentrifuge;
@@ -51,7 +52,17 @@ public class NuclearScienceBlocks {
 	public static final DeferredHolder<Block, BlockFuelReprocessor> BLOCK_FUELREPROCESSOR = BLOCKS.register("fuelreprocessor", () -> new BlockFuelReprocessor());
 	public static final DeferredHolder<Block, BlockRadioactiveProcessor> BLOCK_RADIOACTIVEPROCESSOR = BLOCKS.register("radioactiveprocessor", () -> new BlockRadioactiveProcessor());
 	public static final DeferredHolder<Block, BlockMSRFuelPreprocessor> BLOCK_MSRFUELPREPROCESSOR = BLOCKS.register("msrfuelpreprocessor", () -> new BlockMSRFuelPreprocessor(TileMSRFuelPreProcessor::new));
-	public static final DeferredHolder<Block, Block> BLOCK_LEAD = BLOCKS.register("blocklead", () -> new Block(Blocks.NETHERITE_BLOCK.properties().strength(5.0f, 3.0f).sound(SoundType.METAL).requiresCorrectToolForDrops()));
+	public static final BulkDeferredHolder<Block, Block, SubtypeRadiationShielding> BLOCKS_RADIATION_SHIELDING = new BulkDeferredHolder<>(SubtypeRadiationShielding.values(), subtype -> BLOCKS.register(subtype.tag(), () -> {
+		if(subtype == SubtypeRadiationShielding.door) {
+			return new DoorBlock(BlockSetType.IRON, subtype.properties);
+		} else if (subtype == SubtypeRadiationShielding.trapdoor) {
+			return new TrapDoorBlock(BlockSetType.IRON, subtype.properties);
+		} else if (subtype == SubtypeRadiationShielding.glass) {
+			return new BlockCustomGlass(5.0f, 3.0f);
+		} else {
+			return new Block(subtype.properties);
+		}
+	}));
 	public static final DeferredHolder<Block, GenericMachineBlock> BLOCK_MSREACTORCORE = BLOCKS.register("msreactorcore", () -> new GenericMachineBlock(TileMSReactorCore::new));
 	public static final DeferredHolder<Block, GenericMachineBlock> BLOCK_HEATEXCHANGER = BLOCKS.register("heatexchanger", () -> new GenericMachineBlock(TileHeatExchanger::new));
 	public static final DeferredHolder<Block, GenericMachineBlock> BLOCK_SIREN = BLOCKS.register("siren", () -> new GenericMachineBlock(TileSiren::new));

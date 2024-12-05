@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "nuclearscience:block/blocklead"
+    "all": "nuclearscience:block/leadlinedblock"
   }
 }

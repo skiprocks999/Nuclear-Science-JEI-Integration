@@ -6,12 +6,12 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "nuclearscience:blocklead"
+          "name": "nuclearscience:radiationshieldingbase"
         }
       ],
-      "name": "blocklead",
+      "name": "radiationshieldingbase",
       "rolls": 1.0
     }
   ],
-  "random_sequence": "nuclearscience:blocks/blocklead"
+  "random_sequence": "nuclearscience:blocks/radiationshieldingbase"
 }

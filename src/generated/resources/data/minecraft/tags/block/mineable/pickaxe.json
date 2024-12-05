@@ -1,5 +1,9 @@
 {
   "values": [
+    "nuclearscience:radiationshieldingbase",
+    "nuclearscience:radiationshieldingtrapdoor",
+    "nuclearscience:radiationshieldingglass",
+    "nuclearscience:radiationshieldingdoor",
     "nuclearscience:atomicassembler",
     "nuclearscience:chemicalextractor",
     "nuclearscience:controlrodassembly",
@@ -12,7 +16,6 @@
     "nuclearscience:fusionreactorcore",
     "nuclearscience:gascentrifuge",
     "nuclearscience:heatexchanger",
-    "nuclearscience:blocklead",
     "nuclearscience:meltedreactor",
     "nuclearscience:moltensaltsupplier",
     "nuclearscience:msrfuelpreprocessor",

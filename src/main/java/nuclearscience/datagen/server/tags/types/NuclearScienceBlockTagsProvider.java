@@ -6,6 +6,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -22,7 +23,9 @@ public class NuclearScienceBlockTagsProvider extends BlockTagsProvider {
     @Override
     protected void addTags(Provider provider) {
 
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getAllValuesArray(new Block[]{}))
+                //
+                .add(
                 //
                 NuclearScienceBlocks.BLOCK_ATOMICASSEMBLER.get(),
                 //
@@ -47,8 +50,6 @@ public class NuclearScienceBlockTagsProvider extends BlockTagsProvider {
                 NuclearScienceBlocks.BLOCK_GASCENTRIFUGE.get(),
                 //
                 NuclearScienceBlocks.BLOCK_HEATEXCHANGER.get(),
-                //
-                NuclearScienceBlocks.BLOCK_LEAD.get(),
                 //
                 NuclearScienceBlocks.BLOCK_MELTEDREACTOR.get(),
                 //
@@ -76,7 +77,9 @@ public class NuclearScienceBlockTagsProvider extends BlockTagsProvider {
                 //
                 NuclearScienceBlocks.BLOCK_TURBINE.get());
 
-        tag(BlockTags.NEEDS_STONE_TOOL).add(
+        tag(BlockTags.NEEDS_STONE_TOOL).add(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getAllValuesArray(new Block[]{}))
+                //
+                .add(
                 //
                 NuclearScienceBlocks.BLOCK_ATOMICASSEMBLER.get(),
                 //
@@ -101,8 +104,6 @@ public class NuclearScienceBlockTagsProvider extends BlockTagsProvider {
                 NuclearScienceBlocks.BLOCK_GASCENTRIFUGE.get(),
                 //
                 NuclearScienceBlocks.BLOCK_HEATEXCHANGER.get(),
-                //
-                NuclearScienceBlocks.BLOCK_LEAD.get(),
                 //
                 NuclearScienceBlocks.BLOCK_MELTEDREACTOR.get(),
                 //

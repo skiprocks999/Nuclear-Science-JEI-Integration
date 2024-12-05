@@ -1,6 +1,5 @@
 {
   "block.nuclearscience.atomicassembler": "Atomic Assembler",
-  "block.nuclearscience.blocklead": "Radiation Shielding",
   "block.nuclearscience.chemicalextractor": "Chemical Extractor",
   "block.nuclearscience.controlrodassembly": "Control Rod",
   "block.nuclearscience.electromagnet": "Electromagnet",
@@ -25,6 +24,10 @@
   "block.nuclearscience.particleinjector": "Particle Injector",
   "block.nuclearscience.plasma": "Plasma",
   "block.nuclearscience.quantumcapacitor": "Quantum Capacitor",
+  "block.nuclearscience.radiationshieldingbase": "Lead-lined Block",
+  "block.nuclearscience.radiationshieldingdoor": "Lead-lined Door",
+  "block.nuclearscience.radiationshieldingglass": "Lead-lined Glass",
+  "block.nuclearscience.radiationshieldingtrapdoor": "Lead-lined Trapdoor",
   "block.nuclearscience.radioactiveprocessor": "Radioactive Processor",
   "block.nuclearscience.radioisotopegenerator": "Radioisotope Generator",
   "block.nuclearscience.siren": "Siren",

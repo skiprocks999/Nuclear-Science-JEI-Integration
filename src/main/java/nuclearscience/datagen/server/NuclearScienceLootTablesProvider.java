@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.Block;
 import nuclearscience.References;
 import nuclearscience.common.block.subtype.SubtypeIrradiatedBlock;
 import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
+import nuclearscience.common.block.subtype.SubtypeRadiationShielding;
 import nuclearscience.registers.NuclearScienceTiles;
 import nuclearscience.registers.NuclearScienceBlocks;
 
@@ -32,7 +33,10 @@ public class NuclearScienceLootTablesProvider extends ElectrodynamicsLootTablesP
 		addSimpleBlock(NuclearScienceBlocks.BLOCK_FUSIONREACTORCORE.get());
 		addMachineTable(NuclearScienceBlocks.BLOCK_GASCENTRIFUGE.get(), NuclearScienceTiles.TILE_GASCENTRIFUGE, true, true, false, true, false);
 		addSimpleBlock(NuclearScienceBlocks.BLOCK_HEATEXCHANGER.get());
-		addSimpleBlock(NuclearScienceBlocks.BLOCK_LEAD.get());
+		addSimpleBlock(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.base));
+		addSimpleBlock(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.door));
+		addSimpleBlock(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.trapdoor));
+		addSimpleBlock(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.glass));
 		addSimpleBlock(NuclearScienceBlocks.BLOCK_MELTEDREACTOR.get());
 		addMachineTable(NuclearScienceBlocks.BLOCK_MOLTENSALTSUPPLIER.get(), NuclearScienceTiles.TILE_MOLTENSALTSUPPLIER, true, false, false, false, false);
 		addMachineTable(NuclearScienceBlocks.BLOCK_MSRFUELPREPROCESSOR.get(), NuclearScienceTiles.TILE_MSRFUELPREPROCESSOR, true, true, false, true, false);

@@ -6,6 +6,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import nuclearscience.References;
 import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
+import nuclearscience.common.block.subtype.SubtypeRadiationShielding;
 import nuclearscience.registers.NuclearScienceBlocks;
 import nuclearscience.registers.NuclearScienceItems;
 
@@ -69,6 +70,10 @@ public class NuclearScienceItemModelsProvider extends ElectrodynamicsItemModelsP
 		layeredItem(NuclearScienceItems.ITEMS_MOLTENSALTPIPTE.getValue(SubtypeMoltenSaltPipe.vanadiumsteelceramic), Parent.GENERATED, itemLoc("pipe/" + SubtypeMoltenSaltPipe.vanadiumsteelceramic.tag()));
 		simpleBlockItem(NuclearScienceBlocks.BLOCK_PARTICLEINJECTOR.get(), existingBlock(blockLoc("particleinjector"))).transforms().transform(ItemDisplayContext.GUI).rotation(45.0F, 45.0F, 0).scale(0.5F).translation(0.0F, -1.0F, 0.0F);
 		simpleBlockItem(NuclearScienceBlocks.BLOCK_TURBINE.get(), existingBlock(blockLoc("turbine")));
+
+		layeredItem(NuclearScienceItems.ITEMS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.door), Parent.GENERATED, itemLoc("leadlineddoor"));
+
+		simpleBlockItem(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.trapdoor), existingBlock(blockLoc("radiationshieldingtrapdoor_bottom")));
 
 	}
 

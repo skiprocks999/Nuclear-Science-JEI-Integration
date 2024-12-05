@@ -5,6 +5,7 @@ import net.minecraft.data.PackOutput;
 import nuclearscience.References;
 import nuclearscience.common.block.subtype.SubtypeIrradiatedBlock;
 import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
+import nuclearscience.common.block.subtype.SubtypeRadiationShielding;
 import nuclearscience.common.recipe.categories.fluiditem2gas.NuclearBoilerRecipe;
 import nuclearscience.common.recipe.categories.fluiditem2item.ChemicalExtractorRecipe;
 import nuclearscience.common.recipe.categories.fluiditem2item.MSRFuelPreProcessorRecipe;
@@ -105,7 +106,10 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addBlock(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.grass), "Irradiated Grass");
 			addBlock(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.petrifiedwood), "Petrified Wood");
 			//addBlock(NuclearScienceBlocks.BLOCK_RADIOACTIVEAIR, "Radioactive Air");
-			addBlock(NuclearScienceBlocks.BLOCK_LEAD, "Radiation Shielding");
+			addBlock(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.base), "Lead-lined Block");
+			addBlock(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.door), "Lead-lined Door");
+			addBlock(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.glass), "Lead-lined Glass");
+			addBlock(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.trapdoor), "Lead-lined Trapdoor");
 
 			addBlock(NuclearScienceBlocks.BLOCKS_MOLTENSALTPIPE.getValue(SubtypeMoltenSaltPipe.vanadiumsteelceramic), "VS-Ceramic Pipe");
 

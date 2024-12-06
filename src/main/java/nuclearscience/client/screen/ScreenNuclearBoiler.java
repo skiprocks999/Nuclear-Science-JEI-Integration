@@ -1,9 +1,7 @@
 package nuclearscience.client.screen;
 
-import electrodynamics.prefab.screen.component.types.ScreenComponentGeneric;
 import electrodynamics.prefab.screen.component.types.ScreenComponentProgress;
 import electrodynamics.prefab.screen.component.types.ScreenComponentProgress.ProgressBars;
-import electrodynamics.prefab.screen.component.types.ScreenComponentProgress.ProgressTextures;
 import electrodynamics.prefab.screen.component.types.gauges.ScreenComponentFluidGauge;
 import electrodynamics.prefab.screen.component.types.gauges.ScreenComponentGasGauge;
 import electrodynamics.prefab.screen.component.types.guitab.ScreenComponentElectricInfo;
@@ -45,7 +43,6 @@ public class ScreenNuclearBoiler extends GenericMaterialScreen<ContainerNuclearB
 			}
 			return 0;
 		}, 98, 30));
-		addComponent(new ScreenComponentGeneric(ProgressTextures.ARROW_LEFT_OFF, 42, 50));
 		addComponent(new ScreenComponentFluidGauge(() -> {
 			TileNuclearBoiler boiler = container.getSafeHost();
 			if (boiler != null) {

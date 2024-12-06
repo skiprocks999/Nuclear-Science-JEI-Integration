@@ -7,6 +7,8 @@ import electrodynamics.api.configuration.IntValue;
 @Configuration(name = "Nuclear Science")
 public class Constants {
 
+	@DoubleValue(def = 1000000.0)
+	public static double TELEPORTER_USAGE_PER_TELEPORT = 1000000.0;
 	@DoubleValue(def = 120.0)
 	public static double RADIOISOTOPEGENERATOR_VOLTAGE = 120.0;
 	@DoubleValue(def = 0.35)

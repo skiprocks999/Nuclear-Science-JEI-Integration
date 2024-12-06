@@ -18,6 +18,7 @@ import net.minecraft.world.level.Level;
 import nuclearscience.api.radiation.util.RadioactiveObject;
 import nuclearscience.api.radiation.util.IRadiationRecipient;
 import nuclearscience.prefab.utils.NuclearDisplayUnits;
+import nuclearscience.prefab.utils.NuclearTextUtils;
 import nuclearscience.registers.NuclearScienceCapabilities;
 import nuclearscience.registers.NuclearScienceSounds;
 
@@ -40,7 +41,7 @@ public class ItemGeigerCounter extends ItemElectric {
 
         if (entityIn instanceof Player player) {
 
-            ItemGeigerCounter item = (ItemGeigerCounter) stack.getItem();
+            boolean noPower = getJoulesStored(stack) < POWER_USAGE;
 
             IRadiationRecipient capability = player.getCapability(NuclearScienceCapabilities.CAPABILITY_RADIATIONRECIPIENT);
             if (capability == null) {
@@ -50,10 +51,15 @@ public class ItemGeigerCounter extends ItemElectric {
             RadioactiveObject recievedRads = capability.getRecievedRadiation(player);
 
             if (isSelected || player.getItemBySlot(EquipmentSlot.OFFHAND).getItem() instanceof ItemGeigerCounter) {
-                player.displayClientMessage(ChatFormatter.getChatDisplay(recievedRads.amount(), NuclearDisplayUnits.RAD, 3, true), true);
+                if(noPower) {
+                    player.displayClientMessage(NuclearTextUtils.chatMessage("geigercounter.nopower"), true);
+                } else {
+                    player.displayClientMessage(ChatFormatter.getChatDisplay(recievedRads.amount(), NuclearDisplayUnits.RAD, 3, true), true);
+                }
+
             }
 
-            if (worldIn.random.nextFloat() * 50 * 60.995 / 3 < recievedRads.amount()) {
+            if (!noPower && recievedRads.amount() > 0 && worldIn.random.nextFloat() * 50 * 60.995 / 3 < recievedRads.amount()) {
 
                 SoundEvent sound = switch(worldIn.random.nextIntBetweenInclusive(1, 6)) {
                     case 2 -> NuclearScienceSounds.SOUND_GEIGERCOUNTER_2.get();
@@ -73,5 +79,10 @@ public class ItemGeigerCounter extends ItemElectric {
 
 
         }
+    }
+
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return slotChanged;
     }
 }

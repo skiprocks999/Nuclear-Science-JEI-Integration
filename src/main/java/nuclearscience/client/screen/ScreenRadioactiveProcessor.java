@@ -1,10 +1,8 @@
 package nuclearscience.client.screen;
 
 import electrodynamics.prefab.screen.GenericScreen;
-import electrodynamics.prefab.screen.component.types.ScreenComponentGeneric;
 import electrodynamics.prefab.screen.component.types.ScreenComponentProgress;
 import electrodynamics.prefab.screen.component.types.ScreenComponentProgress.ProgressBars;
-import electrodynamics.prefab.screen.component.types.ScreenComponentProgress.ProgressTextures;
 import electrodynamics.prefab.screen.component.types.gauges.ScreenComponentFluidGauge;
 import electrodynamics.prefab.screen.component.types.guitab.ScreenComponentElectricInfo;
 import electrodynamics.prefab.screen.component.types.wrapper.InventoryIOWrapper;
@@ -42,7 +40,6 @@ public class ScreenRadioactiveProcessor extends GenericScreen<ContainerRadioacti
 			}
 			return 0;
 		}, 98, 30));
-		addComponent(new ScreenComponentGeneric(ProgressTextures.ARROW_LEFT_OFF, 46, 50));
 		addComponent(new ScreenComponentFluidGauge(() -> {
 			TileRadioactiveProcessor boiler = container.getSafeHost();
 			if (boiler != null) {

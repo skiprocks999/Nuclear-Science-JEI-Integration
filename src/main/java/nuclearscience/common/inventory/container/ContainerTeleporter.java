@@ -1,5 +1,6 @@
 package nuclearscience.common.inventory.container;
 
+import electrodynamics.prefab.inventory.container.slot.item.type.SlotRestricted;
 import electrodynamics.prefab.inventory.container.types.GenericContainerBlockEntity;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -21,6 +22,7 @@ public class ContainerTeleporter extends GenericContainerBlockEntity<TileTelepor
 
     @Override
     public void addInventorySlots(Container container, Inventory inventory) {
-
+        setPlayerInvOffset(50);
+        addSlot(new SlotRestricted(container, nextIndex(), 31, 80));
     }
 }

@@ -132,6 +132,7 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addContainer("msrreactorcore", "MSR Reactor Core");
 			addContainer("moltensaltsupplier", "Molten Salt Supplier");
 			addContainer("atomicassembler", "Atomic Assembler");
+			addContainer("teleporter", "Teleporter");
 
 			addGuiLabel("machine.usage", "Usage: %s");
 			addGuiLabel("machine.voltage", "Voltage: %s");
@@ -167,10 +168,18 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addGuiLabel("freezeplug.off", "OFF");
 			addGuiLabel("freezeplug.saltbonus", "Thermal Bonus: %s");
 
+			addGuiLabel("teleporter.import", "Import");
+			addGuiLabel("teleporter.x", "X:");
+			addGuiLabel("teleporter.y", "Y:");
+			addGuiLabel("teleporter.z", "Z:");
+			addGuiLabel("teleporter.reset", "Reset");
+
 			addDamageSource("radiation", "%s just did a speedrun of evolution!");
 			addDamageSource("plasma", "%s was ionized!");
 			add("effect.nuclearscience.radiation", "Radiation");
 			add("effect.nuclearscience.radiationresistance", "Radiation Resistance");
+
+			addChatMessage("geigercounter.nopower", "No Power");
 
 			addTooltip("frequencycard.linked", "Linked to %s");
 			addTooltip("frequencycard.notag", "No Link");
@@ -298,9 +307,10 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addGuidebook("chapter.othermachines", "Other Machines");
 			addGuidebook("chapter.othermachines.quantumcapacitor1", "The Quantum Capacitor is the ultimate energy storage device. It has an unlimited energy storage capacity and the storage is shared across capacitors. The GUI has two programmable fields. The first is for the joules/tick output of the capacitor. Note, the capacitor outputs at 1.92 kV! " + "The second is for the frequency. The frequency of two capacitors must match for them to link. Every capacitor network is tied to a specific player, so don't worry about other players stealing your energy!");
 
-			addGuidebook("chapter.othermachines.teleporter1", "The Teleporter requires 5 MJ to teleport a player. Two teleporters are needed: one to send the player, and one to recieve them. Only the sending end needs to be powered. To link two teleporters, Right-Click the recieving end with a Frequency Card. Then Right-Click the sending end with the " + "same card to link the two teleporters.");
-
-			addGuidebook("chapter.othermachines.teleporter2", "After each teleport, there is 4 second cooldown applied to the sending end. Note, it is possible to link a teleporter to itself, so be careful! To wipe a Frequency Card, simply craft it in your inventory.");
+			addGuidebook("chapter.othermachines.teleporter1", "The Teleporter requires %s to teleport an entity and is a one-way trip. This means two teleporters are needed: one to send the player, and one to get them back. There is a 4 second cooldown after every teleport. To select a teleporter's destination, you can input coordinates via its GUI.");
+			addGuidebook("chapter.othermachines.teleporter2", "If you don't like entering coordinates manually, you can craft a %s, and import coordiantes from it to the Teleporter via the \"Import\" button. To store coordinates on a Frequency Card, right-click the card on a block. You can clear the card's stored coordinates by Shift + Right-Clicking it.");
+			addGuidebook("chapter.othermachines.teleporter3", "By now, you have probably noticed the dimension field in the GUI:");
+			addGuidebook("chapter.othermachines.teleporter4", "This field defaults to the dimension the Teleporter is placed in initially, and can only be programmed via a Frequency Card.");
 
 			addGuidebook("chapter.othermachines.atomicassembler1", "The Atomic Assembler makes use of the strange properties of Dark Matter, and is able to duplicate items (we have made sure you can't dupe items with inventories, so no dupe bugs this time (: ). It requires 72 kW at 480 V to run. If it loses power, all progress is lost!");
 			addGuidebook("chapter.othermachines.atomicassembler2", "To use it, take an item of your desire and place it in the Assembler. Surround the item with Dark Matter Cells like shown:");

@@ -7,8 +7,6 @@ import electrodynamics.prefab.tile.components.type.*;
 import electrodynamics.registers.ElectrodynamicsCapabilities;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.ItemInteractionResult;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.portal.DimensionTransition;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
@@ -19,16 +17,14 @@ import electrodynamics.prefab.utilities.BlockEntityUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import nuclearscience.common.inventory.container.ContainerTeleporter;
+import nuclearscience.common.settings.Constants;
 import nuclearscience.registers.NuclearScienceTiles;
 
 public class TileTeleporter extends GenericTile {
@@ -42,7 +38,7 @@ public class TileTeleporter extends GenericTile {
 
 		addComponent(new ComponentTickable(this).tickServer(this::tickServer));
 		addComponent(new ComponentPacketHandler(this));
-		addComponent(new ComponentElectrodynamic(this, false, true).maxJoules(5000000).voltage(ElectrodynamicsCapabilities.DEFAULT_VOLTAGE * 4).setInputDirections(BlockEntityUtils.MachineDirection.BOTTOM));
+		addComponent(new ComponentElectrodynamic(this, false, true).maxJoules(Constants.TELEPORTER_USAGE_PER_TELEPORT * 20).voltage(ElectrodynamicsCapabilities.DEFAULT_VOLTAGE * 4).setInputDirections(BlockEntityUtils.MachineDirection.BOTTOM));
 		addComponent(new ComponentInventory(this, ComponentInventory.InventoryBuilder.newInv().inputs(1)));
 		addComponent(new ComponentContainerProvider("container.teleporter", this).createMenu((id, player) -> new ContainerTeleporter(id, player, getComponent(IComponentType.Inventory), getCoordsArray())));
 
@@ -52,7 +48,7 @@ public class TileTeleporter extends GenericTile {
 
 		ComponentElectrodynamic electro = getComponent(IComponentType.Electrodynamic);
 
-		boolean powered = electro.getJoulesStored() > 0;
+		boolean powered = electro.getJoulesStored() > Constants.TELEPORTER_USAGE_PER_TELEPORT;
 
 		if (BlockEntityUtils.isLit(this) ^ powered) {
 			BlockEntityUtils.updateLit(this, powered);
@@ -86,18 +82,8 @@ public class TileTeleporter extends GenericTile {
 
 		cooldown.set(80);
 
-		electro.joules(0);
+		electro.joules(electro.getJoulesStored() - Constants.TELEPORTER_USAGE_PER_TELEPORT);
 
-	}
-
-	@Override
-	public InteractionResult useWithoutItem(Player player, BlockHitResult hit) {
-		return InteractionResult.PASS;
-	}
-
-	@Override
-	public ItemInteractionResult useWithItem(ItemStack used, Player player, InteractionHand hand, BlockHitResult hit) {
-		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
 	private ServerLevel getDestinationLevel() {
@@ -107,5 +93,6 @@ public class TileTeleporter extends GenericTile {
 		}
 		return level;
 	}
+
 
 }

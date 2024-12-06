@@ -1,9 +1,9 @@
 {
   "values": [
-    "nuclearscience:radiationshieldingbase",
     "nuclearscience:radiationshieldingtrapdoor",
-    "nuclearscience:radiationshieldingglass",
     "nuclearscience:radiationshieldingdoor",
+    "nuclearscience:radiationshieldingglass",
+    "nuclearscience:radiationshieldingbase",
     "nuclearscience:atomicassembler",
     "nuclearscience:chemicalextractor",
     "nuclearscience:controlrodassembly",

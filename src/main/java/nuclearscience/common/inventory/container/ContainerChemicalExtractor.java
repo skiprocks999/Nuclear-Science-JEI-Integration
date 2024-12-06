@@ -31,7 +31,7 @@ public class ContainerChemicalExtractor extends GenericContainerBlockEntity<Tile
 	public void addInventorySlots(Container inv, Inventory playerinv) {
 		addSlot(new SlotGeneric(inv, nextIndex(), 74, 31).setIOColor(new Color(0, 240, 255, 255)));
 		addSlot(new SlotRestricted(inv, nextIndex(), 128, 31).setIOColor(new Color(255, 0, 0, 255)));
-		addSlot(new SlotFluid(inv, nextIndex(), 74, 51));
+		addSlot(new SlotFluid(inv, this.nextIndex(), 38, 51));
 		addSlot(new SlotUpgrade(inv, nextIndex(), 153, 14, VALID_UPGRADES));
 		addSlot(new SlotUpgrade(inv, nextIndex(), 153, 34, VALID_UPGRADES));
 		addSlot(new SlotUpgrade(inv, nextIndex(), 153, 54, VALID_UPGRADES));

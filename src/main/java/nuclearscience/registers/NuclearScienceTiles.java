@@ -16,7 +16,7 @@ import nuclearscience.common.tile.TileFuelReprocessor;
 import nuclearscience.common.tile.TileGasCentrifuge;
 import nuclearscience.common.tile.TileNuclearBoiler;
 import nuclearscience.common.tile.TileParticleInjector;
-import nuclearscience.common.tile.TileQuantumCapacitor;
+import nuclearscience.common.tile.TileQuantumTunnel;
 import nuclearscience.common.tile.TileRadioactiveProcessor;
 import nuclearscience.common.tile.TileRadioisotopeGenerator;
 import nuclearscience.common.tile.TileSiren;
@@ -50,7 +50,7 @@ public class NuclearScienceTiles {
 	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileElectromagneticSwitch>> TILE_ELECTROMAGNETICSWITCH = BLOCK_ENTITY_TYPES.register("electromagneticswitch", () -> new BlockEntityType<>(TileElectromagneticSwitch::new, Sets.newHashSet(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICSWITCH.get()), null));
 	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TilePlasma>> TILE_PLASMA = BLOCK_ENTITY_TYPES.register("plasma", () -> new BlockEntityType<>(TilePlasma::new, Sets.newHashSet(NuclearScienceBlocks.BLOCK_PLASMA.get()), null));
 	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileMeltedReactor>> TILE_MELTEDREACTOR = BLOCK_ENTITY_TYPES.register("meltedreactor", () -> new BlockEntityType<>(TileMeltedReactor::new, Sets.newHashSet(NuclearScienceBlocks.BLOCK_MELTEDREACTOR.get()), null));
-	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileQuantumCapacitor>> TILE_QUANTUMCAPACITOR = BLOCK_ENTITY_TYPES.register("quantumcapacitor", () -> new BlockEntityType<>(TileQuantumCapacitor::new, Sets.newHashSet(NuclearScienceBlocks.BLOCK_QUANTUMCAPACITOR.get()), null));
+	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileQuantumTunnel>> TILE_QUANTUMCAPACITOR = BLOCK_ENTITY_TYPES.register("quantumcapacitor", () -> new BlockEntityType<>(TileQuantumTunnel::new, Sets.newHashSet(NuclearScienceBlocks.BLOCK_QUANTUMTUNNEL.get()), null));
 	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileFuelReprocessor>> TILE_FUELREPROCESSOR = BLOCK_ENTITY_TYPES.register("fuelreprocessor", () -> new BlockEntityType<>(TileFuelReprocessor::new, Sets.newHashSet(NuclearScienceBlocks.BLOCK_FUELREPROCESSOR.get()), null));
 	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileRadioactiveProcessor>> TILE_RADIOACTIVEPROCESSOR = BLOCK_ENTITY_TYPES.register("radioactiveprocessor", () -> new BlockEntityType<>(TileRadioactiveProcessor::new, Sets.newHashSet(NuclearScienceBlocks.BLOCK_RADIOACTIVEPROCESSOR.get()), null));
 	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileMSRFuelPreProcessor>> TILE_MSRFUELPREPROCESSOR = BLOCK_ENTITY_TYPES.register("msrfuelpreprocessor", () -> new BlockEntityType<>(TileMSRFuelPreProcessor::new, Sets.newHashSet(NuclearScienceBlocks.BLOCK_MSRFUELPREPROCESSOR.get()), null));

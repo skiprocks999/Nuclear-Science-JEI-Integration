@@ -43,7 +43,7 @@ public class NuclearScienceLootTablesProvider extends ElectrodynamicsLootTablesP
 		addSimpleBlock(NuclearScienceBlocks.BLOCK_MSREACTORCORE.get());
 		addMachineTable(NuclearScienceBlocks.BLOCK_NUCLEARBOILER.get(), NuclearScienceTiles.TILE_CHEMICALBOILER, true, true, false, true, false);
 		addMachineTable(NuclearScienceBlocks.BLOCK_PARTICLEINJECTOR.get(), NuclearScienceTiles.TILE_PARTICLEINJECTOR, true, false, false, true, false);
-		addMachineTable(NuclearScienceBlocks.BLOCK_QUANTUMCAPACITOR.get(), NuclearScienceTiles.TILE_QUANTUMCAPACITOR, false, false, false, true, false);
+		addMachineTable(NuclearScienceBlocks.BLOCK_QUANTUMTUNNEL.get(), NuclearScienceTiles.TILE_QUANTUMCAPACITOR, false, false, false, true, false);
 		addMachineTable(NuclearScienceBlocks.BLOCK_RADIOACTIVEPROCESSOR.get(), NuclearScienceTiles.TILE_RADIOACTIVEPROCESSOR, true, true, false, false, false);
 		addSimpleBlock(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.soil));
 		addSimpleBlock(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.petrifiedwood));

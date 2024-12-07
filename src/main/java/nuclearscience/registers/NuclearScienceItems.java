@@ -66,7 +66,7 @@ public class NuclearScienceItems {
 
 	//public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_PLASMA = ITEMS.register("plasma", () -> new BlockItemDescriptable(NuclearScienceBlocksPlasma, new Item.Properties(), null));
 
-	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_QUANTUMCAPACITOR = ITEMS.register("quantumcapacitor", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_QUANTUMCAPACITOR.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
+	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_QUANTUMTUNNEL = ITEMS.register("quantumcapacitor", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_QUANTUMTUNNEL.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_TELEPORTER = ITEMS.register("teleporter", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_TELEPORTER.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_ATOMICASSEMBLER = ITEMS.register("atomicassembler", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_ATOMICASSEMBLER.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 

@@ -20,7 +20,7 @@ public class NuclearScienceMenuTypes {
 	public static final DeferredHolder<MenuType<?>, MenuType<ContainerFreezePlug>> CONTAINER_FREEZEPLUG = register("freezeplug", ContainerFreezePlug::new);
 	public static final DeferredHolder<MenuType<?>, MenuType<ContainerReactorCore>> CONTAINER_REACTORCORE = register("reactorcore", ContainerReactorCore::new);
 	public static final DeferredHolder<MenuType<?>, MenuType<ContainerParticleInjector>> CONTAINER_PARTICLEINJECTOR = register("particleinjetor", ContainerParticleInjector::new);
-	public static final DeferredHolder<MenuType<?>, MenuType<ContainerQuantumCapacitor>> CONTAINER_QUANTUMCAPACITOR = register("quantumcapacitor", ContainerQuantumCapacitor::new);
+	public static final DeferredHolder<MenuType<?>, MenuType<ContainerQuantumTunnel>> CONTAINER_QUANTUMTUNNEL = register("quantumcapacitor", ContainerQuantumTunnel::new);
 	public static final DeferredHolder<MenuType<?>, MenuType<ContainerRadioactiveProcessor>> CONTAINER_RADIOACTIVEPROCESSOR = register("radioactiveprocessor", ContainerRadioactiveProcessor::new);
 	public static final DeferredHolder<MenuType<?>, MenuType<ContainerMSRFuelPreProcessor>> CONTAINER_MSRFUELPREPROCESSOR = register("msrfuelpreprocessor", ContainerMSRFuelPreProcessor::new);
 	public static final DeferredHolder<MenuType<?>, MenuType<ContainerMSRReactorCore>> CONTAINER_MSRREACTORCORE = register("msrreactorcore", ContainerMSRReactorCore::new);

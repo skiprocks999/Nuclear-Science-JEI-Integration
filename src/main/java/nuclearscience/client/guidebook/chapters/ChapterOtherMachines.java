@@ -38,8 +38,8 @@ public class ChapterOtherMachines extends Chapter {
 	public void addData() {
 
 		// QUantum Capacitor
-		pageData.add(new TextWrapperObject(NuclearScienceItems.ITEM_QUANTUMCAPACITOR.get().getDescription().copy().withStyle(ChatFormatting.BOLD)).setCentered().setSeparateStart());
-		pageData.add(new ItemWrapperObject(7 + ScreenGuidebook.TEXT_WIDTH / 2 - 16, 5, 32, 32, 32, 2.0F, NuclearScienceItems.ITEM_QUANTUMCAPACITOR.get()));
+		pageData.add(new TextWrapperObject(NuclearScienceItems.ITEM_QUANTUMTUNNEL.get().getDescription().copy().withStyle(ChatFormatting.BOLD)).setCentered().setSeparateStart());
+		pageData.add(new ItemWrapperObject(7 + ScreenGuidebook.TEXT_WIDTH / 2 - 16, 5, 32, 32, 32, 2.0F, NuclearScienceItems.ITEM_QUANTUMTUNNEL.get()));
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.othermachines.quantumcapacitor1")).setIndentions(1).setSeparateStart());
 
 		// Teleporter

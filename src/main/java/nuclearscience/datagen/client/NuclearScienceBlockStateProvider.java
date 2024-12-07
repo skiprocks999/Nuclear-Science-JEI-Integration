@@ -69,7 +69,7 @@ public class NuclearScienceBlockStateProvider extends ElectrodynamicsBlockStateP
 		horrRotatedBlock(NuclearScienceBlocks.BLOCK_MSREACTORCORE, existingBlock(NuclearScienceBlocks.BLOCK_MSREACTORCORE), 180, 0, true);
 		horrRotatedBlock(NuclearScienceBlocks.BLOCK_NUCLEARBOILER, existingBlock(NuclearScienceBlocks.BLOCK_NUCLEARBOILER), 180, 0, true);
 		horrRotatedBlock(NuclearScienceBlocks.BLOCK_PARTICLEINJECTOR, existingBlock(NuclearScienceBlocks.BLOCK_PARTICLEINJECTOR), 180, 0, false);
-		horrRotatedBlock(NuclearScienceBlocks.BLOCK_QUANTUMCAPACITOR, existingBlock(NuclearScienceBlocks.BLOCK_QUANTUMCAPACITOR), true);
+		horrRotatedBlock(NuclearScienceBlocks.BLOCK_QUANTUMTUNNEL, existingBlock(NuclearScienceBlocks.BLOCK_QUANTUMTUNNEL), true);
 		horrRotatedLitBlock(NuclearScienceBlocks.BLOCK_RADIOACTIVEPROCESSOR, existingBlock(NuclearScienceBlocks.BLOCK_RADIOACTIVEPROCESSOR), existingBlock(blockLoc("radioactiveprocessoron")), true);
 		horrRotatedBlock(NuclearScienceBlocks.BLOCK_FISSIONREACTORCORE, existingBlock(NuclearScienceBlocks.BLOCK_FISSIONREACTORCORE), true);
 		horrRotatedLitBlock(NuclearScienceBlocks.BLOCK_TELEPORTER, existingBlock(NuclearScienceBlocks.BLOCK_TELEPORTER), existingBlock(blockLoc("teleporteron")), true);

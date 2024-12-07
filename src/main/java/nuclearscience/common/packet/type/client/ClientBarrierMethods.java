@@ -1,15 +1,20 @@
 package nuclearscience.common.packet.type.client;
 
 import electrodynamics.api.gas.Gas;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
+import nuclearscience.api.quantumtunnel.TunnelFrequency;
 import nuclearscience.api.radiation.util.RadiationShielding;
 import nuclearscience.api.radiation.util.RadioactiveObject;
 import nuclearscience.common.reloadlistener.*;
+import nuclearscience.common.tile.TileQuantumTunnel;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.UUID;
 
 public class ClientBarrierMethods {
     public static void handleSetAtomicAssemblerClientValues(HashSet<Item> items) {
@@ -30,5 +35,11 @@ public class ClientBarrierMethods {
 
     public static void handleSetClientRadiationShielding(HashMap<Block, RadiationShielding> shielding) {
         RadiationShieldingRegister.INSTANCE.setClientValues(shielding);
+    }
+
+    public static void handleSetClientTunnelFrequencies(HashMap<UUID, HashSet<TunnelFrequency>> frequencies, BlockPos tilePos) {
+        if(Minecraft.getInstance().level.getBlockEntity(tilePos) instanceof TileQuantumTunnel tunnel) {
+            tunnel.clientFrequencies = frequencies;
+        }
     }
 }

@@ -46,7 +46,7 @@ public class NuclearScienceBlocks {
 	public static final DeferredHolder<Block, BlockFusionReactorCore> BLOCK_FUSIONREACTORCORE = BLOCKS.register("fusionreactorcore", () -> new BlockFusionReactorCore());
 	public static final DeferredHolder<Block, BlockPlasma> BLOCK_PLASMA = BLOCKS.register("plasma", () -> new BlockPlasma());
 	public static final DeferredHolder<Block, GenericMachineBlock> BLOCK_PARTICLEINJECTOR = BLOCKS.register("particleinjector", () -> new GenericMachineBlock(TileParticleInjector::new));
-	public static final DeferredHolder<Block, BlockQuantumCapacitor> BLOCK_QUANTUMCAPACITOR = BLOCKS.register("quantumcapacitor", () -> new BlockQuantumCapacitor());
+	public static final DeferredHolder<Block, BlockQuantumTunnel> BLOCK_QUANTUMTUNNEL = BLOCKS.register("quantumcapacitor", () -> new BlockQuantumTunnel());
 	public static final DeferredHolder<Block, BlockTeleporter> BLOCK_TELEPORTER = BLOCKS.register("teleporter", () -> new BlockTeleporter());
 	public static final DeferredHolder<Block, BlockControlRodAssembly> BLOCK_CONTROLROD = BLOCKS.register("controlrodassembly", () -> new BlockControlRodAssembly());
 	public static final DeferredHolder<Block, BlockFuelReprocessor> BLOCK_FUELREPROCESSOR = BLOCKS.register("fuelreprocessor", () -> new BlockFuelReprocessor());

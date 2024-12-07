@@ -9,16 +9,16 @@ import electrodynamics.prefab.utilities.RenderingUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import nuclearscience.common.tile.TileQuantumCapacitor;
+import nuclearscience.common.tile.TileQuantumTunnel;
 
-public class RenderQuantumCapacitor extends AbstractTileRenderer<TileQuantumCapacitor> {
+public class RenderQuantumTunnel extends AbstractTileRenderer<TileQuantumTunnel> {
 
-	public RenderQuantumCapacitor(BlockEntityRendererProvider.Context context) {
+	public RenderQuantumTunnel(BlockEntityRendererProvider.Context context) {
 		super(context);
 	}
 
 	@Override
-	public void render(TileQuantumCapacitor tileEntityIn, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
+	public void render(TileQuantumTunnel tileEntityIn, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
 		matrixStackIn.pushPose();
 		matrixStackIn.translate(0.5, 0.5, 0.5);
 		float scale = (float) Math.abs(Math.sin((tileEntityIn.<ComponentTickable>getComponent(IComponentType.Tickable).getTicks() + partialTicks) / 40.0)) * 0.001f + 0.001f;

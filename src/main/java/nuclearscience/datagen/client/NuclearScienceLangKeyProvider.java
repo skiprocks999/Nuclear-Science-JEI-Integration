@@ -90,7 +90,7 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addBlock(NuclearScienceBlocks.BLOCK_PLASMA, "Plasma");
 			addBlock(NuclearScienceBlocks.BLOCK_MELTEDREACTOR, "Melted Reactor Core");
 			addBlock(NuclearScienceBlocks.BLOCK_PARTICLEINJECTOR, "Particle Injector");
-			addBlock(NuclearScienceBlocks.BLOCK_QUANTUMCAPACITOR, "Quantum Capacitor");
+			addBlock(NuclearScienceBlocks.BLOCK_QUANTUMTUNNEL, "Quantum Tunnel");
 			addBlock(NuclearScienceBlocks.BLOCK_TELEPORTER, "Teleporter");
 			addBlock(NuclearScienceBlocks.BLOCK_CONTROLROD, "Control Rod");
 			addBlock(NuclearScienceBlocks.BLOCK_FUELREPROCESSOR, "Fuel Reprocessor");
@@ -124,7 +124,7 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addContainer("radioisotopegenerator", "Radioisotope Generator");
 			addContainer("reactorcore", "Fission Reactor Core");
 			addContainer("particleinjector", "Particle Injector");
-			addContainer("quantumcapacitor", "Quantum Capacitor");
+			addContainer("quantumcapacitor", "Quantum Tunnel");
 			addContainer("fuelreprocessor", "Fuel Reprocessor");
 			addContainer("radioactiveprocessor", "Radioactive Processor");
 			addContainer("msrfuelpreprocessor", "MSR Fuel Pre-Processor");

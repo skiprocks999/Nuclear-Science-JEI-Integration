@@ -63,7 +63,7 @@ public class NuclearScienceBlockTagsProvider extends BlockTagsProvider {
                 //
                 NuclearScienceBlocks.BLOCK_PARTICLEINJECTOR.get(),
                 //
-                NuclearScienceBlocks.BLOCK_QUANTUMCAPACITOR.get(),
+                NuclearScienceBlocks.BLOCK_QUANTUMTUNNEL.get(),
                 //
                 NuclearScienceBlocks.BLOCK_RADIOACTIVEPROCESSOR.get(),
                 //
@@ -117,7 +117,7 @@ public class NuclearScienceBlockTagsProvider extends BlockTagsProvider {
                 //
                 NuclearScienceBlocks.BLOCK_PARTICLEINJECTOR.get(),
                 //
-                NuclearScienceBlocks.BLOCK_QUANTUMCAPACITOR.get(),
+                NuclearScienceBlocks.BLOCK_QUANTUMTUNNEL.get(),
                 //
                 NuclearScienceBlocks.BLOCK_RADIOACTIVEPROCESSOR.get(),
                 //

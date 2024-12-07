@@ -732,7 +732,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.complete(References.ID, "particleinjector", output);
 
-		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_QUANTUMCAPACITOR.get(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_QUANTUMTUNNEL.get(), 1)
 				//
 				.addPattern("DCD")
 				//

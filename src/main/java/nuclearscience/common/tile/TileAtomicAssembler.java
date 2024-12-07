@@ -129,7 +129,7 @@ public class TileAtomicAssembler extends GenericTile {
 
 		if (stack.getItem() instanceof BlockItem blockItem) {
 
-			if (blockItem.getBlock() == NuclearScienceBlocks.BLOCK_QUANTUMCAPACITOR.get()) {
+			if (blockItem.getBlock() == NuclearScienceBlocks.BLOCK_QUANTUMTUNNEL.get()) {
 				return false;
 			}
 

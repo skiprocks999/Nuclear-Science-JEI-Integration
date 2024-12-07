@@ -45,7 +45,7 @@ public class UnifiedNuclearScienceRegister {
 		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCK_RADIOISOTOPEGENERATOR, ElectroTextUtils.voltageTooltip(120));
 
 		// Misc
-		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCK_QUANTUMCAPACITOR, ElectroTextUtils.voltageTooltip(1920));
+		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCK_QUANTUMTUNNEL, ElectroTextUtils.voltageTooltip(1920));
 		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCK_STEAMFUNNEL, NuclearTextUtils.tooltip("steamfunneluse"));
 	}
 

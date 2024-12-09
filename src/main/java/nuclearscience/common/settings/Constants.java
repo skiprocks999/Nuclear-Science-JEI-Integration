@@ -50,4 +50,7 @@ public class Constants {
 	@DoubleValue(def = 0.8)
 	public static double IODINE_RAD_REDUCTION = 0.8;
 
+	@IntValue(def = 40)
+	public static int QUANTUM_TUNNEL_FREQUENCY_CAP_PER_PLAYER = 40;
+
 }

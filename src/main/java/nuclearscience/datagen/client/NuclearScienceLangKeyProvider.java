@@ -174,6 +174,21 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addGuiLabel("teleporter.z", "Z:");
 			addGuiLabel("teleporter.reset", "Reset");
 
+			addGuiLabel("quantumtunnel.public", "Public");
+			addGuiLabel("quantumtunnel.private", "Private");
+			addGuiLabel("quantumtunnel.delete", "Delete");
+			addGuiLabel("quantumtunnel.edit", "Edit");
+			addGuiLabel("quantumtunnel.enable", "Enable");
+			addGuiLabel("quantumtunnel.disable", "Disable");
+			addGuiLabel("quantumtunnel.none", "None");
+			addGuiLabel("quantumtunnel.newfrequency", "New Frequency");
+			addGuiLabel("quantumtunnel.name", "Name");
+			addGuiLabel("quantumtunnel.create", "Create");
+			addGuiLabel("quantumtunnel.cancel", "Cancel");
+			addGuiLabel("quantumtunnel.save", "Save");
+			addGuiLabel("quantumtunnel.frequencytype", "Frequency Type");
+
+
 			addDamageSource("radiation", "%s just did a speedrun of evolution!");
 			addDamageSource("plasma", "%s was ionized!");
 			add("effect.nuclearscience.radiation", "Radiation");
@@ -188,6 +203,12 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addTooltip("steamfunneluse", "Collects and emits steam");
 			addTooltip("radiationshieldingamount", "Shielding Amount: %s");
 			addTooltip("radiationshieldinglevel", "Shielding Level: %s");
+
+			addTooltip("quantumtunnel.ioconfig", "I/O Config");
+			addTooltip("quantumtunnel.input", "Input");
+			addTooltip("quantumtunnel.output", "Output");
+			addTooltip("quantumtunnel.none", "None");
+			addTooltip("quantumtunnel.createnew", "New Frequency");
 
 			addSubtitle(NuclearScienceSounds.SOUND_GASCENTRIFUGE, "Gas Centrifuge spins");
 			addSubtitle(NuclearScienceSounds.SOUND_NUCLEARBOILER, "Nuclear Boiler boils");

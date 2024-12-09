@@ -2,6 +2,7 @@ package nuclearscience.api.quantumtunnel;
 
 import net.minecraft.server.level.ServerLevel;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
+import nuclearscience.common.settings.Constants;
 import nuclearscience.registers.NuclearScienceAttachmentTypes;
 
 import java.util.HashMap;
@@ -46,9 +47,25 @@ public class TunnelFrequencyManager {
         ServerLevel level = getOverworld();
         HashMap<UUID, HashSet<TunnelFrequency>> map = level.getData(NuclearScienceAttachmentTypes.CHANNEL_MAP);
         for(Map.Entry<UUID, HashSet<TunnelFrequency>> entry : map.entrySet()) {
+            if(entry.getValue().size() > Constants.QUANTUM_TUNNEL_FREQUENCY_CAP_PER_PLAYER) {
+                return false;
+            }
             for(TunnelFrequency id : entry.getValue()) {
                 if(id.getId().equals(proposedFrequencyID)) {
                     return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public static boolean doesFrequencyExist(TunnelFrequency tunnelFrequency) {
+        ServerLevel level = getOverworld();
+        HashMap<UUID, HashSet<TunnelFrequency>> map = level.getData(NuclearScienceAttachmentTypes.CHANNEL_MAP);
+        for(Map.Entry<UUID, HashSet<TunnelFrequency>> entry : map.entrySet()) {
+            for(TunnelFrequency id : entry.getValue()) {
+                if(id.equals(tunnelFrequency)) {
+                    return true;
                 }
             }
         }

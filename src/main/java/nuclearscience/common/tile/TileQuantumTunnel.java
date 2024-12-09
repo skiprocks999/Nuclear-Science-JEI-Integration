@@ -30,6 +30,7 @@ import net.neoforged.neoforge.items.IItemHandler;
 import nuclearscience.api.quantumtunnel.FrequencyConnectionManager;
 import nuclearscience.api.quantumtunnel.TunnelFrequency;
 import nuclearscience.api.quantumtunnel.TunnelFrequencyBuffer;
+import nuclearscience.api.quantumtunnel.TunnelFrequencyManager;
 import nuclearscience.common.inventory.container.ContainerQuantumTunnel;
 import nuclearscience.prefab.NuclearPropertyTypes;
 import nuclearscience.registers.NuclearScienceTiles;
@@ -82,6 +83,15 @@ public class TileQuantumTunnel extends GenericTile {
     }
 
     public void tickServer(ComponentTickable tickable) {
+
+        if(!TunnelFrequencyManager.doesFrequencyExist(frequency.get())) {
+            frequency.set(TunnelFrequency.NO_FREQUENCY);
+        }
+
+        if(frequency.get().equals(TunnelFrequency.NO_FREQUENCY)) {
+            return;
+        }
+
         for (int i = 0; i < 6; i++) {
             if (outputCache[i] == null) {
                 outputCache[i] = new CachedTileOutput(level, new BlockPos(worldPosition).relative(Direction.values()[i]));
@@ -285,22 +295,22 @@ public class TileQuantumTunnel extends GenericTile {
 
     private List<Direction> readDirections(int directions, int checkValue) {
         List<Direction> values = new ArrayList<>();
-        if ((directions & DOWN_MASK) == checkValue) {
+        if ((directions & DOWN_MASK) >> Direction.DOWN.ordinal() * 4 == checkValue) {
             values.add(Direction.DOWN);
         }
-        if ((directions & UP_MASK) == checkValue) {
+        if ((directions & UP_MASK) >> Direction.UP.ordinal() * 4 == checkValue) {
             values.add(Direction.UP);
         }
-        if ((directions & NORTH_MASK) == checkValue) {
+        if ((directions & NORTH_MASK) >> Direction.NORTH.ordinal() * 4 == checkValue) {
             values.add(Direction.NORTH);
         }
-        if ((directions & SOUTH_MASK) == checkValue) {
+        if ((directions & SOUTH_MASK) >> Direction.SOUTH.ordinal() * 4 == checkValue) {
             values.add(Direction.SOUTH);
         }
-        if ((directions & WEST_MASK) == checkValue) {
+        if ((directions & WEST_MASK) >> Direction.WEST.ordinal() * 4 == checkValue) {
             values.add(Direction.WEST);
         }
-        if ((directions & EAST_MASK) == checkValue) {
+        if ((directions & EAST_MASK) >> Direction.EAST.ordinal() * 4 == checkValue) {
             values.add(Direction.EAST);
         }
         return values;

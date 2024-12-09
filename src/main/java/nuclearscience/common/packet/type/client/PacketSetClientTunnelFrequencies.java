@@ -31,7 +31,9 @@ public class PacketSetClientTunnelFrequencies implements CustomPacketPayload {
                 UUID id = UUIDUtil.STREAM_CODEC.decode(buf);
                 HashSet<TunnelFrequency> set = new HashSet<>();
 
-                for (int j = 0; j < buf.readInt(); j++) {
+                int setSize = buf.readInt();
+
+                for (int j = 0; j < setSize; j++) {
                     set.add(TunnelFrequency.STREAM_CODEC.decode(buf));
                 }
 

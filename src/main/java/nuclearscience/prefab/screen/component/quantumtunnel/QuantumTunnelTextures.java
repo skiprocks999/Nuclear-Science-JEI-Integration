@@ -1,0 +1,57 @@
+package nuclearscience.prefab.screen.component.quantumtunnel;
+
+import electrodynamics.api.screen.ITexture;
+import net.minecraft.resources.ResourceLocation;
+import nuclearscience.References;
+
+public enum QuantumTunnelTextures implements ITexture {
+    FREQUENCY(18, 18, 0, 0, 18, 18, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/component/quantumtunnel/frequency.png")),
+    FREQUENCY_SELECTED(18, 18, 0, 0, 18, 18, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/component/quantumtunnel/frequencyselected.png"));
+
+    private final int textureWidth;
+    private final int textureHeight;
+    private final int textureU;
+    private final int textureV;
+    private final int imageWidth;
+    private final int imageHeight;
+    private final ResourceLocation loc;
+
+    private QuantumTunnelTextures(int textureWidth, int textureHeight, int textureU, int textureV, int imageWidth, int imageHeight, ResourceLocation loc) {
+        this.textureWidth = textureWidth;
+        this.textureHeight = textureHeight;
+        this.textureU = textureU;
+        this.textureV = textureV;
+        this.imageWidth = imageWidth;
+        this.imageHeight = imageHeight;
+        this.loc = loc;
+    }
+
+    public ResourceLocation getLocation() {
+        return this.loc;
+    }
+
+    public int imageHeight() {
+        return this.imageHeight;
+    }
+
+    public int imageWidth() {
+        return this.imageWidth;
+    }
+
+    public int textureHeight() {
+        return this.textureHeight;
+    }
+
+    public int textureU() {
+        return this.textureU;
+    }
+
+    public int textureV() {
+        return this.textureV;
+    }
+
+    public int textureWidth() {
+        return this.textureWidth;
+    }
+
+}

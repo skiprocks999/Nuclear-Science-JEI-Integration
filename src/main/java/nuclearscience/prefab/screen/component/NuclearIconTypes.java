@@ -6,7 +6,14 @@ import nuclearscience.References;
 
 public enum NuclearIconTypes implements ITexture {
 	PELLET_DARK(0, 0, 14, 14, 14, 14, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/component/icon/pelletdark.png")),
-	FUEL_CELL_DARK(0, 0, 12, 12, 12, 12, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/component/icon/fuelcelldark.png"));
+	FUEL_CELL_DARK(0, 0, 12, 12, 12, 12, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/component/icon/fuelcelldark.png")),
+	PENCIL(0, 0, 10, 10, 10, 10, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/component/icon/pencil.png")),
+	ERASER(0, 0, 14, 14, 14, 14, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/component/icon/eraser.png")),
+	ENABLE(0, 0, 14, 11, 14, 11, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/component/icon/enable.png")),
+	DISABLE(0, 0, 10, 10, 10, 10, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/component/icon/disable.png")),
+	DELETE(0, 0, 8, 8, 8, 8, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/component/icon/delete.png")),
+	IOCONFIG(0, 0, 13, 13, 13, 13, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/component/icon/ioconfig.png")),
+	CREATENEW(0, 0, 16, 16, 16, 16, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/component/icon/createnew.png"));
 
 	private final int textU;
 	private final int textV;

@@ -1,117 +1,104 @@
 package nuclearscience.client.screen;
 
-import electrodynamics.api.electricity.formatting.ChatFormatter;
-import electrodynamics.api.electricity.formatting.DisplayUnit;
+import com.mojang.blaze3d.platform.InputConstants;
 import electrodynamics.prefab.screen.GenericScreen;
-import electrodynamics.prefab.screen.component.editbox.ScreenComponentEditBox;
 import electrodynamics.prefab.screen.component.types.ScreenComponentMultiLabel;
 import electrodynamics.prefab.screen.component.types.ScreenComponentSimpleLabel;
-import electrodynamics.prefab.screen.component.types.ScreenComponentSlot;
-import electrodynamics.prefab.utilities.ElectroTextUtils;
+import electrodynamics.prefab.screen.component.types.wrapper.InventoryIOWrapper;
+import electrodynamics.prefab.screen.component.utils.AbstractScreenComponentInfo;
 import electrodynamics.prefab.utilities.math.Color;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.Slot;
+import nuclearscience.api.quantumtunnel.TunnelFrequency;
 import nuclearscience.common.inventory.container.ContainerQuantumTunnel;
 import nuclearscience.common.tile.TileQuantumTunnel;
+import nuclearscience.prefab.screen.component.ScreenComponentVerticalSlider;
+import nuclearscience.prefab.screen.component.quantumtunnel.*;
 import nuclearscience.prefab.utils.NuclearTextUtils;
 
 public class ScreenQuantumTunnel extends GenericScreen<ContainerQuantumTunnel> {
 
-	private ScreenComponentEditBox outputField;
-	private ScreenComponentEditBox frequencyField;
+    public WrapperQuantumTunnelFrequencies frequencyWrapper;
+    public WrapperIOEditor ioWrapper;
+    public WrapperNewFrequency newFrequencyWrapper;
 
-	private boolean needsUpdate = true;
+    public ScreenComponentVerticalSlider slider;
 
-	public ScreenQuantumTunnel(ContainerQuantumTunnel container, Inventory playerInventory, Component title) {
-		super(container, playerInventory, title);
-		addEditBox(frequencyField = new ScreenComponentEditBox(115, 14, 46, 13, getFontRenderer()).setTextColor(Color.WHITE).setTextColorUneditable(Color.WHITE).setMaxLength(6).setResponder(this::updateFreq).setFilter(ScreenComponentEditBox.INTEGER));
-		addEditBox(outputField = new ScreenComponentEditBox(115, 34, 46, 13, getFontRenderer()).setTextColor(Color.WHITE).setTextColorUneditable(Color.WHITE).setMaxLength(6).setResponder(this::updateOutput).setFilter(ScreenComponentEditBox.POSITIVE_DECIMAL));
-		addComponent(new ScreenComponentMultiLabel(0, 0, graphics -> {
-			TileQuantumTunnel box = menu.getSafeHost();
-			if (box == null) {
-				return;
-			}
-			//graphics.drawString(font, NuclearTextUtils.gui("machine.current", ChatFormatter.getChatDisplayShort(box.getOutputJoules() * 20.0 / TileQuantumTunnel.DEFAULT_VOLTAGE, DisplayUnit.AMPERE)), inventoryLabelX, inventoryLabelY - 55, 4210752, false);
-			//graphics.drawString(font, NuclearTextUtils.gui("machine.transfer", ChatFormatter.getChatDisplayShort(box.getOutputJoules() * 20.0, DisplayUnit.WATT)), inventoryLabelX, inventoryLabelY - 42, Color.TEXT_GRAY.color(), false);
-			//graphics.drawString(font, NuclearTextUtils.gui("machine.voltage", ChatFormatter.getChatDisplayShort(TileQuantumTunnel.DEFAULT_VOLTAGE, DisplayUnit.VOLTAGE)), inventoryLabelX, inventoryLabelY - 29, Color.TEXT_GRAY.color(), false);
-			//graphics.drawString(font, NuclearTextUtils.gui("machine.stored", ElectroTextUtils.ratio(ChatFormatter.getChatDisplayShort(box.storedJoules.get(), DisplayUnit.JOULES), ChatFormatter.getChatDisplayShort(TileQuantumTunnel.DEFAULT_MAX_JOULES, DisplayUnit.JOULES))), inventoryLabelX, inventoryLabelY - 16, 4210752, false);
-		}));
-	}
+    public ScreenQuantumTunnel(ContainerQuantumTunnel container, Inventory playerInventory, Component title) {
+        super(container, playerInventory, title);
 
-	private void updateFreq(String val) {
-		frequencyField.setFocus(true);
-		outputField.setFocus(false);
-		handleFrequency(val);
-	}
+        imageHeight += 35;
 
-	private void updateOutput(String val) {
-		frequencyField.setFocus(false);
-		outputField.setFocus(true);
-		handleOutput(val);
-	}
+        frequencyWrapper = new WrapperQuantumTunnelFrequencies(this, 0, 0);
 
-	private void handleFrequency(String freq) {
-		if (freq.isEmpty()) {
-			return;
-		}
+        addComponent(slider = new ScreenComponentVerticalSlider(5, 64, 125).setClickConsumer(frequencyWrapper.getSliderClickedConsumer()).setDragConsumer(frequencyWrapper.getSliderDraggedConsumer()));
 
-		Integer frequency = 0;
+        ioWrapper = new WrapperIOEditor(this, -AbstractScreenComponentInfo.SIZE + 1, AbstractScreenComponentInfo.SIZE + 2, 80, 28, 8, 23);
 
-		try {
-			frequency = Integer.parseInt(frequencyField.getValue());
-		} catch (Exception e) {
-			// Not required
-		}
+        newFrequencyWrapper = new WrapperNewFrequency(this, -AbstractScreenComponentInfo.SIZE + 1, 2, 0, 15);
 
-		TileQuantumTunnel cap = menu.getSafeHost();
 
-		if (cap == null) {
-			return;
-		}
 
-		cap.frequency.set(frequency);
+    }
 
-	}
+    @Override
+    protected void containerTick() {
+        super.containerTick();
+        frequencyWrapper.tick();
+    }
 
-	private void handleOutput(String out) {
+    @Override
+    protected void initializeComponents() {
+        super.initializeComponents();
+        playerInvLabel.setVisible(false);
+    }
 
-		if (out.isEmpty()) {
-			return;
-		}
+    @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
+        if (frequencyWrapper != null) {
+            if (scrollY > 0) {
+                // scroll up
+                frequencyWrapper.handleMouseScroll(-1);
+            } else if (scrollY < 0) {
+                // scroll down
+                frequencyWrapper.handleMouseScroll(1);
+            }
+        }
+        return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
+    }
 
-		Double output = 0.0;
-		try {
-			output = Double.parseDouble(outputField.getValue());
-		} catch (Exception e) {
-			// Not required
-		}
+    @Override
+    public void mouseMoved(double mouseX, double mouseY) {
+        super.mouseMoved(mouseX, mouseY);
+        if (slider != null && slider.isVisible()) {
+            slider.mouseMoved(mouseX, mouseY);
+        }
+    }
 
-		TileQuantumTunnel cap = menu.getSafeHost();
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (slider != null && slider.isVisible()) {
+            slider.mouseClicked(mouseX, mouseY, button);
+        }
+        return super.mouseClicked(mouseX, mouseY, button);
+    }
 
-		if (cap == null) {
-			return;
-		}
+    @Override
+    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+        if (slider != null && slider.isVisible()) {
+            slider.mouseReleased(mouseX, mouseY, button);
+        }
+        return super.mouseReleased(mouseX, mouseY, button);
+    }
 
-		//cap.outputJoules.set(output);
-
-		//cap.outputJoules.toString();
-
-	}
-
-	@Override
-	public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-		super.render(graphics, mouseX, mouseY, partialTicks);
-		if (needsUpdate && menu.getSafeHost() != null) {
-			needsUpdate = false;
-			//outputField.setValue("" + menu.getSafeHost().outputJoules);
-			//frequencyField.setValue("" + menu.getSafeHost().frequency);
-		}
-	}
-
-	protected void initializeComponents() {
-		addComponent(guiTitle = new ScreenComponentSimpleLabel(this.titleLabelX, this.titleLabelY, 10, Color.TEXT_GRAY, this.title));
-	}
+    @Override
+    public boolean keyPressed(int pKeyCode, int pScanCode, int pModifiers) {
+        InputConstants.Key mouseKey = InputConstants.getKey(pKeyCode, pScanCode);
+        if (this.minecraft.options.keyInventory.isActiveAndMatches(mouseKey) && newFrequencyWrapper.nameEditBox.isActive()) {
+            return false;
+        }
+        return super.keyPressed(pKeyCode, pScanCode, pModifiers);
+    }
 
 }

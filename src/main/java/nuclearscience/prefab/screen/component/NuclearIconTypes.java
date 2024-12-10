@@ -13,7 +13,8 @@ public enum NuclearIconTypes implements ITexture {
 	DISABLE(0, 0, 10, 10, 10, 10, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/component/icon/disable.png")),
 	DELETE(0, 0, 8, 8, 8, 8, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/component/icon/delete.png")),
 	IOCONFIG(0, 0, 13, 13, 13, 13, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/component/icon/ioconfig.png")),
-	CREATENEW(0, 0, 16, 16, 16, 16, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/component/icon/createnew.png"));
+	CREATENEW(0, 0, 16, 16, 16, 16, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/component/icon/createnew.png")),
+	BUFFER(0, 0, 10, 11, 10, 11, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/component/icon/buffer.png"));
 
 	private final int textU;
 	private final int textV;

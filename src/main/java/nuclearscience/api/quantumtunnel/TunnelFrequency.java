@@ -22,7 +22,7 @@ public class TunnelFrequency {
             //
             UUIDUtil.CODEC.fieldOf("channelid").forGetter(TunnelFrequency::getId),
             //
-            UUIDUtil.CODEC.fieldOf("creatorid").forGetter(TunnelFrequency::getId),
+            UUIDUtil.CODEC.fieldOf("creatorid").forGetter(TunnelFrequency::getCreatorId),
             //
             Codec.STRING.fieldOf("channelname").forGetter(TunnelFrequency::getName),
             //

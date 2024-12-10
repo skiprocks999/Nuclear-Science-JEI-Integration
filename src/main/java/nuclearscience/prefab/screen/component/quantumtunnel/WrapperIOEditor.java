@@ -14,12 +14,14 @@ import java.util.List;
 
 public class WrapperIOEditor {
 
+    public ButtonInventoryIOConfig button;
+
     private ButtonIO[] ioArr = new ButtonIO[6];
 
     private ScreenComponentSimpleLabel label;
 
     public WrapperIOEditor(ScreenQuantumTunnel screen, int tabX, int tabY, int slotStartX, int slotStartY, int labelX, int labelY) {
-        screen.addComponent(new ButtonInventoryIOConfig(tabX, tabY).setOnPress(but -> {
+        screen.addComponent(button = new ButtonInventoryIOConfig(tabX, tabY).setOnPress(but -> {
             //
             ButtonInventoryIOConfig button = (ButtonInventoryIOConfig) but;
             button.isPressed = !button.isPressed;
@@ -28,6 +30,8 @@ public class WrapperIOEditor {
 
                 screen.frequencyWrapper.updateVisibility(false);
                 screen.newFrequencyWrapper.updateVisibility(false);
+                screen.newFrequencyWrapper.button.isPressed = false;
+                screen.editFrequencyWrapper.updateVisibility(false);
 
                 updateVisibility(true);
 
@@ -37,6 +41,8 @@ public class WrapperIOEditor {
 
                 screen.frequencyWrapper.updateVisibility(true);
                 screen.newFrequencyWrapper.updateVisibility(false);
+                screen.newFrequencyWrapper.button.isPressed = false;
+                screen.editFrequencyWrapper.updateVisibility(false);
 
                 updateVisibility(false);
 

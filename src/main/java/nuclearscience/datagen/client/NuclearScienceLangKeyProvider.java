@@ -187,6 +187,7 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addGuiLabel("quantumtunnel.cancel", "Cancel");
 			addGuiLabel("quantumtunnel.save", "Save");
 			addGuiLabel("quantumtunnel.frequencytype", "Frequency Type");
+			addGuiLabel("quantumtunnel.editfrequency", "Edit Frequency");
 
 
 			addDamageSource("radiation", "%s just did a speedrun of evolution!");

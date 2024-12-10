@@ -53,11 +53,11 @@ public class ButtonTunnelFrequency extends ScreenComponentButton<ButtonTunnelFre
             return;
         }
 
-        graphics.drawString(screen.getFontRenderer(), Component.literal(frequency.getName()), guiWidth + xLocation + 5, guiHeight + yLocation + 5, Color.TEXT_GRAY.color(), false);
+        graphics.drawString(screen.getFontRenderer(), Component.literal(frequency.getName()), guiWidth + xLocation + 5, guiHeight + yLocation + 5, Color.WHITE.color(), false);
 
         Player player = tile.getLevel().getPlayerByUUID(frequency.getCreatorId());
 
-        graphics.drawString(screen.getFontRenderer(), player != null ? player.getName() : Component.literal(frequency.getCreatorFallbackName()), guiWidth + xLocation + 10, guiHeight + yLocation + 15, Color.TEXT_GRAY.color(), false);
+        graphics.drawString(screen.getFontRenderer(), player != null ? player.getName() : Component.literal(frequency.getCreatorFallbackName()), guiWidth + xLocation + 5, guiHeight + yLocation + 15, Color.TEXT_GRAY.color(), false);
 
 
     }

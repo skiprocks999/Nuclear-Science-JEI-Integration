@@ -258,7 +258,7 @@ public class TileQuantumTunnel extends GenericTile {
             feHandlers[index] = new FEHandler(true);
         }
 
-        for (Direction dir : readInputDirections()) {
+        for (Direction dir : readOutputDirections()) {
             int index = BlockEntityUtils.getRelativeSide(getFacing(), dir).ordinal();
             itemHandlers[index] = new ItemHandler(false);
             fluidHandlers[index] = new FluidHandler(false);

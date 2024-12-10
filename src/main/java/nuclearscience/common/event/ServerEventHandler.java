@@ -3,8 +3,10 @@ package nuclearscience.common.event;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import nuclearscience.References;
+import nuclearscience.common.command.CommandWipeFrequencies;
 import nuclearscience.common.reloadlistener.*;
 
 @EventBusSubscriber(modid = References.ID, bus = EventBusSubscriber.Bus.GAME)
@@ -27,5 +29,11 @@ public class ServerEventHandler {
 		RadioactiveGasRegister.INSTANCE.generateTagValues();
 		RadiationShieldingRegister.INSTANCE.generateTagValues();
 	}
+
+	@SubscribeEvent
+	public static void registerCommands(RegisterCommandsEvent event) {
+		CommandWipeFrequencies.register(event.getDispatcher());
+	}
+
 
 }

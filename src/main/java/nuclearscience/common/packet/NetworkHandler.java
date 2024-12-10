@@ -8,6 +8,8 @@ import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import nuclearscience.References;
 import nuclearscience.common.packet.type.client.*;
 import nuclearscience.common.packet.type.server.PacketCreateNewFreqeuency;
+import nuclearscience.common.packet.type.server.PacketDeleteFrequency;
+import nuclearscience.common.packet.type.server.PacketEditFrequency;
 
 @EventBusSubscriber(modid = References.ID, bus = EventBusSubscriber.Bus.MOD)
 public class NetworkHandler {
@@ -27,6 +29,8 @@ public class NetworkHandler {
 		//SERVER
 
 		registry.playToServer(PacketCreateNewFreqeuency.TYPE, PacketCreateNewFreqeuency.CODEC, PacketCreateNewFreqeuency::handle);
+		registry.playToServer(PacketDeleteFrequency.TYPE, PacketDeleteFrequency.CODEC, PacketDeleteFrequency::handle);
+		registry.playToServer(PacketEditFrequency.TYPE, PacketEditFrequency.CODEC, PacketEditFrequency::handle);
 
 	}
 

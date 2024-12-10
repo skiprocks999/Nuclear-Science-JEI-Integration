@@ -20,6 +20,9 @@ import java.util.List;
 
 public class WrapperNewFrequency {
 
+
+    public ButtonNewFrequency button;
+
     private ScreenComponentSimpleLabel titleLabel;
     private ScreenComponentSimpleLabel typeLabel;
     private ButtonFrequencySelecter publicButton;
@@ -32,7 +35,7 @@ public class WrapperNewFrequency {
 
     public WrapperNewFrequency(ScreenQuantumTunnel screen, int tabX, int tabY, int x, int y) {
 
-        screen.addComponent(new ButtonNewFrequency(tabX, tabY).setOnPress(but -> {
+        screen.addComponent(button = new ButtonNewFrequency(tabX, tabY).setOnPress(but -> {
             //
             ButtonNewFrequency button = (ButtonNewFrequency) but;
             button.isPressed = !button.isPressed;
@@ -41,6 +44,8 @@ public class WrapperNewFrequency {
 
                 screen.frequencyWrapper.updateVisibility(false);
                 screen.ioWrapper.updateVisibility(false);
+                screen.ioWrapper.button.isPressed = false;
+                screen.editFrequencyWrapper.updateVisibility(false);
 
                 updateVisibility(true);
 
@@ -50,6 +55,8 @@ public class WrapperNewFrequency {
 
                 screen.frequencyWrapper.updateVisibility(true);
                 screen.ioWrapper.updateVisibility(false);
+                screen.ioWrapper.button.isPressed = false;
+                screen.editFrequencyWrapper.updateVisibility(false);
 
                 updateVisibility(false);
 
@@ -118,7 +125,13 @@ public class WrapperNewFrequency {
             PacketDistributor.sendToServer(new PacketCreateNewFreqeuency(player.getUUID(), nameEditBox.getValue(), type));
 
             updateVisibility(false);
+
+            nameEditBox.setValue("");
+            this.button.isPressed = false;
+
+
             screen.frequencyWrapper.updateVisibility(true);
+            screen.slider.setVisible(true);
 
         }).setLabel(NuclearTextUtils.gui("quantumtunnel.create")));
 
@@ -127,6 +140,9 @@ public class WrapperNewFrequency {
             screen.frequencyWrapper.updateVisibility(true);
 
             updateVisibility(false);
+
+            nameEditBox.setValue("");
+            this.button.isPressed = false;
 
             screen.slider.setVisible(true);
 

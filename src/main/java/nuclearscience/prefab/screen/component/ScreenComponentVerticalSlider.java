@@ -31,23 +31,28 @@ public class ScreenComponentVerticalSlider extends ScreenComponentGeneric {
         return this;
     }
 
-    @Override
-    public void mouseMoved(double mouseX, double mouseY) {
-        // was on top of slider
-        if (isHeld && sliderDragConsumer != null) {
-            sliderDragConsumer.accept((int) mouseY);
+    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
+        if (isValidClick(button)) {
+            this.onMouseDrag(mouseX, mouseY, dragX, dragY);
+            return true;
+        } else {
+            return false;
         }
-        super.mouseMoved(mouseX, mouseY);
+    }
+
+    @Override
+    public void onMouseDrag(double mouseX, double mouseY, double dragX, double dragY) {
+        isHeld = true;
+        if (sliderDragConsumer != null) {
+            sliderDragConsumer.accept((int) (mouseY - this.gui.getGuiHeight()));
+        }
+        super.onMouseDrag(mouseX, mouseY, dragX, dragY);
     }
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        // mouse clicked on slider
-        if (super.mouseClicked(mouseX, mouseY, button)) {
-            isHeld = true;
-        }
         if (!isHeld && isPointInSlider(this.xLocation, this.yLocation, mouseX - this.gui.getGuiWidth(), mouseY - this.gui.getGuiHeight(), this.width, this.height) && sliderClickConsumer != null) {
-            sliderClickConsumer.accept((int) mouseY);
+            sliderClickConsumer.accept((int) (mouseY - this.gui.getGuiHeight()));
         }
         return super.mouseClicked(mouseX, mouseY, button);
     }
@@ -105,7 +110,7 @@ public class ScreenComponentVerticalSlider extends ScreenComponentGeneric {
     }
 
     public void setSliderYOffset(int offset) {
-        sliderYOffset = Math.min(offset, height - 4 - 15);
+        sliderYOffset = Math.min(offset, height - 2 - 15);
     }
 
     protected boolean isPointInSlider(int x, int y, double xAxis, double yAxis, int width, int height) {

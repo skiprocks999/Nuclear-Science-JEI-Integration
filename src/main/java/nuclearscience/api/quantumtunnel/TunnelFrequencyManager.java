@@ -110,6 +110,15 @@ public class TunnelFrequencyManager {
 
     }
 
+    public static void wipeAllFrequencies() {
+
+        ServerLevel level = getOverworld();
+
+        level.setData(NuclearScienceAttachmentTypes.CHANNEL_MAP, new HashMap<>());
+        level.setData(NuclearScienceAttachmentTypes.TUNNEL_MAP, new HashMap<>());
+
+    }
+
     private static ServerLevel getOverworld() {
         return ServerLifecycleHooks.getCurrentServer().overworld();
     }

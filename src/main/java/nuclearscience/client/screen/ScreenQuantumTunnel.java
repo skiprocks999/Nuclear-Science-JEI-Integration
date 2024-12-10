@@ -2,26 +2,19 @@ package nuclearscience.client.screen;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import electrodynamics.prefab.screen.GenericScreen;
-import electrodynamics.prefab.screen.component.types.ScreenComponentMultiLabel;
-import electrodynamics.prefab.screen.component.types.ScreenComponentSimpleLabel;
-import electrodynamics.prefab.screen.component.types.wrapper.InventoryIOWrapper;
 import electrodynamics.prefab.screen.component.utils.AbstractScreenComponentInfo;
-import electrodynamics.prefab.utilities.math.Color;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
-import nuclearscience.api.quantumtunnel.TunnelFrequency;
 import nuclearscience.common.inventory.container.ContainerQuantumTunnel;
-import nuclearscience.common.tile.TileQuantumTunnel;
 import nuclearscience.prefab.screen.component.ScreenComponentVerticalSlider;
 import nuclearscience.prefab.screen.component.quantumtunnel.*;
-import nuclearscience.prefab.utils.NuclearTextUtils;
 
 public class ScreenQuantumTunnel extends GenericScreen<ContainerQuantumTunnel> {
 
     public WrapperQuantumTunnelFrequencies frequencyWrapper;
     public WrapperIOEditor ioWrapper;
     public WrapperNewFrequency newFrequencyWrapper;
+    public WrapperEditFrequency editFrequencyWrapper;
 
     public ScreenComponentVerticalSlider slider;
 
@@ -38,7 +31,23 @@ public class ScreenQuantumTunnel extends GenericScreen<ContainerQuantumTunnel> {
 
         newFrequencyWrapper = new WrapperNewFrequency(this, -AbstractScreenComponentInfo.SIZE + 1, 2, 0, 15);
 
+        editFrequencyWrapper = new WrapperEditFrequency(this, 0, 10);
 
+        /*
+
+        addComponent(new ScreenComponentGuiTab(ScreenComponentGuiTab.GuiInfoTabTextures.REGULAR, NuclearIconTypes.BUFFER, () -> {
+
+            List<FormattedCharSequence> info = new ArrayList<>();
+
+
+
+
+            return info;
+
+        }, -AbstractScreenComponentInfo.SIZE + 1, AbstractScreenComponentInfo.SIZE * 2 + 2));
+
+
+         */
 
     }
 
@@ -69,14 +78,6 @@ public class ScreenQuantumTunnel extends GenericScreen<ContainerQuantumTunnel> {
     }
 
     @Override
-    public void mouseMoved(double mouseX, double mouseY) {
-        super.mouseMoved(mouseX, mouseY);
-        if (slider != null && slider.isVisible()) {
-            slider.mouseMoved(mouseX, mouseY);
-        }
-    }
-
-    @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (slider != null && slider.isVisible()) {
             slider.mouseClicked(mouseX, mouseY, button);
@@ -101,4 +102,8 @@ public class ScreenQuantumTunnel extends GenericScreen<ContainerQuantumTunnel> {
         return super.keyPressed(pKeyCode, pScanCode, pModifiers);
     }
 
+    @Override
+    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
+        return slider.mouseDragged(mouseX, mouseY, button, dragX, dragY);
+    }
 }

@@ -49,4 +49,24 @@ public class ServerBarrierMethods {
         }
 
     }
+
+    public static void deleteFrequency(UUID requester, TunnelFrequency frequency) {
+
+        if(frequency.getChannelType() == FrequencyType.PRIVATE) {
+            TunnelFrequencyManager.removePlayerFrequency(frequency.getCreatorId(), requester, frequency);
+        } else if (frequency.getChannelType() == FrequencyType.PUBLIC) {
+            TunnelFrequencyManager.removePublicFrequency(requester, frequency);
+        }
+
+    }
+
+    public static void editFrequency(UUID requester, TunnelFrequency frequency) {
+
+        if(frequency.getChannelType() == FrequencyType.PRIVATE) {
+            TunnelFrequencyManager.updatePlayerFrequencyName(frequency.getCreatorId(), requester, frequency);
+        } else if (frequency.getChannelType() == FrequencyType.PUBLIC) {
+            TunnelFrequencyManager.updatePublicFrequencyName(requester, frequency);
+        }
+
+    }
 }

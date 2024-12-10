@@ -91,6 +91,7 @@
   "gui.nuclearscience.quantumtunnel.delete": "Delete",
   "gui.nuclearscience.quantumtunnel.disable": "Disable",
   "gui.nuclearscience.quantumtunnel.edit": "Edit",
+  "gui.nuclearscience.quantumtunnel.editfrequency": "Edit Frequency",
   "gui.nuclearscience.quantumtunnel.enable": "Enable",
   "gui.nuclearscience.quantumtunnel.frequencytype": "Frequency Type",
   "gui.nuclearscience.quantumtunnel.name": "Name",

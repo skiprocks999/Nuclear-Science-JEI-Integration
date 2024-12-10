@@ -11,20 +11,20 @@ import nuclearscience.common.packet.NetworkHandler;
 
 import java.util.UUID;
 
-public class PacketDeleteFrequency implements CustomPacketPayload {
+public class PacketEditFrequency implements CustomPacketPayload {
 
-    public static final ResourceLocation PACKET_DELETEFREQUENCY_PACKETID = NetworkHandler.id("packetdeletefrequency");
-    public static final Type<PacketDeleteFrequency> TYPE = new Type<>(PACKET_DELETEFREQUENCY_PACKETID);
+    public static final ResourceLocation PACKET_EDITFREQUENCY_PACKETID = NetworkHandler.id("packeteditfrequency");
+    public static final Type<PacketEditFrequency> TYPE = new Type<>(PACKET_EDITFREQUENCY_PACKETID);
 
-    public static final StreamCodec<ByteBuf, PacketDeleteFrequency> CODEC = new StreamCodec<ByteBuf, PacketDeleteFrequency>() {
+    public static final StreamCodec<ByteBuf, PacketEditFrequency> CODEC = new StreamCodec<ByteBuf, PacketEditFrequency>() {
         @Override
-        public PacketDeleteFrequency decode(ByteBuf buf) {
+        public PacketEditFrequency decode(ByteBuf buf) {
 
-            return new PacketDeleteFrequency(UUIDUtil.STREAM_CODEC.decode(buf), TunnelFrequency.STREAM_CODEC.decode(buf));
+            return new PacketEditFrequency(UUIDUtil.STREAM_CODEC.decode(buf), TunnelFrequency.STREAM_CODEC.decode(buf));
         }
 
         @Override
-        public void encode(ByteBuf buf, PacketDeleteFrequency packet) {
+        public void encode(ByteBuf buf, PacketEditFrequency packet) {
 
             UUIDUtil.STREAM_CODEC.encode(buf, packet.requester);
             TunnelFrequency.STREAM_CODEC.encode(buf, packet.frequency);
@@ -36,13 +36,13 @@ public class PacketDeleteFrequency implements CustomPacketPayload {
     private final UUID requester;
     private final TunnelFrequency frequency;
 
-    public PacketDeleteFrequency(UUID requester, TunnelFrequency frequency) {
+    public PacketEditFrequency(UUID requester, TunnelFrequency frequency) {
         this.requester = requester;
         this.frequency = frequency;
     }
 
-    public static void handle(PacketDeleteFrequency message, IPayloadContext context) {
-        ServerBarrierMethods.deleteFrequency(message.requester, message.frequency);
+    public static void handle(PacketEditFrequency message, IPayloadContext context) {
+        ServerBarrierMethods.editFrequency(message.requester, message.frequency);
     }
 
     @Override

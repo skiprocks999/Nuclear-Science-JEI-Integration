@@ -1,13 +1,30 @@
 package nuclearscience.client.screen;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import electrodynamics.api.electricity.formatting.ChatFormatter;
+import electrodynamics.api.electricity.formatting.DisplayUnit;
+import electrodynamics.api.gas.GasStack;
 import electrodynamics.prefab.screen.GenericScreen;
+import electrodynamics.prefab.screen.component.types.guitab.ScreenComponentGuiTab;
 import electrodynamics.prefab.screen.component.utils.AbstractScreenComponentInfo;
+import electrodynamics.prefab.utilities.object.TransferPack;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.fluids.FluidStack;
+import nuclearscience.api.quantumtunnel.TunnelFrequencyBuffer;
 import nuclearscience.common.inventory.container.ContainerQuantumTunnel;
+import nuclearscience.common.tile.TileQuantumTunnel;
+import nuclearscience.prefab.screen.component.NuclearIconTypes;
 import nuclearscience.prefab.screen.component.ScreenComponentVerticalSlider;
 import nuclearscience.prefab.screen.component.quantumtunnel.*;
+import nuclearscience.prefab.utils.NuclearTextUtils;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class ScreenQuantumTunnel extends GenericScreen<ContainerQuantumTunnel> {
 
@@ -33,21 +50,47 @@ public class ScreenQuantumTunnel extends GenericScreen<ContainerQuantumTunnel> {
 
         editFrequencyWrapper = new WrapperEditFrequency(this, 0, 10);
 
-        /*
-
         addComponent(new ScreenComponentGuiTab(ScreenComponentGuiTab.GuiInfoTabTextures.REGULAR, NuclearIconTypes.BUFFER, () -> {
+
+            TileQuantumTunnel tile = getMenu().getSafeHost();
+
+            if(tile == null) {
+                return Collections.emptyList();
+            }
+
+            TunnelFrequencyBuffer buffer = tile.clientBuffer;
 
             List<FormattedCharSequence> info = new ArrayList<>();
 
+            info.add(NuclearTextUtils.tooltip("quantumtunnel.buffer").withStyle(ChatFormatting.BOLD, ChatFormatting.YELLOW).getVisualOrderText());
+
+            ItemStack item = buffer.getBufferedItem();
+
+            info.add(Component.translatable(item.getDescriptionId()).getVisualOrderText());
+            info.add(Component.literal(" " + item.getCount()).withStyle(ChatFormatting.GRAY).getVisualOrderText());
+
+            FluidStack fluid = buffer.getBufferedFluid();
+
+            info.add(Component.translatable(fluid.getTranslationKey()).getVisualOrderText());
+            info.add(Component.literal(" ").append(ChatFormatter.formatFluidMilibuckets(fluid.getAmount()).withStyle(ChatFormatting.GRAY)).getVisualOrderText());
+
+            GasStack gas = buffer.getBufferedGas();
+
+            info.add(gas.getGas().getDescription().getVisualOrderText());
+            info.add(Component.literal(" ").append(ChatFormatter.formatFluidMilibuckets(gas.getAmount()).withStyle(ChatFormatting.GRAY)).getVisualOrderText());
+            info.add(Component.literal(" ").append(ChatFormatter.getChatDisplayShort(gas.getTemperature(), DisplayUnit.TEMPERATURE_KELVIN).withStyle(ChatFormatting.GRAY)).getVisualOrderText());
+            info.add(Component.literal(" ").append(ChatFormatter.getChatDisplayShort(gas.getPressure(), DisplayUnit.PRESSURE_ATM).withStyle(ChatFormatting.GRAY)).getVisualOrderText());
 
 
+            TransferPack energy = buffer.getBufferedEnergy();
+
+            info.add(ChatFormatter.getChatDisplayShort(energy.getJoules(), DisplayUnit.JOULES).getVisualOrderText());
+            info.add(Component.literal(" ").append(ChatFormatter.getChatDisplayShort(energy.getVoltage(), DisplayUnit.VOLTAGE).withStyle(ChatFormatting.GRAY)).getVisualOrderText());
 
             return info;
 
         }, -AbstractScreenComponentInfo.SIZE + 1, AbstractScreenComponentInfo.SIZE * 2 + 2));
 
-
-         */
 
     }
 

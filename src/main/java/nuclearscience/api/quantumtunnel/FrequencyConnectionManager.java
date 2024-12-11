@@ -122,6 +122,12 @@ public class FrequencyConnectionManager {
         return taken;
     }
 
+    public static TunnelFrequencyBuffer getClientBuffer(TunnelFrequency frequency) {
+        ServerLevel level = getOverworld();
+        HashMap<TunnelFrequency, TunnelFrequencyBuffer> map = level.getData(NuclearScienceAttachmentTypes.TUNNEL_MAP);
+        return map.getOrDefault(frequency, TunnelFrequencyBuffer.EMPTY);
+    }
+
 
     private static ServerLevel getOverworld() {
         return ServerLifecycleHooks.getCurrentServer().overworld();

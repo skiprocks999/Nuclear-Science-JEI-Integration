@@ -40,6 +40,8 @@ public class TunnelFrequencyBuffer {
 
     );
 
+    public static final TunnelFrequencyBuffer EMPTY = new TunnelFrequencyBuffer(TransferPack.EMPTY, FluidStack.EMPTY, GasStack.EMPTY, ItemStack.EMPTY);
+
     public static final double MAX_JOULES_CAP = Double.MAX_VALUE;
     public static final int MAX_FLUID_CAP = Integer.MAX_VALUE;
     public static final int MAX_GAS_CAP = Integer.MAX_VALUE;

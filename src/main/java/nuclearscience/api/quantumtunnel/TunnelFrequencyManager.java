@@ -69,7 +69,7 @@ public class TunnelFrequencyManager {
                 }
             }
         }
-        return true;
+        return false;
     }
 
     public static void updatePlayerFrequencyName(UUID player, UUID requester, TunnelFrequency frequency) {

@@ -163,5 +163,6 @@ public class WrapperNewFrequency {
         nameEditBox.setActive(show);
         createButton.setVisible(show);
         cancelButton.setVisible(show);
+        nameEditBox.setValue("");
     }
 }

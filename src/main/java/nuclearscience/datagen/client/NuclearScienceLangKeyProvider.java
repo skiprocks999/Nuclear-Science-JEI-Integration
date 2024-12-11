@@ -210,6 +210,7 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addTooltip("quantumtunnel.output", "Output");
 			addTooltip("quantumtunnel.none", "None");
 			addTooltip("quantumtunnel.createnew", "New Frequency");
+			addTooltip("quantumtunnel.buffer", "Buffer");
 
 			addSubtitle(NuclearScienceSounds.SOUND_GASCENTRIFUGE, "Gas Centrifuge spins");
 			addSubtitle(NuclearScienceSounds.SOUND_NUCLEARBOILER, "Nuclear Boiler boils");

@@ -7,6 +7,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 import nuclearscience.api.quantumtunnel.TunnelFrequency;
+import nuclearscience.api.quantumtunnel.TunnelFrequencyBuffer;
 import nuclearscience.api.radiation.util.RadiationShielding;
 import nuclearscience.api.radiation.util.RadioactiveObject;
 import nuclearscience.common.reloadlistener.*;
@@ -37,9 +38,10 @@ public class ClientBarrierMethods {
         RadiationShieldingRegister.INSTANCE.setClientValues(shielding);
     }
 
-    public static void handleSetClientTunnelFrequencies(HashMap<UUID, HashSet<TunnelFrequency>> frequencies, BlockPos tilePos) {
+    public static void handleSetClientTunnelFrequencies(HashMap<UUID, HashSet<TunnelFrequency>> frequencies, TunnelFrequencyBuffer buffer, BlockPos tilePos) {
         if(Minecraft.getInstance().level.getBlockEntity(tilePos) instanceof TileQuantumTunnel tunnel) {
             tunnel.clientFrequencies = frequencies;
+            tunnel.clientBuffer = buffer;
         }
     }
 }

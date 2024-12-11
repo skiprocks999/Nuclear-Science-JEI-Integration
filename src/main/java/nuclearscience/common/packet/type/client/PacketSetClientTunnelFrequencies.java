@@ -8,6 +8,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import nuclearscience.api.quantumtunnel.TunnelFrequency;
+import nuclearscience.api.quantumtunnel.TunnelFrequencyBuffer;
 import nuclearscience.common.packet.NetworkHandler;
 
 import java.util.HashMap;
@@ -41,7 +42,7 @@ public class PacketSetClientTunnelFrequencies implements CustomPacketPayload {
             }
 
 
-            return new PacketSetClientTunnelFrequencies(data, BlockPos.STREAM_CODEC.decode(buf));
+            return new PacketSetClientTunnelFrequencies(data, TunnelFrequencyBuffer.STREAM_CODEC.decode(buf), BlockPos.STREAM_CODEC.decode(buf));
         }
 
         @Override
@@ -54,20 +55,23 @@ public class PacketSetClientTunnelFrequencies implements CustomPacketPayload {
                     TunnelFrequency.STREAM_CODEC.encode(buf, freq);
                 }
             }
+            TunnelFrequencyBuffer.STREAM_CODEC.encode(buf, packet.currBuffer);
             BlockPos.STREAM_CODEC.encode(buf, packet.tilePos);
         }
     };
 
     private final HashMap<UUID, HashSet<TunnelFrequency>> frequencies;
+    private final TunnelFrequencyBuffer currBuffer;
     private final BlockPos tilePos;
 
-    public PacketSetClientTunnelFrequencies(HashMap<UUID, HashSet<TunnelFrequency>> frequencies, BlockPos tilePos) {
+    public PacketSetClientTunnelFrequencies(HashMap<UUID, HashSet<TunnelFrequency>> frequencies, TunnelFrequencyBuffer currBuffer, BlockPos tilePos) {
         this.frequencies = frequencies;
+        this.currBuffer = currBuffer;
         this.tilePos = tilePos;
     }
 
     public static void handle(PacketSetClientTunnelFrequencies message, IPayloadContext context) {
-        ClientBarrierMethods.handleSetClientTunnelFrequencies(message.frequencies, message.tilePos);
+        ClientBarrierMethods.handleSetClientTunnelFrequencies(message.frequencies, message.currBuffer, message.tilePos);
     }
 
     @Override

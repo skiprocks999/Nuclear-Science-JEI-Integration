@@ -8,6 +8,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.neoforged.neoforge.network.PacketDistributor;
+import nuclearscience.api.quantumtunnel.FrequencyConnectionManager;
 import nuclearscience.api.quantumtunnel.TunnelFrequencyManager;
 import nuclearscience.common.packet.type.client.PacketSetClientTunnelFrequencies;
 import nuclearscience.common.tile.TileQuantumTunnel;
@@ -38,7 +39,7 @@ public class ContainerQuantumTunnel extends GenericContainerBlockEntity<TileQuan
 		super.broadcastChanges();
 
 		if(!getLevel().isClientSide() && getPlayer() != null && getSafeHost() != null) {
-			PacketSetClientTunnelFrequencies packet = new PacketSetClientTunnelFrequencies(TunnelFrequencyManager.getFrequenciesForPlayerClient(getPlayer().getUUID()), getSafeHost().getBlockPos());
+			PacketSetClientTunnelFrequencies packet = new PacketSetClientTunnelFrequencies(TunnelFrequencyManager.getFrequenciesForPlayerClient(getPlayer().getUUID()), FrequencyConnectionManager.getClientBuffer(getSafeHost().frequency.get()), getSafeHost().getBlockPos());
 			PacketDistributor.sendToPlayer((ServerPlayer) getPlayer(), packet);
 		}
 

@@ -249,6 +249,7 @@
   "tooltip.nuclearscience.deuteriumlevel": "Deuterium: %s",
   "tooltip.nuclearscience.frequencycard.linked": "Linked to %s",
   "tooltip.nuclearscience.frequencycard.notag": "No Link",
+  "tooltip.nuclearscience.quantumtunnel.buffer": "Buffer",
   "tooltip.nuclearscience.quantumtunnel.createnew": "New Frequency",
   "tooltip.nuclearscience.quantumtunnel.input": "Input",
   "tooltip.nuclearscience.quantumtunnel.ioconfig": "I/O Config",

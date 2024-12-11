@@ -53,11 +53,17 @@ public class TileQuantumTunnel extends GenericTile {
 
     public Property<TunnelFrequency> frequency = property(new Property<>(NuclearPropertyTypes.TUNNEL_FREQUENCY, "frequency", TunnelFrequency.NO_FREQUENCY));
     public Property<Integer> inputDirections = property(new Property<>(PropertyTypes.INTEGER, "inputdirections", 0)).onChange((prop, val) -> {
+        if(level != null && level.isClientSide()){
+            level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 8); //
+        }
         if (!level.isClientSide()) {
             refreshCapabilities();
         }
     });
     public Property<Integer> outputDirections = property(new Property<>(PropertyTypes.INTEGER, "outputdirections", 0)).onChange((prop, val) -> {
+        if(level != null && level.isClientSide()){
+            level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 8); //
+        }
         if (!level.isClientSide()) {
             refreshCapabilities();
         }
@@ -72,6 +78,7 @@ public class TileQuantumTunnel extends GenericTile {
     private FEHandler[] feHandlers = new FEHandler[6];
 
     public HashMap<UUID, HashSet<TunnelFrequency>> clientFrequencies = new HashMap<>();
+    public TunnelFrequencyBuffer clientBuffer = TunnelFrequencyBuffer.EMPTY;
 
     public TileQuantumTunnel(BlockPos pos, BlockState state) {
         super(NuclearScienceTiles.TILE_QUANTUMCAPACITOR.get(), pos, state);
@@ -92,16 +99,17 @@ public class TileQuantumTunnel extends GenericTile {
             return;
         }
 
-        for (int i = 0; i < 6; i++) {
-            if (outputCache[i] == null) {
-                outputCache[i] = new CachedTileOutput(level, new BlockPos(worldPosition).relative(Direction.values()[i]));
+        for(Direction direction : Direction.values()) {
+            Direction dir = BlockEntityUtils.getRelativeSide(getFacing(), direction);
+            if(outputCache[dir.ordinal()] == null) {
+                outputCache[dir.ordinal()] = new CachedTileOutput(level, new BlockPos(worldPosition).relative(dir));
             }
         }
-        if (tickable.getTicks() % 40 == 0) {
-            for (int i = 0; i < 6; i++) {
-                if (outputCache[i] == null) {
-                    outputCache[i].update(new BlockPos(worldPosition).relative(Direction.values()[i]));
-                }
+
+        for(Direction direction : Direction.values()) {
+            Direction dir = BlockEntityUtils.getRelativeSide(getFacing(), direction);
+            if(!outputCache[dir.ordinal()].valid()) {
+                outputCache[dir.ordinal()].update(new BlockPos(worldPosition).relative(dir));
             }
         }
 
@@ -109,14 +117,21 @@ public class TileQuantumTunnel extends GenericTile {
             return;
         }
 
-        for (Direction dir : readOutputDirections()) {
-            CachedTileOutput output = outputCache[dir.ordinal()];
+        for (Direction direction : readOutputDirections()) {
+
+            Direction relative = BlockEntityUtils.getRelativeSide(getFacing(), direction);
+
+            CachedTileOutput output = outputCache[relative.ordinal()];
             if (!output.valid()) {
                 continue;
             }
             BlockEntity tile = output.getSafe();
 
-            IItemHandler itemCap = level.getCapability(Capabilities.ItemHandler.BLOCK, tile.getBlockPos(), tile.getBlockState(), tile, dir.getOpposite());
+            if(tile == null) {
+                return;
+            }
+
+            IItemHandler itemCap = level.getCapability(Capabilities.ItemHandler.BLOCK, tile.getBlockPos(), tile.getBlockState(), tile, relative.getOpposite());
 
             if (itemCap != null) {
                 ItemStack bufferedItem = FrequencyConnectionManager.getBufferedItem(frequency.get()).copy();
@@ -139,7 +154,7 @@ public class TileQuantumTunnel extends GenericTile {
                 }
             }
 
-            IFluidHandler fluidCap = level.getCapability(Capabilities.FluidHandler.BLOCK, tile.getBlockPos(), tile.getBlockState(), tile, dir.getOpposite());
+            IFluidHandler fluidCap = level.getCapability(Capabilities.FluidHandler.BLOCK, tile.getBlockPos(), tile.getBlockState(), tile, relative.getOpposite());
 
             if (fluidCap != null) {
                 FluidStack bufferedFluid = FrequencyConnectionManager.getBufferedFluid(frequency.get()).copy();
@@ -153,7 +168,7 @@ public class TileQuantumTunnel extends GenericTile {
                 }
             }
 
-            IGasHandler gasCap = level.getCapability(ElectrodynamicsCapabilities.CAPABILITY_GASHANDLER_BLOCK, tile.getBlockPos(), tile.getBlockState(), tile, dir.getOpposite());
+            IGasHandler gasCap = level.getCapability(ElectrodynamicsCapabilities.CAPABILITY_GASHANDLER_BLOCK, tile.getBlockPos(), tile.getBlockState(), tile, relative.getOpposite());
 
             if (gasCap != null) {
                 GasStack bufferedGas = FrequencyConnectionManager.getBufferedGas(frequency.get()).copy();
@@ -167,7 +182,7 @@ public class TileQuantumTunnel extends GenericTile {
                 }
             }
 
-            ICapabilityElectrodynamic electroCap = level.getCapability(ElectrodynamicsCapabilities.CAPABILITY_ELECTRODYNAMIC_BLOCK, tile.getBlockPos(), tile.getBlockState(), tile, dir.getOpposite());
+            ICapabilityElectrodynamic electroCap = level.getCapability(ElectrodynamicsCapabilities.CAPABILITY_ELECTRODYNAMIC_BLOCK, tile.getBlockPos(), tile.getBlockState(), tile, relative.getOpposite());
 
             if (electroCap != null && electroCap.isEnergyReceiver()) {
                 TransferPack bufferedEnergy = FrequencyConnectionManager.getBufferedEnergy(frequency.get());
@@ -179,7 +194,7 @@ public class TileQuantumTunnel extends GenericTile {
                 }
             }
 
-            IEnergyStorage feCap = level.getCapability(Capabilities.EnergyStorage.BLOCK, tile.getBlockPos(), tile.getBlockState(), tile, dir.getOpposite());
+            IEnergyStorage feCap = level.getCapability(Capabilities.EnergyStorage.BLOCK, tile.getBlockPos(), tile.getBlockState(), tile, relative.getOpposite());
 
             if (feCap != null && feCap.canReceive()) {
                 TransferPack bufferedEnergy = FrequencyConnectionManager.getBufferedEnergy(frequency.get());
@@ -238,8 +253,8 @@ public class TileQuantumTunnel extends GenericTile {
 
     @Override
     public void onLoad() {
-        super.onLoad();
         refreshCapabilities();
+        super.onLoad();
     }
 
     private void refreshCapabilities() {

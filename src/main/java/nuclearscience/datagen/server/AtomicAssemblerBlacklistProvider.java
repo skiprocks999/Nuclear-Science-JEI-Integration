@@ -17,6 +17,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import nuclearscience.References;
 import nuclearscience.common.reloadlistener.AtomicAssemblerBlacklistRegister;
+import nuclearscience.registers.NuclearScienceBlocks;
+import nuclearscience.registers.NuclearScienceItems;
 
 public class AtomicAssemblerBlacklistProvider implements DataProvider {
 
@@ -43,6 +45,10 @@ public class AtomicAssemblerBlacklistProvider implements DataProvider {
 
 		addItem(Items.AIR, json);
 		addTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", "air")), json); // dummy tag for demonstration purposes
+
+		addItem(NuclearScienceItems.ITEM_TELEPORTER.get(), json);
+		addItem(NuclearScienceItems.ITEM_QUANTUMTUNNEL.get(), json);
+		addItem(NuclearScienceItems.ITEM_CHUNKLOADER.get(), json);
 
 		object.add(AtomicAssemblerBlacklistRegister.KEY, json);
 	}

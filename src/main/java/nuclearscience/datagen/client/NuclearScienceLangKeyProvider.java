@@ -364,10 +364,13 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addGuidebook("chapter.othermachines", "Other Machines");
 			addGuidebook("chapter.othermachines.quantumcapacitor1", " the It has an unlimited energy storage capacity and the storage is shared across capacitors. The GUI has two programmable fields. The first is for the joules/tick output of the capacitor. Note, the capacitor outputs at 1.92 kV! " + "The second is for the frequency. The frequency of two capacitors must match for them to link. Every capacitor network is tied to a specific player, so don't worry about other players stealing your energy!");
 
+
 			addGuidebook("chapter.othermachines.teleporter1", "The Teleporter requires %s to teleport an entity and is a one-way trip. This means two teleporters are needed: one to send the player, and one to get them back. There is a 4 second cooldown after every teleport. To select a teleporter's destination, you can input coordinates via its GUI.");
 			addGuidebook("chapter.othermachines.teleporter2", "If you don't like entering coordinates manually, you can craft a %s, and import coordiantes from it to the Teleporter via the \"Import\" button. To store coordinates on a Frequency Card, right-click the card on a block. You can clear the card's stored coordinates by Shift + Right-Clicking it.");
 			addGuidebook("chapter.othermachines.teleporter3", "By now, you have probably noticed the dimension field in the GUI:");
 			addGuidebook("chapter.othermachines.teleporter4", "This field defaults to the dimension the Teleporter is placed in initially, and can only be programmed via a Frequency Card.");
+
+			addGuidebook("chapter.othermachines.chunkloader1", "The Chunkloader loads a 3x3 chunk area centered around the chunk it is placed in and requires nothing to function.");
 
 			addGuidebook("chapter.othermachines.atomicassembler1", "The Atomic Assembler makes use of the strange properties of Dark Matter, and is able to duplicate items (we have made sure you can't dupe items with inventories, so no dupe bugs this time (: ). It requires 72 kW at 480 V to run. If it loses power, all progress is lost!");
 			addGuidebook("chapter.othermachines.atomicassembler2", "To use it, take an item of your desire and place it in the Assembler. Surround the item with Dark Matter Cells like shown:");

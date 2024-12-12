@@ -47,6 +47,11 @@ public class ChapterOtherMachines extends Chapter {
 		pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 150, 150, 150, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/teleporter2.png")));
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.othermachines.teleporter4")).setSeparateStart());
 
+		// Chunkloader
+		pageData.add(new TextWrapperObject(NuclearScienceItems.ITEM_CHUNKLOADER.get().getDescription().copy().withStyle(ChatFormatting.BOLD)).setCentered().setNewPage());
+		pageData.add(new ItemWrapperObject(7 + ScreenGuidebook.TEXT_WIDTH / 2 - 16, 5, 32, 32, 32, 2.0F, NuclearScienceItems.ITEM_CHUNKLOADER.get()));
+		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.othermachines.chunkloader1")).setIndentions(1).setSeparateStart());
+
 		// Atomic Assembler
 		pageData.add(new TextWrapperObject(NuclearScienceItems.ITEM_ATOMICASSEMBLER.get().getDescription().copy().withStyle(ChatFormatting.BOLD)).setCentered().setNewPage());
 		pageData.add(new ItemWrapperObject(7 + ScreenGuidebook.TEXT_WIDTH / 2 - 16, 5, 32, 32, 32, 2.0F, NuclearScienceItems.ITEM_ATOMICASSEMBLER.get()));

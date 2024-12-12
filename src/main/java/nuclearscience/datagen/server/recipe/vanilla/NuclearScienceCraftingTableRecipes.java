@@ -736,7 +736,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addPattern("DCD")
 				//
-				.addPattern("RDR")
+				.addPattern("EDE")
 				//
 				.addPattern("DCD")
 				//
@@ -744,7 +744,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('C', ElectrodynamicsTags.Items.CIRCUITS_ULTIMATE)
 				//
-				.addKey('R', NuclearScienceItems.ITEM_FUSIONREACTORCORE.get())
+				.addKey('E', Tags.Items.ENDER_PEARLS)
 				//
 				.complete(References.ID, "quantumcapacitor", output);
 

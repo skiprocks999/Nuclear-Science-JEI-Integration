@@ -72,6 +72,7 @@ public class NuclearScienceBlocks {
 	public static final DeferredHolder<Block, BlockMeltedReactor> BLOCK_MELTEDREACTOR = BLOCKS.register("meltedreactor", () -> new BlockMeltedReactor());
 	public static final DeferredHolder<Block, BlockRadioactiveAir> BLOCK_RADIOACTIVEAIR = BLOCKS.register("radioactiveair", () -> new BlockRadioactiveAir());
 	public static final BulkDeferredHolder<Block, BlockIrradiated, SubtypeIrradiatedBlock> BLOCKS_IRRADIATED = new BulkDeferredHolder<>(SubtypeIrradiatedBlock.values(), subtype -> BLOCKS.register(subtype.tag(), () -> new BlockIrradiated(subtype)));
+	public static final DeferredHolder<Block, BlockChunkloader> BLOCK_CHUNKLOADER = BLOCKS.register("chunkloader", () -> new BlockChunkloader());
 	//public static final DeferredHolder<Block, BlockRadioactiveSoil> BLOCK_RADIOACTIVESOIL = BLOCKS.register("radioactivesoil", () -> new BlockRadioactiveSoil());
 
 

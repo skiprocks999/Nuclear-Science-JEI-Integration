@@ -8,13 +8,13 @@
     "D": {
       "tag": "c:cells/dark_matter"
     },
-    "R": {
-      "item": "nuclearscience:fusionreactorcore"
+    "E": {
+      "tag": "c:ender_pearls"
     }
   },
   "pattern": [
     "DCD",
-    "RDR",
+    "EDE",
     "DCD"
   ],
   "result": {

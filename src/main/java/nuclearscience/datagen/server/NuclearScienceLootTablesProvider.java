@@ -55,6 +55,7 @@ public class NuclearScienceLootTablesProvider extends ElectrodynamicsLootTablesP
 		addSimpleBlock(NuclearScienceBlocks.BLOCK_TURBINE.get());
 		addSimpleBlock(NuclearScienceBlocks.BLOCKS_MOLTENSALTPIPE.getValue(SubtypeMoltenSaltPipe.vanadiumsteelceramic));
 		addSimpleBlock(NuclearScienceBlocks.BLOCK_STEAMFUNNEL.get());
+		addSimpleBlock(NuclearScienceBlocks.BLOCK_CHUNKLOADER.get());
 
 	}
 

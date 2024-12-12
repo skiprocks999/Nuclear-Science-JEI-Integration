@@ -113,6 +113,8 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 
 			addBlock(NuclearScienceBlocks.BLOCKS_MOLTENSALTPIPE.getValue(SubtypeMoltenSaltPipe.vanadiumsteelceramic), "VS-Ceramic Pipe");
 
+			addBlock(NuclearScienceBlocks.BLOCK_CHUNKLOADER, "Chunkloader");
+
 			addFluid(NuclearScienceFluids.FLUID_IODINESOLUTION, "Iodine Solution");
 			//addFluid(NuclearScienceFluids.fluidAmmonia, "Ammonia");
 

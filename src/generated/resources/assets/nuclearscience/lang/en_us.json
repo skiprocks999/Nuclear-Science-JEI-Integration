@@ -1,6 +1,7 @@
 {
   "block.nuclearscience.atomicassembler": "Atomic Assembler",
   "block.nuclearscience.chemicalextractor": "Chemical Extractor",
+  "block.nuclearscience.chunkloader": "Chunkloader",
   "block.nuclearscience.controlrodassembly": "Control Rod",
   "block.nuclearscience.electromagnet": "Electromagnet",
   "block.nuclearscience.electromagneticbooster": "Electromagnetic Booster",
@@ -170,7 +171,7 @@
   "guidebook.nuclearscience.chapter.quantumtunnel.l2.1": "First, what can the block transfer. The block can transfer the following quantities:",
   "guidebook.nuclearscience.chapter.quantumtunnel.l2.2": "The block accomplishes this by being bound to a frequency. Each frequency can transfer all quantity types at the same time, meaning a frequency could send both electricity and gas at the same time. However you can only send one subtype at a time. For example, you could not send water and lava at the same time over the same frequency. It is important to note especially in the case of electricity, as electricity is treated as a packet, meaning 100J at 120V could not be sent at the same time as 500J at 960V. It is also important to note that the two conduits on either side of the tunnel frequency will not take into account each other's characteristics. For example, the resistance of the sending wire will not impact the resistance of the receiving wire.",
   "guidebook.nuclearscience.chapter.quantumtunnel.l3.1": "We now know how the block functions, but what exactly is a frequency? Frequencies are what link quantum tunnels together. Any number of quantum tunnels can be linked to a single frequency. Opening the GUI of the quantum tunnel, you immediately will observe that there are two types of frequencies: Private and Public",
-  "guidebook.nuclearscience.chapter.quantumtunnel.l3.2": "Private frequencies are only visible to you. Public frequencies can be used by all players. However, only the player that created it may edit, add, and remove it. As this may lead to abuse cases, a command is added to wipe public frequencies that is available to the server owner. Note the name of the player who created the frequency is also visible.",
+  "guidebook.nuclearscience.chapter.quantumtunnel.l3.2": "Private frequencies are only visible to you. Public frequencies can be used by all players. However, only the player that created it may edit, add, and remove it. As this may lead to abuse cases, a command is made available to the server owner that wipes all public frequencies. Note the name of the player who created the frequency is also visible.",
   "guidebook.nuclearscience.chapter.quantumtunnel.l4.1": "To create a new frequency, select the \"New Frequency\" button:",
   "guidebook.nuclearscience.chapter.quantumtunnel.l4.2": "Doing so will open the frequency creation menu:",
   "guidebook.nuclearscience.chapter.quantumtunnel.l4.3": "With the menu, you can name the frequency as well as select what type it will be. Press the \"Create\" button to finalize the creation or \"Cancel\" button to abort. Note that multiple frequencies can have the same name!",

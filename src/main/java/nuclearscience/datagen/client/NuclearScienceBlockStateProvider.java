@@ -74,6 +74,8 @@ public class NuclearScienceBlockStateProvider extends ElectrodynamicsBlockStateP
 		horrRotatedBlock(NuclearScienceBlocks.BLOCK_FISSIONREACTORCORE, existingBlock(NuclearScienceBlocks.BLOCK_FISSIONREACTORCORE), true);
 		horrRotatedLitBlock(NuclearScienceBlocks.BLOCK_TELEPORTER, existingBlock(NuclearScienceBlocks.BLOCK_TELEPORTER), existingBlock(blockLoc("teleporteron")), true);
 
+		simpleBlock(NuclearScienceBlocks.BLOCK_CHUNKLOADER.get(), existingBlock(NuclearScienceBlocks.BLOCK_CHUNKLOADER.get()), true);
+
 		genPipes();
 
 	}

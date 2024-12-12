@@ -68,9 +68,8 @@ public class NuclearScienceItems {
 
 	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_QUANTUMTUNNEL = ITEMS.register("quantumcapacitor", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_QUANTUMTUNNEL.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_TELEPORTER = ITEMS.register("teleporter", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_TELEPORTER.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
+	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_CHUNKLOADER = ITEMS.register("chunkloader", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_CHUNKLOADER.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_ATOMICASSEMBLER = ITEMS.register("atomicassembler", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_ATOMICASSEMBLER.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
-
-	//public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_RADIOACTIVESOIL = ITEMS.register("radioactivesoil", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_RADIOACTIVESOIL.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_MELTEDREACTOR = ITEMS.register("meltedreactor", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_MELTEDREACTOR.get(), new Item.Properties(), null));
 	public static final BulkDeferredHolder<Item, BlockItemDescriptable, SubtypeIrradiatedBlock> ITEMS_IRRADIATED = new BulkDeferredHolder<>(SubtypeIrradiatedBlock.values(), subtype -> ITEMS.register(subtype.tag(), () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(subtype), new Item.Properties(), null)));
 

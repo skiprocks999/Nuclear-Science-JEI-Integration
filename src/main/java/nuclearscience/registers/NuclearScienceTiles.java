@@ -8,21 +8,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import nuclearscience.References;
 import nuclearscience.common.block.connect.BlockMoltenSaltPipe;
-import nuclearscience.common.tile.TileAtomicAssembler;
-import nuclearscience.common.tile.TileChemicalExtractor;
-import nuclearscience.common.tile.TileControlRodAssembly;
-import nuclearscience.common.tile.TileElectromagneticSwitch;
-import nuclearscience.common.tile.TileFuelReprocessor;
-import nuclearscience.common.tile.TileGasCentrifuge;
-import nuclearscience.common.tile.TileNuclearBoiler;
-import nuclearscience.common.tile.TileParticleInjector;
-import nuclearscience.common.tile.TileQuantumTunnel;
-import nuclearscience.common.tile.TileRadioactiveProcessor;
-import nuclearscience.common.tile.TileRadioisotopeGenerator;
-import nuclearscience.common.tile.TileSiren;
-import nuclearscience.common.tile.TileSteamFunnel;
-import nuclearscience.common.tile.TileTeleporter;
-import nuclearscience.common.tile.TileTurbine;
+import nuclearscience.common.tile.*;
 import nuclearscience.common.tile.fissionreactor.TileFissionReactorCore;
 import nuclearscience.common.tile.fissionreactor.TileMeltedReactor;
 import nuclearscience.common.tile.fusionreactor.TileFusionReactorCore;
@@ -61,6 +47,7 @@ public class NuclearScienceTiles {
 	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileMoltenSaltPipe>> TILE_MOLTENSALTPIPE = BLOCK_ENTITY_TYPES.register("moltensaltpipegenerictile", () -> new BlockEntityType<>(TileMoltenSaltPipe::new, BlockMoltenSaltPipe.PIPESET, null));
 	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileSiren>> TILE_SIREN = BLOCK_ENTITY_TYPES.register("siren", () -> new BlockEntityType<>(TileSiren::new, Sets.newHashSet(NuclearScienceBlocks.BLOCK_SIREN.get()), null));
 	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileAtomicAssembler>> TILE_ATOMICASSEMBLER = BLOCK_ENTITY_TYPES.register("atomicassembler", () -> new BlockEntityType<>(TileAtomicAssembler::new, Sets.newHashSet(NuclearScienceBlocks.BLOCK_ATOMICASSEMBLER.get()), null));
+	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileChunkloader>> TILE_CHUNKLOADER = BLOCK_ENTITY_TYPES.register("chunkloader", () -> new BlockEntityType<>(TileChunkloader::new, Sets.newHashSet(NuclearScienceBlocks.BLOCK_CHUNKLOADER.get()), null));
 
 	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileSteamFunnel>> TILE_STEAMFUNNEL = BLOCK_ENTITY_TYPES.register("steamfunnel", () -> new BlockEntityType<>(TileSteamFunnel::new, Sets.newHashSet(NuclearScienceBlocks.BLOCK_STEAMFUNNEL.get()), null));
 

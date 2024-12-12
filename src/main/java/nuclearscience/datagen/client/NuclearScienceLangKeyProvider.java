@@ -327,8 +327,40 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addGuidebook("chapter.particleaccelerator.l9", "To ensure the particles actually collide, you will need to switch the direction of one. This is what the Electromagnetic Switch is for. The switch flips the direction of every other particle that crosses it. Place an Electromagnetic switch in front of the output of the Booster chain like so:");
 			addGuidebook("chapter.particleaccelerator.l10", "Now, fill in the sides and top of the ring to create an enclosed structure for the Particles. Note either Electromagnets or Electromagnetic Glass can be used.");
 
+			addGuidebook("chapter.quantumtunnel", "Quantum Tunnel");
+			addGuidebook("chapter.quantumtunnel.l1", "The Quantum Tunnel is a highly useful block for moving things long distances. The block acts like those that have come before it including the infamous Tesseract, allowing various quantities to be transported between two points instantly and effortlessly. This chapter will discuss " +
+					"how to use the block and what it can do.");
+			addGuidebook("chapter.quantumtunnel.l2.1", "First, what can the block transfer. The block can transfer the following quantities:");
+			addGuidebook("chapter.quantumtunnel.items", "Items");
+			addGuidebook("chapter.quantumtunnel.fluids", "Fluids");
+			addGuidebook("chapter.quantumtunnel.gases", "Gases");
+			addGuidebook("chapter.quantumtunnel.electricity", "Electricity");
+			addGuidebook("chapter.quantumtunnel.l2.2", "The block accomplishes this by being bound to a frequency. Each frequency can transfer all quantity types at the same time, meaning a frequency could send both electricity and gas at the same time. However you can only send one subtype at a time. For example, " +
+					"you could not send water and lava at the same time over the same frequency. It is important to note especially in the case of electricity, as electricity is treated as a packet, meaning 100J at 120V could not be sent at the same time as 500J at 960V. It is also important to note that the two conduits on either side of " +
+					"the tunnel frequency will not take into account each other's characteristics. For example, the resistance of the sending wire will not impact the resistance of the receiving wire.");
+			addGuidebook("chapter.quantumtunnel.l3.1", "We now know how the block functions, but what exactly is a frequency? Frequencies are what link quantum tunnels together. Any number of quantum tunnels can be linked to a single frequency. Opening the GUI of the quantum tunnel, you immediately will observe that there are " +
+					"two types of frequencies: Private and Public");
+			addGuidebook("chapter.quantumtunnel.l3.2", "Private frequencies are only visible to you. Public frequencies can be used by all players. However, only the player that created it may edit, add, and remove it. As this may lead to abuse cases, a command is made available to the server owner that wipes all public frequencies. " +
+					"Note the name of the player who created the frequency is also visible.");
+			addGuidebook("chapter.quantumtunnel.l4.1", "To create a new frequency, select the \"New Frequency\" button:");
+			addGuidebook("chapter.quantumtunnel.l4.2", "Doing so will open the frequency creation menu:");
+			addGuidebook("chapter.quantumtunnel.l4.3", "With the menu, you can name the frequency as well as select what type it will be. Press the \"Create\" button to finalize the creation or \"Cancel\" button to abort. Note that multiple frequencies can have the same name!");
+			addGuidebook("chapter.quantumtunnel.l5.1", "Now that we have created a frequency, how do we enable it? To do this, select the frequency from the menu by clicking on it:");
+			addGuidebook("chapter.quantumtunnel.l5.2", "This imports the frequency into the current frequency field. Press the checkmark to bind the frequency to the tunnel. Press the x to disable the frequency.");
+			addGuidebook("chapter.quantumtunnel.l6.1", "You can delete a frequency pressing the delete button (nothing will happen if you are not the creator):");
+			addGuidebook("chapter.quantumtunnel.l6.2", "You can also edit a frequency using the edit button (note nothing will happen if you are not the creator of the frequency:");
+			addGuidebook("chapter.quantumtunnel.l6.3", "Once you have made the desired changes, press the \"Save\" button to save the changes, or the \"Cancel\" button to abort the changes.");
+			addGuidebook("chapter.quantumtunnel.l7.1", "Now that the quantum tunnel is bound to a frequency of our liking, we now need to configure its IO. To do this, select the \"IO Config\" Button:");
+			addGuidebook("chapter.quantumtunnel.l7.2", "Click the squares to decide the IO of each face:");
+			addGuidebook("chapter.quantumtunnel.l7.3", "Press the IO Config button again to hide the selector.");
+			addGuidebook("chapter.quantumtunnel.l8.1", "To see the quantities being actively transported by a frequency, you can hover over the buffer view tab:");
+			addGuidebook("chapter.quantumtunnel.l8.2", "It is important to note that a Quantum Tunnel must be loaded in order for it to work!");
+
+
+
+
 			addGuidebook("chapter.othermachines", "Other Machines");
-			addGuidebook("chapter.othermachines.quantumcapacitor1", "The Quantum Capacitor is the ultimate energy storage device. It has an unlimited energy storage capacity and the storage is shared across capacitors. The GUI has two programmable fields. The first is for the joules/tick output of the capacitor. Note, the capacitor outputs at 1.92 kV! " + "The second is for the frequency. The frequency of two capacitors must match for them to link. Every capacitor network is tied to a specific player, so don't worry about other players stealing your energy!");
+			addGuidebook("chapter.othermachines.quantumcapacitor1", " the It has an unlimited energy storage capacity and the storage is shared across capacitors. The GUI has two programmable fields. The first is for the joules/tick output of the capacitor. Note, the capacitor outputs at 1.92 kV! " + "The second is for the frequency. The frequency of two capacitors must match for them to link. Every capacitor network is tied to a specific player, so don't worry about other players stealing your energy!");
 
 			addGuidebook("chapter.othermachines.teleporter1", "The Teleporter requires %s to teleport an entity and is a one-way trip. This means two teleporters are needed: one to send the player, and one to get them back. There is a 4 second cooldown after every teleport. To select a teleporter's destination, you can input coordinates via its GUI.");
 			addGuidebook("chapter.othermachines.teleporter2", "If you don't like entering coordinates manually, you can craft a %s, and import coordiantes from it to the Teleporter via the \"Import\" button. To store coordinates on a Frequency Card, right-click the card on a block. You can clear the card's stored coordinates by Shift + Right-Clicking it.");

@@ -37,13 +37,8 @@ public class ChapterOtherMachines extends Chapter {
 	@Override
 	public void addData() {
 
-		// QUantum Capacitor
-		pageData.add(new TextWrapperObject(NuclearScienceItems.ITEM_QUANTUMTUNNEL.get().getDescription().copy().withStyle(ChatFormatting.BOLD)).setCentered().setSeparateStart());
-		pageData.add(new ItemWrapperObject(7 + ScreenGuidebook.TEXT_WIDTH / 2 - 16, 5, 32, 32, 32, 2.0F, NuclearScienceItems.ITEM_QUANTUMTUNNEL.get()));
-		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.othermachines.quantumcapacitor1")).setIndentions(1).setSeparateStart());
-
 		// Teleporter
-		pageData.add(new TextWrapperObject(NuclearScienceItems.ITEM_TELEPORTER.get().getDescription().copy().withStyle(ChatFormatting.BOLD)).setCentered().setNewPage());
+		pageData.add(new TextWrapperObject(NuclearScienceItems.ITEM_TELEPORTER.get().getDescription().copy().withStyle(ChatFormatting.BOLD)).setCentered());
 		pageData.add(new ItemWrapperObject(7 + ScreenGuidebook.TEXT_WIDTH / 2 - 16, 5, 32, 32, 32, 2.0F, NuclearScienceItems.ITEM_TELEPORTER.get()));
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.othermachines.teleporter1", ChatFormatter.getChatDisplayShort(Constants.TELEPORTER_USAGE_PER_TELEPORT, DisplayUnit.JOULES))).setIndentions(1).setSeparateStart());
 		pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 150, 150, 150, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/teleporter1.png")));

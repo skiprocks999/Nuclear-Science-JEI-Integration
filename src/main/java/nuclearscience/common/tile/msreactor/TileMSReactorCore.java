@@ -53,6 +53,14 @@ public class TileMSReactorCore extends GenericTile {
 		if (change != 0) {
 			temperature.set(temperature.get() - (change < 0.001 && change > 0 ? 0.001 : change > -0.001 && change < 0 ? -0.001 : change));
 		}
+
+		if (outputCache == null) {
+			outputCache = new CachedTileOutput(level, new BlockPos(worldPosition).relative(Direction.UP));
+		}
+		if (plugCache == null) {
+			plugCache = new CachedTileOutput(level, new BlockPos(worldPosition).relative(Direction.DOWN));
+		}
+
 		if (!plugCache.valid() || !(plugCache.getSafe() instanceof TileFreezePlug freeze && freeze.isFrozen())) {
 			return;
 		}
@@ -61,12 +69,6 @@ public class TileMSReactorCore extends GenericTile {
 			return;
 		}
 
-		if (outputCache == null) {
-			outputCache = new CachedTileOutput(level, new BlockPos(worldPosition).relative(Direction.UP));
-		}
-		if (plugCache == null) {
-			plugCache = new CachedTileOutput(level, new BlockPos(worldPosition).relative(Direction.DOWN));
-		}
 		if (tick.getTicks() % 40 == 0) {
 			outputCache.update(new BlockPos(worldPosition).relative(Direction.UP));
 			plugCache.update(new BlockPos(worldPosition).relative(Direction.DOWN));

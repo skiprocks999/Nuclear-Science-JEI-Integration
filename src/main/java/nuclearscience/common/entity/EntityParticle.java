@@ -87,7 +87,7 @@ public class EntityParticle extends Entity {
 			for (int i = 0; i < checks; i++) {
 				if (!level().isClientSide) {
 					TileParticleInjector injector = (TileParticleInjector) tile;
-					injector.checkCollision();
+					injector.handleCollision();
 				} else {
 					level().addParticle(new DustParticleOptions(new Vector3f(1, 1, 1), 5), getX(), getY(), getZ(), 0, 0, 0);
 				}

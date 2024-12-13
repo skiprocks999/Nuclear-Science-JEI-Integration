@@ -9,6 +9,8 @@ import electrodynamics.prefab.utilities.object.Location;
 import electrodynamics.registers.ElectrodynamicsCapabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity.RemovalReason;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
@@ -28,7 +30,7 @@ public class TileParticleInjector extends GenericTile {
 	public static final int TIME_PER_PARTICLE = 100;
 
 	private EntityParticle[] particles = new EntityParticle[2];
-	private long timeSinceSpawn = 0;
+	private int timeSinceSpawn = 0;
 
 	public TileParticleInjector(BlockPos pos, BlockState state) {
 		super(NuclearScienceTiles.TILE_PARTICLEINJECTOR.get(), pos, state);
@@ -140,7 +142,6 @@ public class TileParticleInjector extends GenericTile {
 
 	public void addParticle(EntityParticle particle) {
 		if (particles[0] != particle && particles[1] != particle) {
-			particle.source = getBlockPos();
 			if (particles[0] == null) {
 				particles[0] = particle;
 			} else if (particles[1] == null) {
@@ -149,5 +150,15 @@ public class TileParticleInjector extends GenericTile {
 		}
 	}
 
+	@Override
+	protected void saveAdditional(CompoundTag compound, HolderLookup.Provider registries) {
+		super.saveAdditional(compound, registries);
+		compound.putInt("timesincespawn", timeSinceSpawn);
+	}
 
+	@Override
+	protected void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
+		super.loadAdditional(compound, registries);
+		timeSinceSpawn = compound.getInt("timesincespawn");
+	}
 }

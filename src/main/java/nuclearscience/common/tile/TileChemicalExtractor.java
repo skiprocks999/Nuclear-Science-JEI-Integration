@@ -17,12 +17,12 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.level.block.state.BlockState;
 import nuclearscience.common.inventory.container.ContainerChemicalExtractor;
 import nuclearscience.common.recipe.NuclearScienceRecipeInit;
+import nuclearscience.common.settings.Constants;
+import nuclearscience.prefab.utils.RadiationUtils;
 import nuclearscience.registers.NuclearScienceTiles;
 
 public class TileChemicalExtractor extends GenericTile {
 
-	public static final int DEFAULT_RAD_STRENGTH = 300;
-	public static final int RAD_RADIUS = 2;
 	public static final int MAX_TANK_CAPACITY = 5000;
 
 	public TileChemicalExtractor(BlockPos pos, BlockState state) {
@@ -38,11 +38,20 @@ public class TileChemicalExtractor extends GenericTile {
 				.setDirectionsBySlot(0, BlockEntityUtils.MachineDirection.TOP, BlockEntityUtils.MachineDirection.LEFT, BlockEntityUtils.MachineDirection.RIGHT, BlockEntityUtils.MachineDirection.FRONT, BlockEntityUtils.MachineDirection.BACK)
 				//
 				.setDirectionsBySlot(1, BlockEntityUtils.MachineDirection.TOP, BlockEntityUtils.MachineDirection.LEFT, BlockEntityUtils.MachineDirection.RIGHT, BlockEntityUtils.MachineDirection.FRONT, BlockEntityUtils.MachineDirection.BACK).validUpgrades(ContainerChemicalExtractor.VALID_UPGRADES).valid(machineValidator()));
-		addComponent(new ComponentProcessor(this).canProcess(component -> component.consumeBucket().canProcessFluidItem2ItemRecipe(component, NuclearScienceRecipeInit.CHEMICAL_EXTRACTOR_TYPE.get())).process(component -> component.processFluidItem2ItemRecipe(component)));
+		addComponent(new ComponentProcessor(this).canProcess(this::canProcess).process(component -> component.processFluidItem2ItemRecipe(component)));
 		addComponent(new ComponentContainerProvider("container.chemicalextractor", this).createMenu((id, player) -> new ContainerChemicalExtractor(id, player, getComponent(IComponentType.Inventory), getCoordsArray())));
 	}
 
-	protected void tickClient(ComponentTickable tickable) {
+	private boolean canProcess(ComponentProcessor processor) {
+		processor.consumeBucket();
+
+		RadiationUtils.handleRadioactiveFluids(this, (ComponentFluidHandlerMulti) getComponent(IComponentType.FluidHandler), Constants.CHEMICAL_EXTRACTOR_RADIATION_RADIUS, true, 0, false);
+		RadiationUtils.handleRadioactiveItems(this, (ComponentInventory) getComponent(IComponentType.Inventory), Constants.CHEMICAL_EXTRACTOR_RADIATION_RADIUS, true, 0, false);
+
+		return processor.canProcessFluidItem2ItemRecipe(processor, NuclearScienceRecipeInit.CHEMICAL_EXTRACTOR_TYPE.get());
+	}
+
+	private void tickClient(ComponentTickable tickable) {
 		if (this.<ComponentProcessor>getComponent(IComponentType.Processor).isActive() && level.random.nextDouble() < 0.15) {
 			level.addParticle(ParticleTypes.SMOKE, worldPosition.getX() + level.random.nextDouble(), worldPosition.getY() + level.random.nextDouble() * 0.8 + 0.5, worldPosition.getZ() + level.random.nextDouble(), 0.0D, 0.0D, 0.0D);
 		}

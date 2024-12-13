@@ -119,6 +119,30 @@ public class TunnelFrequencyManager {
 
     }
 
+    public static void wipePublicFrequencies() {
+
+        ServerLevel level = getOverworld();
+
+        HashMap<UUID, HashSet<TunnelFrequency>> map = level.getData(NuclearScienceAttachmentTypes.CHANNEL_MAP);
+        HashMap<TunnelFrequency, TunnelFrequencyBuffer> connectionMap = level.getData(NuclearScienceAttachmentTypes.TUNNEL_MAP);
+
+        HashSet<TunnelFrequency> publicFrequencies = map.getOrDefault(TunnelFrequency.PUBLIC_ID, new HashSet<>());
+
+        if(publicFrequencies.isEmpty()) {
+            return;
+        }
+
+        for(TunnelFrequency frequency : publicFrequencies) {
+            connectionMap.remove(frequency);
+        }
+
+        map.remove(TunnelFrequency.PUBLIC_ID);
+
+        level.setData(NuclearScienceAttachmentTypes.CHANNEL_MAP, map);
+        level.setData(NuclearScienceAttachmentTypes.TUNNEL_MAP, connectionMap);
+
+    }
+
     private static ServerLevel getOverworld() {
         return ServerLifecycleHooks.getCurrentServer().overworld();
     }

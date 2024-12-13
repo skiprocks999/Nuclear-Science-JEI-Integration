@@ -148,8 +148,8 @@ public class RadioactiveGasRegister extends SimplePreparableReloadListener<JsonO
         return INSTANCE.radioactiveGasMap;
     }
 
-    public static RadioactiveObject getValue(Gas fluid) {
-        return INSTANCE.radioactiveGasMap.getOrDefault(fluid, RadioactiveObject.ZERO);
+    public static RadioactiveObject getValue(Gas gas) {
+        return INSTANCE.radioactiveGasMap.getOrDefault(gas, RadioactiveObject.ZERO);
     }
 
     private static boolean isJson(final ResourceLocation filename) {

@@ -21,6 +21,7 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import nuclearscience.common.inventory.container.ContainerAtomicAssembler;
 import nuclearscience.common.reloadlistener.AtomicAssemblerBlacklistRegister;
 import nuclearscience.common.settings.Constants;
+import nuclearscience.prefab.utils.RadiationUtils;
 import nuclearscience.registers.NuclearScienceTiles;
 import nuclearscience.registers.NuclearScienceBlocks;
 import nuclearscience.registers.NuclearScienceItems;
@@ -52,6 +53,8 @@ public class TileAtomicAssembler extends GenericTile {
 			progress.set(0);
 			return;
 		}
+
+		RadiationUtils.handleRadioactiveItems(this, inv, Constants.ATOMIC_ASSEMBLER_RADIATION_RADIUS, true, 0, false);
 
 		ItemStack output = inv.getItem(7);
 

@@ -16,17 +16,15 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import nuclearscience.api.radiation.RadiationSystem;
-import nuclearscience.api.radiation.SimpleRadiationSource;
 import nuclearscience.api.radiation.util.RadioactiveObject;
 import nuclearscience.common.inventory.container.ContainerRadioisotopeGenerator;
 import nuclearscience.common.reloadlistener.RadioactiveItemRegister;
 import nuclearscience.common.settings.Constants;
+import nuclearscience.prefab.utils.RadiationUtils;
 import nuclearscience.registers.NuclearScienceTiles;
 
 public class TileRadioisotopeGenerator extends GenericTile {
 
-	public static final int RAD_RADIUS = 10;
 	protected CachedTileOutput output1;
 	protected CachedTileOutput output2;
 
@@ -51,12 +49,23 @@ public class TileRadioisotopeGenerator extends GenericTile {
 			output1.update(worldPosition.relative(Direction.UP));
 			output2.update(worldPosition.relative(Direction.DOWN));
 		}
-		ItemStack in = this.<ComponentInventory>getComponent(IComponentType.Inventory).getItem(0);
-		RadioactiveObject radiation = RadioactiveItemRegister.getValue(in.getItem());
 
-		double currentOutput = in.getCount() * Constants.RADIOISOTOPEGENERATOR_OUTPUT_MULTIPLIER * radiation.amount();
+		ComponentInventory inv = getComponent(IComponentType.Inventory);
+		ItemStack input = inv.getItem(0);
 
-		RadiationSystem.addRadiationSource(getLevel(), new SimpleRadiationSource(radiation.amount(), radiation.strength(), RAD_RADIUS, true, 0, getBlockPos(), false));
+		if(input.isEmpty()) {
+			return;
+		}
+
+		RadioactiveObject radiation = RadioactiveItemRegister.getValue(input.getItem());
+
+		if(radiation.amount() <= 0) {
+			return;
+		}
+
+		RadiationUtils.handleRadioactiveItems(this, inv, Constants.RADIO_GENATOR_RADIATION_RADIUS, true, 0, false);
+
+		double currentOutput = input.getCount() * Constants.RADIOISOTOPEGENERATOR_OUTPUT_MULTIPLIER * radiation.amount();
 
 		if (currentOutput > 0) {
 			TransferPack transfer = TransferPack.ampsVoltage(currentOutput / (Constants.RADIOISOTOPEGENERATOR_VOLTAGE * 2.0), Constants.RADIOISOTOPEGENERATOR_VOLTAGE);

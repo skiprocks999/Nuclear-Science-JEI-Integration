@@ -5,13 +5,8 @@ import electrodynamics.prefab.sound.SoundBarrierMethods;
 import electrodynamics.prefab.sound.utils.ITickableSound;
 import electrodynamics.prefab.tile.GenericTile;
 import electrodynamics.prefab.tile.components.IComponentType;
-import electrodynamics.prefab.tile.components.type.ComponentContainerProvider;
-import electrodynamics.prefab.tile.components.type.ComponentElectrodynamic;
-import electrodynamics.prefab.tile.components.type.ComponentInventory;
+import electrodynamics.prefab.tile.components.type.*;
 import electrodynamics.prefab.tile.components.type.ComponentInventory.InventoryBuilder;
-import electrodynamics.prefab.tile.components.type.ComponentPacketHandler;
-import electrodynamics.prefab.tile.components.type.ComponentProcessor;
-import electrodynamics.prefab.tile.components.type.ComponentTickable;
 import electrodynamics.prefab.utilities.BlockEntityUtils;
 import electrodynamics.registers.ElectrodynamicsCapabilities;
 import electrodynamics.registers.ElectrodynamicsSounds;
@@ -19,6 +14,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.level.block.state.BlockState;
 import nuclearscience.common.recipe.NuclearScienceRecipeInit;
+import nuclearscience.common.settings.Constants;
+import nuclearscience.prefab.utils.RadiationUtils;
 import nuclearscience.registers.NuclearScienceTiles;
 
 public class TileFuelReprocessor extends GenericTile implements ITickableSound {
@@ -43,6 +40,9 @@ public class TileFuelReprocessor extends GenericTile implements ITickableSound {
 		if (BlockEntityUtils.isLit(this) ^ canProcess) {
 			BlockEntityUtils.updateLit(this, canProcess);
 		}
+
+		RadiationUtils.handleRadioactiveItems(this, (ComponentInventory) getComponent(IComponentType.Inventory), Constants.FUEL_REPROCESSOR_RADIATION_RADIUS, true, 0, false);
+
 		return canProcess;
 	}
 

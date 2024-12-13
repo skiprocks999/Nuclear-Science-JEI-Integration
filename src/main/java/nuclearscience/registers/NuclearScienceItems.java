@@ -95,10 +95,10 @@ public class NuclearScienceItems {
 	public static final DeferredHolder<Item, Item> ITEM_CELLTRITIUM = ITEMS.register("celltritium", () -> new ItemElectrodynamics(new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, Item> ITEM_CELLHEAVYWATER = ITEMS.register("cellheavywater", () -> new ItemElectrodynamics(new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, Item> ITEM_CELLELECTROMAGNETIC = ITEMS.register("cellelectromagnetic", () -> new ItemElectrodynamics(new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
-	public static final DeferredHolder<Item, Item> ITEM_CELLANTIMATTERSMALL = ITEMS.register("cellantimattersmall", () -> new ItemElectrodynamics(new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
-	public static final DeferredHolder<Item, Item> ITEM_CELLANTIMATTERLARGE = ITEMS.register("cellantimatterlarge", () -> new ItemElectrodynamics(new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
-	public static final DeferredHolder<Item, Item> ITEM_CELLANTIMATTERVERYLARGE = ITEMS.register("cellantimatterverylarge", () -> new ItemElectrodynamics(new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
-	public static final DeferredHolder<Item, Item> ITEM_CELLDARKMATTER = ITEMS.register("celldarkmatter", () -> new ItemElectrodynamics(new Item.Properties().durability(4), NuclearScienceCreativeTabs.MAIN));
+	public static final DeferredHolder<Item, Item> ITEM_CELLANTIMATTERSMALL = ITEMS.register("cellantimattersmall", () -> new ItemAntimatter(new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
+	public static final DeferredHolder<Item, Item> ITEM_CELLANTIMATTERLARGE = ITEMS.register("cellantimatterlarge", () -> new ItemAntimatter(new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
+	public static final DeferredHolder<Item, Item> ITEM_CELLANTIMATTERVERYLARGE = ITEMS.register("cellantimatterverylarge", () -> new ItemAntimatter(new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
+	public static final DeferredHolder<Item, Item> ITEM_CELLDARKMATTER = ITEMS.register("celldarkmatter", () -> new ItemAntimatter(new Item.Properties().durability(4), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, Item> ITEM_FUELHEUO2 = ITEMS.register("fuelheuo2", () -> new ItemRadioactive(new Item.Properties().stacksTo(1).durability(24000), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, Item> ITEM_FUELLEUO2 = ITEMS.register("fuelleuo2", () -> new ItemRadioactive(new Item.Properties().stacksTo(1).durability(26000), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, Item> ITEM_FUELSPENT = ITEMS.register("fuelspent", () -> new ItemRadioactive(new Item.Properties().stacksTo(1), NuclearScienceCreativeTabs.MAIN));

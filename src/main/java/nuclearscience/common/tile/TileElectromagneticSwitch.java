@@ -3,7 +3,6 @@ package nuclearscience.common.tile;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
 
 import electrodynamics.prefab.tile.GenericTile;
 import net.minecraft.core.BlockPos;

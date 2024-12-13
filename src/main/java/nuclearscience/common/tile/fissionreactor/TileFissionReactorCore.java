@@ -16,21 +16,23 @@ import electrodynamics.prefab.tile.components.type.ComponentPacketHandler;
 import electrodynamics.prefab.tile.components.type.ComponentTickable;
 import electrodynamics.prefab.utilities.BlockEntityUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Explosion.BlockInteraction;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.Level.ExplosionInteraction;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import nuclearscience.api.radiation.RadiationSystem;
@@ -60,15 +62,13 @@ public class TileFissionReactorCore extends GenericTile {
     // VALUES.
     public static final double WATER_TEMPERATURE = 10;
     public static final double AIR_TEMPERATURE = 15;
-    public static final int MAX_FUEL_COUNT = 3 * 4;
     public static final int STEAM_GEN_DIAMETER = 5;
     public static final int STEAM_GEN_HEIGHT = 2;
     private ISteamReceiver[][][] cachedReceivers = new ISteamReceiver[STEAM_GEN_DIAMETER][STEAM_GEN_HEIGHT][STEAM_GEN_DIAMETER];
     public Property<Double> temperature = property(new Property<>(PropertyTypes.DOUBLE, "temperature", AIR_TEMPERATURE));
     public Property<Integer> fuelCount = property(new Property<>(PropertyTypes.INTEGER, "fuelCount", 0));
     public Property<Boolean> hasDeuterium = property(new Property<>(PropertyTypes.BOOLEAN, "hasDeuterium", false));
-    public int ticksOverheating = 0;
-    public int ticks = 0;
+    private int ticksOverheating = 0;
 
     private List<RecipeHolder<ElectrodynamicsRecipe>> cachedRecipes;
 
@@ -107,7 +107,26 @@ public class TileFissionReactorCore extends GenericTile {
 
         ComponentInventory inv = getComponent(IComponentType.Inventory);
 
-        if (fuelCount.get() > 0 && ticks > 50) {
+        if (fuelCount.get() > 0) {
+
+            double totstrength = temperature.get() * 10;
+
+            int range = (int) (Math.sqrt(totstrength) / (5 * Math.sqrt(2)) * 2);
+
+            RadiationSystem.addRadiationSource(getLevel(), new SimpleRadiationSource(totstrength, 1, range, true, 0, getBlockPos(), false));
+
+            if (level.getLevelData().getGameTime() % 10 == 0 && temperature.get() > 100) {
+                AABB bb = AABB.ofSize(new Vec3(getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ()), 4, 4, 4);
+                List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, bb);
+                for (LivingEntity living : list) {
+
+                    if (!level.getBlockState(living.getOnPos()).getFluidState().is(FluidTags.WATER)) {
+                        continue;
+                    }
+
+                    living.hurt(living.damageSources().drown(), 3);
+                }
+            }
 
             BlockEntity tile = level.getBlockEntity(worldPosition.below());
 
@@ -171,72 +190,50 @@ public class TileFissionReactorCore extends GenericTile {
     }
 
     protected void tickCommon(ComponentTickable tickable) {
-        ticks = ticks > Integer.MAX_VALUE - 2 ? 0 : ticks + 1;
-        if (ticks % 20 == 0) {
+
+        if (tickable.getTicks() % 20 == 0) {
             level.getLightEngine().checkBlock(worldPosition);
         }
-        if (fuelCount.get() > 0 && ticks > 50) {
-            double totstrength = temperature.get() * 10;
-            int range = (int) (Math.sqrt(totstrength) / (5 * Math.sqrt(2)) * 2);
-            RadiationSystem.addRadiationSource(getLevel(), new SimpleRadiationSource(totstrength, 1, range, true, 0, getBlockPos(), false));
-            if (level.getLevelData().getGameTime() % 10 == 0) {
-                if (temperature.get() > 100) {
-                    AABB bb = AABB.ofSize(new Vec3(getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ()), 4, 4, 4);
-                    List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, bb);
-                    for (LivingEntity living : list) {
-                        FluidState state = level.getBlockState(living.getOnPos()).getFluidState();
-                        if (state.is(Fluids.WATER) || state.is(Fluids.FLOWING_WATER)) {
-                            living.hurt(living.damageSources().drown(), 3);
-                        }
-                    }
-                }
-            }
-        }
+
         produceSteam();
     }
 
     public void meltdown() {
-        if (!level.isClientSide) {
-            int radius = STEAM_GEN_DIAMETER / 2;
-            level.setBlockAndUpdate(worldPosition, getBlockState().setValue(BlockStateProperties.WATERLOGGED, false));
-            for (int i = -radius; i <= radius; i++) {
-                for (int j = -radius; j <= radius; j++) {
-                    for (int k = -radius; k <= radius; k++) {
-                        BlockPos ppos = new BlockPos(worldPosition.getX() + i, worldPosition.getY() + j, worldPosition.getZ() + k);
-                        BlockState state = level.getBlockState(ppos);
-                        if (state.getBlock() == Blocks.WATER) {
-                            level.setBlockAndUpdate(ppos, Blocks.AIR.defaultBlockState());
-                        }
+
+        int radius = STEAM_GEN_DIAMETER / 2;
+        level.setBlockAndUpdate(worldPosition, getBlockState().setValue(BlockStateProperties.WATERLOGGED, false));
+        for (int i = -radius; i <= radius; i++) {
+            for (int j = -radius; j <= radius; j++) {
+                for (int k = -radius; k <= radius; k++) {
+                    BlockPos ppos = new BlockPos(worldPosition.getX() + i, worldPosition.getY() + j, worldPosition.getZ() + k);
+                    BlockState state = level.getBlockState(ppos);
+                    if (state.getBlock() == Blocks.WATER) {
+                        level.setBlockAndUpdate(ppos, Blocks.AIR.defaultBlockState());
                     }
                 }
             }
-            level.setBlockAndUpdate(worldPosition, Blocks.AIR.defaultBlockState());
-            // Feel free to switch to a different damage source; I figured radiation fitted
-            // the best
-            // switch to false if you don't want fire
-            // for the final null, you can pass in a ExplosionCalculator if you want to do a
-            // custom explosion
-            Explosion actual = new Explosion(level, null, level.damageSources().source(NuclearScienceDamageTypes.RADIATION), null, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), 20, true, BlockInteraction.KEEP, ParticleTypes.EXPLOSION, ParticleTypes.EXPLOSION_EMITTER, SoundEvents.GENERIC_EXPLODE);
-            // Explosion actual = new Explosion(level, null, worldPosition.getX(),
-            // worldPosition.getY(), worldPosition.getZ(), 20, new ArrayList<>());
-            radius = 3 * fuelCount.get();
-            for (int i = -radius; i <= radius; i++) {
-                for (int j = -radius; j <= radius; j++) {
-                    for (int k = -radius; k <= radius; k++) {
-                        BlockPos ppos = new BlockPos(worldPosition.getX() + i, worldPosition.getY() + j, worldPosition.getZ() + k);
-                        BlockState state = level.getBlockState(ppos);
-                        if (state.getBlock().getExplosionResistance(state, level, ppos, actual) < radius) {
-                            double distance = Math.sqrt(i * i + j * j + k * k);
-                            if (distance < radius && level.random.nextFloat() < 1 - 0.0001 * distance * distance * distance && level.random.nextFloat() < 0.9) {
-                                level.getBlockState(ppos).onBlockExploded(level, ppos, actual);
-                            }
-                        }
-                    }
-                }
-            }
-            level.explode(null, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), 20, ExplosionInteraction.BLOCK);
-            level.setBlockAndUpdate(worldPosition, NuclearScienceBlocks.BLOCK_MELTEDREACTOR.get().defaultBlockState());
         }
+        level.setBlockAndUpdate(worldPosition, Blocks.AIR.defaultBlockState());
+
+        Explosion actual = new Explosion(level, null, level.damageSources().source(NuclearScienceDamageTypes.RADIATION), null, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), 20, true, BlockInteraction.KEEP, ParticleTypes.EXPLOSION, ParticleTypes.EXPLOSION_EMITTER, SoundEvents.GENERIC_EXPLODE);
+
+        radius = 3 * fuelCount.get();
+        for (int i = -radius; i <= radius; i++) {
+            for (int j = -radius; j <= radius; j++) {
+                for (int k = -radius; k <= radius; k++) {
+                    BlockPos ppos = new BlockPos(worldPosition.getX() + i, worldPosition.getY() + j, worldPosition.getZ() + k);
+                    BlockState state = level.getBlockState(ppos);
+                    if (state.getBlock().getExplosionResistance(state, level, ppos, actual) < radius) {
+                        double distance = Math.sqrt(i * i + j * j + k * k);
+                        if (distance < radius && level.random.nextFloat() < 1 - 0.0001 * distance * distance * distance && level.random.nextFloat() < 0.9) {
+                            level.getBlockState(ppos).onBlockExploded(level, ppos, actual);
+                        }
+                    }
+                }
+            }
+        }
+        level.explode(null, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), 20, ExplosionInteraction.BLOCK);
+        level.setBlockAndUpdate(worldPosition, NuclearScienceBlocks.BLOCK_MELTEDREACTOR.get().defaultBlockState());
     }
 
     protected void produceSteam() {
@@ -258,43 +255,49 @@ public class TileFissionReactorCore extends GenericTile {
                     int offsetX = worldPosition.getX() + i - STEAM_GEN_DIAMETER / 2;
                     int offsetY = worldPosition.getY() + j;
                     int offsetZ = worldPosition.getZ() + k - STEAM_GEN_DIAMETER / 2;
+
                     BlockPos offpos = new BlockPos(offsetX, offsetY, offsetZ);
-                    Block offset = level.getBlockState(offpos).getBlock();
-                    if (offset == Blocks.WATER) {
-                        boolean isFaceWater = level.getBlockState(new BlockPos(offsetX, worldPosition.getY(), worldPosition.getZ())).getBlock() == Blocks.WATER || level.getBlockState(new BlockPos(worldPosition.getX(), worldPosition.getY(), offsetZ)).getBlock() == Blocks.WATER || isReactor2d;
-                        if (isFaceWater) {
-                            if (!level.isClientSide) {
-                                ISteamReceiver turbine = cachedReceivers[i][j][k];
-                                if (turbine != null) {
-                                    if (turbine.isStillValid()) {
-                                        cachedReceivers[i][j][k] = null;
-                                    }
-                                    double temp = temperature.get();
-                                    turbine.receiveSteam((int) temp, (int) (Constants.FISSIONREACTOR_MAXENERGYTARGET / (STEAM_GEN_DIAMETER * STEAM_GEN_DIAMETER * 20.0 * (MELTDOWN_TEMPERATURE_ACTUAL / temperature.get()))));
-                                }
-                                if (level.random.nextFloat() < temperature.get() / (MELTDOWN_TEMPERATURE_CALC * 20.0 * STEAM_GEN_DIAMETER * STEAM_GEN_DIAMETER * STEAM_GEN_HEIGHT)) {
-                                    level.setBlockAndUpdate(offpos, Blocks.AIR.defaultBlockState());
-                                    continue;
-                                }
-                                if (turbine == null || turbine.isStillValid()) {
-                                    BlockEntity above = level.getBlockEntity(new BlockPos(offsetX, offsetY + 1, offsetZ));
-                                    if (above instanceof ISteamReceiver trb) {
-                                        cachedReceivers[i][j][k] = trb;
-                                    } else {
-                                        cachedReceivers[i][j][k] = null;
-                                    }
-                                }
-                            } else if (level.isClientSide && level.random.nextFloat() < temperature.get() / (MELTDOWN_TEMPERATURE_ACTUAL * 3)) {
-                                double offsetFX = offsetX + level.random.nextDouble() / 2.0 * (level.random.nextBoolean() ? -1 : 1);
-                                double offsetFY = offsetY + level.random.nextDouble() / 2.0 * (level.random.nextBoolean() ? -1 : 1);
-                                double offsetFZ = offsetZ + level.random.nextDouble() / 2.0 * (level.random.nextBoolean() ? -1 : 1);
-                                level.addParticle(ParticleTypes.BUBBLE, offsetFX + 0.5D, offsetFY + 0.20000000298023224D, offsetFZ + 0.5D, 0.0D, 0.0D, 0.0D);
-                                if (level.random.nextInt(3) == 0) {
-                                    level.addParticle(ParticleTypes.SMOKE, offsetFX + 0.5D, offsetFY + 0.5D, offsetFZ + 0.5D, 0.0D, 0.0D, 0.0D);
-                                }
+
+                    if (!isStillWater(getLevel(), offpos)) {
+                        continue;
+                    }
+
+                    boolean isFaceWater = isStillWater(level, new BlockPos(offsetX, worldPosition.getY(), worldPosition.getZ())) || isStillWater(level, new BlockPos(worldPosition.getX(), worldPosition.getY(), offsetZ)) || isReactor2d;
+                    if (!isFaceWater) {
+                        continue;
+                    }
+
+                    if (!level.isClientSide) {
+                        ISteamReceiver turbine = cachedReceivers[i][j][k];
+                        if (turbine != null) {
+                            if (turbine.isStillValid()) {
+                                cachedReceivers[i][j][k] = null;
+                            }
+                            double temp = temperature.get();
+                            turbine.receiveSteam((int) temp, (int) (Constants.FISSIONREACTOR_MAXENERGYTARGET / (STEAM_GEN_DIAMETER * STEAM_GEN_DIAMETER * 20.0 * (MELTDOWN_TEMPERATURE_ACTUAL / temperature.get()))));
+                        }
+                        if (level.random.nextFloat() < temperature.get() / (MELTDOWN_TEMPERATURE_CALC * 20.0 * STEAM_GEN_DIAMETER * STEAM_GEN_DIAMETER * STEAM_GEN_HEIGHT)) {
+                            level.setBlockAndUpdate(offpos, Blocks.AIR.defaultBlockState());
+                            continue;
+                        }
+                        if (turbine == null || turbine.isStillValid()) {
+                            BlockEntity above = level.getBlockEntity(new BlockPos(offsetX, offsetY + 1, offsetZ));
+                            if (above instanceof ISteamReceiver trb) {
+                                cachedReceivers[i][j][k] = trb;
+                            } else {
+                                cachedReceivers[i][j][k] = null;
                             }
                         }
+                    } else if (level.isClientSide && level.random.nextFloat() < temperature.get() / (MELTDOWN_TEMPERATURE_ACTUAL * 3)) {
+                        double offsetFX = offsetX + level.random.nextDouble() / 2.0 * (level.random.nextBoolean() ? -1 : 1);
+                        double offsetFY = offsetY + level.random.nextDouble() / 2.0 * (level.random.nextBoolean() ? -1 : 1);
+                        double offsetFZ = offsetZ + level.random.nextDouble() / 2.0 * (level.random.nextBoolean() ? -1 : 1);
+                        level.addParticle(ParticleTypes.BUBBLE, offsetFX + 0.5D, offsetFY + 0.20000000298023224D, offsetFZ + 0.5D, 0.0D, 0.0D, 0.0D);
+                        if (level.random.nextInt(3) == 0) {
+                            level.addParticle(ParticleTypes.SMOKE, offsetFX + 0.5D, offsetFY + 0.5D, offsetFZ + 0.5D, 0.0D, 0.0D, 0.0D);
+                        }
                     }
+
                 }
             }
         }
@@ -389,4 +392,23 @@ public class TileFissionReactorCore extends GenericTile {
 
     }
 
+    public static boolean isStillWater(Level world, BlockPos pos) {
+
+        FluidState fluidState = world.getFluidState(pos);
+
+        return fluidState.is(FluidTags.WATER) && fluidState.isSource();
+
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag compound, HolderLookup.Provider registries) {
+        super.saveAdditional(compound, registries);
+        compound.putInt("ticksoverheating", ticksOverheating);
+    }
+
+    @Override
+    protected void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
+        super.loadAdditional(compound, registries);
+        ticksOverheating = compound.getInt("ticksoverheating");
+    }
 }

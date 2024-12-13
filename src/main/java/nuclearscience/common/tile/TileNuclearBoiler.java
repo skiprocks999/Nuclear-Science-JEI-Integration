@@ -26,6 +26,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import nuclearscience.common.inventory.container.ContainerNuclearBoiler;
 import nuclearscience.common.recipe.NuclearScienceRecipeInit;
+import nuclearscience.common.settings.Constants;
+import nuclearscience.prefab.utils.RadiationUtils;
 import nuclearscience.registers.NuclearScienceTiles;
 import nuclearscience.registers.NuclearScienceSounds;
 
@@ -53,6 +55,11 @@ public class TileNuclearBoiler extends GenericTile implements ITickableSound {
 
 	protected void tickServer(ComponentTickable tickable) {
 		Level world = getLevel();
+
+		RadiationUtils.handleRadioactiveGases(this, (ComponentGasHandlerMulti) getComponent(IComponentType.GasHandler), Constants.NUCLEAR_BOILER_RADIATION_RADIUS, true, 0, false);
+		RadiationUtils.handleRadioactiveFluids(this, (ComponentFluidHandlerMulti) getComponent(IComponentType.FluidHandler), Constants.NUCLEAR_BOILER_RADIATION_RADIUS, true, 0, false);
+		RadiationUtils.handleRadioactiveItems(this, (ComponentInventory) getComponent(IComponentType.Inventory), Constants.NUCLEAR_BOILER_RADIATION_RADIUS, true, 0, false);
+
 
 		Direction centrifugeDir = getFacing().getCounterClockWise();
 		BlockEntity tile = world.getBlockEntity(getBlockPos().relative(centrifugeDir));

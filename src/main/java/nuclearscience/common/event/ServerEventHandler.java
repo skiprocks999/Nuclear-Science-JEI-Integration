@@ -6,7 +6,8 @@ import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import nuclearscience.References;
-import nuclearscience.common.command.CommandWipeFrequencies;
+import nuclearscience.common.command.CommandWipeAllFrequencies;
+import nuclearscience.common.command.CommandWipePublicFrequencies;
 import nuclearscience.common.reloadlistener.*;
 
 @EventBusSubscriber(modid = References.ID, bus = EventBusSubscriber.Bus.GAME)
@@ -32,7 +33,8 @@ public class ServerEventHandler {
 
 	@SubscribeEvent
 	public static void registerCommands(RegisterCommandsEvent event) {
-		CommandWipeFrequencies.register(event.getDispatcher());
+		CommandWipeAllFrequencies.register(event.getDispatcher());
+		CommandWipePublicFrequencies.register(event.getDispatcher());
 	}
 
 

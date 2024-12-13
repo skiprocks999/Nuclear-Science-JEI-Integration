@@ -2,13 +2,8 @@ package nuclearscience.common.tile;
 
 import electrodynamics.prefab.tile.GenericTile;
 import electrodynamics.prefab.tile.components.IComponentType;
-import electrodynamics.prefab.tile.components.type.ComponentContainerProvider;
-import electrodynamics.prefab.tile.components.type.ComponentElectrodynamic;
-import electrodynamics.prefab.tile.components.type.ComponentInventory;
+import electrodynamics.prefab.tile.components.type.*;
 import electrodynamics.prefab.tile.components.type.ComponentInventory.InventoryBuilder;
-import electrodynamics.prefab.tile.components.type.ComponentPacketHandler;
-import electrodynamics.prefab.tile.components.type.ComponentProcessor;
-import electrodynamics.prefab.tile.components.type.ComponentTickable;
 import electrodynamics.prefab.utilities.BlockEntityUtils;
 import electrodynamics.prefab.utilities.object.Location;
 import electrodynamics.registers.ElectrodynamicsCapabilities;
@@ -20,6 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import nuclearscience.common.entity.EntityParticle;
 import nuclearscience.common.inventory.container.ContainerParticleInjector;
 import nuclearscience.common.settings.Constants;
+import nuclearscience.prefab.utils.RadiationUtils;
 import nuclearscience.registers.NuclearScienceTiles;
 import nuclearscience.registers.NuclearScienceItems;
 
@@ -40,6 +36,9 @@ public class TileParticleInjector extends GenericTile {
 	}
 
 	protected boolean canProcess(ComponentProcessor processor) {
+
+		RadiationUtils.handleRadioactiveItems(this, (ComponentInventory) getComponent(IComponentType.Inventory), Constants.PARTICLE_INJECTOR_RADIATION_RADIUS, true, 0, false);
+
 		if (particles[0] != null && !particles[0].isAlive()) {
 			particles[0] = null;
 		}

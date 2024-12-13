@@ -23,11 +23,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import nuclearscience.api.radiation.RadiationSystem;
-import nuclearscience.api.radiation.SimpleRadiationSource;
 import nuclearscience.common.inventory.container.ContainerGasCentrifuge;
 import nuclearscience.common.settings.Constants;
 import nuclearscience.common.tags.NuclearScienceTags;
+import nuclearscience.prefab.utils.RadiationUtils;
 import nuclearscience.registers.NuclearScienceTiles;
 import nuclearscience.registers.NuclearScienceItems;
 import nuclearscience.registers.NuclearScienceSounds;
@@ -44,14 +43,11 @@ public class TileGasCentrifuge extends GenericTile implements ITickableSound {
 	public Property<Double> storedWaste = property(new Property<>(PropertyTypes.DOUBLE, "storedWaste", 0.0));
 	public Property<Boolean> isRunning = property(new Property<>(PropertyTypes.BOOLEAN, "isRunning", false));
 
-	private static final int RADATION_RADIUS_BLOCKS = 5;
-	private static final int RADIADION_AMOUNT = 5000;
-
 	private boolean isSoundPlaying = false;
 
 	public TileGasCentrifuge(BlockPos pos, BlockState state) {
 		super(NuclearScienceTiles.TILE_GASCENTRIFUGE.get(), pos, state);
-		addComponent(new ComponentTickable(this).tickClient(this::tickClient).tickServer(this::tickServer));
+		addComponent(new ComponentTickable(this).tickClient(this::tickClient));
 
 		addComponent(new ComponentPacketHandler(this));
 		addComponent(new ComponentGasHandlerMulti(this).setInputTanks(1, arr(TANKCAPACITY), arr(294), arr(1)).setInputGasTags(NuclearScienceTags.Gases.URANIUM_HEXAFLUORIDE).setInputDirections(BlockEntityUtils.MachineDirection.BACK));
@@ -67,6 +63,10 @@ public class TileGasCentrifuge extends GenericTile implements ITickableSound {
 		ComponentElectrodynamic electro = getComponent(IComponentType.Electrodynamic);
 		ComponentInventory inv = getComponent(IComponentType.Inventory);
 		ComponentGasHandlerMulti gasHandler = getComponent(IComponentType.GasHandler);
+
+		RadiationUtils.handleRadioactiveGases(this, gasHandler, Constants.GAS_CENTRIFUGE_RADIATION_RADIUS, true, 0, false);
+		RadiationUtils.handleRadioactiveItems(this, inv, Constants.GAS_CENTRIFUGE_RADIATION_RADIUS, true, 0, false);
+
 		boolean hasGas = gasHandler.getInputTanks()[0].getGasAmount() >= REQUIRED / 60.0;
 		boolean val = electro.getJoulesStored() >= processor.getUsage() && hasGas && inv.getItem(0).getCount() < inv.getItem(0).getMaxStackSize() && inv.getItem(1).getCount() < inv.getItem(1).getMaxStackSize() && inv.getItem(2).getCount() < inv.getItem(2).getMaxStackSize();
 		if (!val && spinSpeed.get() > 0) {
@@ -81,7 +81,6 @@ public class TileGasCentrifuge extends GenericTile implements ITickableSound {
 	public void process(ComponentProcessor processor) {
 		ComponentInventory inv = getComponent(IComponentType.Inventory);
 		ComponentGasHandlerMulti multi = getComponent(IComponentType.GasHandler);
-		// ComponentFluidHandlerMulti multi = getComponent(ComponentType.FluidHandler);
 		spinSpeed.set(processor.operatingSpeed.get().intValue());
 		int processed = (int) (REQUIRED / 60.0);
 		GasTank tank = multi.getInputTanks()[0];
@@ -127,13 +126,6 @@ public class TileGasCentrifuge extends GenericTile implements ITickableSound {
 			isSoundPlaying = true;
 			SoundBarrierMethods.playTileSound(NuclearScienceSounds.SOUND_GASCENTRIFUGE.get(), this, true);
 		}
-	}
-
-	protected void tickServer(ComponentTickable tickable) {
-		if(!isRunning.get()) {
-			return;
-		}
-		RadiationSystem.addRadiationSource(getLevel(), new SimpleRadiationSource(RADIADION_AMOUNT, 1, RADATION_RADIUS_BLOCKS, true, 0, getBlockPos(), false));
 	}
 
 	@Override

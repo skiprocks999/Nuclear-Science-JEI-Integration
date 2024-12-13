@@ -2,20 +2,16 @@ package nuclearscience.common.tile;
 
 import electrodynamics.prefab.tile.GenericTile;
 import electrodynamics.prefab.tile.components.IComponentType;
-import electrodynamics.prefab.tile.components.type.ComponentContainerProvider;
-import electrodynamics.prefab.tile.components.type.ComponentElectrodynamic;
-import electrodynamics.prefab.tile.components.type.ComponentFluidHandlerMulti;
-import electrodynamics.prefab.tile.components.type.ComponentInventory;
+import electrodynamics.prefab.tile.components.type.*;
 import electrodynamics.prefab.tile.components.type.ComponentInventory.InventoryBuilder;
-import electrodynamics.prefab.tile.components.type.ComponentPacketHandler;
-import electrodynamics.prefab.tile.components.type.ComponentProcessor;
-import electrodynamics.prefab.tile.components.type.ComponentTickable;
 import electrodynamics.prefab.utilities.BlockEntityUtils;
 import electrodynamics.registers.ElectrodynamicsCapabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import nuclearscience.common.inventory.container.ContainerRadioactiveProcessor;
 import nuclearscience.common.recipe.NuclearScienceRecipeInit;
+import nuclearscience.common.settings.Constants;
+import nuclearscience.prefab.utils.RadiationUtils;
 import nuclearscience.registers.NuclearScienceTiles;
 
 public class TileRadioactiveProcessor extends GenericTile {
@@ -37,10 +33,15 @@ public class TileRadioactiveProcessor extends GenericTile {
 
     private boolean shouldProcessRecipe(ComponentProcessor component) {
         component.consumeBucket();
+
         boolean canProcess = component.canProcessFluidItem2ItemRecipe(component, NuclearScienceRecipeInit.RADIOACTIVE_PROCESSOR_TYPE.get());
         if (BlockEntityUtils.isLit(this) ^ canProcess) {
             BlockEntityUtils.updateLit(this, canProcess);
         }
+
+        RadiationUtils.handleRadioactiveFluids(this, (ComponentFluidHandlerMulti) getComponent(IComponentType.FluidHandler), Constants.RADIOACTIVE_PROCESSOR_RADIATION_RADIUS, true, 0, false);
+        RadiationUtils.handleRadioactiveItems(this, (ComponentInventory) getComponent(IComponentType.Inventory), Constants.RADIOACTIVE_PROCESSOR_RADIATION_RADIUS, true, 0, false);
+
         return canProcess;
     }
 

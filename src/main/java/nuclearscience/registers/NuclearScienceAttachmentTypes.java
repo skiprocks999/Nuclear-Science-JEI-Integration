@@ -254,5 +254,7 @@ public class NuclearScienceAttachmentTypes {
         }
     }).build());
 
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> ANTIMATTER_TIMEONGROUND = ATTACHMENT_TYPES.register("timeonground", () -> AttachmentType.builder(() -> Constants.ANTIMATTER_TICKS_ON_GROUND).serialize(Codec.INT).build());
+
 
 }

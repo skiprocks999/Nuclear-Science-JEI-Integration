@@ -6,7 +6,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
-import nuclearscience.common.tile.msreactor.TileMSReactorCore;
+import nuclearscience.common.tile.reactor.moltensalt.TileMSReactorCore;
 import nuclearscience.registers.NuclearScienceMenuTypes;
 
 public class ContainerMSRReactorCore extends GenericContainerBlockEntity<TileMSReactorCore> {

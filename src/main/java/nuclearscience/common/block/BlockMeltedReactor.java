@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import nuclearscience.common.tile.fissionreactor.TileMeltedReactor;
+import nuclearscience.common.tile.reactor.fission.TileMeltedReactor;
 
 public class BlockMeltedReactor extends GenericEntityBlockWaterloggable {
 

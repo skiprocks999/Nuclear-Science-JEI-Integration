@@ -42,7 +42,7 @@ public class NuclearScienceItems {
 
 	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_RADIOISOTOPEGENERATOR = ITEMS.register("radioisotopegenerator", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_RADIOISOTOPEGENERATOR.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_FISSIONREACTORCORE = ITEMS.register("fissionreactorcore", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_FISSIONREACTORCORE.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
-	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_CONTROLROD = ITEMS.register("controlrodassembly", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_CONTROLROD.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
+	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_FISSIONCONTROLROD = ITEMS.register("fissioncontrolrod", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_FISSIONCONTROLROD.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_SIREN = ITEMS.register("siren", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_SIREN.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_TURBINE = ITEMS.register("turbine", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_TURBINE.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_STEAMFUNNEL = ITEMS.register("steamfunnel", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_STEAMFUNNEL.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
@@ -54,6 +54,7 @@ public class NuclearScienceItems {
 	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_HEATEXCHANGER = ITEMS.register("heatexchanger", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_HEATEXCHANGER.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_MOLTENSALTSUPPLIER = ITEMS.register("moltensaltsupplier", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_MOLTENSALTSUPPLIER.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 	public static final BulkDeferredHolder<Item, BlockItemDescriptable, SubtypeMoltenSaltPipe> ITEMS_MOLTENSALTPIPTE = new BulkDeferredHolder<>(SubtypeMoltenSaltPipe.values(), subtype -> ITEMS.register(subtype.tag(), () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCKS_MOLTENSALTPIPE.getValue(subtype), new Item.Properties(), NuclearScienceCreativeTabs.MAIN)));
+	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_MSCONTROLROD = ITEMS.register("mscontrolrod", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_MSCONTROLROD.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 
 
 	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_FUSIONREACTORCORE = ITEMS.register("fusionreactorcore", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_FUSIONREACTORCORE.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));

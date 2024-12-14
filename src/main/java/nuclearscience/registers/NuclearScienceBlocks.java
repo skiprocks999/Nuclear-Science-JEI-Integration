@@ -14,18 +14,12 @@ import nuclearscience.common.block.connect.BlockMoltenSaltPipe;
 import nuclearscience.common.block.subtype.SubtypeIrradiatedBlock;
 import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
 import nuclearscience.common.block.subtype.SubtypeRadiationShielding;
-import nuclearscience.common.tile.TileAtomicAssembler;
-import nuclearscience.common.tile.TileChemicalExtractor;
-import nuclearscience.common.tile.TileGasCentrifuge;
-import nuclearscience.common.tile.TileNuclearBoiler;
-import nuclearscience.common.tile.TileParticleInjector;
-import nuclearscience.common.tile.TileRadioisotopeGenerator;
-import nuclearscience.common.tile.TileSiren;
-import nuclearscience.common.tile.TileSteamFunnel;
-import nuclearscience.common.tile.msreactor.TileFreezePlug;
-import nuclearscience.common.tile.msreactor.TileHeatExchanger;
-import nuclearscience.common.tile.msreactor.TileMSRFuelPreProcessor;
-import nuclearscience.common.tile.msreactor.TileMSReactorCore;
+import nuclearscience.common.tile.*;
+import nuclearscience.common.tile.reactor.TileControlRod;
+import nuclearscience.common.tile.reactor.moltensalt.TileFreezePlug;
+import nuclearscience.common.tile.reactor.moltensalt.TileHeatExchanger;
+import nuclearscience.common.tile.reactor.moltensalt.TileMSRFuelPreProcessor;
+import nuclearscience.common.tile.reactor.moltensalt.TileMSReactorCore;
 
 public class NuclearScienceBlocks {
 
@@ -48,7 +42,8 @@ public class NuclearScienceBlocks {
 	public static final DeferredHolder<Block, GenericMachineBlock> BLOCK_PARTICLEINJECTOR = BLOCKS.register("particleinjector", () -> new GenericMachineBlock(TileParticleInjector::new));
 	public static final DeferredHolder<Block, BlockQuantumTunnel> BLOCK_QUANTUMTUNNEL = BLOCKS.register("quantumcapacitor", () -> new BlockQuantumTunnel());
 	public static final DeferredHolder<Block, BlockTeleporter> BLOCK_TELEPORTER = BLOCKS.register("teleporter", () -> new BlockTeleporter());
-	public static final DeferredHolder<Block, BlockControlRodAssembly> BLOCK_CONTROLROD = BLOCKS.register("controlrodassembly", () -> new BlockControlRodAssembly());
+	public static final DeferredHolder<Block, GenericMachineBlock> BLOCK_FISSIONCONTROLROD = BLOCKS.register("fissioncontrolrod", () -> new GenericMachineBlock(TileControlRod.TileFissionControlRod::new));
+	public static final DeferredHolder<Block, GenericMachineBlock> BLOCK_MSCONTROLROD = BLOCKS.register("mscontrolrod", () -> new GenericMachineBlock(TileControlRod.TileMSControlRod::new));
 	public static final DeferredHolder<Block, BlockFuelReprocessor> BLOCK_FUELREPROCESSOR = BLOCKS.register("fuelreprocessor", () -> new BlockFuelReprocessor());
 	public static final DeferredHolder<Block, BlockRadioactiveProcessor> BLOCK_RADIOACTIVEPROCESSOR = BLOCKS.register("radioactiveprocessor", () -> new BlockRadioactiveProcessor());
 	public static final DeferredHolder<Block, BlockMSRFuelPreprocessor> BLOCK_MSRFUELPREPROCESSOR = BLOCKS.register("msrfuelpreprocessor", () -> new BlockMSRFuelPreprocessor(TileMSRFuelPreProcessor::new));

@@ -1,4 +1,4 @@
-package nuclearscience.common.tile.saltpipe;
+package nuclearscience.common.tile.reactor.moltensalt;
 
 import electrodynamics.prefab.properties.PropertyTypes;
 import net.minecraft.core.HolderLookup;

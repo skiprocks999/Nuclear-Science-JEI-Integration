@@ -1,4 +1,4 @@
-package nuclearscience.common.tile.msreactor;
+package nuclearscience.common.tile.reactor.moltensalt;
 
 import electrodynamics.prefab.properties.Property;
 import electrodynamics.prefab.properties.PropertyTypes;
@@ -43,13 +43,13 @@ public class TileFreezePlug extends GenericTile {
 
 		if (stack.isEmpty()) {
 			isFrozen.set(false);
-			saltBonus.set(0);
+			saltBonus.set(0.0);
 			return;
 		}
 
 		if (electro.getJoulesStored() < Constants.FREEZEPLUG_USAGE_PER_TICK) {
 			isFrozen.set(false);
-			saltBonus.set(0);
+			saltBonus.set(0.0);
 			return;
 		}
 

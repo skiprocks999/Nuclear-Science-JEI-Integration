@@ -1,4 +1,4 @@
-package nuclearscience.common.tile.fissionreactor;
+package nuclearscience.common.tile.reactor.fission;
 
 import java.util.List;
 
@@ -15,6 +15,7 @@ import electrodynamics.prefab.tile.components.type.ComponentInventory.InventoryB
 import electrodynamics.prefab.tile.components.type.ComponentPacketHandler;
 import electrodynamics.prefab.tile.components.type.ComponentTickable;
 import electrodynamics.prefab.utilities.BlockEntityUtils;
+import electrodynamics.prefab.utilities.object.CachedTileOutput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
@@ -41,7 +42,7 @@ import nuclearscience.api.turbine.ISteamReceiver;
 import nuclearscience.common.inventory.container.ContainerReactorCore;
 import nuclearscience.common.recipe.NuclearScienceRecipeInit;
 import nuclearscience.common.settings.Constants;
-import nuclearscience.common.tile.TileControlRodAssembly;
+import nuclearscience.common.tile.reactor.TileControlRod;
 import nuclearscience.registers.NuclearScienceTiles;
 import nuclearscience.registers.NuclearScienceBlocks;
 import nuclearscience.registers.NuclearScienceDamageTypes;
@@ -68,6 +69,7 @@ public class TileFissionReactorCore extends GenericTile {
     public Property<Double> temperature = property(new Property<>(PropertyTypes.DOUBLE, "temperature", AIR_TEMPERATURE));
     public Property<Integer> fuelCount = property(new Property<>(PropertyTypes.INTEGER, "fuelCount", 0));
     public Property<Boolean> hasDeuterium = property(new Property<>(PropertyTypes.BOOLEAN, "hasDeuterium", false));
+    private CachedTileOutput controlRodCache;
     private int ticksOverheating = 0;
 
     private List<RecipeHolder<ElectrodynamicsRecipe>> cachedRecipes;
@@ -128,17 +130,25 @@ public class TileFissionReactorCore extends GenericTile {
                 }
             }
 
-            BlockEntity tile = level.getBlockEntity(worldPosition.below());
+            if(controlRodCache == null) {
+                controlRodCache = new CachedTileOutput(getLevel(), worldPosition.below());
+            }
+
+            if(tickable.getTicks() % 10 == 0 && !controlRodCache.valid()) {
+                controlRodCache.update(worldPosition.below());
+            }
 
             int insertion = 0;
 
-            if (tile instanceof TileControlRodAssembly assembly) {
+            if (controlRodCache.valid() && level.getBlockState(controlRodCache.getPos()).is(NuclearScienceBlocks.BLOCK_FISSIONCONTROLROD.get())) {
 
-                insertion = assembly.isMSR.get() ? 0 : assembly.insertion.get();
+                TileControlRod.TileFissionControlRod rod = controlRodCache.getSafe();
+
+                insertion = rod.insertion.get();
 
             }
 
-            double insertDecimal = (100 - insertion) / 100.0;
+            double insertDecimal = 1.0 - insertion / (double) TileControlRod.MAX_EXTENSION;
 
             if (level.random.nextFloat() < insertDecimal) {
 

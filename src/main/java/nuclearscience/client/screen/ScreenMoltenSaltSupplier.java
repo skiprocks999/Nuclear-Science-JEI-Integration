@@ -14,7 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import nuclearscience.common.inventory.container.ContainerMoltenSaltSupplier;
 import nuclearscience.common.settings.Constants;
-import nuclearscience.common.tile.msreactor.TileMoltenSaltSupplier;
+import nuclearscience.common.tile.reactor.moltensalt.TileMoltenSaltSupplier;
 import nuclearscience.prefab.utils.NuclearTextUtils;
 
 public class ScreenMoltenSaltSupplier extends GenericScreen<ContainerMoltenSaltSupplier> {

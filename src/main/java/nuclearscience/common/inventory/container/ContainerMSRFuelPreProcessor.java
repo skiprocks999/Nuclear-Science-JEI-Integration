@@ -12,7 +12,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
-import nuclearscience.common.tile.msreactor.TileMSRFuelPreProcessor;
+import nuclearscience.common.tile.reactor.moltensalt.TileMSRFuelPreProcessor;
 import nuclearscience.registers.NuclearScienceMenuTypes;
 
 public class ContainerMSRFuelPreProcessor extends GenericContainerBlockEntity<TileMSRFuelPreProcessor> {

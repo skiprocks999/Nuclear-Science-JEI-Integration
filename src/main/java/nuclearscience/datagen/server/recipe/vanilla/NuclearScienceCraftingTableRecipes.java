@@ -520,7 +520,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.complete(References.ID, "chemicalextractor", output);
 
-		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_CONTROLROD.get(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_FISSIONCONTROLROD.get(), 1)
 				//
 				.addPattern("SsS")
 				//
@@ -536,7 +536,27 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('C', ElectrodynamicsTags.Items.CIRCUITS_ADVANCED)
 				//
-				.complete(References.ID, "controlrod", output);
+				.complete(References.ID, "fissioncontrolrod", output);
+
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_MSCONTROLROD.get(), 1)
+				//
+				.addPattern(" C ")
+				//
+				.addPattern("CRC")
+				//
+				.addPattern(" C ")
+				//
+				.addKey('C', ItemTags.COALS)
+				//
+				.addKey('R', NuclearScienceItems.ITEM_FISSIONCONTROLROD.get())
+				//
+				.complete(References.ID, "mscontrolrod", output);
+
+		ShapelessCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_FISSIONCONTROLROD.get(), 1)
+				//
+				.addIngredient(NuclearScienceItems.ITEM_MSCONTROLROD.get())
+				//
+				.complete(References.ID, "fissioncontrolrod_conversion", output);
 
 		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_FREEZEPLUG.get(), 1)
 				//

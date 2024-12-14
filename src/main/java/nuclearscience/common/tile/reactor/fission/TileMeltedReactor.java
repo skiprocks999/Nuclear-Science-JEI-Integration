@@ -1,4 +1,4 @@
-package nuclearscience.common.tile.fissionreactor;
+package nuclearscience.common.tile.reactor.fission;
 
 import electrodynamics.prefab.tile.GenericTile;
 import electrodynamics.prefab.tile.components.type.ComponentTickable;

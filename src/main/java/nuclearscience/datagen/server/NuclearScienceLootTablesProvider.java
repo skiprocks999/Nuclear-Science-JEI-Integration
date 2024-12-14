@@ -23,7 +23,7 @@ public class NuclearScienceLootTablesProvider extends ElectrodynamicsLootTablesP
 
 		addMachineTable(NuclearScienceBlocks.BLOCK_ATOMICASSEMBLER.get(), NuclearScienceTiles.TILE_ATOMICASSEMBLER, true, false, false, true, false);
 		addMachineTable(NuclearScienceBlocks.BLOCK_CHEMICALEXTRACTOR.get(), NuclearScienceTiles.TILE_CHEMICALEXTRACTOR, true, true, false, true, false);
-		addSimpleBlock(NuclearScienceBlocks.BLOCK_CONTROLROD.get());
+		addSimpleBlock(NuclearScienceBlocks.BLOCK_FISSIONCONTROLROD.get());
 		addSimpleBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNET.get());
 		addSimpleBlock(NuclearScienceBlocks.BLOCK_ELECTORMAGNETICBOOSTER.get());
 		addSimpleBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICGLASS.get());
@@ -56,6 +56,7 @@ public class NuclearScienceLootTablesProvider extends ElectrodynamicsLootTablesP
 		addSimpleBlock(NuclearScienceBlocks.BLOCKS_MOLTENSALTPIPE.getValue(SubtypeMoltenSaltPipe.vanadiumsteelceramic));
 		addSimpleBlock(NuclearScienceBlocks.BLOCK_STEAMFUNNEL.get());
 		addSimpleBlock(NuclearScienceBlocks.BLOCK_CHUNKLOADER.get());
+		addSimpleBlock(NuclearScienceBlocks.BLOCK_MSCONTROLROD.get());
 
 	}
 

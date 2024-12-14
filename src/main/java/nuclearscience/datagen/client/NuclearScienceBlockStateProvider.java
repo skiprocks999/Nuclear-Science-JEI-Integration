@@ -58,7 +58,7 @@ public class NuclearScienceBlockStateProvider extends ElectrodynamicsBlockStateP
 
 		horrRotatedBlock(NuclearScienceBlocks.BLOCK_ATOMICASSEMBLER, existingBlock(NuclearScienceBlocks.BLOCK_ATOMICASSEMBLER), false);
 		horrRotatedBlock(NuclearScienceBlocks.BLOCK_CHEMICALEXTRACTOR, existingBlock(NuclearScienceBlocks.BLOCK_CHEMICALEXTRACTOR), true);
-		horrRotatedBlock(NuclearScienceBlocks.BLOCK_CONTROLROD, existingBlock(NuclearScienceBlocks.BLOCK_CONTROLROD), 180, 0, false);
+		simpleBlock(NuclearScienceBlocks.BLOCK_FISSIONCONTROLROD, existingBlock(NuclearScienceBlocks.BLOCK_FISSIONCONTROLROD), false);
 		rotatedLeftRightBlock(NuclearScienceBlocks.BLOCK_ELECTORMAGNETICBOOSTER.get(), existingBlock(blockLoc("electromagneticbooster")), existingBlock(blockLoc("electromagneticboosterleft")), existingBlock(blockLoc("electromagneticboosterright")), 90, true);
 		horrRotatedLitBlock(NuclearScienceBlocks.BLOCK_FUELREPROCESSOR, existingBlock(NuclearScienceBlocks.BLOCK_FUELREPROCESSOR), existingBlock(blockLoc("fuelreprocessoron")), true);
 		horrRotatedLitBlock(NuclearScienceBlocks.BLOCK_FUSIONREACTORCORE, existingBlock(NuclearScienceBlocks.BLOCK_FUSIONREACTORCORE), existingBlock(blockLoc("fusionreactorcoreon")), true);
@@ -75,6 +75,7 @@ public class NuclearScienceBlockStateProvider extends ElectrodynamicsBlockStateP
 		horrRotatedLitBlock(NuclearScienceBlocks.BLOCK_TELEPORTER, existingBlock(NuclearScienceBlocks.BLOCK_TELEPORTER), existingBlock(blockLoc("teleporteron")), true);
 
 		simpleBlock(NuclearScienceBlocks.BLOCK_CHUNKLOADER.get(), existingBlock(NuclearScienceBlocks.BLOCK_CHUNKLOADER.get()), true);
+		horrRotatedBlock(NuclearScienceBlocks.BLOCK_MSCONTROLROD, existingBlock(NuclearScienceBlocks.BLOCK_MSCONTROLROD), 180, 0, false);
 
 		genPipes();
 

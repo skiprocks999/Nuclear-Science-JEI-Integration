@@ -9,7 +9,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
-import nuclearscience.common.tile.msreactor.TileMoltenSaltSupplier;
+import nuclearscience.common.tile.reactor.moltensalt.TileMoltenSaltSupplier;
 import nuclearscience.prefab.screen.component.NuclearIconTypes;
 import nuclearscience.registers.NuclearScienceItems;
 import nuclearscience.registers.NuclearScienceMenuTypes;

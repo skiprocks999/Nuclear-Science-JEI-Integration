@@ -6,12 +6,12 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "nuclearscience:controlrodassembly"
+          "name": "nuclearscience:fissioncontrolrod"
         }
       ],
-      "name": "controlrodassembly",
+      "name": "fissioncontrolrod",
       "rolls": 1.0
     }
   ],
-  "random_sequence": "nuclearscience:blocks/controlrodassembly"
+  "random_sequence": "nuclearscience:blocks/fissioncontrolrod"
 }

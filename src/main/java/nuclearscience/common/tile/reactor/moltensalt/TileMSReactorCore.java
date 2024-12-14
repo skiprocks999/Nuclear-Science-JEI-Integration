@@ -1,4 +1,4 @@
-package nuclearscience.common.tile.msreactor;
+package nuclearscience.common.tile.reactor.moltensalt;
 
 import java.util.ArrayList;
 
@@ -11,15 +11,15 @@ import electrodynamics.prefab.tile.components.type.ComponentTickable;
 import electrodynamics.prefab.utilities.object.CachedTileOutput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import nuclearscience.api.network.moltensalt.IMoltenSaltPipe;
 import nuclearscience.api.radiation.RadiationSystem;
 import nuclearscience.api.radiation.SimpleRadiationSource;
 import nuclearscience.common.inventory.container.ContainerMSRReactorCore;
 import nuclearscience.common.network.MoltenSaltNetwork;
-import nuclearscience.common.tile.TileControlRodAssembly;
-import nuclearscience.common.tile.fissionreactor.TileFissionReactorCore;
+import nuclearscience.common.tile.reactor.TileControlRod;
+import nuclearscience.common.tile.reactor.fission.TileFissionReactorCore;
+import nuclearscience.registers.NuclearScienceBlocks;
 import nuclearscience.registers.NuclearScienceTiles;
 
 public class TileMSReactorCore extends GenericTile {
@@ -34,15 +34,20 @@ public class TileMSReactorCore extends GenericTile {
 	public Property<Double> temperature = property(new Property<>(PropertyTypes.DOUBLE, "temperature", TileFissionReactorCore.AIR_TEMPERATURE));
 	public Property<Double> currentFuel = property(new Property<>(PropertyTypes.DOUBLE, "currentfuel", 0.0));
 	public Property<Double> currentWaste = property(new Property<>(PropertyTypes.DOUBLE, "currentwaste", 0.0));
-
 	public Property<Boolean> wasteIsFull = property(new Property<>(PropertyTypes.BOOLEAN, "wasteisfull", false));
+	public Property<Boolean> hasPlug = property(new Property<>(PropertyTypes.BOOLEAN, "hasplug", false));
+
 	private CachedTileOutput outputCache;
-	public CachedTileOutput plugCache;
+	private CachedTileOutput plugCache;
+	private CachedTileOutput controlRodCache;
+
+
+	public CachedTileOutput clientPlugCache;
 
 	public TileMSReactorCore(BlockPos pos, BlockState state) {
 		super(NuclearScienceTiles.TILE_MSRREACTORCORE.get(), pos, state);
 
-		addComponent(new ComponentTickable(this).tickServer(this::tickServer));
+		addComponent(new ComponentTickable(this).tickServer(this::tickServer).tickClient(this::tickClient));
 		addComponent(new ComponentPacketHandler(this));
 		addComponent(new ComponentContainerProvider("container.msrreactorcore", this).createMenu((id, player) -> new ContainerMSRReactorCore(id, player, null, getCoordsArray())));
 	}
@@ -60,6 +65,22 @@ public class TileMSReactorCore extends GenericTile {
 		if (plugCache == null) {
 			plugCache = new CachedTileOutput(level, new BlockPos(worldPosition).relative(Direction.DOWN));
 		}
+		if(controlRodCache == null) {
+			controlRodCache = new CachedTileOutput(getLevel(), getBlockPos().relative(getFacing()));
+		}
+
+		if (tick.getTicks() % 40 == 0) {
+			if(!outputCache.valid()) {
+				outputCache.update(new BlockPos(worldPosition).relative(Direction.UP));
+			}
+			if(!plugCache.valid()) {
+				plugCache.update(new BlockPos(worldPosition).relative(Direction.DOWN));
+			}
+		}
+
+		if(!controlRodCache.valid() && tick.getTicks() % 10 == 0) {
+			controlRodCache.update(getBlockPos().relative(getFacing().getOpposite()));
+		}
 
 		if (!plugCache.valid() || !(plugCache.getSafe() instanceof TileFreezePlug freeze && freeze.isFrozen())) {
 			return;
@@ -69,25 +90,19 @@ public class TileMSReactorCore extends GenericTile {
 			return;
 		}
 
-		if (tick.getTicks() % 40 == 0) {
-			outputCache.update(new BlockPos(worldPosition).relative(Direction.UP));
-			plugCache.update(new BlockPos(worldPosition).relative(Direction.DOWN));
-		}
-
 		int insertion = 0;
-		for (Direction dir : Direction.values()) {
-			if (dir != Direction.UP && dir != Direction.DOWN) {
-				BlockEntity tile = level.getBlockEntity(getBlockPos().relative(dir));
-				if (tile instanceof TileControlRodAssembly cr) {
-					TileControlRodAssembly control = cr;
-					if (Direction.values()[control.direction.get()] == dir.getOpposite()) {
-						insertion += control.insertion.get();
-					}
-				}
+
+		if(controlRodCache.valid() && level.getBlockState(controlRodCache.getPos()).is(NuclearScienceBlocks.BLOCK_MSCONTROLROD.get())) {
+
+			TileControlRod.TileMSControlRod rod = controlRodCache.getSafe();
+
+			if(rod.getFacing().getOpposite() == getFacing()) {
+				insertion = rod.insertion.get();
 			}
+
 		}
 
-		double insertDecimal = (100 - insertion) / 100.0;
+		double insertDecimal = 1.0 - insertion / (double) TileControlRod.MAX_EXTENSION;
 
 		double fuelUse = Math.min(currentFuel.get(), FUEL_USAGE_RATE * insertDecimal * Math.pow(2, Math.pow(temperature.get() / (MELTDOWN_TEMPERATURE - 100), 4)));
 
@@ -113,6 +128,16 @@ public class TileMSReactorCore extends GenericTile {
 		double totstrength = temperature.get() * Math.pow(3, Math.pow(temperature.get() / MELTDOWN_TEMPERATURE, 9));
 		int range = (int) (Math.sqrt(totstrength) / (5 * Math.sqrt(2)) * 2);
 		RadiationSystem.addRadiationSource(getLevel(), new SimpleRadiationSource(totstrength, 1, range, true, 0, getBlockPos(), false));
+
+	}
+
+	public void tickClient(ComponentTickable tickable) {
+		if (clientPlugCache == null) {
+			clientPlugCache = new CachedTileOutput(level, new BlockPos(worldPosition).relative(Direction.DOWN));
+		}
+		if(tickable.getTicks() % 40 == 0 && !clientPlugCache.valid()) {
+			clientPlugCache.update(new BlockPos(worldPosition).relative(Direction.DOWN));
+		}
 
 	}
 

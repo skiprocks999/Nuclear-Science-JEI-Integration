@@ -1,4 +1,4 @@
-package nuclearscience.common.tile.msreactor;
+package nuclearscience.common.tile.reactor.moltensalt;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import nuclearscience.api.turbine.ISteamReceiver;
 import nuclearscience.common.settings.Constants;
-import nuclearscience.common.tile.fissionreactor.TileFissionReactorCore;
+import nuclearscience.common.tile.reactor.fission.TileFissionReactorCore;
 import nuclearscience.registers.NuclearScienceTiles;
 
 public class TileHeatExchanger extends GenericTile {

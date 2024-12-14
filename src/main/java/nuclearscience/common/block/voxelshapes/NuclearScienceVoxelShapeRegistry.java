@@ -314,75 +314,28 @@ public class NuclearScienceVoxelShapeRegistry {
 
         /* MOLTEN SALT REACTOR CORE */
 
-        VoxelShape msreactorcore = Shapes.empty();
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.125, 0, 0.125, 0.875, 0.8125, 0.875), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.0625, 0.125, 0.1875, 0.125, 0.75, 0.8125), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.875, 0.125, 0.1875, 0.9375, 0.75, 0.8125), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.1875, 0.125, 0.0625, 0.8125, 0.75, 0.125), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.1875, 0.125, 0.875, 0.8125, 0.75, 0.9375), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0, 0.1875, 0.25, 0.0625, 0.6875, 0.75), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.1875, 0.8125, 0.1875, 0.8125, 0.875, 0.8125), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.3125, 0.875, 0.3125, 0.6875, 1, 0.6875), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.25, 0.875, 0.375, 0.3125, 1.125, 0.4375), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.25, 0.875, 0.5625, 0.3125, 1.125, 0.625), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.6875, 0.875, 0.5625, 0.75, 1.125, 0.625), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.6875, 0.875, 0.375, 0.75, 1.125, 0.4375), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.5625, 0.875, 0.25, 0.625, 1.125, 0.3125), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.375, 0.875, 0.25, 0.4375, 1.125, 0.3125), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.375, 0.875, 0.6875, 0.4375, 1.125, 0.75), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.5625, 0.875, 0.6875, 0.625, 1.125, 0.75), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0, 0.25, 0.1875, 0.0625, 0.3125, 0.25), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0, 0.40625, 0.1875, 0.0625, 0.46875, 0.25), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0, 0.5625, 0.1875, 0.0625, 0.625, 0.25), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0, 0.5625, 0.75, 0.0625, 0.625, 0.8125), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0, 0.40625, 0.75, 0.0625, 0.46875, 0.8125), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0, 0.25, 0.75, 0.0625, 0.3125, 0.8125), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.0625, 0.5625, 0.8125, 0.125, 0.625, 0.875), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.0625, 0.40625, 0.8125, 0.125, 0.46875, 0.875), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.0625, 0.25, 0.8125, 0.125, 0.3125, 0.875), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.0625, 0.5625, 0.125, 0.125, 0.625, 0.1875), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.0625, 0.40625, 0.125, 0.125, 0.46875, 0.1875), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.0625, 0.25, 0.125, 0.125, 0.3125, 0.1875), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.875, 0.40625, 0.125, 0.9375, 0.46875, 0.1875), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.875, 0.25, 0.125, 0.9375, 0.3125, 0.1875), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.875, 0.5625, 0.125, 0.9375, 0.625, 0.1875), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.875, 0.5625, 0.8125, 0.9375, 0.625, 0.875), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.875, 0.40625, 0.8125, 0.9375, 0.46875, 0.875), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.875, 0.25, 0.8125, 0.9375, 0.3125, 0.875), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.9375, 0.5625, 0.1875, 1, 0.625, 0.8125), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.9375, 0.40625, 0.1875, 1, 0.46875, 0.8125), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.9375, 0.25, 0.1875, 1, 0.3125, 0.8125), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.8125, 0.5625, 0.875, 0.875, 0.625, 0.9375), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.8125, 0.40625, 0.875, 0.875, 0.46875, 0.9375), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.8125, 0.25, 0.875, 0.875, 0.3125, 0.9375), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.125, 0.5625, 0.875, 0.1875, 0.625, 0.9375), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.125, 0.40625, 0.875, 0.1875, 0.46875, 0.9375), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.125, 0.25, 0.875, 0.1875, 0.3125, 0.9375), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.125, 0.5625, 0.0625, 0.1875, 0.625, 0.125), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.125, 0.40625, 0.0625, 0.1875, 0.46875, 0.125), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.125, 0.25, 0.0625, 0.1875, 0.3125, 0.125), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.8125, 0.5625, 0.0625, 0.875, 0.625, 0.125), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.8125, 0.40625, 0.0625, 0.875, 0.46875, 0.125), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.8125, 0.25, 0.0625, 0.875, 0.3125, 0.125), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.1875, 0.5625, 0, 0.8125, 0.625, 0.0625), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.1875, 0.40625, 0, 0.8125, 0.46875, 0.0625), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.1875, 0.25, 0, 0.8125, 0.3125, 0.0625), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.1875, 0.5625, 0.9375, 0.8125, 0.625, 1), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.1875, 0.40625, 0.9375, 0.8125, 0.46875, 1), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.1875, 0.25, 0.9375, 0.8125, 0.3125, 1), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.0625, -0.125, 0.6875, 0.125, 0.125, 0.75), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.25, -0.125, 0.875, 0.3125, 0.125, 0.9375), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.25, -0.0625, 0.75, 0.75, 0, 0.8125), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.6875, -0.125, 0.875, 0.75, 0.125, 0.9375), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.875, -0.125, 0.6875, 0.9375, 0.125, 0.75), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.875, -0.125, 0.25, 0.9375, 0.125, 0.3125), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.0625, -0.125, 0.25, 0.125, 0.125, 0.3125), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.1875, -0.0625, 0.1875, 0.25, 0, 0.8125), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.25, -0.0625, 0.1875, 0.75, 0, 0.25), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.75, -0.0625, 0.1875, 0.8125, 0, 0.8125), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.25, -0.125, 0.0625, 0.3125, 0.125, 0.125), BooleanOp.OR);
-        msreactorcore = Shapes.join(msreactorcore, Shapes.box(0.6875, -0.125, 0.0625, 0.75, 0.125, 0.125), BooleanOp.OR);
-        VoxelShapes.registerShape(NuclearScienceBlocks.BLOCK_MSREACTORCORE.get(), msreactorcore, Direction.WEST);
+        VoxelShape msReactorCore = Stream.of(
+                //
+                Block.box(0, 3, 4, 1, 11, 12),
+                //
+                Block.box(1, 2, 3, 2, 12, 13),
+                //
+                Block.box(3, 2, 14, 13, 12, 15),
+                //
+                Block.box(2, 0, 2, 14, 13, 14),
+                //
+                Block.box(3, 2, 1, 13, 12, 2),
+                //
+                Block.box(3, 13, 3, 13, 14, 13),
+                //
+                Block.box(5, 14, 5, 11, 16, 11),
+                //
+                Block.box(14, 2, 3, 15, 12, 13),
+                //
+                Block.box(15, 4, 5, 16, 10, 11)
+                //
+        ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get();
+        VoxelShapes.registerShape(NuclearScienceBlocks.BLOCK_MSREACTORCORE.get(), msReactorCore, Direction.WEST);
 
         /* MOLTEN SALT SUPPLIER */
 
@@ -595,6 +548,11 @@ public class NuclearScienceVoxelShapeRegistry {
         ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get();
 
         VoxelShapes.registerShape(NuclearScienceBlocks.BLOCK_TELEPORTER.get(), teleporter, Direction.UP);
+
+        /* MS REACTOR CONTROL ROD */
+
+        VoxelShapes.registerShape(NuclearScienceBlocks.BLOCK_MSCONTROLROD.get(), Block.box(4, 4, 5, 16, 10, 11), Direction.WEST);
+
 
     }
 

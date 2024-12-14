@@ -15,17 +15,7 @@ import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsE
 import nuclearscience.References;
 import nuclearscience.client.guidebook.ModuleNuclearScience;
 import nuclearscience.client.render.entity.RenderParticle;
-import nuclearscience.client.render.tile.RenderAtomicAssembler;
-import nuclearscience.client.render.tile.RenderChemicalExtractor;
-import nuclearscience.client.render.tile.RenderFissionReactorCore;
-import nuclearscience.client.render.tile.RenderFusionReactorCore;
-import nuclearscience.client.render.tile.RenderGasCentrifuge;
-import nuclearscience.client.render.tile.RenderNuclearBoiler;
-import nuclearscience.client.render.tile.RenderQuantumTunnel;
-import nuclearscience.client.render.tile.RenderRadioactiveProcessor;
-import nuclearscience.client.render.tile.RenderRodAssembly;
-import nuclearscience.client.render.tile.RenderTeleporter;
-import nuclearscience.client.render.tile.RenderTurbine;
+import nuclearscience.client.render.tile.*;
 import nuclearscience.client.screen.*;
 import nuclearscience.registers.NuclearScienceFluids;
 import nuclearscience.registers.NuclearScienceTiles;
@@ -41,8 +31,8 @@ public class ClientRegister {
     public static final ModelResourceLocation MODEL_FISSIONREACTORCORE = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/fissionreactorcore"));
     public static final ModelResourceLocation MODEL_FISSIONREACTORFUELROD = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/fissionreactorfuelrod"));
     public static final ModelResourceLocation MODEL_FISSIONREACTORDEUTERIUM = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/fissionreactordeuterium"));
-    public static final ModelResourceLocation MODEL_CONTROLRODASSEMBLYSTRUCTURE = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/controlrodassemblystructure"));
-    public static final ModelResourceLocation MODEL_CONTROLRODASSEMBLYSROD = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/controlrodassemblyrod"));
+    public static final ModelResourceLocation MODEL_FISSIONCONTROLROD_ROD = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/fissioncontrolrodrod"));
+    public static final ModelResourceLocation MODEL_MSCONTROLROD_ROD = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/mscontrolrodrod"));
 
     public static final ResourceLocation TEXTURE_JEIBLACKHOLE = ResourceLocation.fromNamespaceAndPath(References.ID, "block/custom/particleaccelerator_dmblackhole");
 
@@ -60,8 +50,8 @@ public class ClientRegister {
         event.register(MODEL_FISSIONREACTORCORE);
         event.register(MODEL_FISSIONREACTORFUELROD);
         event.register(MODEL_FISSIONREACTORDEUTERIUM);
-        event.register(MODEL_CONTROLRODASSEMBLYSTRUCTURE);
-        event.register(MODEL_CONTROLRODASSEMBLYSROD);
+        event.register(MODEL_FISSIONCONTROLROD_ROD);
+        event.register(MODEL_MSCONTROLROD_ROD);
     }
 
     @SubscribeEvent
@@ -92,7 +82,8 @@ public class ClientRegister {
         event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_FUSIONREACTORCORE.get(), RenderFusionReactorCore::new);
         event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_QUANTUMCAPACITOR.get(), RenderQuantumTunnel::new);
         event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_TELEPORTER.get(), RenderTeleporter::new);
-        event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_CONTROLRODASSEMBLY.get(), RenderRodAssembly::new);
+        event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_FISSIONCONTROLROD.get(), RenderFissionControlRod::new);
+        event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_MSCONTROLROD.get(), RenderMSControlRod::new);
         event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_ATOMICASSEMBLER.get(), RenderAtomicAssembler::new);
         event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_RADIOACTIVEPROCESSOR.get(), RenderRadioactiveProcessor::new);
 

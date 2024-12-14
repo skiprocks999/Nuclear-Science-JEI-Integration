@@ -33,7 +33,7 @@ public class NuclearScienceBlockTagsProvider extends BlockTagsProvider {
                         //
                         NuclearScienceBlocks.BLOCK_CHUNKLOADER.get(),
                         //
-                        NuclearScienceBlocks.BLOCK_CONTROLROD.get(),
+                        NuclearScienceBlocks.BLOCK_FISSIONCONTROLROD.get(),
                         //
                         NuclearScienceBlocks.BLOCK_ELECTROMAGNET.get(),
                         //
@@ -89,7 +89,7 @@ public class NuclearScienceBlockTagsProvider extends BlockTagsProvider {
                         //
                         NuclearScienceBlocks.BLOCK_CHUNKLOADER.get(),
                         //
-                        NuclearScienceBlocks.BLOCK_CONTROLROD.get(),
+                        NuclearScienceBlocks.BLOCK_FISSIONCONTROLROD.get(),
                         //
                         NuclearScienceBlocks.BLOCK_ELECTROMAGNET.get(),
                         //

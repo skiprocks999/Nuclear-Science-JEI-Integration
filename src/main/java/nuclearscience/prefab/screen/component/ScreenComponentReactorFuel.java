@@ -15,7 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
-import nuclearscience.common.tile.msreactor.TileMSReactorCore;
+import nuclearscience.common.tile.reactor.moltensalt.TileMSReactorCore;
 
 public class ScreenComponentReactorFuel extends AbstractScreenComponentGauge {
 

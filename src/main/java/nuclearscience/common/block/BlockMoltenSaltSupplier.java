@@ -8,7 +8,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
-import nuclearscience.common.tile.msreactor.TileMoltenSaltSupplier;
+import nuclearscience.common.tile.reactor.moltensalt.TileMoltenSaltSupplier;
 
 public class BlockMoltenSaltSupplier extends GenericMachineBlock {
 

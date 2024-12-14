@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
-import nuclearscience.common.tile.fusionreactor.TileFusionReactorCore;
+import nuclearscience.common.tile.reactor.fusion.TileFusionReactorCore;
 
 public class BlockFusionReactorCore extends GenericMachineBlock {
 

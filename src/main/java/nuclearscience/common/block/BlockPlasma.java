@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import nuclearscience.common.tile.fusionreactor.TilePlasma;
+import nuclearscience.common.tile.reactor.fusion.TilePlasma;
 import nuclearscience.registers.NuclearScienceDamageTypes;
 
 public class BlockPlasma extends GenericEntityBlock {

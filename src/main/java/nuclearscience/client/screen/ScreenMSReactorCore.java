@@ -15,8 +15,8 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Inventory;
 import nuclearscience.common.inventory.container.ContainerMSRReactorCore;
-import nuclearscience.common.tile.msreactor.TileFreezePlug;
-import nuclearscience.common.tile.msreactor.TileMSReactorCore;
+import nuclearscience.common.tile.reactor.moltensalt.TileFreezePlug;
+import nuclearscience.common.tile.reactor.moltensalt.TileMSReactorCore;
 import nuclearscience.prefab.screen.component.ScreenComponentReactorFuel;
 import nuclearscience.prefab.utils.NuclearTextUtils;
 
@@ -55,7 +55,7 @@ public class ScreenMSReactorCore extends GenericScreen<ContainerMSRReactorCore> 
 
 			graphics.drawString(font, NuclearTextUtils.gui("msreactor.status"), titleLabelX, titleLabelY + 14, 0, false);
 
-			if (!(core.plugCache.getSafe() instanceof TileFreezePlug)) {
+			if (!(core.clientPlugCache.getSafe() instanceof TileFreezePlug)) {
 				graphics.drawString(font, NuclearTextUtils.gui("msreactor.status.nofreezeplug"), titleLabelX + 5, titleLabelY + 24, 4210752, false);
 			} else if (core.wasteIsFull.get()) {
 				graphics.drawString(font, NuclearTextUtils.gui("msreactor.status.wastefull"), titleLabelX + 5, titleLabelY + 24, 4210752, false);
@@ -73,7 +73,7 @@ public class ScreenMSReactorCore extends GenericScreen<ContainerMSRReactorCore> 
 					graphics.drawString(font, NuclearTextUtils.gui("msreactor.warning.overheat"), titleLabelX + 5, titleLabelY + 48, 4210752, false);
 				}
 
-			} else if (core.plugCache.getSafe() instanceof TileFreezePlug plug && !plug.isFrozen()) {
+			} else if (core.clientPlugCache.getSafe() instanceof TileFreezePlug plug && !plug.isFrozen()) {
 				graphics.drawString(font, NuclearTextUtils.gui("msreactor.warning.freezeoff").withStyle(ChatFormatting.YELLOW), titleLabelX + 5, titleLabelY + 48, -1, false);
 			} else {
 				graphics.drawString(font, NuclearTextUtils.gui("msreactor.warning.none").withStyle(ChatFormatting.GREEN), titleLabelX + 5, titleLabelY + 48, -1, false);

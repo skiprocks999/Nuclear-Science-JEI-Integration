@@ -14,7 +14,7 @@ import electrodynamics.prefab.tile.components.type.ComponentProcessor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import nuclearscience.common.inventory.container.ContainerMSRFuelPreProcessor;
-import nuclearscience.common.tile.msreactor.TileMSRFuelPreProcessor;
+import nuclearscience.common.tile.reactor.moltensalt.TileMSRFuelPreProcessor;
 
 public class ScreenMSRFuelPreProcessor extends GenericMaterialScreen<ContainerMSRFuelPreProcessor> {
 	public ScreenMSRFuelPreProcessor(ContainerMSRFuelPreProcessor container, Inventory playerInventory, Component title) {

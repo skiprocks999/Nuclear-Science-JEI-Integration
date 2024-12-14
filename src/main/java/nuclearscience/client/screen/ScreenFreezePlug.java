@@ -11,7 +11,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import nuclearscience.common.inventory.container.ContainerFreezePlug;
 import nuclearscience.common.settings.Constants;
-import nuclearscience.common.tile.msreactor.TileFreezePlug;
+import nuclearscience.common.tile.reactor.moltensalt.TileFreezePlug;
 import nuclearscience.prefab.utils.NuclearTextUtils;
 
 public class ScreenFreezePlug extends GenericScreen<ContainerFreezePlug> {

@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import nuclearscience.References;
 import nuclearscience.common.inventory.container.ContainerReactorCore;
-import nuclearscience.common.tile.fissionreactor.TileFissionReactorCore;
+import nuclearscience.common.tile.reactor.fission.TileFissionReactorCore;
 import nuclearscience.prefab.screen.component.NuclearArrows;
 import nuclearscience.prefab.utils.NuclearTextUtils;
 

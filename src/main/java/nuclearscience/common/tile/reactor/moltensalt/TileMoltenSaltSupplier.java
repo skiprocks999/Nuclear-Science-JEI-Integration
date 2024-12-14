@@ -1,4 +1,4 @@
-package nuclearscience.common.tile.msreactor;
+package nuclearscience.common.tile.reactor.moltensalt;
 
 import electrodynamics.prefab.properties.Property;
 import electrodynamics.prefab.properties.PropertyTypes;

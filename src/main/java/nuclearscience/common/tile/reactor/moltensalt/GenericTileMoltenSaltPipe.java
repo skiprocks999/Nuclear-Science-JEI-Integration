@@ -1,4 +1,4 @@
-package nuclearscience.common.tile.saltpipe;
+package nuclearscience.common.tile.reactor.moltensalt;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,8 +16,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import nuclearscience.api.network.moltensalt.IMoltenSaltPipe;
 import nuclearscience.common.network.MoltenSaltNetwork;
-import nuclearscience.common.tile.msreactor.TileHeatExchanger;
-import nuclearscience.common.tile.msreactor.TileMSReactorCore;
+import nuclearscience.common.tile.reactor.moltensalt.TileHeatExchanger;
+import nuclearscience.common.tile.reactor.moltensalt.TileMSReactorCore;
 
 public abstract class GenericTileMoltenSaltPipe extends GenericConnectTile implements IMoltenSaltPipe {
 

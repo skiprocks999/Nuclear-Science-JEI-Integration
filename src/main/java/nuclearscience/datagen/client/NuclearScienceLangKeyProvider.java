@@ -92,12 +92,13 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addBlock(NuclearScienceBlocks.BLOCK_PARTICLEINJECTOR, "Particle Injector");
 			addBlock(NuclearScienceBlocks.BLOCK_QUANTUMTUNNEL, "Quantum Tunnel");
 			addBlock(NuclearScienceBlocks.BLOCK_TELEPORTER, "Teleporter");
-			addBlock(NuclearScienceBlocks.BLOCK_CONTROLROD, "Control Rod");
+			addBlock(NuclearScienceBlocks.BLOCK_FISSIONCONTROLROD, "Fission Control Rod");
 			addBlock(NuclearScienceBlocks.BLOCK_FUELREPROCESSOR, "Fuel Reprocessor");
 			addBlock(NuclearScienceBlocks.BLOCK_RADIOACTIVEPROCESSOR, "Radioactive Processor");
 			addBlock(NuclearScienceBlocks.BLOCK_MSRFUELPREPROCESSOR, "MSR Fuel Pre-Processor");
 			addBlock(NuclearScienceBlocks.BLOCK_MSRFREEZEPLUG, "MSR Freeze Plug");
 			addBlock(NuclearScienceBlocks.BLOCK_MSREACTORCORE, "MS Reactor Core");
+			addBlock(NuclearScienceBlocks.BLOCK_MSCONTROLROD, "MS Control Rod");
 			addBlock(NuclearScienceBlocks.BLOCK_HEATEXCHANGER, "Heat Exchanger");
 			addBlock(NuclearScienceBlocks.BLOCK_SIREN, "Siren");
 			addBlock(NuclearScienceBlocks.BLOCK_ATOMICASSEMBLER, "Atomic Assembler");

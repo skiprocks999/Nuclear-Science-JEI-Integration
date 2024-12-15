@@ -18,12 +18,12 @@ public class NuclearScienceMenuTypes {
 	public static final DeferredHolder<MenuType<?>, MenuType<ContainerChemicalExtractor>> CONTAINER_CHEMICALEXTRACTOR = register("chemicalextractor", ContainerChemicalExtractor::new);
 	public static final DeferredHolder<MenuType<?>, MenuType<ContainerRadioisotopeGenerator>> CONTAINER_RADIOISOTOPEGENERATOR = register("radioisotopegenerator", ContainerRadioisotopeGenerator::new);
 	public static final DeferredHolder<MenuType<?>, MenuType<ContainerFreezePlug>> CONTAINER_FREEZEPLUG = register("freezeplug", ContainerFreezePlug::new);
-	public static final DeferredHolder<MenuType<?>, MenuType<ContainerReactorCore>> CONTAINER_REACTORCORE = register("reactorcore", ContainerReactorCore::new);
+	public static final DeferredHolder<MenuType<?>, MenuType<ContainerFissionReactorCore>> CONTAINER_REACTORCORE = register("reactorcore", ContainerFissionReactorCore::new);
 	public static final DeferredHolder<MenuType<?>, MenuType<ContainerParticleInjector>> CONTAINER_PARTICLEINJECTOR = register("particleinjetor", ContainerParticleInjector::new);
 	public static final DeferredHolder<MenuType<?>, MenuType<ContainerQuantumTunnel>> CONTAINER_QUANTUMTUNNEL = register("quantumcapacitor", ContainerQuantumTunnel::new);
 	public static final DeferredHolder<MenuType<?>, MenuType<ContainerRadioactiveProcessor>> CONTAINER_RADIOACTIVEPROCESSOR = register("radioactiveprocessor", ContainerRadioactiveProcessor::new);
 	public static final DeferredHolder<MenuType<?>, MenuType<ContainerMSRFuelPreProcessor>> CONTAINER_MSRFUELPREPROCESSOR = register("msrfuelpreprocessor", ContainerMSRFuelPreProcessor::new);
-	public static final DeferredHolder<MenuType<?>, MenuType<ContainerMSRReactorCore>> CONTAINER_MSRREACTORCORE = register("msrreactorcore", ContainerMSRReactorCore::new);
+	public static final DeferredHolder<MenuType<?>, MenuType<ContainerMSReactorCore>> CONTAINER_MSRREACTORCORE = register("msrreactorcore", ContainerMSReactorCore::new);
 	public static final DeferredHolder<MenuType<?>, MenuType<ContainerMoltenSaltSupplier>> CONTAINER_MOLTENSALTSUPPLIER = register("moltensaltsupplier", ContainerMoltenSaltSupplier::new);
 	public static final DeferredHolder<MenuType<?>, MenuType<ContainerAtomicAssembler>> CONTAINER_ATOMICASSEMBLER = register("atomicassembler", ContainerAtomicAssembler::new);
 	public static final DeferredHolder<MenuType<?>, MenuType<ContainerTeleporter>> CONTAINER_TELEPORTER = register("teleporter", ContainerTeleporter::new);

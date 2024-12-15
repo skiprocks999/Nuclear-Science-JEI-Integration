@@ -11,6 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import nuclearscience.References;
 import nuclearscience.prefab.utils.NuclearTextUtils;
+import nuclearscience.registers.NuclearScienceBlocks;
 import nuclearscience.registers.NuclearScienceItems;
 
 public class ChapterFissionReactor extends Chapter {
@@ -33,31 +34,31 @@ public class ChapterFissionReactor extends Chapter {
 
 	@Override
 	public void addData() {
-		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.fissionreactor.l1")).setIndentions(1));
+		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.fissionreactor.l1.1", NuclearScienceItems.ITEM_FISSIONREACTORCORE.get().getDescription().copy().withStyle(ChatFormatting.BOLD))).setIndentions(1));
 		pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/fissionreactor1.png")));
 		pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/fissionreactor2.png")));
+		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.fissionreactor.l1.2")));
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.fissionreactor.l2")).setIndentions(1).setSeparateStart());
 		pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/fissionreactor3.png")));
 		pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/fissionreactor4.png")));
+		pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/fissionreactor5.png")));
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.fissionreactor.l3")).setIndentions(1).setSeparateStart());
 		pageData.add(new TextWrapperObject(NuclearScienceItems.ITEM_FUELLEUO2.get().getDescription()).setSeparateStart());
-		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.fissionreactor.maxtemp", 1075)).setIndentions(1).setSeparateStart());
+		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.fissionreactor.maxtemp", 1150)).setIndentions(1).setSeparateStart());
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.fissionreactor.cycles", new ItemStack(NuclearScienceItems.ITEM_FUELLEUO2.get()).getMaxDamage())).setIndentions(1).setSeparateStart());
 		pageData.add(new TextWrapperObject(NuclearScienceItems.ITEM_FUELHEUO2.get().getDescription()).setSeparateStart());
-		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.fissionreactor.maxtemp", 1417)).setIndentions(1).setSeparateStart());
+		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.fissionreactor.maxtemp", 1660)).setIndentions(1).setSeparateStart());
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.fissionreactor.cycles", new ItemStack(NuclearScienceItems.ITEM_FUELHEUO2.get()).getMaxDamage())).setIndentions(1).setSeparateStart());
 		pageData.add(new TextWrapperObject(NuclearScienceItems.ITEM_FUELPLUTONIUM.get().getDescription()).setSeparateStart());
-		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.fissionreactor.maxtemp", 1075)).setIndentions(1).setSeparateStart());
+		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.fissionreactor.maxtemp", 1150)).setIndentions(1).setSeparateStart());
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.fissionreactor.cycles", new ItemStack(NuclearScienceItems.ITEM_FUELPLUTONIUM.get()).getMaxDamage())).setIndentions(1).setSeparateStart());
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.fissionreactor.l4")).setSeparateStart());
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.fissionreactor.l5")).setIndentions(1).setSeparateStart());
-		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.fissionreactor.l6")).setIndentions(1).setSeparateStart());
-		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.fissionreactor.controlrod").withStyle(ChatFormatting.BOLD)));
-		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.fissionreactor.l7")));
-		pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/fissionreactor5.png")));
+		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.fissionreactor.l6", NuclearScienceItems.ITEM_FISSIONCONTROLROD.get().getDescription().copy().withStyle(ChatFormatting.BOLD))).setIndentions(1).setSeparateStart());
 		pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/fissionreactor6.png")));
-		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.fissionreactor.l8")).setIndentions(1).setSeparateStart());
-		pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 79, 150, 79, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/fissionreactor7.png")));
+		pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/fissionreactor7.png")));
+		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.fissionreactor.l7")).setIndentions(1).setSeparateStart());
+		pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 79, 150, 79, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/fissionreactor8.png")));
 
 	}
 

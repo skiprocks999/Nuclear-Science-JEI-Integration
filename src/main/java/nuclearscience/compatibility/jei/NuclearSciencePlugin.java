@@ -136,7 +136,7 @@ public class NuclearSciencePlugin implements IModPlugin {
         registry.addRecipeClickArea(ScreenRadioactiveProcessor.class, 97, 31, 22, 15, RadioactiveProcessorRecipeCategory.RECIPE_TYPE);
         registry.addRecipeClickArea(ScreenChemicalExtractor.class, 97, 31, 22, 15, ChemicalExtractorRecipeCategory.RECIPE_TYPE);
         registry.addRecipeClickArea(ScreenGasCentrifuge.class, 105, 13, 20, 54, GasCentrifugeRecipeCategory.RECIPE_TYPE);
-        registry.addRecipeClickArea(ScreenFissionReactorCore.class, 117, 53, 14, 13, FissionReactorRecipeCategory.RECIPE_TYPE);
+        registry.addRecipeClickArea(ScreenFissionReactorCore.class, 77, 38, 22, 15, FissionReactorRecipeCategory.RECIPE_TYPE);
         registry.addRecipeClickArea(ScreenParticleInjector.class, 102, 43, 28, 14, ParticleAcceleratorAntiMatterRecipeCategory.RECIPE_TYPE, ParticleAcceleratorDarkMatterRecipeCategory.RECIPE_TYPE);
         registry.addRecipeClickArea(ScreenMSRFuelPreProcessor.class, 98, 40, 16, 16, MSRProcessorRecipeCategory.RECIPE_TYPE);
     }

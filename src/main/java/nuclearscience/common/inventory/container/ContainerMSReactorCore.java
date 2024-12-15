@@ -9,13 +9,13 @@ import net.minecraft.world.inventory.SimpleContainerData;
 import nuclearscience.common.tile.reactor.moltensalt.TileMSReactorCore;
 import nuclearscience.registers.NuclearScienceMenuTypes;
 
-public class ContainerMSRReactorCore extends GenericContainerBlockEntity<TileMSReactorCore> {
+public class ContainerMSReactorCore extends GenericContainerBlockEntity<TileMSReactorCore> {
 
-	public ContainerMSRReactorCore(int id, Inventory playerinv) {
+	public ContainerMSReactorCore(int id, Inventory playerinv) {
 		this(id, playerinv, new SimpleContainer(0), new SimpleContainerData(3));
 	}
 
-	public ContainerMSRReactorCore(int id, Inventory playerinv, Container inventory, ContainerData inventorydata) {
+	public ContainerMSReactorCore(int id, Inventory playerinv, Container inventory, ContainerData inventorydata) {
 		super(NuclearScienceMenuTypes.CONTAINER_MSRREACTORCORE.get(), id, playerinv, new SimpleContainer(), inventorydata);
 	}
 

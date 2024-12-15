@@ -5,6 +5,7 @@ import electrodynamics.client.guidebook.utils.components.Module;
 import electrodynamics.client.guidebook.utils.pagedata.graphics.ImageWrapperObject;
 import electrodynamics.client.guidebook.utils.pagedata.graphics.ItemWrapperObject;
 import electrodynamics.client.guidebook.utils.pagedata.text.TextWrapperObject;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import nuclearscience.References;
@@ -34,30 +35,44 @@ public class ChapterMSReactor extends Chapter {
     @Override
     public void addData() {
         pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.msreactor.l1")).setIndentions(1));
-        pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.msreactor.l2")).setIndentions(1).setSeparateStart());
-        pageData.add(new TextWrapperObject(NuclearScienceItems.ITEM_MSREACTORCORE.get().getDescription()).setIndentions(1).setSeparateStart());
-        pageData.add(new TextWrapperObject(NuclearScienceItems.ITEM_FREEZEPLUG.get().getDescription()).setIndentions(1).setSeparateStart());
-        pageData.add(new TextWrapperObject(NuclearScienceItems.ITEM_MOLTENSALTSUPPLIER.get().asItem().getDescription()).setIndentions(1).setSeparateStart());
-        pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.msreactor.l3")).setSeparateStart());
+        pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook(
+                //
+                "chapter.msreactor.l2.1",
+                //
+                NuclearScienceItems.ITEM_MSREACTORCORE.get().getDescription().copy().withStyle(ChatFormatting.BOLD),
+                //
+                NuclearScienceItems.ITEM_FREEZEPLUG.get().getDescription().copy().withStyle(ChatFormatting.BOLD),
+                //
+                NuclearScienceItems.ITEM_MOLTENSALTSUPPLIER.get().getDescription().copy().withStyle(ChatFormatting.BOLD)
+                //
+        )).setIndentions(1).setSeparateStart());
         pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/msreactor1.png")));
+        pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.msreactor.l2.2")).setSeparateStart());
         pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/msreactor2.png")));
-        pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.msreactor.l4")).setIndentions(1).setSeparateStart());
+        pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.msreactor.l2.3")).setSeparateStart());
+        pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/msreactor3.png")));
+        pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.msreactor.l3")).setIndentions(1).setSeparateStart());
         pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/msreactor4-1.png")));
         pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/msreactor4-2.png")));
-        pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.msreactor.l5", TileMoltenSaltSupplier.AMT_PER_SALT)).setIndentions(1).setSeparateStart());
+        pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.msreactor.l4", TileMoltenSaltSupplier.AMT_PER_SALT)).setIndentions(1).setSeparateStart());
         pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/msreactor5-1.png")));
         pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/msreactor5-2.png")));
-        pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.msreactor.l6")).setIndentions(1).setSeparateStart());
-        pageData.add(new TextWrapperObject(NuclearScienceItems.ITEMS_MOLTENSALTPIPTE.getValue(SubtypeMoltenSaltPipe.vanadiumsteelceramic).getDescription()).setIndentions(1).setSeparateStart());
-        pageData.add(new TextWrapperObject(NuclearScienceItems.ITEM_HEATEXCHANGER.get().getDescription()).setIndentions(1).setSeparateStart());
-        pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.msreactor.l7")).setSeparateStart());
+        pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook(
+                //
+                "chapter.msreactor.l5",
+                //
+                NuclearScienceItems.ITEMS_MOLTENSALTPIPTE.getValue(SubtypeMoltenSaltPipe.vanadiumsteelceramic).getDescription().copy().withStyle(ChatFormatting.BOLD),
+                //
+                NuclearScienceItems.ITEM_HEATEXCHANGER.get().getDescription().copy().withStyle(ChatFormatting.BOLD)
+                //
+        )).setIndentions(1).setSeparateStart());
         pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/msreactor6.png")));
         pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/msreactor7.png")));
         pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/msreactor8.png")));
         pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/msreactor9.png")));
         pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/msreactor10.png")));
         pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/msreactor11.png")));
-        pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.msreactor.l8")).setIndentions(1).setSeparateStart());
+        pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.msreactor.l6", NuclearScienceItems.ITEM_MSCONTROLROD.get().getDescription().copy().withStyle(ChatFormatting.BOLD))).setIndentions(1).setSeparateStart());
         pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/msreactor12.png")));
 
     }

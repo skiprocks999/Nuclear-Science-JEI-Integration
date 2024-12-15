@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import nuclearscience.api.network.moltensalt.IMoltenSaltPipe;
 import nuclearscience.api.radiation.RadiationSystem;
 import nuclearscience.api.radiation.SimpleRadiationSource;
-import nuclearscience.common.inventory.container.ContainerMSRReactorCore;
+import nuclearscience.common.inventory.container.ContainerMSReactorCore;
 import nuclearscience.common.network.MoltenSaltNetwork;
 import nuclearscience.common.tile.reactor.TileControlRod;
 import nuclearscience.common.tile.reactor.fission.TileFissionReactorCore;
@@ -49,7 +49,7 @@ public class TileMSReactorCore extends GenericTile {
 
 		addComponent(new ComponentTickable(this).tickServer(this::tickServer).tickClient(this::tickClient));
 		addComponent(new ComponentPacketHandler(this));
-		addComponent(new ComponentContainerProvider("container.msrreactorcore", this).createMenu((id, player) -> new ContainerMSRReactorCore(id, player, null, getCoordsArray())));
+		addComponent(new ComponentContainerProvider("container.msrreactorcore", this).createMenu((id, player) -> new ContainerMSReactorCore(id, player, null, getCoordsArray())));
 	}
 
 	public void tickServer(ComponentTickable tick) {

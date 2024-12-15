@@ -20,7 +20,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -39,14 +41,11 @@ import net.minecraft.world.phys.Vec3;
 import nuclearscience.api.radiation.RadiationSystem;
 import nuclearscience.api.radiation.SimpleRadiationSource;
 import nuclearscience.api.turbine.ISteamReceiver;
-import nuclearscience.common.inventory.container.ContainerReactorCore;
+import nuclearscience.common.inventory.container.ContainerFissionReactorCore;
 import nuclearscience.common.recipe.NuclearScienceRecipeInit;
 import nuclearscience.common.settings.Constants;
 import nuclearscience.common.tile.reactor.TileControlRod;
-import nuclearscience.registers.NuclearScienceTiles;
-import nuclearscience.registers.NuclearScienceBlocks;
-import nuclearscience.registers.NuclearScienceDamageTypes;
-import nuclearscience.registers.NuclearScienceItems;
+import nuclearscience.registers.*;
 
 public class TileFissionReactorCore extends GenericTile {
 
@@ -80,7 +79,7 @@ public class TileFissionReactorCore extends GenericTile {
         addComponent(new ComponentTickable(this).tickCommon(this::tickCommon).tickServer(this::tickServer));
         addComponent(new ComponentPacketHandler(this));
         addComponent(new ComponentInventory(this, InventoryBuilder.newInv().inputs(5).outputs(1)).setSlotsByDirection(BlockEntityUtils.MachineDirection.TOP, 0, 1, 2, 3, 4).setSlotsByDirection(BlockEntityUtils.MachineDirection.BOTTOM, 5));
-        addComponent(new ComponentContainerProvider("container.reactorcore", this).createMenu((id, player) -> new ContainerReactorCore(id, player, getComponent(IComponentType.Inventory), getCoordsArray())));
+        addComponent(new ComponentContainerProvider("container.reactorcore", this).createMenu((id, player) -> new ContainerFissionReactorCore(id, player, getComponent(IComponentType.Inventory), getCoordsArray())));
     }
 
     protected void tickServer(ComponentTickable tickable) {
@@ -116,6 +115,18 @@ public class TileFissionReactorCore extends GenericTile {
             int range = (int) (Math.sqrt(totstrength) / (5 * Math.sqrt(2)) * 2);
 
             RadiationSystem.addRadiationSource(getLevel(), new SimpleRadiationSource(totstrength, 1, range, true, 0, getBlockPos(), false));
+
+            if(level.getRandom().nextFloat() < 0.01F) {
+                SoundEvent sound = switch (level.random.nextIntBetweenInclusive(1, 6)) {
+                    case 2 -> NuclearScienceSounds.SOUND_GEIGERCOUNTER_2.get();
+                    case 3 -> NuclearScienceSounds.SOUND_GEIGERCOUNTER_3.get();
+                    case 4 -> NuclearScienceSounds.SOUND_GEIGERCOUNTER_4.get();
+                    case 5 -> NuclearScienceSounds.SOUND_GEIGERCOUNTER_5.get();
+                    case 6 -> NuclearScienceSounds.SOUND_GEIGERCOUNTER_6.get();
+                    default -> NuclearScienceSounds.SOUND_GEIGERCOUNTER_1.get();
+                };
+                level.playSound(null, getBlockPos(), sound, SoundSource.BLOCKS, 1.0F, 1.0F);
+            }
 
             if (level.getLevelData().getGameTime() % 10 == 0 && temperature.get() > 100) {
                 AABB bb = AABB.ofSize(new Vec3(getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ()), 4, 4, 4);
@@ -177,7 +188,7 @@ public class TileFissionReactorCore extends GenericTile {
                 // Implement some alarm sounds at this time
                 if (ticksOverheating > 10 * 20) {
 
-                    meltdown();
+                    //meltdown();
 
                 }
 
@@ -420,5 +431,9 @@ public class TileFissionReactorCore extends GenericTile {
     protected void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
         super.loadAdditional(compound, registries);
         ticksOverheating = compound.getInt("ticksoverheating");
+    }
+
+    public static double getActualTemp(double temperature) {
+        return temperature / 4.0 + AIR_TEMPERATURE;
     }
 }

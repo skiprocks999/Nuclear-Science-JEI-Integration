@@ -26,6 +26,7 @@ public class ModuleNuclearScience extends Module {
 	public void addChapters() {
 		chapters.add(new ChapterRadiation(this));
 		chapters.add(new ChapterTurbines(this));
+		chapters.add(new ChapterSteamFunnel(this));
 		chapters.add(new ChapterGasCentrifuge(this));
 		chapters.add(new ChapterFissionReactor(this));
 		chapters.add(new ChapterRadioGenerator(this));

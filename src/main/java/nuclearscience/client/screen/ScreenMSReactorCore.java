@@ -14,15 +14,15 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Inventory;
-import nuclearscience.common.inventory.container.ContainerMSRReactorCore;
+import nuclearscience.common.inventory.container.ContainerMSReactorCore;
 import nuclearscience.common.tile.reactor.moltensalt.TileFreezePlug;
 import nuclearscience.common.tile.reactor.moltensalt.TileMSReactorCore;
 import nuclearscience.prefab.screen.component.ScreenComponentReactorFuel;
 import nuclearscience.prefab.utils.NuclearTextUtils;
 
-public class ScreenMSReactorCore extends GenericScreen<ContainerMSRReactorCore> {
+public class ScreenMSReactorCore extends GenericScreen<ContainerMSReactorCore> {
 
-	public ScreenMSReactorCore(ContainerMSRReactorCore container, Inventory playerInventory, Component title) {
+	public ScreenMSReactorCore(ContainerMSReactorCore container, Inventory playerInventory, Component title) {
 		super(container, playerInventory, title);
 		addComponent(new ScreenComponentTemperature(() -> {
 

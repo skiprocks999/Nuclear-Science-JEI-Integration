@@ -25,8 +25,17 @@ public interface IRadiationManager {
      *
      * @return
      */
-    public List<SimpleRadiationSource> getPermanentSources(Level level);
+    public List<SimpleRadiationSource> getPermanentSources(Level world);
 
+    public List<TemporaryRadiationSource> getTemporarySources(Level world);
+
+    public List<FadingRadiationSource> getFadingSources(Level world);
+
+    public List<BlockPos> getPermanentLocations(Level world);
+
+    public List<BlockPos> getTemporaryLocations(Level world);
+
+    public List<BlockPos> getFadingLocations(Level world);
 
     /**
      * Adds a radiation source to this manager. The manager will then categorize it accordingly

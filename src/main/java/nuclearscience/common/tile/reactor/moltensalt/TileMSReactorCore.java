@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import nuclearscience.api.network.moltensalt.IMoltenSaltPipe;
 import nuclearscience.api.radiation.RadiationSystem;
 import nuclearscience.api.radiation.SimpleRadiationSource;
+import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
 import nuclearscience.common.inventory.container.ContainerMSReactorCore;
 import nuclearscience.common.network.MoltenSaltNetwork;
 import nuclearscience.common.tile.reactor.TileControlRod;
@@ -35,7 +36,6 @@ public class TileMSReactorCore extends GenericTile {
 	public Property<Double> currentFuel = property(new Property<>(PropertyTypes.DOUBLE, "currentfuel", 0.0));
 	public Property<Double> currentWaste = property(new Property<>(PropertyTypes.DOUBLE, "currentwaste", 0.0));
 	public Property<Boolean> wasteIsFull = property(new Property<>(PropertyTypes.BOOLEAN, "wasteisfull", false));
-	public Property<Boolean> hasPlug = property(new Property<>(PropertyTypes.BOOLEAN, "hasplug", false));
 
 	private CachedTileOutput outputCache;
 	private CachedTileOutput plugCache;
@@ -92,7 +92,7 @@ public class TileMSReactorCore extends GenericTile {
 
 		int insertion = 0;
 
-		if(controlRodCache.valid() && level.getBlockState(controlRodCache.getPos()).is(NuclearScienceBlocks.BLOCK_MSCONTROLROD.get())) {
+		if(controlRodCache.valid() && level.getBlockState(controlRodCache.getPos()).is(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.mscontrolrod))) {
 
 			TileControlRod.TileMSControlRod rod = controlRodCache.getSafe();
 

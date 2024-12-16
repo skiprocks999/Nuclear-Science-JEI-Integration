@@ -23,6 +23,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import nuclearscience.References;
 import nuclearscience.common.block.subtype.SubtypeIrradiatedBlock;
 import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
+import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
 import nuclearscience.common.block.subtype.SubtypeRadiationShielding;
 import nuclearscience.common.item.*;
 
@@ -33,44 +34,18 @@ public class NuclearScienceItems {
 
 	public static final BulkDeferredHolder<Item, BlockItemDescriptable, SubtypeRadiationShielding> ITEMS_RADIATION_SHIELDING = new BulkDeferredHolder<>(SubtypeRadiationShielding.values(), subtype -> ITEMS.register(subtype.tag(), () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getValue(subtype), new Item.Properties(), NuclearScienceCreativeTabs.MAIN)));
 
-	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_GASCENTRIFUGE = ITEMS.register("gascentrifuge", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_GASCENTRIFUGE.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
-	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_NUCLEARBOILER = ITEMS.register("nuclearboiler", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_NUCLEARBOILER.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
-	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_CHEMICALEXTRACTOR = ITEMS.register("chemicalextractor", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_CHEMICALEXTRACTOR.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
-	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_FUELREPROCESSOR = ITEMS.register("fuelreprocessor", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_FUELREPROCESSOR.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
-	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_RADIOACTIVEPROCESSOR = ITEMS.register("radioactiveprocessor", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_RADIOACTIVEPROCESSOR.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
-
-
-	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_RADIOISOTOPEGENERATOR = ITEMS.register("radioisotopegenerator", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_RADIOISOTOPEGENERATOR.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
-	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_FISSIONREACTORCORE = ITEMS.register("fissionreactorcore", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_FISSIONREACTORCORE.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
-	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_FISSIONCONTROLROD = ITEMS.register("fissioncontrolrod", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_FISSIONCONTROLROD.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
-	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_SIREN = ITEMS.register("siren", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_SIREN.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_TURBINE = ITEMS.register("turbine", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_TURBINE.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
-	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_STEAMFUNNEL = ITEMS.register("steamfunnel", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_STEAMFUNNEL.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 
-
-	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_MSRFUELPREPROCESSOR = ITEMS.register("msrfuelpreprocessor", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_MSRFUELPREPROCESSOR.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
-	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_FREEZEPLUG = ITEMS.register("freezeplug", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_MSRFREEZEPLUG.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
-	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_MSREACTORCORE = ITEMS.register("msreactorcore", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_MSREACTORCORE.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
-	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_HEATEXCHANGER = ITEMS.register("heatexchanger", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_HEATEXCHANGER.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
-	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_MOLTENSALTSUPPLIER = ITEMS.register("moltensaltsupplier", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_MOLTENSALTSUPPLIER.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
+	public static final BulkDeferredHolder<Item, BlockItemDescriptable, SubtypeNuclearMachine> ITEMS_NUCLEARMACHINE = new BulkDeferredHolder<>(SubtypeNuclearMachine.values(), subtype -> ITEMS.register(subtype.tag(), () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(subtype), new Item.Properties(), NuclearScienceCreativeTabs.MAIN)));
+	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_QUANTUMTUNNEL = ITEMS.register("quantumcapacitor", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_QUANTUMTUNNEL.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 	public static final BulkDeferredHolder<Item, BlockItemDescriptable, SubtypeMoltenSaltPipe> ITEMS_MOLTENSALTPIPTE = new BulkDeferredHolder<>(SubtypeMoltenSaltPipe.values(), subtype -> ITEMS.register(subtype.tag(), () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCKS_MOLTENSALTPIPE.getValue(subtype), new Item.Properties(), NuclearScienceCreativeTabs.MAIN)));
-	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_MSCONTROLROD = ITEMS.register("mscontrolrod", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_MSCONTROLROD.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 
 
-	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_FUSIONREACTORCORE = ITEMS.register("fusionreactorcore", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_FUSIONREACTORCORE.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_ELECTROMAGNET = ITEMS.register("electromagnet", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_ELECTROMAGNET.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_ELECTROMAGNETICGLASS = ITEMS.register("electromagneticglass", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICGLASS.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
-
-	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_PARTICLEINJECTOR = ITEMS.register("particleinjector", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_PARTICLEINJECTOR.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_ELECTROMAGNETICBOOSTER = ITEMS.register("electromagneticbooster", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_ELECTORMAGNETICBOOSTER.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_ELECTROMAGNETICSWITCH = ITEMS.register("electromagneticswitch", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICSWITCH.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 
-	//public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_PLASMA = ITEMS.register("plasma", () -> new BlockItemDescriptable(NuclearScienceBlocksPlasma, new Item.Properties(), null));
-
-	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_QUANTUMTUNNEL = ITEMS.register("quantumcapacitor", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_QUANTUMTUNNEL.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
-	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_TELEPORTER = ITEMS.register("teleporter", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_TELEPORTER.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
-	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_CHUNKLOADER = ITEMS.register("chunkloader", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_CHUNKLOADER.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
-	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_ATOMICASSEMBLER = ITEMS.register("atomicassembler", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_ATOMICASSEMBLER.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_MELTEDREACTOR = ITEMS.register("meltedreactor", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_MELTEDREACTOR.get(), new Item.Properties(), null));
 	public static final BulkDeferredHolder<Item, BlockItemDescriptable, SubtypeIrradiatedBlock> ITEMS_IRRADIATED = new BulkDeferredHolder<>(SubtypeIrradiatedBlock.values(), subtype -> ITEMS.register(subtype.tag(), () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(subtype), new Item.Properties(), null)));
 

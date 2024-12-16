@@ -1,5 +1,6 @@
 package nuclearscience.common.block;
 
+import electrodynamics.common.block.voxelshapes.VoxelShapeProvider;
 import electrodynamics.prefab.block.GenericMachineBlock;
 import electrodynamics.prefab.utilities.math.Color;
 import net.minecraft.core.Direction;
@@ -23,7 +24,7 @@ public class BlockQuantumTunnel extends GenericMachineBlock {
 	private static final HashSet<Block> BLOCKS = new HashSet<>();
 
 	public BlockQuantumTunnel() {
-		super(TileQuantumTunnel::new);
+		super(TileQuantumTunnel::new, VoxelShapeProvider.DEFAULT);
 		BLOCKS.add(this);
 	}
 

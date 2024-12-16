@@ -10,5 +10,6 @@ public class NuclearScienceFluidTypes {
 	public static final DeferredRegister<FluidType> FLUID_TYPES = DeferredRegister.create(NeoForgeRegistries.FLUID_TYPES, References.ID);
 
 	public static final DeferredHolder<FluidType, FluidType> FLUID_TYPE_IODINESOLUTION = FLUID_TYPES.register("iodinesolution", () -> NuclearScienceFluids.FLUID_IODINESOLUTION.get().getFluidType());
+	public static final DeferredHolder<FluidType, FluidType> FLUID_TYPE_METHANOL = FLUID_TYPES.register("methanol", () -> NuclearScienceFluids.FLUID_METHANOL.get().getFluidType());
 
 }

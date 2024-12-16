@@ -16,6 +16,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.world.item.ItemStack;
 import nuclearscience.References;
+import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
 import nuclearscience.common.recipe.categories.fluiditem2item.RadioactiveProcessorRecipe;
 import nuclearscience.prefab.utils.NuclearTextUtils;
 import nuclearscience.registers.NuclearScienceBlocks;
@@ -40,7 +41,7 @@ public class RadioactiveProcessorRecipeCategory extends FluidItem2ItemRecipeCate
 
 	public static final int ANIM_TIME = 50;
 
-	public static ItemStack INPUT_MACHINE = new ItemStack(NuclearScienceBlocks.BLOCK_RADIOACTIVEPROCESSOR.get());
+	public static ItemStack INPUT_MACHINE = new ItemStack(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.radioactiveprocessor));
 
 	public static final RecipeType<RadioactiveProcessorRecipe> RECIPE_TYPE = RecipeType.create(References.ID, RadioactiveProcessorRecipe.RECIPE_GROUP, RadioactiveProcessorRecipe.class);
 

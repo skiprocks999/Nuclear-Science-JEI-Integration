@@ -13,6 +13,10 @@ import nuclearscience.api.radiation.util.IRadiationRecipient;
 import nuclearscience.registers.NuclearScienceAttachmentTypes;
 import nuclearscience.registers.NuclearScienceCapabilities;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
 @EventBusSubscriber(modid = References.ID, bus = EventBusSubscriber.Bus.GAME)
 public class RadiationSystem {
 
@@ -60,6 +64,15 @@ public class RadiationSystem {
 		}
 		IRadiationManager manager = world.getData(NuclearScienceAttachmentTypes.RADIATION_MANAGER);
 		manager.removeRadiationSource(pos, shouldLinger, world);
+	}
+
+	public static List<BlockPos> getRadiationSources(Level world) {
+		IRadiationManager manager = world.getData(NuclearScienceAttachmentTypes.RADIATION_MANAGER);
+		HashSet<BlockPos> sources = new HashSet<>();
+		sources.addAll(manager.getPermanentLocations(world));
+		sources.addAll(manager.getTemporaryLocations(world));
+		sources.addAll(manager.getFadingLocations(world));
+		return new ArrayList<>(sources);
 	}
 
 

@@ -10,13 +10,14 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import nuclearscience.References;
 import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
+import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
 import nuclearscience.common.tile.reactor.moltensalt.TileMoltenSaltSupplier;
 import nuclearscience.prefab.utils.NuclearTextUtils;
 import nuclearscience.registers.NuclearScienceItems;
 
 public class ChapterMSReactor extends Chapter {
 
-    private static final ItemWrapperObject LOGO = new ItemWrapperObject(7, 10, 32, 32, 32, 2.0F, NuclearScienceItems.ITEM_MSREACTORCORE.get());
+    private static final ItemWrapperObject LOGO = new ItemWrapperObject(7, 10, 32, 32, 32, 2.0F, NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.msreactorcore));
 
     public ChapterMSReactor(Module module) {
         super(module);
@@ -39,11 +40,11 @@ public class ChapterMSReactor extends Chapter {
                 //
                 "chapter.msreactor.l2.1",
                 //
-                NuclearScienceItems.ITEM_MSREACTORCORE.get().getDescription().copy().withStyle(ChatFormatting.BOLD),
+                NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.msreactorcore).getDescription().copy().withStyle(ChatFormatting.BOLD),
                 //
-                NuclearScienceItems.ITEM_FREEZEPLUG.get().getDescription().copy().withStyle(ChatFormatting.BOLD),
+                NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.freezeplug).getDescription().copy().withStyle(ChatFormatting.BOLD),
                 //
-                NuclearScienceItems.ITEM_MOLTENSALTSUPPLIER.get().getDescription().copy().withStyle(ChatFormatting.BOLD)
+                NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.moltensaltsupplier).getDescription().copy().withStyle(ChatFormatting.BOLD)
                 //
         )).setIndentions(1).setSeparateStart());
         pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/msreactor1.png")));
@@ -63,7 +64,7 @@ public class ChapterMSReactor extends Chapter {
                 //
                 NuclearScienceItems.ITEMS_MOLTENSALTPIPTE.getValue(SubtypeMoltenSaltPipe.vanadiumsteelceramic).getDescription().copy().withStyle(ChatFormatting.BOLD),
                 //
-                NuclearScienceItems.ITEM_HEATEXCHANGER.get().getDescription().copy().withStyle(ChatFormatting.BOLD)
+                NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.heatexchanger).getDescription().copy().withStyle(ChatFormatting.BOLD)
                 //
         )).setIndentions(1).setSeparateStart());
         pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/msreactor6.png")));
@@ -72,7 +73,7 @@ public class ChapterMSReactor extends Chapter {
         pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/msreactor9.png")));
         pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/msreactor10.png")));
         pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/msreactor11.png")));
-        pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.msreactor.l6", NuclearScienceItems.ITEM_MSCONTROLROD.get().getDescription().copy().withStyle(ChatFormatting.BOLD))).setIndentions(1).setSeparateStart());
+        pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.msreactor.l6", NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.mscontrolrod).getDescription().copy().withStyle(ChatFormatting.BOLD))).setIndentions(1).setSeparateStart());
         pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/msreactor12.png")));
 
     }

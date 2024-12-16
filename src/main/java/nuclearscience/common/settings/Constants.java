@@ -51,7 +51,10 @@ public class Constants {
 	public static int QUANTUM_TUNNEL_FREQUENCY_CAP_PER_PLAYER = 40;
 	@IntValue(def = 40)
 	public static int ANTIMATTER_TICKS_ON_GROUND = 40;
-
+	@DoubleValue(def = 100)
+	public static double CLOUD_CHAMBER_ENERGY_USAGE_PER_TICK = 100;
+	@IntValue(def = 1)
+	public static int CLOUD_CHAMBER_FLUID_USAGE_PER_TICK = 1;
 
 	@IntValue(def = 5)
 	public static int ATOMIC_ASSEMBLER_RADIATION_RADIUS = 5;

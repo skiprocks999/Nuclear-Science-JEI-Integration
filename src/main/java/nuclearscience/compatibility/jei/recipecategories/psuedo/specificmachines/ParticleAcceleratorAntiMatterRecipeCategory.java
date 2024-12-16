@@ -23,6 +23,7 @@ import net.minecraft.world.item.AirItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import nuclearscience.References;
+import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
 import nuclearscience.common.settings.Constants;
 import nuclearscience.compatibility.jei.utils.NuclearJeiTextures;
 import nuclearscience.prefab.utils.NuclearTextUtils;
@@ -43,7 +44,7 @@ public class ParticleAcceleratorAntiMatterRecipeCategory extends AbstractRecipeC
 
     public static final int ANIM_TIME = 50;
 
-    public static ItemStack INPUT_MACHINE = new ItemStack(NuclearScienceBlocks.BLOCK_PARTICLEINJECTOR.get());
+    public static ItemStack INPUT_MACHINE = new ItemStack(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.particleinjector));
 
     public static final String RECIPE_GROUP = "particalacceleratorantimatter";
 

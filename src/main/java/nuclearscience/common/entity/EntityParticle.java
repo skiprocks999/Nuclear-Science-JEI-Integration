@@ -2,10 +2,10 @@ package nuclearscience.common.entity;
 
 import java.util.HashSet;
 
+import electrodynamics.common.block.states.ElectrodynamicsBlockStates;
 import nuclearscience.api.radiation.SimpleRadiationSource;
 import org.joml.Vector3f;
 
-import electrodynamics.prefab.block.GenericEntityBlock;
 import electrodynamics.prefab.utilities.object.Location;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -95,7 +95,7 @@ public class EntityParticle extends Entity {
 				BlockState oldState = level().getBlockState(next);
 				boolean isBooster = false;
 				if (oldState.getBlock() == NuclearScienceBlocks.BLOCK_ELECTORMAGNETICBOOSTER.get()) {
-					Direction dir = oldState.getValue(GenericEntityBlock.FACING).getOpposite();
+					Direction dir = oldState.getValue(ElectrodynamicsBlockStates.FACING).getOpposite();
 					FacingDirection face = oldState.getValue(BlockElectromagneticBooster.FACINGDIRECTION);
 					if (face == FacingDirection.RIGHT) {
 						dir = dir.getClockWise();
@@ -184,8 +184,8 @@ public class EntityParticle extends Entity {
 						boolean checkIsBooster = nextState.getBlock() == NuclearScienceBlocks.BLOCK_ELECTORMAGNETICBOOSTER.get() && oldState.getBlock() == NuclearScienceBlocks.BLOCK_ELECTORMAGNETICBOOSTER.get();
 						boolean explode = false;
 						if (checkIsBooster) {
-							Direction oldDir = oldState.getValue(GenericEntityBlock.FACING);
-							Direction nextDir = nextState.getValue(GenericEntityBlock.FACING);
+							Direction oldDir = oldState.getValue(ElectrodynamicsBlockStates.FACING);
+							Direction nextDir = nextState.getValue(ElectrodynamicsBlockStates.FACING);
 							if (oldDir != nextDir) {
 								FacingDirection face = oldState.getValue(BlockElectromagneticBooster.FACINGDIRECTION);
 								if (face == FacingDirection.RIGHT) {

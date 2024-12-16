@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import nuclearscience.api.fusion.IElectromagnet;
 import nuclearscience.api.turbine.ISteamReceiver;
+import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
 import nuclearscience.common.settings.Constants;
 import nuclearscience.registers.NuclearScienceTiles;
 import nuclearscience.registers.NuclearScienceBlocks;
@@ -44,7 +45,7 @@ public class TilePlasma extends GenericTile {
 				boolean didntExist = false;
 				if (state.getBlock() != getBlockState().getBlock()) {
 					didntExist = true;
-					if (state.getDestroySpeed(level, offset) != -1 && !(state.getBlock() instanceof IElectromagnet) && state.getBlock() != NuclearScienceBlocks.BLOCK_FUSIONREACTORCORE.get()) {
+					if (state.getDestroySpeed(level, offset) != -1 && !(state.getBlock() instanceof IElectromagnet) && state.getBlock() != NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fusionreactorcore)) {
 						level.setBlockAndUpdate(offset, NuclearScienceBlocks.BLOCK_PLASMA.get().defaultBlockState());
 					}
 				}

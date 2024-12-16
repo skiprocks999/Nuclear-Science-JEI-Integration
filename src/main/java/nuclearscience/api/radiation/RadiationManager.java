@@ -27,6 +27,31 @@ public class RadiationManager implements IRadiationManager {
     }
 
     @Override
+    public List<TemporaryRadiationSource> getTemporarySources(Level world) {
+        return new ArrayList<>(world.getData(NuclearScienceAttachmentTypes.TEMPORARY_RADIATION_SOURCES).values());
+    }
+
+    @Override
+    public List<FadingRadiationSource> getFadingSources(Level world) {
+        return new ArrayList<>(world.getData(NuclearScienceAttachmentTypes.FADING_RADIATION_SOURCES).values());
+    }
+
+    @Override
+    public List<BlockPos> getPermanentLocations(Level world) {
+        return new ArrayList<>(world.getData(NuclearScienceAttachmentTypes.PERMANENT_RADIATION_SOURCES).keySet());
+    }
+
+    @Override
+    public List<BlockPos> getTemporaryLocations(Level world) {
+        return new ArrayList<>(world.getData(NuclearScienceAttachmentTypes.TEMPORARY_RADIATION_SOURCES).keySet());
+    }
+
+    @Override
+    public List<BlockPos> getFadingLocations(Level world) {
+        return new ArrayList<>(world.getData(NuclearScienceAttachmentTypes.FADING_RADIATION_SOURCES).keySet());
+    }
+
+    @Override
     public void addRadiationSource(SimpleRadiationSource source, Level world) {
         if (source.isTemporary()) {
             HashMap<BlockPos, TemporaryRadiationSource> sources = world.getData(NuclearScienceAttachmentTypes.TEMPORARY_RADIATION_SOURCES);

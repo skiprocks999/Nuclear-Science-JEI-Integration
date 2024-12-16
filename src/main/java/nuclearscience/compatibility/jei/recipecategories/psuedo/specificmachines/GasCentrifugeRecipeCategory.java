@@ -21,6 +21,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.world.item.ItemStack;
 import nuclearscience.References;
+import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
 import nuclearscience.common.settings.Constants;
 import nuclearscience.common.tile.TileGasCentrifuge;
 import nuclearscience.compatibility.jei.utils.NuclearJeiTextures;
@@ -52,7 +53,7 @@ public class GasCentrifugeRecipeCategory extends AbstractRecipeCategory<PsuedoGa
 
 	public static final int ANIM_TIME = 100;
 
-	public static ItemStack INPUT_MACHINE = new ItemStack(NuclearScienceBlocks.BLOCK_GASCENTRIFUGE.get());
+	public static ItemStack INPUT_MACHINE = new ItemStack(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.gascentrifuge));
 
 	public static final String RECIPE_GROUP = "gascentrifuge";
 

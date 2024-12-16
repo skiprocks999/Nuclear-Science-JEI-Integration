@@ -16,6 +16,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.world.item.ItemStack;
 import nuclearscience.References;
+import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
 import nuclearscience.common.recipe.categories.fluiditem2item.ChemicalExtractorRecipe;
 import nuclearscience.prefab.utils.NuclearTextUtils;
 import nuclearscience.registers.NuclearScienceBlocks;
@@ -40,7 +41,7 @@ public class ChemicalExtractorRecipeCategory extends FluidItem2ItemRecipeCategor
 
 	public static final int ANIM_TIME = 50;
 
-	public static ItemStack INPUT_MACHINE = new ItemStack(NuclearScienceBlocks.BLOCK_CHEMICALEXTRACTOR.get());
+	public static ItemStack INPUT_MACHINE = new ItemStack(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.chemicalextractor));
 
 	public static final RecipeType<ChemicalExtractorRecipe> RECIPE_TYPE = RecipeType.create(References.ID, ChemicalExtractorRecipe.RECIPE_GROUP, ChemicalExtractorRecipe.class);
 

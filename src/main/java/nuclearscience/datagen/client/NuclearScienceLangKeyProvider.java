@@ -5,6 +5,7 @@ import net.minecraft.data.PackOutput;
 import nuclearscience.References;
 import nuclearscience.common.block.subtype.SubtypeIrradiatedBlock;
 import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
+import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
 import nuclearscience.common.block.subtype.SubtypeRadiationShielding;
 import nuclearscience.common.recipe.categories.fluiditem2gas.NuclearBoilerRecipe;
 import nuclearscience.common.recipe.categories.fluiditem2item.ChemicalExtractorRecipe;
@@ -75,34 +76,34 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addItem(NuclearScienceItems.ITEM_FREQUENCYCARD, "Frequency Card");
 			addItem(NuclearScienceItems.ITEM_CANISTERLEAD, "Lead-Lined Canister");
 
-			addBlock(NuclearScienceBlocks.BLOCK_GASCENTRIFUGE, "Gas Centrifuge");
-			addBlock(NuclearScienceBlocks.BLOCK_NUCLEARBOILER, "Nuclear Boiler");
-			addBlock(NuclearScienceBlocks.BLOCK_CHEMICALEXTRACTOR, "Chemical Extractor");
-			addBlock(NuclearScienceBlocks.BLOCK_RADIOISOTOPEGENERATOR, "Radioisotope Generator");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.gascentrifuge), "Gas Centrifuge");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.nuclearboiler), "Nuclear Boiler");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.chemicalextractor), "Chemical Extractor");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.radioisotopegenerator), "Radioisotope Generator");
 			addBlock(NuclearScienceBlocks.BLOCK_TURBINE, "Steam Turbine");
-			addBlock(NuclearScienceBlocks.BLOCK_STEAMFUNNEL, "Steam Funnel");
-			addBlock(NuclearScienceBlocks.BLOCK_FISSIONREACTORCORE, "Fission Reactor Core");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.steamfunnel), "Steam Funnel");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fissionreactorcore), "Fission Reactor Core");
 			addBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNET, "Electromagnet");
 			addBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICGLASS, "Electromagnetic Glass");
 			addBlock(NuclearScienceBlocks.BLOCK_ELECTORMAGNETICBOOSTER, "Electromagnetic Booster");
 			addBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICSWITCH, "Electromagnetic Switch");
-			addBlock(NuclearScienceBlocks.BLOCK_FUSIONREACTORCORE, "Fusion Reactor Core");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fusionreactorcore), "Fusion Reactor Core");
 			addBlock(NuclearScienceBlocks.BLOCK_PLASMA, "Plasma");
 			addBlock(NuclearScienceBlocks.BLOCK_MELTEDREACTOR, "Melted Reactor Core");
-			addBlock(NuclearScienceBlocks.BLOCK_PARTICLEINJECTOR, "Particle Injector");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.particleinjector), "Particle Injector");
 			addBlock(NuclearScienceBlocks.BLOCK_QUANTUMTUNNEL, "Quantum Tunnel");
-			addBlock(NuclearScienceBlocks.BLOCK_TELEPORTER, "Teleporter");
-			addBlock(NuclearScienceBlocks.BLOCK_FISSIONCONTROLROD, "Fission Control Rod");
-			addBlock(NuclearScienceBlocks.BLOCK_FUELREPROCESSOR, "Fuel Reprocessor");
-			addBlock(NuclearScienceBlocks.BLOCK_RADIOACTIVEPROCESSOR, "Radioactive Processor");
-			addBlock(NuclearScienceBlocks.BLOCK_MSRFUELPREPROCESSOR, "MSR Fuel Pre-Processor");
-			addBlock(NuclearScienceBlocks.BLOCK_MSRFREEZEPLUG, "MSR Freeze Plug");
-			addBlock(NuclearScienceBlocks.BLOCK_MSREACTORCORE, "MS Reactor Core");
-			addBlock(NuclearScienceBlocks.BLOCK_MSCONTROLROD, "MS Control Rod");
-			addBlock(NuclearScienceBlocks.BLOCK_HEATEXCHANGER, "Heat Exchanger");
-			addBlock(NuclearScienceBlocks.BLOCK_SIREN, "Siren");
-			addBlock(NuclearScienceBlocks.BLOCK_ATOMICASSEMBLER, "Atomic Assembler");
-			addBlock(NuclearScienceBlocks.BLOCK_MOLTENSALTSUPPLIER, "Molten Salt Supplier");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.teleporter), "Teleporter");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fissioncontrolrod), "Fission Control Rod");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fuelreprocessor), "Fuel Reprocessor");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.radioactiveprocessor), "Radioactive Processor");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.msrfuelpreprocessor), "MSR Fuel Pre-Processor");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.freezeplug), "MSR Freeze Plug");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.msreactorcore), "MS Reactor Core");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.mscontrolrod), "MS Control Rod");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.heatexchanger), "Heat Exchanger");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.siren), "Siren");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.atomicassembler), "Atomic Assembler");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.moltensaltsupplier), "Molten Salt Supplier");
 			addBlock(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.soil), "Irradiated Soil");
 			addBlock(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.grass), "Irradiated Grass");
 			addBlock(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.petrifiedwood), "Petrified Wood");
@@ -114,10 +115,11 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 
 			addBlock(NuclearScienceBlocks.BLOCKS_MOLTENSALTPIPE.getValue(SubtypeMoltenSaltPipe.vanadiumsteelceramic), "VS-Ceramic Pipe");
 
-			addBlock(NuclearScienceBlocks.BLOCK_CHUNKLOADER, "Chunkloader");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.chunkloader), "Chunkloader");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.cloudchamber), "Cloud Chamber");
 
 			addFluid(NuclearScienceFluids.FLUID_IODINESOLUTION, "Iodine Solution");
-			//addFluid(NuclearScienceFluids.fluidAmmonia, "Ammonia");
+			addFluid(NuclearScienceFluids.FLUID_METHANOL, "Methanol");
 
 			addGas(NuclearScienceGases.URANIUM_HEXAFLUORIDE, "Uranium Hexafluoride");
 
@@ -136,6 +138,7 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addContainer("moltensaltsupplier", "Molten Salt Supplier");
 			addContainer("atomicassembler", "Atomic Assembler");
 			addContainer("teleporter", "Teleporter");
+			addContainer("cloudchamber", "Cloud Chamber");
 
 			addGuiLabel("machine.usage", "Usage: %s");
 			addGuiLabel("machine.voltage", "Voltage: %s");
@@ -189,6 +192,11 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addGuiLabel("quantumtunnel.save", "Save");
 			addGuiLabel("quantumtunnel.frequencytype", "Frequency Type");
 			addGuiLabel("quantumtunnel.editfrequency", "Edit Frequency");
+
+			addGuiLabel("cloudchamber.status", "Status: %s");
+			addGuiLabel("cloudchamber.offline", "Offline");
+			addGuiLabel("cloudchamber.active", "Active");
+			addGuiLabel("cloudchamber.detected", "Detected: %s");
 
 
 			addDamageSource("radiation", "%s just did a speedrun of evolution!");

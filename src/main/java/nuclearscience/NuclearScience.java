@@ -22,6 +22,7 @@ public class NuclearScience {
 
 	public NuclearScience(IEventBus bus) {
 		ConfigurationHandler.registerConfig(Constants.class);
+		NuclearScienceVoxelShapeRegistry.init();
 		UnifiedNuclearScienceRegister.register(bus);
 	}
 
@@ -41,7 +42,7 @@ public class NuclearScience {
 		RadioactiveGasRegister.INSTANCE = new RadioactiveGasRegister().subscribeAsSyncable();
 		AtomicAssemblerBlacklistRegister.INSTANCE = new AtomicAssemblerBlacklistRegister().subscribeAsSyncable();
 		RadiationShieldingRegister.INSTANCE = new RadiationShieldingRegister().subscribeAsSyncable();
-		NuclearScienceVoxelShapeRegistry.init();
+
 	}
 
 }

@@ -2,6 +2,7 @@ package nuclearscience.datagen.server.tags.types;
 
 import java.util.concurrent.CompletableFuture;
 
+import electrodynamics.common.block.BlockMachine;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
@@ -25,15 +26,9 @@ public class NuclearScienceBlockTagsProvider extends BlockTagsProvider {
 
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getAllValuesArray(new Block[]{}))
                 //
+                .add(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getAllValuesArray(new BlockMachine[0]))
+                //
                 .add(
-                        //
-                        NuclearScienceBlocks.BLOCK_ATOMICASSEMBLER.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_CHEMICALEXTRACTOR.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_CHUNKLOADER.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_FISSIONCONTROLROD.get(),
                         //
                         NuclearScienceBlocks.BLOCK_ELECTROMAGNET.get(),
                         //
@@ -43,53 +38,17 @@ public class NuclearScienceBlockTagsProvider extends BlockTagsProvider {
                         //
                         NuclearScienceBlocks.BLOCK_ELECTROMAGNETICSWITCH.get(),
                         //
-                        NuclearScienceBlocks.BLOCK_MSRFREEZEPLUG.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_FUELREPROCESSOR.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_FUSIONREACTORCORE.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_GASCENTRIFUGE.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_HEATEXCHANGER.get(),
-                        //
                         NuclearScienceBlocks.BLOCK_MELTEDREACTOR.get(),
                         //
-                        NuclearScienceBlocks.BLOCK_MOLTENSALTSUPPLIER.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_MSRFUELPREPROCESSOR.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_MSREACTORCORE.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_NUCLEARBOILER.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_PARTICLEINJECTOR.get(),
-                        //
                         NuclearScienceBlocks.BLOCK_QUANTUMTUNNEL.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_RADIOACTIVEPROCESSOR.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_RADIOISOTOPEGENERATOR.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_FISSIONREACTORCORE.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_SIREN.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_TELEPORTER.get(),
                         //
                         NuclearScienceBlocks.BLOCK_TURBINE.get());
 
         tag(BlockTags.NEEDS_STONE_TOOL).add(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getAllValuesArray(new Block[]{}))
                 //
+                .add(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getAllValuesArray(new BlockMachine[0]))
+                //
                 .add(
-                        //
-                        NuclearScienceBlocks.BLOCK_ATOMICASSEMBLER.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_CHEMICALEXTRACTOR.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_CHUNKLOADER.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_FISSIONCONTROLROD.get(),
                         //
                         NuclearScienceBlocks.BLOCK_ELECTROMAGNET.get(),
                         //
@@ -99,39 +58,9 @@ public class NuclearScienceBlockTagsProvider extends BlockTagsProvider {
                         //
                         NuclearScienceBlocks.BLOCK_ELECTROMAGNETICSWITCH.get(),
                         //
-                        NuclearScienceBlocks.BLOCK_MSRFREEZEPLUG.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_FUELREPROCESSOR.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_FUSIONREACTORCORE.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_GASCENTRIFUGE.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_HEATEXCHANGER.get(),
-                        //
                         NuclearScienceBlocks.BLOCK_MELTEDREACTOR.get(),
                         //
-                        NuclearScienceBlocks.BLOCK_MOLTENSALTSUPPLIER.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_MSRFUELPREPROCESSOR.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_MSREACTORCORE.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_NUCLEARBOILER.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_PARTICLEINJECTOR.get(),
-                        //
                         NuclearScienceBlocks.BLOCK_QUANTUMTUNNEL.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_RADIOACTIVEPROCESSOR.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_RADIOISOTOPEGENERATOR.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_FISSIONREACTORCORE.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_SIREN.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_TELEPORTER.get(),
                         //
                         NuclearScienceBlocks.BLOCK_TURBINE.get());
 

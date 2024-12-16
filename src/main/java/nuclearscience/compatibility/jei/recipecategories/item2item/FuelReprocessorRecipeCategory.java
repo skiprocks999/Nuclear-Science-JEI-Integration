@@ -16,6 +16,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.world.item.ItemStack;
 import nuclearscience.References;
+import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
 import nuclearscience.common.recipe.categories.item2item.FuelReprocessorRecipe;
 import nuclearscience.prefab.utils.NuclearTextUtils;
 import nuclearscience.registers.NuclearScienceBlocks;
@@ -37,7 +38,7 @@ public class FuelReprocessorRecipeCategory extends Item2ItemRecipeCategory<FuelR
 
 	public static final int ANIM_TIME = 50;
 
-	public static ItemStack INPUT_MACHINE = new ItemStack(NuclearScienceBlocks.BLOCK_FUELREPROCESSOR.get());
+	public static ItemStack INPUT_MACHINE = new ItemStack(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fuelreprocessor));
 
 	public static final RecipeType<FuelReprocessorRecipe> RECIPE_TYPE = RecipeType.create(References.ID, FuelReprocessorRecipe.RECIPE_GROUP, FuelReprocessorRecipe.class);
 

@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.Block;
 import nuclearscience.References;
 import nuclearscience.common.block.subtype.SubtypeIrradiatedBlock;
 import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
+import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
 import nuclearscience.common.block.subtype.SubtypeRadiationShielding;
 import nuclearscience.registers.NuclearScienceTiles;
 import nuclearscience.registers.NuclearScienceBlocks;
@@ -21,42 +22,43 @@ public class NuclearScienceLootTablesProvider extends ElectrodynamicsLootTablesP
 	@Override
 	protected void generate() {
 
-		addMachineTable(NuclearScienceBlocks.BLOCK_ATOMICASSEMBLER.get(), NuclearScienceTiles.TILE_ATOMICASSEMBLER, true, false, false, true, false);
-		addMachineTable(NuclearScienceBlocks.BLOCK_CHEMICALEXTRACTOR.get(), NuclearScienceTiles.TILE_CHEMICALEXTRACTOR, true, true, false, true, false);
-		addSimpleBlock(NuclearScienceBlocks.BLOCK_FISSIONCONTROLROD.get());
+		addMachineTable(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.atomicassembler), NuclearScienceTiles.TILE_ATOMICASSEMBLER, true, false, false, true, false);
+		addMachineTable(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.chemicalextractor), NuclearScienceTiles.TILE_CHEMICALEXTRACTOR, true, true, false, true, false);
+		addSimpleBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fissioncontrolrod));
 		addSimpleBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNET.get());
 		addSimpleBlock(NuclearScienceBlocks.BLOCK_ELECTORMAGNETICBOOSTER.get());
 		addSimpleBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICGLASS.get());
 		addSimpleBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICSWITCH.get());
-		addMachineTable(NuclearScienceBlocks.BLOCK_MSRFREEZEPLUG.get(), NuclearScienceTiles.TILE_FREEZEPLUG, true, false, false, false, false);
-		addMachineTable(NuclearScienceBlocks.BLOCK_FUELREPROCESSOR.get(), NuclearScienceTiles.TILE_FUELREPROCESSOR, true, false, false, true, false);
-		addSimpleBlock(NuclearScienceBlocks.BLOCK_FUSIONREACTORCORE.get());
-		addMachineTable(NuclearScienceBlocks.BLOCK_GASCENTRIFUGE.get(), NuclearScienceTiles.TILE_GASCENTRIFUGE, true, true, false, true, false);
-		addSimpleBlock(NuclearScienceBlocks.BLOCK_HEATEXCHANGER.get());
+		addMachineTable(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.freezeplug), NuclearScienceTiles.TILE_FREEZEPLUG, true, false, false, false, false);
+		addMachineTable(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fuelreprocessor), NuclearScienceTiles.TILE_FUELREPROCESSOR, true, false, false, true, false);
+		addSimpleBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fusionreactorcore));
+		addMachineTable(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.gascentrifuge), NuclearScienceTiles.TILE_GASCENTRIFUGE, true, true, false, true, false);
+		addSimpleBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.heatexchanger));
 		addSimpleBlock(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.base));
 		addSimpleBlock(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.door));
 		addSimpleBlock(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.trapdoor));
 		addSimpleBlock(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.glass));
 		addSimpleBlock(NuclearScienceBlocks.BLOCK_MELTEDREACTOR.get());
-		addMachineTable(NuclearScienceBlocks.BLOCK_MOLTENSALTSUPPLIER.get(), NuclearScienceTiles.TILE_MOLTENSALTSUPPLIER, true, false, false, false, false);
-		addMachineTable(NuclearScienceBlocks.BLOCK_MSRFUELPREPROCESSOR.get(), NuclearScienceTiles.TILE_MSRFUELPREPROCESSOR, true, true, false, true, false);
-		addSimpleBlock(NuclearScienceBlocks.BLOCK_MSREACTORCORE.get());
-		addMachineTable(NuclearScienceBlocks.BLOCK_NUCLEARBOILER.get(), NuclearScienceTiles.TILE_CHEMICALBOILER, true, true, false, true, false);
-		addMachineTable(NuclearScienceBlocks.BLOCK_PARTICLEINJECTOR.get(), NuclearScienceTiles.TILE_PARTICLEINJECTOR, true, false, false, true, false);
+		addMachineTable(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.moltensaltsupplier), NuclearScienceTiles.TILE_MOLTENSALTSUPPLIER, true, false, false, false, false);
+		addMachineTable(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.msrfuelpreprocessor), NuclearScienceTiles.TILE_MSRFUELPREPROCESSOR, true, true, false, true, false);
+		addSimpleBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.msreactorcore));
+		addMachineTable(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.nuclearboiler), NuclearScienceTiles.TILE_CHEMICALBOILER, true, true, false, true, false);
+		addMachineTable(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.particleinjector), NuclearScienceTiles.TILE_PARTICLEINJECTOR, true, false, false, true, false);
 		addMachineTable(NuclearScienceBlocks.BLOCK_QUANTUMTUNNEL.get(), NuclearScienceTiles.TILE_QUANTUMCAPACITOR, false, false, false, true, false);
-		addMachineTable(NuclearScienceBlocks.BLOCK_RADIOACTIVEPROCESSOR.get(), NuclearScienceTiles.TILE_RADIOACTIVEPROCESSOR, true, true, false, false, false);
+		addMachineTable(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.radioactiveprocessor), NuclearScienceTiles.TILE_RADIOACTIVEPROCESSOR, true, true, false, false, false);
 		addSimpleBlock(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.soil));
 		addSimpleBlock(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.petrifiedwood));
 		add(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.grass), createSilkTouchOnlyTable(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.grass)));
-		addMachineTable(NuclearScienceBlocks.BLOCK_RADIOISOTOPEGENERATOR.get(), NuclearScienceTiles.TILE_RADIOISOTOPEGENERATOR, true, false, false, false, false);
-		addMachineTable(NuclearScienceBlocks.BLOCK_FISSIONREACTORCORE.get(), NuclearScienceTiles.TILE_REACTORCORE, true, false, false, false, false);
-		addSimpleBlock(NuclearScienceBlocks.BLOCK_SIREN.get());
-		addMachineTable(NuclearScienceBlocks.BLOCK_TELEPORTER.get(), NuclearScienceTiles.TILE_TELEPORTER, false, false, false, true, false);
+		addMachineTable(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.radioisotopegenerator), NuclearScienceTiles.TILE_RADIOISOTOPEGENERATOR, true, false, false, false, false);
+		addMachineTable(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fissionreactorcore), NuclearScienceTiles.TILE_REACTORCORE, true, false, false, false, false);
+		addSimpleBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.siren));
+		addMachineTable(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.teleporter), NuclearScienceTiles.TILE_TELEPORTER, false, false, false, true, false);
 		addSimpleBlock(NuclearScienceBlocks.BLOCK_TURBINE.get());
 		addSimpleBlock(NuclearScienceBlocks.BLOCKS_MOLTENSALTPIPE.getValue(SubtypeMoltenSaltPipe.vanadiumsteelceramic));
-		addSimpleBlock(NuclearScienceBlocks.BLOCK_STEAMFUNNEL.get());
-		addSimpleBlock(NuclearScienceBlocks.BLOCK_CHUNKLOADER.get());
-		addSimpleBlock(NuclearScienceBlocks.BLOCK_MSCONTROLROD.get());
+		addSimpleBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.steamfunnel));
+		addSimpleBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.chunkloader));
+		addSimpleBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.mscontrolrod));
+		addMachineTable(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.cloudchamber), NuclearScienceTiles.TILE_CLOUDCHAMBER, false, true, false, true, false);
 
 	}
 

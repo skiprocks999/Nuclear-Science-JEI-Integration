@@ -6,6 +6,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import nuclearscience.References;
 import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
+import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
 import nuclearscience.common.block.subtype.SubtypeRadiationShielding;
 import nuclearscience.registers.NuclearScienceBlocks;
 import nuclearscience.registers.NuclearScienceItems;
@@ -64,12 +65,12 @@ public class NuclearScienceItemModelsProvider extends ElectrodynamicsItemModelsP
 		layeredItem(NuclearScienceItems.ITEM_REINFORCEDHAZMATLEGS, Parent.GENERATED, itemLoc("reinforcedhazmatlegs"));
 		layeredItem(NuclearScienceItems.ITEM_REINFORCEDHAZMATBOOTS, Parent.GENERATED, itemLoc("reinforcedhazmatboots"));
 
-		simpleBlockItem(NuclearScienceBlocks.BLOCK_ATOMICASSEMBLER.get(), existingBlock(blockLoc("atomicassemblersingle")));
-		simpleBlockItem(NuclearScienceBlocks.BLOCK_FISSIONCONTROLROD.get(), existingBlock(blockLoc("fissioncontrolroditem")));
-		simpleBlockItem(NuclearScienceBlocks.BLOCK_MSCONTROLROD.get(), existingBlock(blockLoc("mscontrolroditem")));
-		simpleBlockItem(NuclearScienceBlocks.BLOCK_GASCENTRIFUGE.get(), existingBlock(blockLoc("gascentrifuge")));
+		simpleBlockItem(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.atomicassembler), existingBlock(blockLoc("atomicassemblersingle")));
+		simpleBlockItem(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fissioncontrolrod), existingBlock(blockLoc("fissioncontrolroditem")));
+		simpleBlockItem(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.mscontrolrod), existingBlock(blockLoc("mscontrolroditem")));
+		simpleBlockItem(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.gascentrifuge), existingBlock(blockLoc("gascentrifuge")));
 		layeredItem(NuclearScienceItems.ITEMS_MOLTENSALTPIPTE.getValue(SubtypeMoltenSaltPipe.vanadiumsteelceramic), Parent.GENERATED, itemLoc("pipe/" + SubtypeMoltenSaltPipe.vanadiumsteelceramic.tag()));
-		simpleBlockItem(NuclearScienceBlocks.BLOCK_PARTICLEINJECTOR.get(), existingBlock(blockLoc("particleinjector"))).transforms().transform(ItemDisplayContext.GUI).rotation(45.0F, 45.0F, 0).scale(0.5F).translation(0.0F, -1.0F, 0.0F);
+		simpleBlockItem(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.particleinjector), existingBlock(blockLoc("particleinjector"))).transforms().transform(ItemDisplayContext.GUI).rotation(45.0F, 45.0F, 0).scale(0.5F).translation(0.0F, -1.0F, 0.0F);
 		simpleBlockItem(NuclearScienceBlocks.BLOCK_TURBINE.get(), existingBlock(blockLoc("turbine")));
 
 		layeredItem(NuclearScienceItems.ITEMS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.door), Parent.GENERATED, itemLoc("leadlineddoor"));

@@ -3,6 +3,7 @@ package nuclearscience.registers;
 import electrodynamics.common.blockitem.types.BlockItemDescriptable;
 import electrodynamics.prefab.utilities.ElectroTextUtils;
 import net.neoforged.bus.api.IEventBus;
+import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
 import nuclearscience.common.recipe.NuclearScienceRecipeInit;
 import nuclearscience.prefab.utils.NuclearTextUtils;
 
@@ -28,24 +29,24 @@ public class UnifiedNuclearScienceRegister {
 
 	static {
 		// Machines
-		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCK_GASCENTRIFUGE, ElectroTextUtils.voltageTooltip(240));
-		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCK_NUCLEARBOILER, ElectroTextUtils.voltageTooltip(240));
-		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCK_CHEMICALEXTRACTOR, ElectroTextUtils.voltageTooltip(240));
-		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCK_PARTICLEINJECTOR, ElectroTextUtils.voltageTooltip(960));
-		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCK_TELEPORTER, ElectroTextUtils.voltageTooltip(480));
-		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCK_FUELREPROCESSOR, ElectroTextUtils.voltageTooltip(480));
-		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCK_RADIOACTIVEPROCESSOR, ElectroTextUtils.voltageTooltip(480));
-		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCK_MSRFUELPREPROCESSOR, ElectroTextUtils.voltageTooltip(240));
-		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCK_MOLTENSALTSUPPLIER, ElectroTextUtils.voltageTooltip(120));
-		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCK_FUSIONREACTORCORE, ElectroTextUtils.voltageTooltip(480));
-		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCK_MSRFREEZEPLUG, ElectroTextUtils.voltageTooltip(120));
-		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCK_ATOMICASSEMBLER, ElectroTextUtils.voltageTooltip(480));
+		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getHolder(SubtypeNuclearMachine.gascentrifuge), ElectroTextUtils.voltageTooltip(240));
+		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getHolder(SubtypeNuclearMachine.nuclearboiler), ElectroTextUtils.voltageTooltip(240));
+		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getHolder(SubtypeNuclearMachine.chemicalextractor), ElectroTextUtils.voltageTooltip(240));
+		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getHolder(SubtypeNuclearMachine.particleinjector), ElectroTextUtils.voltageTooltip(960));
+		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getHolder(SubtypeNuclearMachine.teleporter), ElectroTextUtils.voltageTooltip(480));
+		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getHolder(SubtypeNuclearMachine.fuelreprocessor), ElectroTextUtils.voltageTooltip(480));
+		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getHolder(SubtypeNuclearMachine.radioactiveprocessor), ElectroTextUtils.voltageTooltip(480));
+		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getHolder(SubtypeNuclearMachine.msrfuelpreprocessor), ElectroTextUtils.voltageTooltip(240));
+		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getHolder(SubtypeNuclearMachine.moltensaltsupplier), ElectroTextUtils.voltageTooltip(120));
+		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getHolder(SubtypeNuclearMachine.fusionreactorcore), ElectroTextUtils.voltageTooltip(480));
+		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getHolder(SubtypeNuclearMachine.freezeplug), ElectroTextUtils.voltageTooltip(120));
+		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getHolder(SubtypeNuclearMachine.atomicassembler), ElectroTextUtils.voltageTooltip(480));
 
 		// Generators
-		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCK_RADIOISOTOPEGENERATOR, ElectroTextUtils.voltageTooltip(120));
+		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getHolder(SubtypeNuclearMachine.radioisotopegenerator), ElectroTextUtils.voltageTooltip(120));
 
 		// Misc
-		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCK_STEAMFUNNEL, NuclearTextUtils.tooltip("steamfunneluse"));
+		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getHolder(SubtypeNuclearMachine.steamfunnel), NuclearTextUtils.tooltip("steamfunneluse"));
 	}
 
 }

@@ -23,30 +23,22 @@ public enum SubtypeNuclearMachine implements ISubtype, IMachine {
     fuelreprocessor(true, TileFuelReprocessor::new, MachineProperties.builder().setLitBrightness(15).setShapeProvider(NuclearScienceVoxelShapeRegistry.FUEL_REPROCESSOR)),
     radioactiveprocessor(true, TileRadioactiveProcessor::new, MachineProperties.builder().setLitBrightness(15)),
     cloudchamber(true, TileCloudChamber::new, MachineProperties.builder().setShapeProvider(NuclearScienceVoxelShapeRegistry.CLOUD_CHAMBER)),
-
     radioisotopegenerator(true, TileRadioisotopeGenerator::new, MachineProperties.builder().setShapeProvider(NuclearScienceVoxelShapeRegistry.RADIOISOTROPIC_GENERATOR)),
     fissionreactorcore(true, TileFissionReactorCore::new, MachineProperties.builder().setShapeProvider(NuclearScienceVoxelShapeRegistry.FISSION_REACTOR_CORE)),
     fissioncontrolrod(true, TileControlRod.TileFissionControlRod::new),
     siren(true, TileSiren::new),
     steamfunnel(true, TileSteamFunnel::new),
-
     msrfuelpreprocessor(true, TileMSRFuelPreProcessor::new, MachineProperties.builder().setShapeProvider(NuclearScienceVoxelShapeRegistry.MSR_FUEL_PREPROCESSOR)),
     freezeplug(true, TileFreezePlug::new, MachineProperties.builder().setShapeProvider(NuclearScienceVoxelShapeRegistry.FREEZE_PLUG)),
     msreactorcore(true, TileMSReactorCore::new, MachineProperties.builder().setShapeProvider(NuclearScienceVoxelShapeRegistry.MS_REACTOR_CORE)),
     heatexchanger(true, TileHeatExchanger::new, MachineProperties.builder().setShapeProvider(NuclearScienceVoxelShapeRegistry.HEAT_EXCHANGER)),
     moltensaltsupplier(true, TileMoltenSaltSupplier::new, MachineProperties.builder().setLitBrightness(15).setShapeProvider(NuclearScienceVoxelShapeRegistry.MOLTEN_SALT_SUPPLIER)),
     mscontrolrod(true, TileControlRod.TileMSControlRod::new, MachineProperties.builder().setShapeProvider(NuclearScienceVoxelShapeRegistry.MS_CONTROL_ROD)),
-
     fusionreactorcore(true, TileFusionReactorCore::new, MachineProperties.builder().setLitBrightness(15)),
-
     particleinjector(true, TileParticleInjector::new, MachineProperties.builder().setShapeProvider(NuclearScienceVoxelShapeRegistry.PARTICLE_INJECTOR)),
-
     teleporter(true, TileTeleporter::new, MachineProperties.builder().setShapeProvider(NuclearScienceVoxelShapeRegistry.TELEPORTER).setLitBrightness(15)),
     chunkloader(true, TileChunkloader::new),
-    atomicassembler(true, TileAtomicAssembler::new),
-
-
-    ;
+    atomicassembler(true, TileAtomicAssembler::new);
 
     private final BlockEntityType.BlockEntitySupplier<BlockEntity> blockEntitySupplier;
     private final boolean showInItemGroup;

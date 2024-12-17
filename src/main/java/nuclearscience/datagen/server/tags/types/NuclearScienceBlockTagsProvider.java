@@ -40,8 +40,6 @@ public class NuclearScienceBlockTagsProvider extends BlockTagsProvider {
                         //
                         NuclearScienceBlocks.BLOCK_MELTEDREACTOR.get(),
                         //
-                        NuclearScienceBlocks.BLOCK_QUANTUMTUNNEL.get(),
-                        //
                         NuclearScienceBlocks.BLOCK_TURBINE.get());
 
         tag(BlockTags.NEEDS_STONE_TOOL).add(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getAllValuesArray(new Block[]{}))
@@ -59,8 +57,6 @@ public class NuclearScienceBlockTagsProvider extends BlockTagsProvider {
                         NuclearScienceBlocks.BLOCK_ELECTROMAGNETICSWITCH.get(),
                         //
                         NuclearScienceBlocks.BLOCK_MELTEDREACTOR.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_QUANTUMTUNNEL.get(),
                         //
                         NuclearScienceBlocks.BLOCK_TURBINE.get());
 

@@ -9,6 +9,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import nuclearscience.datagen.server.recipe.custom.NuclearScienceChemicalReactorRecipes;
 import nuclearscience.datagen.server.recipe.custom.fluid2item.NuclearScienceChemicalCrystalizerRecipes;
 import nuclearscience.datagen.server.recipe.custom.fluiditem2fluid.NuclearScienceChemicalMixerRecipes;
 import nuclearscience.datagen.server.recipe.custom.fluiditem2gas.NuclearScienceNuclaerBoilerRecipes;
@@ -38,6 +39,7 @@ public class NuclearScienceRecipeProvider extends RecipeProvider {
 		generators.add(new NuclearScienceFissionReactorRecipes());
 		generators.add(new NuclearScienceFuelReprocessorRecipes());
 		generators.add(new NuclearScienceChemicalCrystalizerRecipes());
+		generators.add(new NuclearScienceChemicalReactorRecipes());
 	}
 
 	@Override

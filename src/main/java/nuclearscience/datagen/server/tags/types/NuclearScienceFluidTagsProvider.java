@@ -21,6 +21,7 @@ public class NuclearScienceFluidTagsProvider extends FluidTagsProvider {
     protected void addTags(Provider provider) {
 
         tag(NuclearScienceTags.Fluids.IODINE_SOLUTION).add(NuclearScienceFluids.FLUID_IODINESOLUTION.get());
+        tag(NuclearScienceTags.Fluids.METHANOL).add(NuclearScienceFluids.FLUID_METHANOL.get());
 
     }
 

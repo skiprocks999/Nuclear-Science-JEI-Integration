@@ -38,7 +38,8 @@ public enum SubtypeNuclearMachine implements ISubtype, IMachine {
     particleinjector(true, TileParticleInjector::new, MachineProperties.builder().setShapeProvider(NuclearScienceVoxelShapeRegistry.PARTICLE_INJECTOR)),
     teleporter(true, TileTeleporter::new, MachineProperties.builder().setShapeProvider(NuclearScienceVoxelShapeRegistry.TELEPORTER).setLitBrightness(15)),
     chunkloader(true, TileChunkloader::new),
-    atomicassembler(true, TileAtomicAssembler::new);
+    atomicassembler(true, TileAtomicAssembler::new),
+    quantumcapacitor(true, TileQuantumTunnel::new);
 
     private final BlockEntityType.BlockEntitySupplier<BlockEntity> blockEntitySupplier;
     private final boolean showInItemGroup;

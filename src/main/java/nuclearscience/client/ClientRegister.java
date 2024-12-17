@@ -38,7 +38,7 @@ public class ClientRegister {
 
     public static void setup() {
 
-
+        ClientEvents.init();
         ScreenGuidebook.addGuidebookModule(new ModuleNuclearScience());
     }
 

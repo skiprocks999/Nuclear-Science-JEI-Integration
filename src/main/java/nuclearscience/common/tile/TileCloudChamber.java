@@ -26,7 +26,7 @@ public class TileCloudChamber extends GenericTile {
     private static final int HORR_RADIUS = 30;
     private static final int VERT_RADIUS = 30;
 
-    public final Property<ArrayList<BlockPos>> sources = property(new Property<>(PropertyTypes.BLOCK_POS_LIST, "sources", new ArrayList<BlockPos>())).setNoSave();
+    public final Property<ArrayList<BlockPos>> sources = property(new Property<>(PropertyTypes.BLOCK_POS_LIST, "sources", new ArrayList<BlockPos>()));
     public final Property<Boolean> active = property(new Property<>(PropertyTypes.BOOLEAN, "active", false));
     private final Property<Boolean> hasRedstoneSignal = property(new Property(PropertyTypes.BOOLEAN, "redstonesignal", false));
 
@@ -76,7 +76,7 @@ public class TileCloudChamber extends GenericTile {
         sources.forEach(source -> {
 
             int deltaX = source.getX() - pos.getX();
-            int deltaY = source.getY() - pos.getX();
+            int deltaY = source.getY() - pos.getY();
             int deltaZ = source.getZ() - pos.getZ();
 
             if(Math.abs(deltaY) > VERT_RADIUS || Math.abs(deltaX) > HORR_RADIUS || Math.abs(deltaZ) > HORR_RADIUS) {
@@ -91,6 +91,8 @@ public class TileCloudChamber extends GenericTile {
             active.set(false);
             return;
         }
+
+        active.set(true);
 
         this.sources.set(accepted);
         this.sources.forceDirty();

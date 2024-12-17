@@ -22,7 +22,7 @@ public class HandlerCloudChamber extends AbstractLevelStageHandler {
 
     public static final HandlerCloudChamber INSTANCE = new HandlerCloudChamber();
 
-    private HashSet<BlockPos> locations = new HashSet<>();
+    private HashMap<List<BlockPos>, Long> locations = new HashMap<>();
 
     @Override
     public boolean shouldRender(RenderLevelStageEvent.Stage stage) {
@@ -36,19 +36,30 @@ public class HandlerCloudChamber extends AbstractLevelStageHandler {
         VertexConsumer builder = buffer.getBuffer(RenderType.LINES);
         Vec3 camPos = camera.getPosition();
 
-        locations.forEach(source -> {
+        Iterator<Map.Entry<List<BlockPos>, Long>> it = locations.entrySet().iterator();
 
-            AABB outline = new AABB(source);
-            poseStack.pushPose();
-            poseStack.translate(-camPos.x, -camPos.y, -camPos.z);
-            LevelRenderer.renderLineBox(poseStack, builder, outline, 1.0F, 1.0F, 1.0F, 1.0F);
-            poseStack.popPose();
+        while (it.hasNext()) {
 
-        });
+            Map.Entry<List<BlockPos>, Long> entry = it.next();
+
+            entry.getKey().forEach(source -> {
+
+                AABB outline = new AABB(source);
+                poseStack.pushPose();
+                poseStack.translate(-camPos.x, -camPos.y, -camPos.z);
+                LevelRenderer.renderLineBox(poseStack, builder, outline, 1.0F, 1.0F, 1.0F, 1.0F);
+                poseStack.popPose();
+
+            });
+
+            if (System.currentTimeMillis() - entry.getValue() > 100) {
+                it.remove();
+            }
+
+        }
 
         buffer.endBatch(RenderType.LINES);
 
-        locations.clear();
 
     }
 
@@ -58,6 +69,6 @@ public class HandlerCloudChamber extends AbstractLevelStageHandler {
     }
 
     public static void addSources(List<BlockPos> sources) {
-        INSTANCE.locations.addAll(sources);
+        INSTANCE.locations.put(sources, System.currentTimeMillis());
     }
 }

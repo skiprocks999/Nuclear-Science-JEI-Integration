@@ -91,7 +91,7 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addBlock(NuclearScienceBlocks.BLOCK_PLASMA, "Plasma");
 			addBlock(NuclearScienceBlocks.BLOCK_MELTEDREACTOR, "Melted Reactor Core");
 			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.particleinjector), "Particle Injector");
-			addBlock(NuclearScienceBlocks.BLOCK_QUANTUMTUNNEL, "Quantum Tunnel");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.quantumcapacitor), "Quantum Tunnel");
 			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.teleporter), "Teleporter");
 			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fissioncontrolrod), "Fission Control Rod");
 			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fuelreprocessor), "Fuel Reprocessor");

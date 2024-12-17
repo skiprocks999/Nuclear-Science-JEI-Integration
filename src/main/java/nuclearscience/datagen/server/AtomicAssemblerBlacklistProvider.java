@@ -47,7 +47,7 @@ public class AtomicAssemblerBlacklistProvider implements DataProvider {
 		addTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", "air")), json); // dummy tag for demonstration purposes
 
 		addItem(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.teleporter), json);
-		addItem(NuclearScienceItems.ITEM_QUANTUMTUNNEL.get(), json);
+		addItem(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.quantumcapacitor), json);
 		addItem(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.chunkloader), json);
 
 		object.add(AtomicAssemblerBlacklistRegister.KEY, json);

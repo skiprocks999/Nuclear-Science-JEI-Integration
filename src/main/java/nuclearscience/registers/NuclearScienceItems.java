@@ -37,7 +37,6 @@ public class NuclearScienceItems {
 	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_TURBINE = ITEMS.register("turbine", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_TURBINE.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 
 	public static final BulkDeferredHolder<Item, BlockItemDescriptable, SubtypeNuclearMachine> ITEMS_NUCLEARMACHINE = new BulkDeferredHolder<>(SubtypeNuclearMachine.values(), subtype -> ITEMS.register(subtype.tag(), () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(subtype), new Item.Properties(), NuclearScienceCreativeTabs.MAIN)));
-	public static final DeferredHolder<Item, BlockItemDescriptable> ITEM_QUANTUMTUNNEL = ITEMS.register("quantumcapacitor", () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCK_QUANTUMTUNNEL.get(), new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 	public static final BulkDeferredHolder<Item, BlockItemDescriptable, SubtypeMoltenSaltPipe> ITEMS_MOLTENSALTPIPTE = new BulkDeferredHolder<>(SubtypeMoltenSaltPipe.values(), subtype -> ITEMS.register(subtype.tag(), () -> new BlockItemDescriptable(NuclearScienceBlocks.BLOCKS_MOLTENSALTPIPE.getValue(subtype), new Item.Properties(), NuclearScienceCreativeTabs.MAIN)));
 
 

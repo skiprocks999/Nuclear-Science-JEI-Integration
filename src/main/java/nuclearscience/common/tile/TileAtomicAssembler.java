@@ -14,7 +14,6 @@ import electrodynamics.prefab.utilities.BlockEntityUtils;
 import electrodynamics.prefab.utilities.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
@@ -23,7 +22,6 @@ import nuclearscience.common.reloadlistener.AtomicAssemblerBlacklistRegister;
 import nuclearscience.common.settings.Constants;
 import nuclearscience.prefab.utils.RadiationUtils;
 import nuclearscience.registers.NuclearScienceTiles;
-import nuclearscience.registers.NuclearScienceBlocks;
 import nuclearscience.registers.NuclearScienceItems;
 
 public class TileAtomicAssembler extends GenericTile {
@@ -128,14 +126,6 @@ public class TileAtomicAssembler extends GenericTile {
 
 		if (ItemUtils.testItems(stack.getItem(), NuclearScienceItems.ITEM_CELLDARKMATTER.get()) && stack.getCapability(Capabilities.ItemHandler.ITEM) != null) {
 			return false;
-		}
-
-		if (stack.getItem() instanceof BlockItem blockItem) {
-
-			if (blockItem.getBlock() == NuclearScienceBlocks.BLOCK_QUANTUMTUNNEL.get()) {
-				return false;
-			}
-
 		}
 
 		if (AtomicAssemblerBlacklistRegister.INSTANCE.isBlacklisted(stack.getItem())) {

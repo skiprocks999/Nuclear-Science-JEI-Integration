@@ -501,7 +501,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('G', NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.gascentrifuge))
 				//
-				.complete(References.ID, "atomicassembler", output);
+				.complete(References.ID, "machine_atomicassembler", output);
 
 		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.chemicalextractor), 1)
 				//
@@ -519,7 +519,63 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('M', ElectrodynamicsItems.ITEM_MOTOR.get())
 				//
-				.complete(References.ID, "chemicalextractor", output);
+				.complete(References.ID, "machine_chemicalextractor", output);
+
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.chunkloader), 1)
+				//
+				.addPattern("PCP")
+				//
+				.addPattern("CDC")
+				//
+				.addPattern("PCP")
+				//
+				.addKey('P', ElectrodynamicsTags.Items.PLATE_HSLASTEEL)
+				//
+				.addKey('C', ElectrodynamicsTags.Items.CIRCUITS_ULTIMATE)
+				//
+				.addKey('D', NuclearScienceTags.Items.CELL_DARK_MATTER)
+				//
+				.complete(References.ID, "machine_chunkloader", output);
+
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.cloudchamber), 1)
+				//
+				.addPattern("PGP")
+				//
+				.addPattern("GCG")
+				//
+				.addPattern("OTO")
+				//
+				.addKey('P', ElectrodynamicsTags.Items.PLATE_VANADIUMSTEEL)
+				//
+				.addKey('G', ElectrodynamicsItems.ITEMS_CUSTOMGLASS.getValue(SubtypeGlass.clear))
+				//
+				.addKey('C', ElectrodynamicsTags.Items.CIRCUITS_BASIC)
+				//
+				.addKey('O', ElectrodynamicsItems.ITEM_COIL.get())
+				//
+				.addKey('T', ElectrodynamicsItems.ITEMS_MACHINE.getValue(SubtypeMachine.tanksteel))
+				//
+				.complete(References.ID, "machine_cloudchamber", output);
+
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.falloutscrubber), 1)
+				//
+				.addPattern("PPP")
+				//
+				.addPattern("BMB")
+				//
+				.addPattern("TCT")
+				//
+				.addKey('P', ElectrodynamicsTags.Items.PLATE_VANADIUMSTEEL)
+				//
+				.addKey('B', Items.IRON_BARS)
+				//
+				.addKey('M', ElectrodynamicsItems.ITEM_MOTOR.get())
+				//
+				.addKey('T', ElectrodynamicsItems.ITEMS_MACHINE.getValue(SubtypeMachine.tanksteel))
+				//
+				.addKey('C', ElectrodynamicsTags.Items.CIRCUITS_ADVANCED)
+				//
+				.complete(References.ID, "machine_falloutscrubber", output);
 
 		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fissioncontrolrod), 1)
 				//
@@ -537,7 +593,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('C', ElectrodynamicsTags.Items.CIRCUITS_ADVANCED)
 				//
-				.complete(References.ID, "fissioncontrolrod", output);
+				.complete(References.ID, "machine_fissioncontrolrod", output);
 
 		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.mscontrolrod), 1)
 				//
@@ -551,13 +607,13 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('R', NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fissioncontrolrod))
 				//
-				.complete(References.ID, "mscontrolrod", output);
+				.complete(References.ID, "machine_mscontrolrod", output);
 
 		ShapelessCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fissioncontrolrod), 1)
 				//
 				.addIngredient(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.mscontrolrod))
 				//
-				.complete(References.ID, "fissioncontrolrod_conversion", output);
+				.complete(References.ID, "machine_fissioncontrolrod_conversion", output);
 
 		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.freezeplug), 1)
 				//
@@ -573,7 +629,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('B', ElectrodynamicsTags.Items.STORAGE_BLOCK_VANADIUMSTEEL)
 				//
-				.complete(References.ID, "freezeplug", output);
+				.complete(References.ID, "machine_freezeplug", output);
 
 		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fuelreprocessor), 1)
 				//
@@ -589,7 +645,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('T', ElectrodynamicsItems.ITEM_TITANIUM_COIL.get())
 				//
-				.complete(References.ID, "fuelreprocessor", output);
+				.complete(References.ID, "machine_fuelreprocessor", output);
 
 		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fissionreactorcore), 1)
 				//
@@ -607,7 +663,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('E', NuclearScienceTags.Items.CELL_EMPTY)
 				//
-				.complete(References.ID, "fissionreactorcore", output);
+				.complete(References.ID, "machine_fissionreactorcore", output);
 
 		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fusionreactorcore), 1)
 				//
@@ -623,7 +679,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('C', NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.msreactorcore))
 				//
-				.complete(References.ID, "fusionreactorcore", output);
+				.complete(References.ID, "machine_fusionreactorcore", output);
 
 		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.gascentrifuge), 1)
 				//
@@ -645,7 +701,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('M', ElectrodynamicsItems.ITEM_MOTOR.get())
 				//
-				.complete(References.ID, "gascentrifuge", output);
+				.complete(References.ID, "machine_gascentrifuge", output);
 
 		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.heatexchanger), 1)
 				//
@@ -661,7 +717,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('C', Tags.Items.STORAGE_BLOCKS_COPPER)
 				//
-				.complete(References.ID, "heatexchanger", output);
+				.complete(References.ID, "machine_heatexchanger", output);
 
 		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.moltensaltsupplier), 1)
 				//
@@ -677,7 +733,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('T', ElectrodynamicsItems.ITEM_TITANIUM_COIL.get())
 				//
-				.complete(References.ID, "moltensaltsupplier", output);
+				.complete(References.ID, "machine_moltensaltsupplier", output);
 
 		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.msrfuelpreprocessor), 1)
 				//
@@ -695,7 +751,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('E', ElectrodynamicsTags.Items.CIRCUITS_ELITE)
 				//
-				.complete(References.ID, "msrfuelpreprocessor", output);
+				.complete(References.ID, "machine_msrfuelpreprocessor", output);
 
 		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.msreactorcore), 1)
 				//
@@ -713,7 +769,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('P', NuclearScienceTags.Items.PELLET_PLUTONIUM)
 				//
-				.complete(References.ID, "msrreactorcore", output);
+				.complete(References.ID, "machine_msrreactorcore", output);
 
 		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.nuclearboiler), 1)
 				//
@@ -733,7 +789,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('M', ElectrodynamicsItems.ITEM_MOTOR.get())
 				//
-				.complete(References.ID, "nuclearboiler", output);
+				.complete(References.ID, "machine_nuclearboiler", output);
 
 		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.particleinjector), 1)
 				//
@@ -751,7 +807,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('D', Items.DISPENSER)
 				//
-				.complete(References.ID, "particleinjector", output);
+				.complete(References.ID, "machine_particleinjector", output);
 
 		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.quantumcapacitor), 1)
 				//
@@ -767,7 +823,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('E', Tags.Items.ENDER_PEARLS)
 				//
-				.complete(References.ID, "quantumcapacitor", output);
+				.complete(References.ID, "machine_quantumtunnel", output);
 
 		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.radioactiveprocessor), 1)
 				//
@@ -785,7 +841,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('C', ElectrodynamicsTags.Items.CIRCUITS_ELITE)
 				//
-				.complete(References.ID, "radioactiveprocessor", output);
+				.complete(References.ID, "machine_radioactiveprocessor", output);
 
 		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.radioisotopegenerator), 1)
 				//
@@ -803,7 +859,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('E', NuclearScienceTags.Items.CELL_EMPTY)
 				//
-				.complete(References.ID, "radioisotopegenerator", output);
+				.complete(References.ID, "machine_radioisotopegenerator", output);
 
 		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.siren), 1)
 				//
@@ -813,7 +869,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('P', ElectrodynamicsTags.Items.PLATE_BRONZE)
 				//
-				.complete(References.ID, "siren", output);
+				.complete(References.ID, "machine_siren", output);
 
 		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.steamfunnel), 1)
 				//
@@ -825,7 +881,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('P', ElectrodynamicsTags.Items.PLATE_BRONZE)
 				//
-				.complete(References.ID, "steamfunnel_bronze", output);
+				.complete(References.ID, "machine_steamfunnel_bronze", output);
 
 		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.steamfunnel), 1)
 				//
@@ -837,7 +893,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('P', ElectrodynamicsTags.Items.PLATE_STEEL)
 				//
-				.complete(References.ID, "steamfunnel_steel", output);
+				.complete(References.ID, "machine_steamfunnel_steel", output);
 
 		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.teleporter), 1)
 				//
@@ -859,7 +915,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('D', NuclearScienceTags.Items.CELL_DARK_MATTER)
 				//
-				.complete(References.ID, "teleporter", output);
+				.complete(References.ID, "machine_teleporter", output);
 
 		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_TURBINE.get(), 1)
 				//
@@ -875,7 +931,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('M', ElectrodynamicsItems.ITEM_MOTOR.get())
 				//
-				.complete(References.ID, "turbine", output);
+				.complete(References.ID, "machine_turbine", output);
 
 	}
 

@@ -42,7 +42,7 @@ public class Constants {
 	@IntValue(def = 1200)
 	public static int ATOMICASSEMBLER_REQUIRED_TICKS = 12000;
 	@DoubleValue(def = 100)
-	public static double BACKROUND_RADIATION_DISSIPATION = 100;
+	public static double BACKROUND_RADIATION_DISSIPATION = 1;
 	@DoubleValue(def = 300)
 	public static double IODINE_RESISTANCE_THRESHHOLD = 300;
 	@DoubleValue(def = 0.8)
@@ -55,7 +55,8 @@ public class Constants {
 	public static double CLOUD_CHAMBER_ENERGY_USAGE_PER_TICK = 100;
 	@IntValue(def = 1)
 	public static int CLOUD_CHAMBER_FLUID_USAGE_PER_TICK = 1;
-
+	@DoubleValue(def = 200)
+	public static double FALLOUT_SCRUBBER_USAGE_PER_TICK = 100.0;
 	@IntValue(def = 5)
 	public static int ATOMIC_ASSEMBLER_RADIATION_RADIUS = 5;
 	@IntValue(def = 3)

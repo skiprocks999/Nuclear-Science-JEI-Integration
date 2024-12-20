@@ -8,6 +8,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import nuclearscience.References;
+import nuclearscience.api.radiation.util.BlockPosVolume;
 import nuclearscience.api.radiation.util.IRadiationManager;
 import nuclearscience.api.radiation.util.IRadiationRecipient;
 import nuclearscience.registers.NuclearScienceAttachmentTypes;
@@ -73,6 +74,16 @@ public class RadiationSystem {
 		sources.addAll(manager.getTemporaryLocations(world));
 		sources.addAll(manager.getFadingLocations(world));
 		return new ArrayList<>(sources);
+	}
+
+	public static void addDisipation(Level world, double amount, BlockPosVolume volume) {
+		IRadiationManager manager = world.getData(NuclearScienceAttachmentTypes.RADIATION_MANAGER);
+		manager.setLocalizedDisipation(amount, volume, world);
+	}
+
+	public static void removeDisipation(Level world, BlockPosVolume volume) {
+		IRadiationManager manager = world.getData(NuclearScienceAttachmentTypes.RADIATION_MANAGER);
+		manager.removeLocalizedDisipation(volume, world);
 	}
 
 

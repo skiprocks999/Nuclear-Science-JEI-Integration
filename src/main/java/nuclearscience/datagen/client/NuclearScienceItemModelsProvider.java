@@ -72,6 +72,7 @@ public class NuclearScienceItemModelsProvider extends ElectrodynamicsItemModelsP
 		layeredItem(NuclearScienceItems.ITEMS_MOLTENSALTPIPTE.getValue(SubtypeMoltenSaltPipe.vanadiumsteelceramic), Parent.GENERATED, itemLoc("pipe/" + SubtypeMoltenSaltPipe.vanadiumsteelceramic.tag()));
 		simpleBlockItem(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.particleinjector), existingBlock(blockLoc("particleinjector"))).transforms().transform(ItemDisplayContext.GUI).rotation(45.0F, 45.0F, 0).scale(0.5F).translation(0.0F, -1.0F, 0.0F);
 		simpleBlockItem(NuclearScienceBlocks.BLOCK_TURBINE.get(), existingBlock(blockLoc("turbine")));
+		simpleBlockItem(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.falloutscrubber), existingBlock(blockLoc("falloutscrubber")));
 
 		layeredItem(NuclearScienceItems.ITEMS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.door), Parent.GENERATED, itemLoc("leadlineddoor"));
 

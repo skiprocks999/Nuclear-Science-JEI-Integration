@@ -10,10 +10,10 @@ import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.culling.Frustum;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
+import nuclearscience.common.tile.TileCloudChamber;
 import org.joml.Matrix4f;
 
 import java.util.*;
@@ -22,7 +22,7 @@ public class HandlerCloudChamber extends AbstractLevelStageHandler {
 
     public static final HandlerCloudChamber INSTANCE = new HandlerCloudChamber();
 
-    private HashMap<List<BlockPos>, Long> locations = new HashMap<>();
+    private HashSet<TileCloudChamber> locations = new HashSet<>();
 
     @Override
     public boolean shouldRender(RenderLevelStageEvent.Stage stage) {
@@ -36,25 +36,30 @@ public class HandlerCloudChamber extends AbstractLevelStageHandler {
         VertexConsumer builder = buffer.getBuffer(RenderType.LINES);
         Vec3 camPos = camera.getPosition();
 
-        Iterator<Map.Entry<List<BlockPos>, Long>> it = locations.entrySet().iterator();
+        Iterator<TileCloudChamber> it = locations.iterator();
 
         while (it.hasNext()) {
 
-            Map.Entry<List<BlockPos>, Long> entry = it.next();
+            TileCloudChamber chamber = it.next();
 
-            entry.getKey().forEach(source -> {
+            if(chamber == null || chamber.isRemoved() || !chamber.hasLevel() || !chamber.getLevel().isLoaded(chamber.getBlockPos()) || !chamber.active.get()) {
+                it.remove();
+                continue;
+            }
 
+            chamber.sources.get().forEach(source -> {
                 AABB outline = new AABB(source);
+
+                if(!frustum.isVisible(outline)) {
+                    return;
+                }
                 poseStack.pushPose();
                 poseStack.translate(-camPos.x, -camPos.y, -camPos.z);
                 LevelRenderer.renderLineBox(poseStack, builder, outline, 1.0F, 1.0F, 1.0F, 1.0F);
                 poseStack.popPose();
-
             });
 
-            if (System.currentTimeMillis() - entry.getValue() > 100) {
-                it.remove();
-            }
+
 
         }
 
@@ -68,7 +73,7 @@ public class HandlerCloudChamber extends AbstractLevelStageHandler {
         locations.clear();
     }
 
-    public static void addSources(List<BlockPos> sources) {
-        INSTANCE.locations.put(sources, System.currentTimeMillis());
+    public static void addSources(TileCloudChamber chamber) {
+        INSTANCE.locations.add(chamber);
     }
 }

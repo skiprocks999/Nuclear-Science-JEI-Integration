@@ -24,6 +24,7 @@ public class UnifiedNuclearScienceRegister {
 		NuclearScienceCreativeTabs.CREATIVE_TABS.register(bus);
 		NuclearScienceRecipeInit.RECIPE_TYPES.register(bus);
 		NuclearScienceRecipeInit.RECIPE_SERIALIZER.register(bus);
+		NuclearScienceParticles.PARTICLES.register(bus);
 		NuclearScienceEffects.EFFECTS.register(bus);
 	}
 

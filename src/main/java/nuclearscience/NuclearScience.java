@@ -10,7 +10,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import nuclearscience.client.ClientRegister;
-import nuclearscience.common.block.voxelshapes.NuclearScienceVoxelShapeRegistry;
+import nuclearscience.common.block.voxelshapes.NuclearScienceVoxelShapes;
 import nuclearscience.common.reloadlistener.*;
 import nuclearscience.common.settings.Constants;
 import nuclearscience.common.tags.NuclearScienceTags;
@@ -22,7 +22,7 @@ public class NuclearScience {
 
 	public NuclearScience(IEventBus bus) {
 		ConfigurationHandler.registerConfig(Constants.class);
-		NuclearScienceVoxelShapeRegistry.init();
+		NuclearScienceVoxelShapes.init();
 		UnifiedNuclearScienceRegister.register(bus);
 	}
 

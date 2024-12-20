@@ -11,16 +11,15 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import nuclearscience.References;
 import nuclearscience.client.guidebook.ModuleNuclearScience;
+import nuclearscience.client.particle.smoke.ParticleSmoke;
 import nuclearscience.client.render.entity.RenderParticle;
 import nuclearscience.client.render.tile.*;
 import nuclearscience.client.screen.*;
-import nuclearscience.registers.NuclearScienceFluids;
-import nuclearscience.registers.NuclearScienceTiles;
-import nuclearscience.registers.NuclearScienceEntities;
-import nuclearscience.registers.NuclearScienceMenuTypes;
+import nuclearscience.registers.*;
 
 @EventBusSubscriber(modid = References.ID, bus = EventBusSubscriber.Bus.MOD, value = {Dist.CLIENT})
 public class ClientRegister {
@@ -33,6 +32,8 @@ public class ClientRegister {
     public static final ModelResourceLocation MODEL_FISSIONREACTORDEUTERIUM = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/fissionreactordeuterium"));
     public static final ModelResourceLocation MODEL_FISSIONCONTROLROD_ROD = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/fissioncontrolrodrod"));
     public static final ModelResourceLocation MODEL_MSCONTROLROD_ROD = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/mscontrolrodrod"));
+    public static final ModelResourceLocation MODEL_FALLOUTSCRUBBER_FAN = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/falloutscrubberfan"));
+
 
     public static final ResourceLocation TEXTURE_JEIBLACKHOLE = ResourceLocation.fromNamespaceAndPath(References.ID, "block/custom/particleaccelerator_dmblackhole");
 
@@ -52,6 +53,7 @@ public class ClientRegister {
         event.register(MODEL_FISSIONREACTORDEUTERIUM);
         event.register(MODEL_FISSIONCONTROLROD_ROD);
         event.register(MODEL_MSCONTROLROD_ROD);
+        event.register(MODEL_FALLOUTSCRUBBER_FAN);
     }
 
     @SubscribeEvent
@@ -71,6 +73,7 @@ public class ClientRegister {
         event.register(NuclearScienceMenuTypes.CONTAINER_ATOMICASSEMBLER.get(), ScreenAtomicAssembler::new);
         event.register(NuclearScienceMenuTypes.CONTAINER_TELEPORTER.get(), ScreenTeleporter::new);
         event.register(NuclearScienceMenuTypes.CONTAINER_CLOUDCHAMBER.get(), ScreenCloudChamber::new);
+        event.register(NuclearScienceMenuTypes.CONTAINER_FALLOUTSCRUBBER.get(), ScreenFalloutScrubber::new);
     }
 
     @SubscribeEvent
@@ -88,7 +91,7 @@ public class ClientRegister {
         event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_ATOMICASSEMBLER.get(), RenderAtomicAssembler::new);
         event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_RADIOACTIVEPROCESSOR.get(), RenderRadioactiveProcessor::new);
         event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_CLOUDCHAMBER.get(), RenderCloudChamber::new);
-
+        event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_FALLOUTSCRUBBER.get(), RenderFalloutScrubber::new);
         event.registerEntityRenderer(NuclearScienceEntities.ENTITY_PARTICLE.get(), RenderParticle::new);
 
     }
@@ -100,6 +103,11 @@ public class ClientRegister {
             event.registerFluidType(new SWBFClientExtensions((SimpleWaterBasedFluidType) fluid.get().getFluidType()), fluid.get().getFluidType());
         });
 
+    }
+
+    @SubscribeEvent
+    public static void registerParticles(RegisterParticleProvidersEvent event) {
+        event.registerSpriteSet(NuclearScienceParticles.PARTICLE_SMOKE.get(), ParticleSmoke.Factory::new);
     }
 
 }

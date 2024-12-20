@@ -32,7 +32,8 @@ public class ChapterFusionReactor extends Chapter {
 
 	@Override
 	public void addData() {
-		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.fusionreactor.l1")).setIndentions(1));
+		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.fusionreactor.l1.1")).setIndentions(1));
+		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.fusionreactor.l1.2")).setSeparateStart().setIndentions(1));
 		pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/fusionreactor1.png")));
 		pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/fusionreactor2.png")));
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.fusionreactor.l2")).setIndentions(1).setSeparateStart());

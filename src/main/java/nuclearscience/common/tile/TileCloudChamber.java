@@ -42,7 +42,7 @@ public class TileCloudChamber extends GenericTile {
 
     private void tickClient(ComponentTickable tickable) {
         if(active.get()) {
-            HandlerCloudChamber.addSources(sources.get());
+            HandlerCloudChamber.addSources(this);
         }
     }
 

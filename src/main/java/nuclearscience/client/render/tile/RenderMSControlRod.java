@@ -35,7 +35,7 @@ public class RenderMSControlRod extends AbstractTileRenderer<TileControlRod.Tile
             sign = -1;
         }
 
-        stack.mulPose(MathUtils.rotQuaternionDeg(0, tile.getFacing().toYRot() + sign * 90, 0));
+        stack.mulPose(MathUtils.rotQuaternionDeg(0, facing.toYRot() + sign * 90, 0));
 
         double insertion = tile.insertion.get() / (double) TileControlRod.MAX_EXTENSION;
 

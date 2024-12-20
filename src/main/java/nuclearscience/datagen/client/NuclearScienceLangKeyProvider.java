@@ -117,9 +117,11 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 
 			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.chunkloader), "Chunkloader");
 			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.cloudchamber), "Cloud Chamber");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.falloutscrubber), "Fallout Scrubber");
 
 			addFluid(NuclearScienceFluids.FLUID_IODINESOLUTION, "Iodine Solution");
 			addFluid(NuclearScienceFluids.FLUID_METHANOL, "Methanol");
+			addFluid(NuclearScienceFluids.FLUID_DECONTAMINATIONFOAM, "Decontamination Foam");
 
 			addGas(NuclearScienceGases.URANIUM_HEXAFLUORIDE, "Uranium Hexafluoride");
 
@@ -139,6 +141,7 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addContainer("atomicassembler", "Atomic Assembler");
 			addContainer("teleporter", "Teleporter");
 			addContainer("cloudchamber", "Cloud Chamber");
+			addContainer("falloutscrubber", "Fallout Scrubber");
 
 			addGuiLabel("machine.usage", "Usage: %s");
 			addGuiLabel("machine.voltage", "Voltage: %s");
@@ -323,7 +326,11 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addGuidebook("chapter.msreactor.l6", "Another perk of the MS Reactor is that is cannot melt down, making it significantly safer. However, like its predecessor, the hotter the reactor gets, the faster it burns fuel. To decrease the fuel usage, a %s can be used. To use it, attach it to the side of the MS Reactor Core, and control it as with the Fission Reactor's variant.");
 
 			addGuidebook("chapter.fusionreactor", "Fusion Reactor");
-			addGuidebook("chapter.fusionreactor.l1", "The Fusion Reactor is the ultimate source of power that Nuclear Science has to offer, and is able to produce over 6 MW of energy. However, harvesting this energy is very expensive. First, you will to construct 13x13 diamond of Electromagnets. They can be either glass or opaque. We will be using both. " + "Place the Fusion Reactor Core in the center of the diamond and remove the block below it.");
+			addGuidebook("chapter.fusionreactor.l1.1", "The Fusion Reactor is the ultimate source of power that Nuclear Science has to offer, and is able to produce over 6 MW of energy! However, harvesting this energy is very expensive. The Fusion Reactor's ability to produce power is best understood by understanding its principles rather than understanding a rigid design like with the " +
+					"fission-based reactors. The core produces plasma by fusing Deuterium and Tritium together. This fusion process takes energy however, so the reactor must produce more energy than it uses to be beneficial. The plasma that is produced can only be contained by Electromagnets. The plasma on its own will do nothing, however if the plasma is underneath an electromagnet that has a water source block " +
+					"on top of it, the water will be boiled from the immense heat, producing steam that can spin a turbine. There is no one set design on how to achieve the full potential of the reactor, so you will have to play around with designs. The rest of this guide will cover the construction of a fairly efficient Fusion reactor. It should be noted that this design does not achieve the maximum " +
+					"possible energy output!");
+			addGuidebook("chapter.fusionreactor.l1.2", "First, you will to construct 13x13 diamond of Electromagnets. They can be either glass or opaque. We will be using both. Place the Fusion Reactor Core in the center of the diamond and remove the block below it.");
 			addGuidebook("chapter.fusionreactor.l2", "Next, surround the side of the 13x13 diamond with a ring of Electromagnets.");
 			addGuidebook("chapter.fusionreactor.l3", "Next, build another 13x13 diamond to act as the roof. Leave a hole in the middle for the Reactor Core like before.");
 			addGuidebook("chapter.fusionreactor.l4", "Next, you will need to cover the top of the Electromagnets with water. The plasma of the reactor will heat the water generating steam, which can in turn be used for spinning turbines. Note the turbines will operate at 480V.");
@@ -333,7 +340,8 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addGuidebook("chapter.particleaccelerator", "Particle Accelerator");
 			addGuidebook("chapter.particleaccelerator.l1", "The Particle Accelerator is used to make Anti-Matter and Dark Matter. Both are generated when two Particles collide at great speeds. The result of a particle collision is determined by the following formula:");
 			addGuidebook("chapter.particleaccelerator.formula", "((s1 + s2) / 4) ^ 2");
-			addGuidebook("chapter.particleaccelerator.l2", "where s1 and s2 are the speeds of the two particles. Dark Matter is created when the resulting value is greater than 0.999, and has a 100% chance of being created. Otherwise, Anti-Matter is created from the collision. However, the chance of Anti-Matter being generated is not guaranteed, " + "and its chance of being created increases the closer the resulting value gets to 0.999.");
+			addGuidebook("chapter.particleaccelerator.l2", "where s1 and s2 are the speeds of the two particles. Dark Matter is created when the resulting value is greater than 0.999, and has a 100% chance of being created. Otherwise, Anti-Matter is created from the collision. However, the chance of Anti-Matter being generated is not guaranteed, and its chance of being created " +
+					"increases the closer the resulting value gets to 0.999.");
 
 			addGuidebook("chapter.particleaccelerator.l3", "In order to collide particles, you will first need to create particles. For this, you will need a Particle Injector. The Injector uses matter to make a particle. Any block or item can be used to supply the matter. Place the matter in its respective slot in the Injector. To catch the result of the collision, " + "you will need to craft an Electromagnetic Cell and place it in its respective slot in the Injector as well. The Injector uses 200 MJ per particle at 960 V. This means you will need 400 MJ for each collision.");
 

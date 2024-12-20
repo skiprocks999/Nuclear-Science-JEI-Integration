@@ -15,6 +15,7 @@ public class NuclearScienceFluids {
 
 	public static final DeferredHolder<Fluid, FluidNonPlaceable> FLUID_IODINESOLUTION = FLUIDS.register("iodinesolution", () -> new FluidNonPlaceable(ElectrodynamicsItems.ITEM_CANISTERREINFORCED, new SimpleWaterBasedFluidType(References.ID, "iodinesolution", "iodinesolution", new Color(255, 251, 245, 255))));
 	public static final DeferredHolder<Fluid, FluidNonPlaceable> FLUID_METHANOL = FLUIDS.register("methanol", () -> new FluidNonPlaceable(ElectrodynamicsItems.ITEM_CANISTERREINFORCED, new SimpleWaterBasedFluidType(References.ID, "methanol", "methanol", new Color(245, 220, 255, 255))));
+	public static final DeferredHolder<Fluid, FluidNonPlaceable> FLUID_DECONTAMINATIONFOAM = FLUIDS.register("decontaminationfoam", () -> new FluidNonPlaceable(ElectrodynamicsItems.ITEM_CANISTERREINFORCED, new SimpleWaterBasedFluidType(References.ID, "decontaminationfoam","decontaminationfoam", Color.WHITE)));
 
 
 }

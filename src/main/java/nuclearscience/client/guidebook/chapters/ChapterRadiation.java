@@ -13,9 +13,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import nuclearscience.References;
+import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
 import nuclearscience.common.item.ItemGeigerCounter;
 import nuclearscience.common.item.ItemIodineTablet;
 import nuclearscience.common.settings.Constants;
+import nuclearscience.common.tile.TileCloudChamber;
+import nuclearscience.common.tile.TileFalloutScrubber;
 import nuclearscience.prefab.utils.NuclearTextUtils;
 import nuclearscience.registers.NuclearScienceItems;
 
@@ -71,6 +74,8 @@ public class ChapterRadiation extends Chapter {
 		pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/radiationshielding2.png")));
 		blankLine();
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l7", NuclearScienceItems.ITEM_ANTIDOTE.get().getDescription().copy().withStyle(ChatFormatting.BOLD))));
+		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l8", NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.cloudchamber).getDescription().copy().withStyle(ChatFormatting.BOLD), TileCloudChamber.HORR_RADIUS)).setSeparateStart().setIndentions(1));
+		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.radiation.l9", NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.falloutscrubber).getDescription().copy().withStyle(ChatFormatting.BOLD), Constants.BACKROUND_RADIATION_DISSIPATION, TileFalloutScrubber.RANGE, TileFalloutScrubber.DISIPATION)).setSeparateStart().setIndentions(1));
 
 	}
 

@@ -23,7 +23,7 @@ import java.util.List;
 
 public class TileCloudChamber extends GenericTile {
 
-    private static final int HORR_RADIUS = 30;
+    public static final int HORR_RADIUS = 30;
     private static final int VERT_RADIUS = 30;
 
     public final Property<ArrayList<BlockPos>> sources = property(new Property<>(PropertyTypes.BLOCK_POS_LIST, "sources", new ArrayList<BlockPos>()));

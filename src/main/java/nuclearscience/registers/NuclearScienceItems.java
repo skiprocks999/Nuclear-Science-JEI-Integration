@@ -65,6 +65,10 @@ public class NuclearScienceItems {
 	public static final DeferredHolder<Item, Item> ITEM_THORIANITEDUST = ITEMS.register("thorianitedust", () -> new ItemRadioactive(new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, Item> ITEM_ACTINIUMOXIDE = ITEMS.register("actiniumoxide", () -> new ItemRadioactive(new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 
+	public static final DeferredHolder<Item, Item> ITEM_FUELHEUO2 = ITEMS.register("fuelheuo2", () -> new ItemRadioactive(new Item.Properties().stacksTo(1).durability(24000), NuclearScienceCreativeTabs.MAIN));
+	public static final DeferredHolder<Item, Item> ITEM_FUELLEUO2 = ITEMS.register("fuelleuo2", () -> new ItemRadioactive(new Item.Properties().stacksTo(1).durability(26000), NuclearScienceCreativeTabs.MAIN));
+	public static final DeferredHolder<Item, Item> ITEM_FUELPLUTONIUM = ITEMS.register("fuelplutonium", () -> new ItemRadioactive(new Item.Properties().stacksTo(1).durability(120000), NuclearScienceCreativeTabs.MAIN));
+	public static final DeferredHolder<Item, Item> ITEM_FUELSPENT = ITEMS.register("fuelspent", () -> new ItemRadioactive(new Item.Properties().stacksTo(1), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, Item> ITEM_CELLEMPTY = ITEMS.register("cellempty", () -> new ItemElectrodynamics(new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, Item> ITEM_CELLDEUTERIUM = ITEMS.register("celldeuterium", () -> new ItemElectrodynamics(new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, Item> ITEM_CELLTRITIUM = ITEMS.register("celltritium", () -> new ItemElectrodynamics(new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
@@ -74,11 +78,6 @@ public class NuclearScienceItems {
 	public static final DeferredHolder<Item, Item> ITEM_CELLANTIMATTERLARGE = ITEMS.register("cellantimatterlarge", () -> new ItemAntimatter(new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, Item> ITEM_CELLANTIMATTERVERYLARGE = ITEMS.register("cellantimatterverylarge", () -> new ItemAntimatter(new Item.Properties(), NuclearScienceCreativeTabs.MAIN));
 	public static final DeferredHolder<Item, Item> ITEM_CELLDARKMATTER = ITEMS.register("celldarkmatter", () -> new ItemAntimatter(new Item.Properties().durability(4), NuclearScienceCreativeTabs.MAIN));
-	public static final DeferredHolder<Item, Item> ITEM_FUELHEUO2 = ITEMS.register("fuelheuo2", () -> new ItemRadioactive(new Item.Properties().stacksTo(1).durability(24000), NuclearScienceCreativeTabs.MAIN));
-	public static final DeferredHolder<Item, Item> ITEM_FUELLEUO2 = ITEMS.register("fuelleuo2", () -> new ItemRadioactive(new Item.Properties().stacksTo(1).durability(26000), NuclearScienceCreativeTabs.MAIN));
-	public static final DeferredHolder<Item, Item> ITEM_FUELSPENT = ITEMS.register("fuelspent", () -> new ItemRadioactive(new Item.Properties().stacksTo(1), NuclearScienceCreativeTabs.MAIN));
-	// Incredibly long life-span, but hard to get
-	public static final DeferredHolder<Item, Item> ITEM_FUELPLUTONIUM = ITEMS.register("fuelplutonium", () -> new ItemRadioactive(new Item.Properties().stacksTo(1).durability(120000), NuclearScienceCreativeTabs.MAIN));
 
 	public static final DeferredHolder<Item, Item> ITEM_GEIGERCOUNTER = ITEMS.register("geigercounter", () -> new ItemGeigerCounter((ElectricItemProperties) new ElectricItemProperties().capacity(1666666.66667).extract(TransferPack.joulesVoltage(694.4444444458333, 120.0)).receive(TransferPack.joulesVoltage(694.4444444458333, 120.0)).setIsEnergyStorageOnly().stacksTo(1), NuclearScienceCreativeTabs.MAIN, item -> ElectrodynamicsItems.ITEM_BATTERY.get()));
 	public static final DeferredHolder<Item, Item> ITEM_HAZMATHELMET = ITEMS.register("hazmathelmet", () -> new ItemHazmatArmor(NuclearScienceArmorMaterials.HAZMAT_BASE, Type.HELMET, new Item.Properties().durability(26000), NuclearScienceCreativeTabs.MAIN, 1000, 1));

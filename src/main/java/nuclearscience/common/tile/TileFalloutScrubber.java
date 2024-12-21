@@ -23,9 +23,9 @@ import nuclearscience.registers.NuclearScienceTiles;
 public class TileFalloutScrubber extends GenericTile {
 
     private static final int FLUID_USAGE_PER_TICK = 1;
-    private static final int RANGE = 30;
+    public static final int RANGE = 30;
 
-    private static final double DISIPATION = 1.0;
+    public static final double DISIPATION = 1.0;
 
     public final Property<Boolean> active = property(new Property<>(PropertyTypes.BOOLEAN, "active", false));
     private final Property<Boolean> hasRedstoneSignal = property(new Property(PropertyTypes.BOOLEAN, "redstonesignal", false));

@@ -3,15 +3,14 @@ package nuclearscience.client;
 import electrodynamics.client.guidebook.ScreenGuidebook;
 import electrodynamics.client.misc.SWBFClientExtensions;
 import electrodynamics.common.fluid.SimpleWaterBasedFluidType;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.ModelEvent;
-import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
-import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import nuclearscience.References;
 import nuclearscience.client.guidebook.ModuleNuclearScience;
@@ -21,21 +20,25 @@ import nuclearscience.client.render.tile.*;
 import nuclearscience.client.screen.*;
 import nuclearscience.registers.*;
 
+import java.util.HashMap;
+import java.util.List;
+
 @EventBusSubscriber(modid = References.ID, bus = EventBusSubscriber.Bus.MOD, value = {Dist.CLIENT})
 public class ClientRegister {
 
     public static final ModelResourceLocation MODEL_GASCENTRIFUGECENTER = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/gascentrifugecenter"));
     public static final ModelResourceLocation MODEL_TURBINECASING = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/turbinecasing"));
     public static final ModelResourceLocation MODEL_TURBINEROTORLAYER = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/turbinerotorlayer"));
-    public static final ModelResourceLocation MODEL_FISSIONREACTORCORE = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/fissionreactorcore"));
-    public static final ModelResourceLocation MODEL_FISSIONREACTORFUELROD = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/fissionreactorfuelrod"));
-    public static final ModelResourceLocation MODEL_FISSIONREACTORDEUTERIUM = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/fissionreactordeuterium"));
     public static final ModelResourceLocation MODEL_FISSIONCONTROLROD_ROD = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/fissioncontrolrodrod"));
     public static final ModelResourceLocation MODEL_MSCONTROLROD_ROD = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/mscontrolrodrod"));
     public static final ModelResourceLocation MODEL_FALLOUTSCRUBBER_FAN = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/falloutscrubberfan"));
 
 
     public static final ResourceLocation TEXTURE_JEIBLACKHOLE = ResourceLocation.fromNamespaceAndPath(References.ID, "block/custom/particleaccelerator_dmblackhole");
+    public static final ResourceLocation TEXTURE_FUELCELL = ResourceLocation.fromNamespaceAndPath(References.ID, "block/model/fuelcell");
+
+    private static final HashMap<ResourceLocation, TextureAtlasSprite> CACHED_TEXTUREATLASSPRITES = new HashMap<>();
+    private static final List<ResourceLocation> CUSTOM_TEXTURES = List.of(TEXTURE_FUELCELL, electrodynamics.client.ClientRegister.TEXTURE_WHITE);
 
     public static void setup() {
 
@@ -48,9 +51,6 @@ public class ClientRegister {
         event.register(MODEL_GASCENTRIFUGECENTER);
         event.register(MODEL_TURBINECASING);
         event.register(MODEL_TURBINEROTORLAYER);
-        event.register(MODEL_FISSIONREACTORCORE);
-        event.register(MODEL_FISSIONREACTORFUELROD);
-        event.register(MODEL_FISSIONREACTORDEUTERIUM);
         event.register(MODEL_FISSIONCONTROLROD_ROD);
         event.register(MODEL_MSCONTROLROD_ROD);
         event.register(MODEL_FALLOUTSCRUBBER_FAN);
@@ -108,6 +108,20 @@ public class ClientRegister {
     @SubscribeEvent
     public static void registerParticles(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(NuclearScienceParticles.PARTICLE_SMOKE.get(), ParticleSmoke.Factory::new);
+    }
+
+    @SubscribeEvent
+    public static void cacheCustomTextureAtlases(TextureAtlasStitchedEvent event) {
+        if (event.getAtlas().location().equals(TextureAtlas.LOCATION_BLOCKS)) {
+            CACHED_TEXTUREATLASSPRITES.clear();
+            for (ResourceLocation loc : CUSTOM_TEXTURES) {
+                ClientRegister.CACHED_TEXTUREATLASSPRITES.put(loc, event.getAtlas().getSprite(loc));
+            }
+        }
+    }
+
+    public static TextureAtlasSprite getSprite(ResourceLocation sprite) {
+        return CACHED_TEXTUREATLASSPRITES.getOrDefault(sprite, CACHED_TEXTUREATLASSPRITES.get(electrodynamics.client.ClientRegister.TEXTURE_WHITE));
     }
 
 }

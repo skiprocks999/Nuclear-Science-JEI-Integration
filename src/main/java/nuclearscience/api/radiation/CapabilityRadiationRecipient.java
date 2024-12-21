@@ -24,7 +24,7 @@ public class CapabilityRadiationRecipient implements IRadiationRecipient {
             return;
         }
 
-        if (entity instanceof Player player && player.isCreative()) {
+        if (entity instanceof Player player && (player.isCreative() || player.isSpectator())) {
             player.setData(NuclearScienceAttachmentTypes.RECIEVED_RADIATIONAMOUNT, player.getData(NuclearScienceAttachmentTypes.RECIEVED_RADIATIONAMOUNT) + rads);
             player.setData(NuclearScienceAttachmentTypes.RECIEVED_RADIATIONSTRENGTH, player.getData(NuclearScienceAttachmentTypes.RECIEVED_RADIATIONSTRENGTH) + strength);
             return;

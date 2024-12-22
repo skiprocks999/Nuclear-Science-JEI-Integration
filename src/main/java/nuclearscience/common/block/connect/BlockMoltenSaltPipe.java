@@ -9,7 +9,6 @@ import electrodynamics.common.block.connect.util.EnumConnectType;
 import electrodynamics.prefab.tile.types.GenericConnectTile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -32,11 +31,6 @@ public class BlockMoltenSaltPipe extends AbstractRefreshingConnectBlock {
 		super(Blocks.IRON_BLOCK.properties().sound(SoundType.METAL).strength(0.15f).dynamicShape(), 3);
 		this.pipe = pipe;
 		PIPESET.add(this);
-	}
-
-	@Override
-	public boolean propagatesSkylightDown(BlockState state, BlockGetter reader, BlockPos pos) {
-		return true;
 	}
 
 	@Override

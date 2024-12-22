@@ -13,6 +13,10 @@ import nuclearscience.common.tile.*;
 import nuclearscience.common.tile.reactor.TileControlRod;
 import nuclearscience.common.tile.reactor.fission.TileFissionReactorCore;
 import nuclearscience.common.tile.reactor.fusion.TileFusionReactorCore;
+import nuclearscience.common.tile.reactor.logisticsnetwork.TileControlRodModule;
+import nuclearscience.common.tile.reactor.logisticsnetwork.TileController;
+import nuclearscience.common.tile.reactor.logisticsnetwork.TileInterface;
+import nuclearscience.common.tile.reactor.logisticsnetwork.TileSupplyModule;
 import nuclearscience.common.tile.reactor.moltensalt.*;
 
 public enum SubtypeNuclearMachine implements ISubtype, IMachine {
@@ -37,6 +41,11 @@ public enum SubtypeNuclearMachine implements ISubtype, IMachine {
     mscontrolrod(true, TileControlRod.TileMSControlRod::new, MachineProperties.builder().setShapeProvider(NuclearScienceVoxelShapes.MS_CONTROL_ROD)),
     fusionreactorcore(true, TileFusionReactorCore::new, MachineProperties.builder().setLitBrightness(15)),
     particleinjector(true, TileParticleInjector::new, MachineProperties.builder().setShapeProvider(NuclearScienceVoxelShapes.PARTICLE_INJECTOR)),
+    logisticscontroller(true, TileController::new, MachineProperties.builder().setLitBrightness(15)),
+    fissioninterface(true, TileInterface.TileFissionInterface::new),
+    controlrodmodule(true, TileControlRodModule::new),
+    supplymodule(true, TileSupplyModule::new),
+
     teleporter(true, TileTeleporter::new, MachineProperties.builder().setShapeProvider(NuclearScienceVoxelShapes.TELEPORTER).setLitBrightness(15)),
     chunkloader(true, TileChunkloader::new),
     atomicassembler(true, TileAtomicAssembler::new),

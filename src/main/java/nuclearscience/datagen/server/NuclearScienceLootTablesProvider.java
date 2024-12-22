@@ -6,10 +6,7 @@ import electrodynamics.datagen.server.ElectrodynamicsLootTablesProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.level.block.Block;
 import nuclearscience.References;
-import nuclearscience.common.block.subtype.SubtypeIrradiatedBlock;
-import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
-import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
-import nuclearscience.common.block.subtype.SubtypeRadiationShielding;
+import nuclearscience.common.block.subtype.*;
 import nuclearscience.registers.NuclearScienceTiles;
 import nuclearscience.registers.NuclearScienceBlocks;
 
@@ -60,6 +57,8 @@ public class NuclearScienceLootTablesProvider extends ElectrodynamicsLootTablesP
 		addSimpleBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.mscontrolrod));
 		addMachineTable(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.cloudchamber), NuclearScienceTiles.TILE_CLOUDCHAMBER, false, true, false, true, false);
 		addMachineTable(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.falloutscrubber), NuclearScienceTiles.TILE_FALLOUTSCRUBBER, false, true, false, true, false);
+		addSimpleBlock(NuclearScienceBlocks.BLOCKS_REACTORLOGISTICSCABLE.getValue(SubtypeReactorLogisticsCable.base));
+		addSimpleBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.logisticscontroller));
 
 	}
 

@@ -42,6 +42,8 @@ public class UnifiedNuclearScienceRegister {
 		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getHolder(SubtypeNuclearMachine.fusionreactorcore), ElectroTextUtils.voltageTooltip(480));
 		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getHolder(SubtypeNuclearMachine.freezeplug), ElectroTextUtils.voltageTooltip(120));
 		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getHolder(SubtypeNuclearMachine.atomicassembler), ElectroTextUtils.voltageTooltip(480));
+		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getHolder(SubtypeNuclearMachine.cloudchamber), ElectroTextUtils.voltageTooltip(120));
+		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getHolder(SubtypeNuclearMachine.falloutscrubber), ElectroTextUtils.voltageTooltip(120));
 
 		// Generators
 		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getHolder(SubtypeNuclearMachine.radioisotopegenerator), ElectroTextUtils.voltageTooltip(120));

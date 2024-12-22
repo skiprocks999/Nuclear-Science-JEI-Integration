@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "nuclearscience:block/logisticspowerport",
+    "east": "nuclearscience:block/logisticscontrolleron",
+    "north": "nuclearscience:block/logisticscontrolleron",
+    "particle": "electrodynamics:block/steelcasing",
+    "south": "nuclearscience:block/logisticscontrolleron",
+    "up": "nuclearscience:block/logisticscontrolleron",
+    "west": "nuclearscience:block/logisticsport"
+  }
+}

@@ -11,6 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import nuclearscience.common.tile.reactor.fission.IFissionControlRod;
 import nuclearscience.registers.NuclearScienceTiles;
 
 public abstract class TileControlRod extends GenericTile {
@@ -52,10 +53,15 @@ public abstract class TileControlRod extends GenericTile {
         return InteractionResult.CONSUME;
     }
 
-    public static class TileFissionControlRod extends TileControlRod {
+    public static class TileFissionControlRod extends TileControlRod implements IFissionControlRod {
 
         public TileFissionControlRod(BlockPos pos, BlockState state) {
             super(NuclearScienceTiles.TILE_FISSIONCONTROLROD.get(), pos, state);
+        }
+
+        @Override
+        public int getInsertion() {
+            return insertion.get();
         }
     }
 

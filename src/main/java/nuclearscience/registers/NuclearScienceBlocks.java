@@ -21,10 +21,8 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import nuclearscience.References;
 import nuclearscience.common.block.*;
 import nuclearscience.common.block.connect.BlockMoltenSaltPipe;
-import nuclearscience.common.block.subtype.SubtypeIrradiatedBlock;
-import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
-import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
-import nuclearscience.common.block.subtype.SubtypeRadiationShielding;
+import nuclearscience.common.block.connect.BlockReactorLogisticsCable;
+import nuclearscience.common.block.subtype.*;
 import nuclearscience.common.tile.TileQuantumTunnel;
 import nuclearscience.common.tile.reactor.fission.TileFissionReactorCore;
 
@@ -79,6 +77,7 @@ public class NuclearScienceBlocks {
     public static final DeferredHolder<Block, BlockElectromagneticSwitch> BLOCK_ELECTROMAGNETICSWITCH = BLOCKS.register("electromagneticswitch", () -> new BlockElectromagneticSwitch());
     public static final DeferredHolder<Block, BlockPlasma> BLOCK_PLASMA = BLOCKS.register("plasma", () -> new BlockPlasma());
     public static final BulkDeferredHolder<Block, BlockMoltenSaltPipe, SubtypeMoltenSaltPipe> BLOCKS_MOLTENSALTPIPE = new BulkDeferredHolder<>(SubtypeMoltenSaltPipe.values(), subtype -> BLOCKS.register(subtype.tag(), () -> new BlockMoltenSaltPipe(subtype)));
+    public static final BulkDeferredHolder<Block, BlockReactorLogisticsCable, SubtypeReactorLogisticsCable> BLOCKS_REACTORLOGISTICSCABLE = new BulkDeferredHolder<>(SubtypeReactorLogisticsCable.values(), subtype -> BLOCKS.register(subtype.tag(), () -> new BlockReactorLogisticsCable(subtype)));
     public static final DeferredHolder<Block, BlockMeltedReactor> BLOCK_MELTEDREACTOR = BLOCKS.register("meltedreactor", () -> new BlockMeltedReactor());
     public static final DeferredHolder<Block, BlockRadioactiveAir> BLOCK_RADIOACTIVEAIR = BLOCKS.register("radioactiveair", () -> new BlockRadioactiveAir());
     public static final BulkDeferredHolder<Block, BlockIrradiated, SubtypeIrradiatedBlock> BLOCKS_IRRADIATED = new BulkDeferredHolder<>(SubtypeIrradiatedBlock.values(), subtype -> BLOCKS.register(subtype.tag(), () -> new BlockIrradiated(subtype)));

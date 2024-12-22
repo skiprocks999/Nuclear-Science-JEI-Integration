@@ -1,10 +1,6 @@
-package nuclearscience.common.tile.reactor.moltensalt;
-
-import java.util.ArrayList;
-import java.util.HashSet;
+package nuclearscience.common.tile.reactor.logisticsnetwork;
 
 import com.google.common.collect.Sets;
-
 import electrodynamics.prefab.network.AbstractNetwork;
 import electrodynamics.prefab.tile.types.GenericConnectTile;
 import electrodynamics.prefab.utilities.Scheduler;
@@ -14,32 +10,35 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import nuclearscience.api.network.moltensalt.IMoltenSaltPipe;
-import nuclearscience.common.block.connect.BlockMoltenSaltPipe;
-import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
-import nuclearscience.common.network.MoltenSaltNetwork;
+import nuclearscience.api.network.reactorlogistics.ILogisticsMember;
+import nuclearscience.api.network.reactorlogistics.IReactorLogisticsCable;
+import nuclearscience.common.block.connect.BlockReactorLogisticsCable;
+import nuclearscience.common.block.subtype.SubtypeReactorLogisticsCable;
+import nuclearscience.common.network.ReactorLogisticsNetwork;
 import nuclearscience.registers.NuclearScienceTiles;
 
-public class TileMoltenSaltPipe extends GenericConnectTile implements IMoltenSaltPipe {
+import java.util.ArrayList;
+import java.util.HashSet;
 
-    public MoltenSaltNetwork moltenSaltNetwork;
+public class TileReactorLogisticsCable extends GenericConnectTile implements IReactorLogisticsCable {
 
-    public SubtypeMoltenSaltPipe pipe = null;
+    public ReactorLogisticsNetwork reactorNetwork;
+    public SubtypeReactorLogisticsCable cable;
 
-    public TileMoltenSaltPipe(BlockPos pos, BlockState state) {
-        super(NuclearScienceTiles.TILE_MOLTENSALTPIPE.get(), pos, state);
+    public TileReactorLogisticsCable(BlockPos pos, BlockState state) {
+        super(NuclearScienceTiles.TILE_REACTORLOGISTICSCABLE.get(), pos, state);
     }
 
     @Override
     public AbstractNetwork<?, ?, ?, ?> getAbstractNetwork() {
-        return moltenSaltNetwork;
+        return reactorNetwork;
     }
 
-    private HashSet<IMoltenSaltPipe> getConnectedConductors() {
-        HashSet<IMoltenSaltPipe> set = new HashSet<>();
+    private HashSet<IReactorLogisticsCable> getConnectedConductors() {
+        HashSet<IReactorLogisticsCable> set = new HashSet<>();
         for (Direction dir : Direction.values()) {
             BlockEntity facing = level.getBlockEntity(new BlockPos(worldPosition).relative(dir));
-            if (facing instanceof IMoltenSaltPipe pipe) {
+            if (facing instanceof IReactorLogisticsCable pipe) {
                 set.add(pipe);
             }
         }
@@ -47,39 +46,39 @@ public class TileMoltenSaltPipe extends GenericConnectTile implements IMoltenSal
     }
 
     @Override
-    public MoltenSaltNetwork getNetwork() {
+    public ReactorLogisticsNetwork getNetwork() {
         return getNetwork(true);
     }
 
     @Override
-    public MoltenSaltNetwork getNetwork(boolean createIfNull) {
-        if (moltenSaltNetwork == null && createIfNull) {
-            HashSet<IMoltenSaltPipe> adjacentCables = getConnectedConductors();
-            HashSet<MoltenSaltNetwork> connectedNets = new HashSet<>();
-            for (IMoltenSaltPipe wire : adjacentCables) {
-                if (wire.getNetwork(false) != null && wire.getNetwork() instanceof MoltenSaltNetwork net) {
+    public ReactorLogisticsNetwork getNetwork(boolean createIfNull) {
+        if (reactorNetwork == null && createIfNull) {
+            HashSet<IReactorLogisticsCable> adjacentCables = getConnectedConductors();
+            HashSet<ReactorLogisticsNetwork> connectedNets = new HashSet<>();
+            for (IReactorLogisticsCable wire : adjacentCables) {
+                if (wire.getNetwork(false) != null && wire.getNetwork() instanceof ReactorLogisticsNetwork net) {
                     connectedNets.add(net);
                 }
             }
             if (connectedNets.isEmpty()) {
-                moltenSaltNetwork = new MoltenSaltNetwork(Sets.newHashSet(this));
+                reactorNetwork = new ReactorLogisticsNetwork(Sets.newHashSet(this));
             } else {
                 if (connectedNets.size() == 1) {
-                    moltenSaltNetwork = (MoltenSaltNetwork) connectedNets.toArray()[0];
+                    reactorNetwork = (ReactorLogisticsNetwork) connectedNets.toArray()[0];
                 } else {
-                    moltenSaltNetwork = new MoltenSaltNetwork(connectedNets, false);
+                    reactorNetwork = new ReactorLogisticsNetwork(connectedNets, false);
                 }
-                moltenSaltNetwork.conductorSet.add(this);
+                reactorNetwork.conductorSet.add(this);
             }
         }
-        return moltenSaltNetwork;
+        return reactorNetwork;
     }
 
     @Override
     public void setNetwork(AbstractNetwork<?, ?, ?, ?> network) {
-        if (moltenSaltNetwork != network && network instanceof MoltenSaltNetwork net) {
+        if (reactorNetwork != network && network instanceof ReactorLogisticsNetwork net) {
             removeFromNetwork();
-            moltenSaltNetwork = net;
+            reactorNetwork = net;
         }
     }
 
@@ -87,19 +86,19 @@ public class TileMoltenSaltPipe extends GenericConnectTile implements IMoltenSal
     public void refreshNetwork() {
         if (!level.isClientSide) {
             updateAdjacent();
-            ArrayList<MoltenSaltNetwork> foundNetworks = new ArrayList<>();
+            ArrayList<ReactorLogisticsNetwork> foundNetworks = new ArrayList<>();
             for (Direction dir : Direction.values()) {
                 BlockEntity facing = level.getBlockEntity(new BlockPos(worldPosition).relative(dir));
-                if (facing instanceof IMoltenSaltPipe pipe && pipe.getNetwork() instanceof MoltenSaltNetwork net) {
+                if (facing instanceof IReactorLogisticsCable pipe && pipe.getNetwork() instanceof ReactorLogisticsNetwork net) {
                     foundNetworks.add(net);
                 }
             }
             if (!foundNetworks.isEmpty()) {
                 foundNetworks.get(0).conductorSet.add(this);
-                moltenSaltNetwork = foundNetworks.get(0);
+                reactorNetwork = foundNetworks.get(0);
                 if (foundNetworks.size() > 1) {
                     foundNetworks.remove(0);
-                    for (MoltenSaltNetwork network : foundNetworks) {
+                    for (ReactorLogisticsNetwork network : foundNetworks) {
                         getNetwork().merge(network);
                     }
                 }
@@ -110,8 +109,8 @@ public class TileMoltenSaltPipe extends GenericConnectTile implements IMoltenSal
 
     @Override
     public void removeFromNetwork() {
-        if (moltenSaltNetwork != null) {
-            moltenSaltNetwork.removeFromNetwork(this);
+        if (reactorNetwork != null) {
+            reactorNetwork.removeFromNetwork(this);
         }
     }
 
@@ -122,7 +121,7 @@ public class TileMoltenSaltPipe extends GenericConnectTile implements IMoltenSal
         boolean flag = false;
         for (Direction dir : Direction.values()) {
             BlockEntity tile = level.getBlockEntity(worldPosition.relative(dir));
-            boolean is = tile instanceof IMoltenSaltPipe || tile instanceof TileHeatExchanger;
+            boolean is = tile instanceof IReactorLogisticsCable || (tile instanceof ILogisticsMember member && member.isValidConnection(dir.getOpposite()) && member.canConnect(getNetwork()));
             if (connections[dir.ordinal()] != is) {
                 connections[dir.ordinal()] = is;
                 tileConnections[dir.ordinal()] = tile;
@@ -150,7 +149,7 @@ public class TileMoltenSaltPipe extends GenericConnectTile implements IMoltenSal
 
     @Override
     public void setRemoved() {
-        if (!level.isClientSide && moltenSaltNetwork != null) {
+        if (!level.isClientSide && reactorNetwork != null) {
             getNetwork().split(this);
         }
         super.setRemoved();
@@ -158,7 +157,7 @@ public class TileMoltenSaltPipe extends GenericConnectTile implements IMoltenSal
 
     @Override
     public void onChunkUnloaded() {
-        if (!level.isClientSide && moltenSaltNetwork != null) {
+        if (!level.isClientSide && reactorNetwork != null) {
             getNetwork().split(this);
         }
     }
@@ -169,11 +168,11 @@ public class TileMoltenSaltPipe extends GenericConnectTile implements IMoltenSal
         Scheduler.schedule(1, this::refreshNetwork);
     }
 
-    public SubtypeMoltenSaltPipe getPipeType() {
-        if (pipe == null) {
-            pipe = ((BlockMoltenSaltPipe) getBlockState().getBlock()).pipe;
+    public SubtypeReactorLogisticsCable getPipeType() {
+        if (cable == null) {
+            cable = ((BlockReactorLogisticsCable) getBlockState().getBlock()).cable;
         }
-        return pipe;
+        return cable;
     }
 
     @Override
@@ -185,6 +184,6 @@ public class TileMoltenSaltPipe extends GenericConnectTile implements IMoltenSal
     @Override
     protected void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
         super.loadAdditional(compound, registries);
-        pipe = SubtypeMoltenSaltPipe.values()[compound.getInt("ord")];
+        cable = SubtypeReactorLogisticsCable.values()[compound.getInt("ord")];
     }
 }

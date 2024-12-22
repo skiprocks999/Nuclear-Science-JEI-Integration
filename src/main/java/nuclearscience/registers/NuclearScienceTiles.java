@@ -8,6 +8,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import nuclearscience.References;
 import nuclearscience.common.block.connect.BlockMoltenSaltPipe;
+import nuclearscience.common.block.connect.BlockReactorLogisticsCable;
 import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
 import nuclearscience.common.tile.*;
 import nuclearscience.common.tile.reactor.TileControlRod;
@@ -15,12 +16,8 @@ import nuclearscience.common.tile.reactor.fission.TileFissionReactorCore;
 import nuclearscience.common.tile.reactor.fission.TileMeltedReactor;
 import nuclearscience.common.tile.reactor.fusion.TileFusionReactorCore;
 import nuclearscience.common.tile.reactor.fusion.TilePlasma;
-import nuclearscience.common.tile.reactor.moltensalt.TileFreezePlug;
-import nuclearscience.common.tile.reactor.moltensalt.TileHeatExchanger;
-import nuclearscience.common.tile.reactor.moltensalt.TileMSRFuelPreProcessor;
-import nuclearscience.common.tile.reactor.moltensalt.TileMSReactorCore;
-import nuclearscience.common.tile.reactor.moltensalt.TileMoltenSaltSupplier;
-import nuclearscience.common.tile.reactor.moltensalt.TileMoltenSaltPipe;
+import nuclearscience.common.tile.reactor.logisticsnetwork.*;
+import nuclearscience.common.tile.reactor.moltensalt.*;
 
 public class NuclearScienceTiles {
 	public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, References.ID);
@@ -54,5 +51,10 @@ public class NuclearScienceTiles {
 	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileCloudChamber>> TILE_CLOUDCHAMBER = BLOCK_ENTITY_TYPES.register(SubtypeNuclearMachine.cloudchamber.tag(), () -> new BlockEntityType<>(TileCloudChamber::new, Sets.newHashSet(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.cloudchamber)), null));
 	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileSteamFunnel>> TILE_STEAMFUNNEL = BLOCK_ENTITY_TYPES.register(SubtypeNuclearMachine.steamfunnel.tag(), () -> new BlockEntityType<>(TileSteamFunnel::new, Sets.newHashSet(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.steamfunnel)), null));
 	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileFalloutScrubber>> TILE_FALLOUTSCRUBBER = BLOCK_ENTITY_TYPES.register(SubtypeNuclearMachine.falloutscrubber.tag(), () -> new BlockEntityType<>(TileFalloutScrubber::new, Sets.newHashSet(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.falloutscrubber)), null));
+	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileReactorLogisticsCable>> TILE_REACTORLOGISTICSCABLE = BLOCK_ENTITY_TYPES.register("reactorlogisticscable", () -> new BlockEntityType<>(TileReactorLogisticsCable::new, BlockReactorLogisticsCable.PIPESET, null));
+	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileController>> TILE_LOGISTICSCONTROLLER = BLOCK_ENTITY_TYPES.register(SubtypeNuclearMachine.logisticscontroller.tag(), () -> new BlockEntityType<>(TileController::new, Sets.newHashSet(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.logisticscontroller)), null));
+	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileInterface.TileFissionInterface>> TILE_FISSIONINTERFACE = BLOCK_ENTITY_TYPES.register(SubtypeNuclearMachine.fissioninterface.tag(), () -> new BlockEntityType<>(TileInterface.TileFissionInterface::new, Sets.newHashSet(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fissioninterface)), null));
+	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileControlRodModule>> TILE_CONTROLRODMODULE = BLOCK_ENTITY_TYPES.register(SubtypeNuclearMachine.controlrodmodule.tag(), () -> new BlockEntityType<>(TileControlRodModule::new, Sets.newHashSet(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.controlrodmodule)), null));
+	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TileSupplyModule>> TILE_SUPPLYMODULE = BLOCK_ENTITY_TYPES.register(SubtypeNuclearMachine.supplymodule.tag(), () -> new BlockEntityType<>(TileSupplyModule::new, Sets.newHashSet(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.supplymodule)), null));
 
 }

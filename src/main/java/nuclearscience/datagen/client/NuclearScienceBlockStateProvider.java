@@ -16,13 +16,12 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import nuclearscience.References;
 import nuclearscience.common.block.BlockElectromagneticBooster;
 import nuclearscience.common.block.facing.FacingDirection;
-import nuclearscience.common.block.subtype.SubtypeIrradiatedBlock;
-import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
-import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
-import nuclearscience.common.block.subtype.SubtypeRadiationShielding;
+import nuclearscience.common.block.subtype.*;
 import nuclearscience.registers.NuclearScienceBlocks;
 
 public class NuclearScienceBlockStateProvider extends ElectrodynamicsBlockStateProvider {
+
+    private static final ResourceLocation STEEL_CASING = ResourceLocation.fromNamespaceAndPath(electrodynamics.api.References.ID, "block/steelcasing");
 
     public NuclearScienceBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
         super(output, exFileHelper, References.ID);
@@ -95,7 +94,47 @@ public class NuclearScienceBlockStateProvider extends ElectrodynamicsBlockStateP
         horrRotatedBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.cloudchamber), existingBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.cloudchamber)), 0, 0, true);
         horrRotatedBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.falloutscrubber), existingBlock(blockLoc("falloutscrubberframe")), false);
 
+        block = NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.logisticscontroller);
+        builder = models().cube(
+                //
+                name(block),
+                //
+                modLoc("block/logisticspowerport"),
+                //
+                modLoc("block/logisticscontrolleroff"),
+                //
+                modLoc("block/logisticscontrolleroff"),
+                //
+                modLoc("block/logisticscontrolleroff"),
+                //
+                modLoc("block/logisticscontrolleroff"),
+                //
+                modLoc("block/logisticsport")
+                //
+        ).texture("particle", STEEL_CASING);
+
+        BlockModelBuilder builder1 = models().cube(
+                //
+                name(block) + "on",
+                //
+                modLoc("block/logisticspowerport"),
+                //
+                modLoc("block/logisticscontrolleron"),
+                //
+                modLoc("block/logisticscontrolleron"),
+                //
+                modLoc("block/logisticscontrolleron"),
+                //
+                modLoc("block/logisticscontrolleron"),
+                //
+                modLoc("block/logisticsport")
+                //
+        ).texture("particle", STEEL_CASING);
+
+        horrRotatedLitBlock(block, builder, builder1, true);
+
         genPipes();
+        genLogisticsCables();
 
     }
 
@@ -113,6 +152,26 @@ public class NuclearScienceBlockStateProvider extends ElectrodynamicsBlockStateP
                     models().withExistingParent(name + pipe.tag() + "_none", modLoc(parent + "pipe_none")).texture("texture", blockLoc(texture + pipe.tag())).texture("particle", "#texture").renderType("cutout"),
                     //
                     models().withExistingParent(name + pipe.tag() + "_side", modLoc(parent + "pipe_side")).texture("texture", blockLoc(texture + pipe.tag())).texture("particle", "#texture").renderType("cutout"),
+                    //
+                    false);
+        }
+
+    }
+
+    private void genLogisticsCables() {
+
+        String parent = "parent/";
+        String name = "block/pipe/";
+        String texture = "pipe/";
+
+        for (SubtypeReactorLogisticsCable cable : SubtypeReactorLogisticsCable.values()) {
+            wire(
+                    //
+                    NuclearScienceBlocks.BLOCKS_REACTORLOGISTICSCABLE.getValue(cable),
+                    //
+                    models().withExistingParent(name + cable.tag() + "_none", modLoc(parent + "logisticscable_none")).texture("texture", blockLoc(texture + cable.tag() + "_none")).texture("particle", STEEL_CASING).renderType("cutout"),
+                    //
+                    models().withExistingParent(name + cable.tag() + "_side", modLoc(parent + "logisticscable_side")).texture("texture", blockLoc(texture + cable.tag() + "_side")).texture("particle", STEEL_CASING).renderType("cutout"),
                     //
                     false);
         }

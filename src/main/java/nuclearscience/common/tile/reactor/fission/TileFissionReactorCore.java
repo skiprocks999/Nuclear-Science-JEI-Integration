@@ -41,7 +41,6 @@ import net.minecraft.world.phys.Vec3;
 import nuclearscience.api.radiation.RadiationSystem;
 import nuclearscience.api.radiation.SimpleRadiationSource;
 import nuclearscience.api.turbine.ISteamReceiver;
-import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
 import nuclearscience.common.inventory.container.ContainerFissionReactorCore;
 import nuclearscience.common.recipe.NuclearScienceRecipeInit;
 import nuclearscience.common.settings.Constants;
@@ -152,11 +151,9 @@ public class TileFissionReactorCore extends GenericTile {
 
             int insertion = 0;
 
-            if (controlRodCache.valid() && level.getBlockState(controlRodCache.getPos()).is(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fissioncontrolrod))) {
+            if (controlRodCache.valid() && controlRodCache.getSafe() instanceof IFissionControlRod rod) {
 
-                TileControlRod.TileFissionControlRod rod = controlRodCache.getSafe();
-
-                insertion = rod.insertion.get();
+                insertion = rod.getInsertion();
 
             }
 

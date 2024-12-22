@@ -15,12 +15,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import nuclearscience.api.network.moltensalt.IMoltenSaltPipe;
 import nuclearscience.api.radiation.RadiationSystem;
 import nuclearscience.api.radiation.SimpleRadiationSource;
-import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
 import nuclearscience.common.inventory.container.ContainerMSReactorCore;
 import nuclearscience.common.network.MoltenSaltNetwork;
 import nuclearscience.common.tile.reactor.TileControlRod;
 import nuclearscience.common.tile.reactor.fission.TileFissionReactorCore;
-import nuclearscience.registers.NuclearScienceBlocks;
 import nuclearscience.registers.NuclearScienceTiles;
 
 public class TileMSReactorCore extends GenericTile {
@@ -92,12 +90,10 @@ public class TileMSReactorCore extends GenericTile {
 
 		int insertion = 0;
 
-		if(controlRodCache.valid() && level.getBlockState(controlRodCache.getPos()).is(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.mscontrolrod))) {
+		if(controlRodCache.valid() && controlRodCache.getSafe() instanceof IMSControlRod rod) {
 
-			TileControlRod.TileMSControlRod rod = controlRodCache.getSafe();
-
-			if(rod.getFacing().getOpposite() == getFacing()) {
-				insertion = rod.insertion.get();
+			if(rod.facingDir().getOpposite() == getFacing()) {
+				insertion = rod.getInsertion();
 			}
 
 		}

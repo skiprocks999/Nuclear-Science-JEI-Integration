@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "nuclearscience:block/controlrodmodule"
+    },
+    "facing=north": {
+      "model": "nuclearscience:block/controlrodmodule",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "nuclearscience:block/controlrodmodule",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "nuclearscience:block/controlrodmodule",
+      "y": 180
+    }
+  }
+}

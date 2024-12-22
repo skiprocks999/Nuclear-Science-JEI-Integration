@@ -21,9 +21,13 @@ public class TileControlRodModule extends TileControlRod implements ILogisticsMe
     public final Property<Integer> redstoneSignal = property(new Property<>(PropertyTypes.INTEGER, "redstonesignal", 0)).onChange((prop, oldVal) -> {
         if(!level.isClientSide && prop.get() != oldVal) {
 
-            int newInset = (int) ((((double) prop.get() / 15.0) * (double) EXTENSION_PER_CLICK) / EXTENSION_PER_CLICK);
+            double perc = (double) prop.get() / 15.0;
 
-            insertion.set(newInset);
+            double tot = perc * (double) MAX_EXTENSION;
+
+            int mult = (int) (tot / (double) EXTENSION_PER_CLICK);
+
+            insertion.set(mult * EXTENSION_PER_CLICK);
 
         }
     });

@@ -14,16 +14,14 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import nuclearscience.common.settings.Constants;
+import nuclearscience.common.tags.NuclearScienceTags;
 import nuclearscience.registers.NuclearScienceTiles;
 import nuclearscience.registers.NuclearScienceBlocks;
-import nuclearscience.registers.NuclearScienceItems;
 
 public class TileFusionReactorCore extends GenericTile {
 
@@ -63,15 +61,18 @@ public class TileFusionReactorCore extends GenericTile {
             return;
         }
 
+        BlockPos offset;
+        BlockState offsetState;
+
         for (Direction dir : Direction.Plane.HORIZONTAL) {
-            BlockPos offset = worldPosition.relative(dir);
-            BlockState state = level.getBlockState(offset);
-            if (state.getBlock() == NuclearScienceBlocks.BLOCK_PLASMA.get()) {
+            offset = worldPosition.relative(dir);
+            offsetState = level.getBlockState(offset);
+            if (offsetState.getBlock() == NuclearScienceBlocks.BLOCK_PLASMA.get()) {
                 BlockEntity tile = level.getBlockEntity(offset);
                 if (tile instanceof TilePlasma plasma && plasma.ticksExisted.get() > 30) {
                     plasma.ticksExisted.set(0);
                 }
-            } else if (state.getBlock() == Blocks.AIR) {
+            } else if (offsetState.isAir()) {
                 level.setBlockAndUpdate(offset, NuclearScienceBlocks.BLOCK_PLASMA.get().defaultBlockState());
             }
         }
@@ -82,33 +83,56 @@ public class TileFusionReactorCore extends GenericTile {
     public ItemInteractionResult useWithItem(ItemStack used, Player player, InteractionHand hand, BlockHitResult hit) {
         ItemStack inHand = player.getItemInHand(hand);
 
-        Item itemInHand = inHand.getItem();
+        int accepted = 0;
 
-        if (itemInHand == NuclearScienceItems.ITEM_CELLDEUTERIUM.get() || itemInHand == NuclearScienceItems.ITEM_CELLTRITIUM.get()) {
+        if (inHand.is(NuclearScienceTags.Items.CELL_DEUTERIUM)) {
+            accepted = addDeuteriumCells(inHand.getCount());
+        } else if (inHand.is(NuclearScienceTags.Items.CELL_TRITIUM)) {
+            accepted = addTritiumCells(inHand.getCount());
+        }
 
-            boolean isTritium = itemInHand == NuclearScienceItems.ITEM_CELLTRITIUM.get();
+        if(accepted > 0) {
 
-            int count = isTritium ? tritium.get() : deuterium.get();
-
-            int added = Math.min(inHand.getCount(), Constants.FUSIONREACTOR_MAXSTORAGE - count);
-
-            if (added > 0) {
-                if (!level.isClientSide()) {
-                    inHand.setCount(inHand.getCount() - added);
-
-                    if (isTritium) {
-                        tritium.set(tritium.get() + added);
-                    } else {
-                        deuterium.set(deuterium.get() + added);
-                    }
-                }
-
-                return ItemInteractionResult.CONSUME;
+            if(!level.isClientSide()) {
+                inHand.setCount(inHand.getCount() - accepted);
             }
 
+            return ItemInteractionResult.CONSUME;
         }
 
         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    }
+
+    public int addDeuteriumCells(int count) {
+        return addCell(deuterium, count);
+    }
+
+    public int addTritiumCells(int count) {
+        return addCell(tritium, count);
+    }
+
+    private int addCell(Property<Integer> property, int count) {
+
+        if (property.get() >= Constants.FUSIONREACTOR_MAXSTORAGE) {
+            return 0;
+        }
+
+        int added = Math.min(count, Constants.FUSIONREACTOR_MAXSTORAGE - property.get());
+
+        if (!level.isClientSide()) {
+            property.set(property.get() + added);
+        }
+
+        return added;
+
+    }
+
+    public boolean isDeuteriumFull() {
+        return deuterium.get() >= Constants.FUSIONREACTOR_MAXSTORAGE;
+    }
+
+    public boolean isTritiumFull() {
+        return tritium.get() >= Constants.FUSIONREACTOR_MAXSTORAGE;
     }
 
 }

@@ -1,6 +1,8 @@
 package nuclearscience.common.inventory.container;
 
+import electrodynamics.prefab.inventory.container.slot.item.SlotGeneric;
 import electrodynamics.prefab.inventory.container.types.GenericContainerBlockEntity;
+import electrodynamics.prefab.utilities.math.Color;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -21,6 +23,13 @@ public class ContainerSupplyModule extends GenericContainerBlockEntity<TileSuppl
 
     @Override
     public void addInventorySlots(Container container, Inventory inventory) {
-
+        int offset = 0;
+        for(int x = 0; x < 9; ++x) {
+            offset++;
+            this.addSlot(new SlotGeneric(container, x, 8 + x * 18, 20).setIOColor(new Color(0, 240, 255, 255)));
+        }
+        for(int x = 0; x < 9; ++x) {
+            this.addSlot(new SlotGeneric(container, x + offset, 8 + x * 18, 50).setIOColor(new Color(255, 0, 0, 255)));
+        }
     }
 }

@@ -139,6 +139,62 @@ public class NuclearScienceVoxelShapes {
             //
     );
 
+    public static final VoxelShapeProvider CONTROL_ROD_MODULE = VoxelShapeProvider.createDirectional(
+            //
+            Direction.EAST,
+            //
+            Stream.of(
+                    //
+                    Block.box(0, 0, 0, 16, 5, 16),
+                    //
+                    Block.box(0, 5, 0, 5, 16, 16),
+                    //
+                    Block.box(5, 5, 0, 15, 6, 1),
+                    //
+                    Block.box(5, 14, 15, 6, 15, 16),
+                    //
+                    Block.box(5, 13, 15, 7, 14, 16),
+                    //
+                    Block.box(5, 12, 15, 8, 13, 16),
+                    //
+                    Block.box(5, 11, 15, 9, 12, 16),
+                    //
+                    Block.box(5, 10, 15, 12, 11, 16),
+                    //
+                    Block.box(5, 9, 15, 12, 10, 16),
+                    //
+                    Block.box(5, 8, 15, 12, 9, 16),
+                    //
+                    Block.box(5, 7, 15, 13, 8, 16),
+                    //
+                    Block.box(5, 6, 15, 14, 7, 16),
+                    //
+                    Block.box(5, 5, 15, 15, 6, 16),
+                    //
+                    Block.box(5, 6, 0, 14, 7, 1),
+                    //
+                    Block.box(5, 7, 0, 13, 8, 1),
+                    //
+                    Block.box(5, 8, 0, 12, 9, 1),
+                    //
+                    Block.box(5, 9, 0, 12, 10, 1),
+                    //
+                    Block.box(5, 10, 0, 12, 11, 1),
+                    //
+                    Block.box(5, 11, 0, 9, 12, 1),
+                    //
+                    Block.box(5, 12, 0, 8, 13, 1),
+                    //
+                    Block.box(5, 13, 0, 7, 14, 1),
+                    //
+                    Block.box(5, 14, 0, 6, 15, 1),
+                    //
+                    Block.box(10, 9, 1, 11, 10, 15)
+                    //
+            ).reduce(Shapes::or).get()
+            //
+    );
+
     public static final VoxelShapeProvider FISSION_REACTOR_CORE = VoxelShapeProvider.createOmni(
             //
             Stream.of(

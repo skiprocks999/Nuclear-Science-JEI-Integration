@@ -59,6 +59,11 @@ public class NuclearScienceLootTablesProvider extends ElectrodynamicsLootTablesP
 		addMachineTable(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.falloutscrubber), NuclearScienceTiles.TILE_FALLOUTSCRUBBER, false, true, false, true, false);
 		addSimpleBlock(NuclearScienceBlocks.BLOCKS_REACTORLOGISTICSCABLE.getValue(SubtypeReactorLogisticsCable.base));
 		addSimpleBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.logisticscontroller));
+		addSimpleBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fissioninterface));
+		addSimpleBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.msinterface));
+		addSimpleBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fusioninterface));
+		addSimpleBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.controlrodmodule));
+		addSimpleBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.supplymodule));
 
 	}
 

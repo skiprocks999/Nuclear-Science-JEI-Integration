@@ -43,8 +43,11 @@ public enum SubtypeNuclearMachine implements ISubtype, IMachine {
     particleinjector(true, TileParticleInjector::new, MachineProperties.builder().setShapeProvider(NuclearScienceVoxelShapes.PARTICLE_INJECTOR)),
     logisticscontroller(true, TileController::new, MachineProperties.builder().setLitBrightness(15)),
     fissioninterface(true, TileInterface.TileFissionInterface::new),
-    controlrodmodule(true, TileControlRodModule::new),
+    msinterface(true, TileInterface.TileMSInterface::new),
+    fusioninterface(true, TileInterface.TileFusionInterface::new),
+    controlrodmodule(true, TileControlRodModule::new, MachineProperties.builder().setShapeProvider(NuclearScienceVoxelShapes.CONTROL_ROD_MODULE)),
     supplymodule(true, TileSupplyModule::new),
+
 
     teleporter(true, TileTeleporter::new, MachineProperties.builder().setShapeProvider(NuclearScienceVoxelShapes.TELEPORTER).setLitBrightness(15)),
     chunkloader(true, TileChunkloader::new),

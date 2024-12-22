@@ -6,12 +6,14 @@ import electrodynamics.prefab.tile.GenericTile;
 import electrodynamics.prefab.tile.components.type.ComponentPacketHandler;
 import electrodynamics.prefab.tile.components.type.ComponentTickable;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import nuclearscience.common.tile.reactor.fission.IFissionControlRod;
+import nuclearscience.common.tile.reactor.moltensalt.IMSControlRod;
 import nuclearscience.registers.NuclearScienceTiles;
 
 public abstract class TileControlRod extends GenericTile {
@@ -65,12 +67,21 @@ public abstract class TileControlRod extends GenericTile {
         }
     }
 
-    public static class TileMSControlRod extends TileControlRod {
+    public static class TileMSControlRod extends TileControlRod implements IMSControlRod {
 
         public TileMSControlRod(BlockPos pos, BlockState state) {
             super(NuclearScienceTiles.TILE_MSCONTROLROD.get(), pos, state);
         }
 
+        @Override
+        public int getInsertion() {
+            return insertion.get();
+        }
+
+        @Override
+        public Direction facingDir() {
+            return getFacing();
+        }
     }
 
 

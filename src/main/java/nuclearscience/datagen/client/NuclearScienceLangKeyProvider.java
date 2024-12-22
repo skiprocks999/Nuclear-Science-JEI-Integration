@@ -101,7 +101,12 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.siren), "Siren");
 			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.atomicassembler), "Atomic Assembler");
 			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.moltensaltsupplier), "Molten Salt Supplier");
-			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.logisticscontroller), "Reactor Logistics Controller");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.logisticscontroller), "RL Controller");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fissioninterface), "Fission Interface");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.msinterface), "MS Interface");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fusioninterface), "Fusion Interface");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.controlrodmodule), "Control Rod Module");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.supplymodule), "Supply Module");
 			addBlock(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.soil), "Irradiated Soil");
 			addBlock(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.grass), "Irradiated Grass");
 			addBlock(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.petrifiedwood), "Petrified Wood");
@@ -142,6 +147,7 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addContainer("teleporter", "Teleporter");
 			addContainer("cloudchamber", "Cloud Chamber");
 			addContainer("falloutscrubber", "Fallout Scrubber");
+			addContainer("supplymodule", "Supply Module");
 
 			addGuiLabel("machine.usage", "Usage: %s");
 			addGuiLabel("machine.voltage", "Voltage: %s");
@@ -237,6 +243,7 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addSubtitle(NuclearScienceSounds.SOUND_GEIGERCOUNTER_4, "Geiger Counter ticks!");
 			addSubtitle(NuclearScienceSounds.SOUND_GEIGERCOUNTER_5, "Geiger Counter ticks!");
 			addSubtitle(NuclearScienceSounds.SOUND_GEIGERCOUNTER_6, "Geiger Counter ticks!");
+			addSubtitle(NuclearScienceSounds.SOUND_LOGISTICSCONTROLLER, "Reactor Logistics Controller runs");
 
 			addJei(NuclearBoilerRecipe.RECIPE_GROUP, "Nuclear Boiler");
 			addJei(ChemicalExtractorRecipe.RECIPE_GROUP, "Chemical Extractor");

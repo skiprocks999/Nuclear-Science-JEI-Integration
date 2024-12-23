@@ -34,6 +34,8 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
     public Property<ArrayList<Integer>> queuedAnimations = property(new Property<>(NuclearPropertyTypes.INTEGER_LIST, "queuedanimations", new ArrayList<>()));
 
     public final HashMap<InterfaceAnimation, Long> clientAnimations = new HashMap<>();
+    //Nothing is rendered with this map; it is used to keep track of what the interface is doing only
+    protected final HashMap<InterfaceAnimation, Long> serverAnimations = new HashMap<>();
 
 
     public TileInterface(BlockEntityType<?> tileEntityTypeIn, BlockPos worldPos, BlockState blockState) {
@@ -98,10 +100,10 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
 
         Map.Entry<InterfaceAnimation, Long> entry;
 
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             entry = it.next();
 
-            if(currTime - entry.getValue() > entry.getKey().animationTime) {
+            if (currTime - entry.getValue() > entry.getKey().animationTime) {
                 it.remove();
             }
 
@@ -120,6 +122,29 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
     }
 
     public abstract Direction getReactorDirection();
+
+    protected void handleServerAnimations(ComponentTickable tickable) {
+        long currTime = tickable.getTicks();
+
+        queuedAnimations.get().forEach(val -> {
+
+            serverAnimations.put(InterfaceAnimation.values()[val], currTime);
+
+        });
+
+        Iterator<Map.Entry<InterfaceAnimation, Long>> it = serverAnimations.entrySet().iterator();
+
+        Map.Entry<InterfaceAnimation, Long> entry;
+
+        while (it.hasNext()) {
+            entry = it.next();
+
+            if (currTime - entry.getValue() > entry.getKey().animationTime) {
+                it.remove();
+            }
+
+        }
+    }
 
     public static class TileFissionInterface extends TileInterface implements IFissionControlRod {
 
@@ -152,7 +177,7 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
                 return;
             }
 
-            if(network.controlRod == null) {
+            if (network.controlRod == null) {
                 insertion.set(0);
             } else {
                 insertion.set(network.controlRod.insertion.get());
@@ -168,25 +193,33 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
                 ComponentInventory coreInv = core.getComponent(IComponentType.Inventory);
                 ComponentInventory supplyInv;
 
+                HashMap<InterfaceAnimation, Long> serverAnimations = super.serverAnimations;
+
                 // set these flags to avoid checking needlessly
 
                 boolean areSpentCellsRemoved = false;
                 boolean fuelCellsAreFull = false;
 
+                boolean isExtractingSpentCell = serverAnimations.containsKey(InterfaceAnimation.FISSION_WASTE_1) || serverAnimations.containsKey(InterfaceAnimation.FISSION_WASTE_2) || serverAnimations.containsKey(InterfaceAnimation.FISSION_WASTE_3) || serverAnimations.containsKey(InterfaceAnimation.FISSION_WASTE_4);
+                boolean isInsertingFuelCell = serverAnimations.containsKey(InterfaceAnimation.FISSION_FUEL_1) || serverAnimations.containsKey(InterfaceAnimation.FISSION_FUEL_2) || serverAnimations.containsKey(InterfaceAnimation.FISSION_FUEL_3) || serverAnimations.containsKey(InterfaceAnimation.FISSION_FUEL_4);
+                boolean isExtractingTritium = serverAnimations.containsKey(InterfaceAnimation.FISSION_TRITIUM_EXTRACT);
+                boolean isInsertingDeuterium = serverAnimations.containsKey(InterfaceAnimation.FISSION_DEUTERIUM_INSERT);
 
                 for (TileSupplyModule supplyModule : supplyModules) {
 
                     supplyInv = supplyModule.getComponent(IComponentType.Inventory);
 
-                    // Check if there are any spent cells in the fission core
-
                     ItemStack deuterium = coreInv.getItem(TileFissionReactorCore.DUETERIUM_SLOT);
+
+                    // Check if all four conditions are met so we can skip loop
 
                     if (areSpentCellsRemoved && coreInv.areOutputsEmpty() && fuelCellsAreFull && (deuterium.is(NuclearScienceTags.Items.CELL_DEUTERIUM) && deuterium.getCount() >= deuterium.getMaxStackSize())) {
                         break;
                     }
 
-                    if (!areSpentCellsRemoved) {
+                    // Check if there are any spent cells in the fission core
+
+                    if (!isInsertingFuelCell && !areSpentCellsRemoved) {
 
                         ItemStack item;
 
@@ -233,6 +266,8 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
                                             break;
                                     }
 
+                                    isExtractingSpentCell = true;
+
                                     queuedAnimations.forceDirty();
                                 }
                             }
@@ -246,7 +281,7 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
 
                     // Check if tritium needs to be extracted
 
-                    if (!coreInv.areOutputsEmpty()) {
+                    if (!isInsertingDeuterium && !coreInv.areOutputsEmpty()) {
 
                         ItemStack item = coreInv.getItem(5);
                         ItemStack destItem;
@@ -282,12 +317,14 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
                             queuedAnimations.get().add(InterfaceAnimation.FISSION_TRITIUM_EXTRACT.ordinal());
                             queuedAnimations.forceDirty();
 
+                            isExtractingTritium = true;
+
                         }
                     }
 
                     // Check if fuel cells need to be inserted
 
-                    if (!fuelCellsAreFull && !supplyInv.areInputsEmpty()) {
+                    if (!isExtractingSpentCell && !fuelCellsAreFull && !supplyInv.areInputsEmpty()) {
 
                         ItemStack item;
                         ItemStack supplyItem;
@@ -346,7 +383,7 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
 
                     // Check if Deuterium needs to be inserted
 
-                    if (deuterium.isEmpty() || (deuterium.is(NuclearScienceTags.Items.CELL_DEUTERIUM) && deuterium.getCount() < deuterium.getMaxStackSize())) {
+                    if (!isExtractingTritium && (deuterium.isEmpty() || (deuterium.is(NuclearScienceTags.Items.CELL_DEUTERIUM) && deuterium.getCount() < deuterium.getMaxStackSize()))) {
 
                         ItemStack item;
 
@@ -360,7 +397,7 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
                                 break;
                             }
 
-                            item = supplyInv.getItem(j);
+                            item = supplyInv.getItem(j).copy();
 
                             if (!item.is(NuclearScienceTags.Items.CELL_DEUTERIUM)) {
                                 continue;
@@ -372,7 +409,7 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
                                 taken = true;
                             } else if (deuterium.getCount() < deuterium.getMaxStackSize()) {
                                 int amt = Math.min(item.getCount(), deuterium.getMaxStackSize() - deuterium.getCount());
-                                item.shrink(amt);
+                                supplyInv.removeItem(j, amt);
                                 deuterium.grow(amt);
                                 taken = true;
                             }
@@ -388,6 +425,7 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
                 }
             }
 
+            super.handleServerAnimations(tickable);
 
         }
 
@@ -433,7 +471,7 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
                 return;
             }
 
-            if(network.controlRod == null) {
+            if (network.controlRod == null) {
                 insertion.set(0);
             } else {
                 insertion.set(network.controlRod.insertion.get());

@@ -26,6 +26,18 @@ public class RenderFissionInterface extends AbstractTileRenderer<TileInterface.T
     private static final double FLOOR_Y = 1.0 / 16.0;
     private static final double DELTA_FLOOR_Y = FISSION_REACTOR_FLOOR_Y - FLOOR_Y;
 
+
+    public static final AABB FUEL_ROD_PISTON_1 = new AABB(3.0 / 16.0, FLOOR_Y, 3.0 / 16.0, 4.0 / 16.0, FLOOR_Y + 0.8 / 16.0, 4.0 / 16.0);
+    public static final AABB FUEL_ROD_PISTON_2 = new AABB(12.0 / 16.0, FLOOR_Y, 3.0 / 16.0, 13.0 / 16.0, FLOOR_Y + 0.8 / 16.0, 4.0 / 16.0);
+    public static final AABB FUEL_ROD_PISTON_3 = new AABB(12.0 / 16.0, FLOOR_Y, 12.0 / 16.0, 13.0 / 16.0, FLOOR_Y + 0.8 / 16.0, 13.0 / 16.0);
+    public static final AABB FUEL_ROD_PISTON_4 = new AABB(3.0 / 16.0, FLOOR_Y, 12.0 / 16.0, 4.0 / 16.0, FLOOR_Y + 0.8 / 16.0, 13.0 / 16.0);
+
+    public static final AABB TRITIUM_CELL_PISTON = new AABB(7.0 / 16.0, FLOOR_Y, 7.0 / 16.0, 9.0 / 16.0, FLOOR_Y + 0.8 / 16.0, 9.0 / 16.0);
+
+
+    public static final Color PISTON_HEAD_GRAY = new Color(92, 92, 92, 255);
+    public static final Color PISTON_ROD_GRAY = new Color(140, 140, 140, 255);
+
     public RenderFissionInterface(BlockEntityRendererProvider.Context context) {
         super(context);
     }
@@ -55,91 +67,294 @@ public class RenderFissionInterface extends AbstractTileRenderer<TileInterface.T
 
         Long currTime = tile.<ComponentTickable>getComponent(IComponentType.Tickable).getTicks();
 
-        matrix.pushPose();
-
-        //matrix.translate(0.5, 0.5, 0.5);
-
         TextureAtlasSprite fuelCell = ClientRegister.getSprite(ClientRegister.TEXTURE_FUELCELL);
+        TextureAtlasSprite white = electrodynamics.client.ClientRegister.getSprite(electrodynamics.client.ClientRegister.TEXTURE_WHITE);
+
+        matrix.pushPose();
 
         tile.clientAnimations.forEach((animation, recieved) -> {
 
             matrix.pushPose();
 
             double perc = (double) (currTime - recieved) / (double) animation.animationTime;
+            double doublePerc = perc * 2.0;
+            double halfPerc = perc - 0.5;
+            double doubleHalfPerc = halfPerc * 2.0;
             double oneMinusPerc = 1.0 - perc;
+            double oneMinusHalfPerc = 1.0 - doubleHalfPerc;
 
+            AABB pistonRod;
             double x, y, z;
 
             switch (animation) {
 
                 case FISSION_WASTE_1:
 
-                    y = DELTA_FLOOR_Y * oneMinusPerc;
-                    matrix.translate(0, y, 0);
-                    renderBox(matrix, RenderFissionReactorCore.FUEL_ROD_1, RenderFissionReactorCore.SPENT, fuelCell, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                    if(perc > 0.5) {
+
+                        y = DELTA_FLOOR_Y * oneMinusHalfPerc;
+
+                        pistonRod = new AABB(3.25 / 16.0, FLOOR_Y, 3.25 / 16.0, 3.75 / 16.0, FLOOR_Y + y, 3.75 / 16.0);
+                        renderBox(matrix, pistonRod, PISTON_ROD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+
+                        matrix.translate(0, y, 0);
+
+                        renderBox(matrix, RenderFissionReactorCore.FUEL_ROD_1, RenderFissionReactorCore.SPENT, fuelCell, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                        renderBox(matrix, FUEL_ROD_PISTON_1, PISTON_HEAD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                    } else {
+
+                        y = DELTA_FLOOR_Y * doublePerc;
+
+                        pistonRod = new AABB(3.25 / 16.0, FLOOR_Y, 3.25 / 16.0, 3.75 / 16.0, FLOOR_Y + y, 3.75 / 16.0);
+
+                        renderBox(matrix, pistonRod, PISTON_ROD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+
+                        matrix.translate(0, y, 0);
+                        renderBox(matrix, FUEL_ROD_PISTON_1, PISTON_HEAD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                    }
+
                     break;
 
                 case FISSION_WASTE_2:
 
-                    y = DELTA_FLOOR_Y * oneMinusPerc;
-                    matrix.translate(0, y, 0);
-                    renderBox(matrix, RenderFissionReactorCore.FUEL_ROD_2, RenderFissionReactorCore.SPENT, fuelCell, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                    if(perc > 0.5) {
+
+                        y = DELTA_FLOOR_Y * oneMinusHalfPerc;
+
+                        pistonRod = new AABB(12.25 / 16.0, FLOOR_Y, 3.25 / 16.0, 12.75 / 16.0, FLOOR_Y + y, 3.75 / 16.0);
+                        renderBox(matrix, pistonRod, PISTON_ROD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+
+                        matrix.translate(0, y, 0);
+
+                        renderBox(matrix, RenderFissionReactorCore.FUEL_ROD_2, RenderFissionReactorCore.SPENT, fuelCell, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                        renderBox(matrix, FUEL_ROD_PISTON_2, PISTON_HEAD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                    } else {
+
+                        y = DELTA_FLOOR_Y * doublePerc;
+
+                        pistonRod = new AABB(12.25 / 16.0, FLOOR_Y, 3.25 / 16.0, 12.75 / 16.0, FLOOR_Y + y, 3.75 / 16.0);
+
+                        renderBox(matrix, pistonRod, PISTON_ROD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+
+                        matrix.translate(0, y, 0);
+                        renderBox(matrix, FUEL_ROD_PISTON_2, PISTON_HEAD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                    }
+
                     break;
 
                 case FISSION_WASTE_3:
 
-                    y = DELTA_FLOOR_Y * oneMinusPerc;
-                    matrix.translate(0, y, 0);
-                    renderBox(matrix, RenderFissionReactorCore.FUEL_ROD_3, RenderFissionReactorCore.SPENT, fuelCell, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                    if(perc > 0.5) {
+
+                        y = DELTA_FLOOR_Y * oneMinusHalfPerc;
+
+                        pistonRod = new AABB(12.25 / 16.0, FLOOR_Y, 12.25 / 16.0, 12.75 / 16.0, FLOOR_Y + y, 12.75 / 16.0);
+                        renderBox(matrix, pistonRod, PISTON_ROD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+
+                        matrix.translate(0, y, 0);
+
+                        renderBox(matrix, RenderFissionReactorCore.FUEL_ROD_3, RenderFissionReactorCore.SPENT, fuelCell, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                        renderBox(matrix, FUEL_ROD_PISTON_3, PISTON_HEAD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                    } else {
+
+                        y = DELTA_FLOOR_Y * doublePerc;
+
+                        pistonRod = new AABB(12.25 / 16.0, FLOOR_Y, 12.25 / 16.0, 12.75 / 16.0, FLOOR_Y + y, 12.75 / 16.0);
+
+                        renderBox(matrix, pistonRod, PISTON_ROD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+
+                        matrix.translate(0, y, 0);
+                        renderBox(matrix, FUEL_ROD_PISTON_3, PISTON_HEAD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                    }
+
                     break;
 
                 case FISSION_WASTE_4:
 
-                    y = DELTA_FLOOR_Y * oneMinusPerc;
-                    matrix.translate(0, y, 0);
-                    renderBox(matrix, RenderFissionReactorCore.FUEL_ROD_4, RenderFissionReactorCore.SPENT, fuelCell, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                    if(perc > 0.5) {
+
+                        y = DELTA_FLOOR_Y * oneMinusHalfPerc;
+
+                        pistonRod = new AABB(3.25 / 16.0, FLOOR_Y, 12.25 / 16.0, 3.75 / 16.0, FLOOR_Y + y, 12.75 / 16.0);
+                        renderBox(matrix, pistonRod, PISTON_ROD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+
+                        matrix.translate(0, y, 0);
+
+                        renderBox(matrix, RenderFissionReactorCore.FUEL_ROD_4, RenderFissionReactorCore.SPENT, fuelCell, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                        renderBox(matrix, FUEL_ROD_PISTON_4, PISTON_HEAD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                    } else {
+
+                        y = DELTA_FLOOR_Y * doublePerc;
+
+                        pistonRod = new AABB(3.25 / 16.0, FLOOR_Y, 12.25 / 16.0, 3.75 / 16.0, FLOOR_Y + y, 12.75 / 16.0);
+
+                        renderBox(matrix, pistonRod, PISTON_ROD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+
+                        matrix.translate(0, y, 0);
+                        renderBox(matrix, FUEL_ROD_PISTON_4, PISTON_HEAD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                    }
+
                     break;
 
                 case FISSION_FUEL_1:
 
-                    y = DELTA_FLOOR_Y * perc;
-                    matrix.translate(0, y, 0);
-                    renderBox(matrix, RenderFissionReactorCore.FUEL_ROD_1, RenderFissionReactorCore.getColorFromFuel(coreInv.getItem(0)), fuelCell, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                    if(perc < 0.5) {
+
+                        y = DELTA_FLOOR_Y * doublePerc;
+
+                        pistonRod = new AABB(3.25 / 16.0, FLOOR_Y, 3.25 / 16.0, 3.75 / 16.0, FLOOR_Y + y, 3.75 / 16.0);
+                        renderBox(matrix, pistonRod, PISTON_ROD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+
+                        matrix.translate(0, y, 0);
+
+                        renderBox(matrix, RenderFissionReactorCore.FUEL_ROD_1, RenderFissionReactorCore.getColorFromFuel(coreInv.getItem(0)), fuelCell, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                        renderBox(matrix, FUEL_ROD_PISTON_1, PISTON_HEAD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                    } else {
+
+                        y = DELTA_FLOOR_Y * oneMinusHalfPerc;
+
+                        pistonRod = new AABB(3.25 / 16.0, FLOOR_Y, 3.25 / 16.0, 3.75 / 16.0, FLOOR_Y + y, 3.75 / 16.0);
+
+                        renderBox(matrix, pistonRod, PISTON_ROD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+
+                        matrix.translate(0, y, 0);
+                        renderBox(matrix, FUEL_ROD_PISTON_1, PISTON_HEAD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                    }
+
                     break;
 
                 case FISSION_FUEL_2:
 
-                    y = DELTA_FLOOR_Y * perc;
-                    matrix.translate(0, y, 0);
-                    renderBox(matrix, RenderFissionReactorCore.FUEL_ROD_2, RenderFissionReactorCore.getColorFromFuel(coreInv.getItem(1)), fuelCell, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                    if(perc < 0.5) {
+
+                        y = DELTA_FLOOR_Y * doublePerc;
+
+                        pistonRod = new AABB(12.25 / 16.0, FLOOR_Y, 3.25 / 16.0, 12.75 / 16.0, FLOOR_Y + y, 3.75 / 16.0);
+                        renderBox(matrix, pistonRod, PISTON_ROD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+
+                        matrix.translate(0, y, 0);
+
+                        renderBox(matrix, RenderFissionReactorCore.FUEL_ROD_2, RenderFissionReactorCore.getColorFromFuel(coreInv.getItem(1)), fuelCell, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                        renderBox(matrix, FUEL_ROD_PISTON_2, PISTON_HEAD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                    } else {
+
+                        y = DELTA_FLOOR_Y * oneMinusHalfPerc;
+
+                        pistonRod = new AABB(12.25 / 16.0, FLOOR_Y, 3.25 / 16.0, 12.75 / 16.0, FLOOR_Y + y, 3.75 / 16.0);
+
+                        renderBox(matrix, pistonRod, PISTON_ROD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+
+                        matrix.translate(0, y, 0);
+                        renderBox(matrix, FUEL_ROD_PISTON_2, PISTON_HEAD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                    }
+
                     break;
 
                 case FISSION_FUEL_3:
 
-                    y = DELTA_FLOOR_Y * perc;
-                    matrix.translate(0, y, 0);
-                    renderBox(matrix, RenderFissionReactorCore.FUEL_ROD_3, RenderFissionReactorCore.getColorFromFuel(coreInv.getItem(2)), fuelCell, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                    if(perc < 0.5) {
+
+                        y = DELTA_FLOOR_Y * doublePerc;
+
+                        pistonRod = new AABB(12.25 / 16.0, FLOOR_Y, 12.25 / 16.0, 12.75 / 16.0, FLOOR_Y + y, 12.75 / 16.0);
+                        renderBox(matrix, pistonRod, PISTON_ROD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+
+                        matrix.translate(0, y, 0);
+
+                        renderBox(matrix, RenderFissionReactorCore.FUEL_ROD_3, RenderFissionReactorCore.getColorFromFuel(coreInv.getItem(2)), fuelCell, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                        renderBox(matrix, FUEL_ROD_PISTON_3, PISTON_HEAD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                    } else {
+
+                        y = DELTA_FLOOR_Y * oneMinusHalfPerc;
+
+                        pistonRod = new AABB(12.25 / 16.0, FLOOR_Y, 12.25 / 16.0, 12.75 / 16.0, FLOOR_Y + y, 12.75 / 16.0);
+
+                        renderBox(matrix, pistonRod, PISTON_ROD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+
+                        matrix.translate(0, y, 0);
+                        renderBox(matrix, FUEL_ROD_PISTON_3, PISTON_HEAD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                    }
+
                     break;
 
                 case FISSION_FUEL_4:
 
-                    y = DELTA_FLOOR_Y * perc;
-                    matrix.translate(0, y, 0);
-                    renderBox(matrix, RenderFissionReactorCore.FUEL_ROD_4, RenderFissionReactorCore.getColorFromFuel(coreInv.getItem(3)), fuelCell, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
-                    break;
+                    if(perc < 0.5) {
+
+                        y = DELTA_FLOOR_Y * doublePerc;
+
+                        pistonRod = new AABB(3.25 / 16.0, FLOOR_Y, 12.25 / 16.0, 3.75 / 16.0, FLOOR_Y + y, 12.75 / 16.0);
+                        renderBox(matrix, pistonRod, PISTON_ROD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+
+                        matrix.translate(0, y, 0);
+
+                        renderBox(matrix, RenderFissionReactorCore.FUEL_ROD_4, RenderFissionReactorCore.getColorFromFuel(coreInv.getItem(3)), fuelCell, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                        renderBox(matrix, FUEL_ROD_PISTON_4, PISTON_HEAD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                    } else {
+
+                        y = DELTA_FLOOR_Y * oneMinusHalfPerc;
+
+                        pistonRod = new AABB(3.25 / 16.0, FLOOR_Y, 12.25 / 16.0, 3.75 / 16.0, FLOOR_Y + y, 12.75 / 16.0);
+
+                        renderBox(matrix, pistonRod, PISTON_ROD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+
+                        matrix.translate(0, y, 0);
+                        renderBox(matrix, FUEL_ROD_PISTON_4, PISTON_HEAD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                    }
+
 
                 case FISSION_TRITIUM_EXTRACT:
 
-                    y = DELTA_FLOOR_Y * oneMinusPerc;
-                    matrix.translate(0, y, 0);
-                    renderBox(matrix, RenderFissionReactorCore.TRITIUM_CELL, RenderFissionReactorCore.TRITIUM, fuelCell, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                    if(perc > 0.5) {
+
+                        y = DELTA_FLOOR_Y * oneMinusHalfPerc;
+
+                        pistonRod = new AABB(7.25 / 16.0, FLOOR_Y, 7.25 / 16.0, 8.75 / 16.0, FLOOR_Y + y, 8.75 / 16.0);
+                        renderBox(matrix, pistonRod, PISTON_ROD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+
+                        matrix.translate(0, y, 0);
+
+                        renderBox(matrix, RenderFissionReactorCore.TRITIUM_CELL, RenderFissionReactorCore.TRITIUM, fuelCell, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                        renderBox(matrix, TRITIUM_CELL_PISTON, PISTON_HEAD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                    } else {
+
+                        y = DELTA_FLOOR_Y * doublePerc;
+
+                        pistonRod = new AABB(7.25 / 16.0, FLOOR_Y, 7.25 / 16.0, 8.75 / 16.0, FLOOR_Y + y, 8.75 / 16.0);
+
+                        renderBox(matrix, pistonRod, PISTON_ROD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+
+                        matrix.translate(0, y, 0);
+                        renderBox(matrix, TRITIUM_CELL_PISTON, PISTON_HEAD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                    }
+
                     break;
 
                 case FISSION_DEUTERIUM_INSERT:
 
-                    y = DELTA_FLOOR_Y * perc;
-                    matrix.translate(0, y, 0);
-                    renderBox(matrix, RenderFissionReactorCore.TRITIUM_CELL, RenderFissionReactorCore.DEUTERIUM, fuelCell, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                    if(perc < 0.5) {
+
+                        y = DELTA_FLOOR_Y * doublePerc;
+
+                        pistonRod = new AABB(7.25 / 16.0, FLOOR_Y, 7.25 / 16.0, 8.75 / 16.0, FLOOR_Y + y, 8.75 / 16.0);
+                        renderBox(matrix, pistonRod, PISTON_ROD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+
+                        matrix.translate(0, y, 0);
+
+                        renderBox(matrix, RenderFissionReactorCore.TRITIUM_CELL, RenderFissionReactorCore.DEUTERIUM, fuelCell, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                        renderBox(matrix, TRITIUM_CELL_PISTON, PISTON_HEAD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                    } else {
+
+                        y = DELTA_FLOOR_Y * oneMinusHalfPerc;
+
+                        pistonRod = new AABB(7.25 / 16.0, FLOOR_Y, 7.25 / 16.0, 8.75 / 16.0, FLOOR_Y + y, 8.75 / 16.0);
+
+                        renderBox(matrix, pistonRod, PISTON_ROD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+
+                        matrix.translate(0, y, 0);
+                        renderBox(matrix, TRITIUM_CELL_PISTON, PISTON_HEAD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                    }
+
                     break;
 
             }
@@ -155,8 +370,5 @@ public class RenderFissionInterface extends AbstractTileRenderer<TileInterface.T
     private void renderBox(PoseStack matrix, AABB box, Color color, TextureAtlasSprite texture, MultiBufferSource bufferIn, int combinedLightIn, boolean[] faces) {
         RenderingUtils.renderFilledBoxNoOverlay(matrix, bufferIn.getBuffer(RenderType.SOLID), box, color.rFloat(), color.gFloat(), color.bFloat(), color.aFloat(), texture.getU0(), texture.getV0(), texture.getU1(), texture.getV1(), combinedLightIn, faces);
     }
-
-    private void renderPiston()
-
 
 }

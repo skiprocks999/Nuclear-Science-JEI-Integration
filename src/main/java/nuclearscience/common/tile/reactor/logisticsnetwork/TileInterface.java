@@ -22,8 +22,7 @@ import nuclearscience.common.tile.reactor.moltensalt.IMSControlRod;
 import nuclearscience.prefab.NuclearPropertyTypes;
 import nuclearscience.registers.NuclearScienceTiles;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.*;
 
 public abstract class TileInterface extends GenericTile implements ILogisticsMember {
 
@@ -34,12 +33,18 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
 
     public Property<ArrayList<Integer>> queuedAnimations = property(new Property<>(NuclearPropertyTypes.INTEGER_LIST, "queuedanimations", new ArrayList<>()));
 
+    public final HashMap<InterfaceAnimation, Long> clientAnimations = new HashMap<>();
+
+
     public TileInterface(BlockEntityType<?> tileEntityTypeIn, BlockPos worldPos, BlockState blockState) {
         super(tileEntityTypeIn, worldPos, blockState);
-        addComponent(new ComponentTickable(this).tickServer(this::tickServer));
+        addComponent(new ComponentTickable(this).tickServer(this::tickServer).tickClient(this::tickClient));
     }
 
     public void tickServer(ComponentTickable tickable) {
+
+        queuedAnimations.set(new ArrayList<>());
+        queuedAnimations.forceDirty();
 
         if (reactor == null) {
             reactor = new CachedTileOutput(getLevel(), getBlockPos().relative(getReactorDirection()));
@@ -55,6 +60,49 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
             }
             if (!networkCable.valid()) {
                 networkCable.update(getBlockPos().relative(Direction.DOWN));
+            }
+
+        }
+
+    }
+
+    private void tickClient(ComponentTickable tickable) {
+
+        if (reactor == null) {
+            reactor = new CachedTileOutput(getLevel(), getBlockPos().relative(getReactorDirection()));
+        }
+
+        if (networkCable == null) {
+            networkCable = new CachedTileOutput(getLevel(), getBlockPos().relative(Direction.DOWN));
+        }
+
+        if (tickable.getTicks() % 20 == 0) {
+            if (!reactor.valid()) {
+                reactor.update(getBlockPos().relative(getReactorDirection()));
+            }
+            if (!networkCable.valid()) {
+                networkCable.update(getBlockPos().relative(Direction.DOWN));
+            }
+
+        }
+
+        long currTime = tickable.getTicks();
+
+        queuedAnimations.get().forEach(val -> {
+
+            clientAnimations.put(InterfaceAnimation.values()[val], currTime);
+
+        });
+
+        Iterator<Map.Entry<InterfaceAnimation, Long>> it = clientAnimations.entrySet().iterator();
+
+        Map.Entry<InterfaceAnimation, Long> entry;
+
+        while(it.hasNext()) {
+            entry = it.next();
+
+            if(currTime - entry.getValue() > entry.getKey().animationTime) {
+                it.remove();
             }
 
         }
@@ -85,7 +133,7 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
         public void tickServer(ComponentTickable tickable) {
             super.tickServer(tickable);
 
-            if (!networkCable.valid()) {
+            if (!networkCable.valid() || !(networkCable.getSafe() instanceof TileReactorLogisticsCable)) {
                 insertion.set(0);
                 return;
             }
@@ -229,7 +277,7 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
                             }
 
                         }
-                        if (extracted && !queuedAnimations.get().contains(InterfaceAnimation.FISSION_TRITIUM_EXTRACT.ordinal())) {
+                        if (extracted) {
 
                             queuedAnimations.get().add(InterfaceAnimation.FISSION_TRITIUM_EXTRACT.ordinal());
                             queuedAnimations.forceDirty();
@@ -330,7 +378,7 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
                             }
                         }
 
-                        if (taken && !queuedAnimations.get().contains(InterfaceAnimation.FISSION_DEUTERIUM_INSERT.ordinal())) {
+                        if (taken) {
                             queuedAnimations.get().add(InterfaceAnimation.FISSION_DEUTERIUM_INSERT.ordinal());
                             queuedAnimations.forceDirty();
                         }
@@ -366,7 +414,7 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
         public void tickServer(ComponentTickable tickable) {
             super.tickServer(tickable);
 
-            if (!networkCable.valid()) {
+            if (!networkCable.valid() || !(networkCable.getSafe() instanceof TileReactorLogisticsCable)) {
                 insertion.set(0);
                 return;
             }
@@ -417,7 +465,8 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
         @Override
         public void tickServer(ComponentTickable tickable) {
             super.tickServer(tickable);
-            if (!networkCable.valid()) {
+
+            if (!networkCable.valid() || !(networkCable.getSafe() instanceof TileReactorLogisticsCable)) {
                 return;
             }
 
@@ -525,18 +574,18 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
 
     public static enum InterfaceAnimation {
 
-        FISSION_WASTE_1(40),//
-        FISSION_WASTE_2(40),//
-        FISSION_WASTE_3(40),//
-        FISSION_WASTE_4(40),//
-        FISSION_TRITIUM_EXTRACT(40),//
-        FISSION_FUEL_1(40),//
-        FISSION_FUEL_2(40),//
-        FISSION_FUEL_3(40),//
-        FISSION_FUEL_4(40),//
-        FISSION_DEUTERIUM_INSERT(40),//
-        FUSION_DEUTERIUM_INSERT(40),//
-        FUSION_TRITIUM_INSERT(40)//
+        FISSION_WASTE_1(80),//
+        FISSION_WASTE_2(80),//
+        FISSION_WASTE_3(80),//
+        FISSION_WASTE_4(80),//
+        FISSION_TRITIUM_EXTRACT(80),//
+        FISSION_FUEL_1(80),//
+        FISSION_FUEL_2(80),//
+        FISSION_FUEL_3(80),//
+        FISSION_FUEL_4(80),//
+        FISSION_DEUTERIUM_INSERT(80),//
+        FUSION_DEUTERIUM_INSERT(80),//
+        FUSION_TRITIUM_INSERT(80)//
         ;
 
 

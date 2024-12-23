@@ -93,47 +93,11 @@ public class NuclearScienceBlockStateProvider extends ElectrodynamicsBlockStateP
         horrRotatedBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.mscontrolrod), existingBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.mscontrolrod)), 180, 0, false);
         horrRotatedBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.cloudchamber), existingBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.cloudchamber)), 0, 0, true);
         horrRotatedBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.falloutscrubber), existingBlock(blockLoc("falloutscrubberframe")), false);
+        horrRotatedLitBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.logisticscontroller), existingBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.logisticscontroller)), existingBlock(blockLoc("logisticscontrolleron")), true);
         horrRotatedBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.supplymodule), existingBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.supplymodule)), true);
         horrRotatedBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.controlrodmodule), existingBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.controlrodmodule)), false);
+        horrRotatedBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fissioninterface), existingBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fissioninterface)), false);
 
-        block = NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.logisticscontroller);
-        builder = models().cube(
-                //
-                name(block),
-                //
-                modLoc("block/logisticspowerport"),
-                //
-                modLoc("block/logisticscontrolleroff"),
-                //
-                modLoc("block/logisticscontrolleroff"),
-                //
-                modLoc("block/logisticscontrolleroff"),
-                //
-                modLoc("block/logisticscontrolleroff"),
-                //
-                modLoc("block/logisticsport")
-                //
-        ).texture("particle", STEEL_CASING);
-
-        BlockModelBuilder builder1 = models().cube(
-                //
-                name(block) + "on",
-                //
-                modLoc("block/logisticspowerport"),
-                //
-                modLoc("block/logisticscontrolleron"),
-                //
-                modLoc("block/logisticscontrolleron"),
-                //
-                modLoc("block/logisticscontrolleron"),
-                //
-                modLoc("block/logisticscontrolleron"),
-                //
-                modLoc("block/logisticsport")
-                //
-        ).texture("particle", STEEL_CASING);
-
-        horrRotatedLitBlock(block, builder, builder1, true);
 
         genPipes();
         genLogisticsCables();

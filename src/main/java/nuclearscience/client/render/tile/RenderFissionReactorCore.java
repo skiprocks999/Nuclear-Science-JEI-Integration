@@ -21,20 +21,20 @@ import nuclearscience.common.tile.reactor.fission.TileFissionReactorCore;
 
 public class RenderFissionReactorCore extends AbstractTileRenderer<TileFissionReactorCore> {
 
-    private static final AABB FUEL_ROD_1 = new AABB(3.0 / 16.0, 1.8 / 16.0, 3.0 / 16.0, 4.0 / 16.0, 12.0 / 16.0, 4.0 / 16.0);
-    private static final AABB FUEL_ROD_2 = new AABB(12.0 / 16.0, 1.8 / 16.0, 3.0 / 16.0, 13.0 / 16.0, 12.0 / 16.0, 4.0 / 16.0);
-    private static final AABB FUEL_ROD_3 = new AABB(12.0 / 16.0, 1.8 / 16.0, 12.0 / 16.0, 13.0 / 16.0, 12.0 / 16.0, 13.0 / 16.0);
-    private static final AABB FUEL_ROD_4 = new AABB(3.0 / 16.0, 1.8 / 16.0, 12.0 / 16.0, 4.0 / 16.0, 12.0 / 16.0, 13.0 / 16.0);
+    public static final AABB FUEL_ROD_1 = new AABB(3.0 / 16.0, 1.8 / 16.0, 3.0 / 16.0, 4.0 / 16.0, 12.0 / 16.0, 4.0 / 16.0);
+    public static final AABB FUEL_ROD_2 = new AABB(12.0 / 16.0, 1.8 / 16.0, 3.0 / 16.0, 13.0 / 16.0, 12.0 / 16.0, 4.0 / 16.0);
+    public static final AABB FUEL_ROD_3 = new AABB(12.0 / 16.0, 1.8 / 16.0, 12.0 / 16.0, 13.0 / 16.0, 12.0 / 16.0, 13.0 / 16.0);
+    public static final AABB FUEL_ROD_4 = new AABB(3.0 / 16.0, 1.8 / 16.0, 12.0 / 16.0, 4.0 / 16.0, 12.0 / 16.0, 13.0 / 16.0);
 
-    private static final AABB TRITIUM_CELL = new AABB(7.0 / 16.0, 1.8 / 16.0, 7.0 / 16.0, 9.0 / 16.0, 12.0 / 16.0, 9.0 / 16.0);
+    public static final AABB TRITIUM_CELL = new AABB(7.0 / 16.0, 1.8 / 16.0, 7.0 / 16.0, 9.0 / 16.0, 12.0 / 16.0, 9.0 / 16.0);
 
-    private static final Color HIGH_ENRICH = new Color(75, 181, 0, 255);
-    private static final Color LOW_ENRICH = new Color(40, 98, 0, 255);
-    private static final Color SPENT = new Color(116, 147, 95, 255);
-    private static final Color PLUTONIUM = new Color(227, 125, 11, 255);
+    public static final Color HIGH_ENRICH = new Color(75, 181, 0, 255);
+    public static final Color LOW_ENRICH = new Color(40, 98, 0, 255);
+    public static final Color SPENT = new Color(116, 147, 95, 255);
+    public static final Color PLUTONIUM = new Color(227, 125, 11, 255);
 
-    private static final Color DEUTERIUM = new Color(0, 144, 255, 255);
-    private static final Color TRITIUM = new Color(255, 255, 0, 255);
+    public static final Color DEUTERIUM = new Color(0, 144, 255, 255);
+    public static final Color TRITIUM = new Color(255, 255, 0, 255);
 
 
     public static final boolean[] FACES = {false, false, true, true, true, true}; //DUNSWE
@@ -124,7 +124,7 @@ public class RenderFissionReactorCore extends AbstractTileRenderer<TileFissionRe
 
     }
 
-    private Color getColorFromFuel(ItemStack stack) {
+    public static Color getColorFromFuel(ItemStack stack) {
 
         if (stack.is(NuclearScienceTags.Items.FUELROD_URANIUM_LOW_EN)) {
             return LOW_ENRICH;

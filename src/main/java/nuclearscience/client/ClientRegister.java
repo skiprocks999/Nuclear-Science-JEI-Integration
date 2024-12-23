@@ -33,6 +33,7 @@ public class ClientRegister {
     public static final ModelResourceLocation MODEL_MSCONTROLROD_ROD = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/mscontrolrodrod"));
     public static final ModelResourceLocation MODEL_FALLOUTSCRUBBER_FAN = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/falloutscrubberfan"));
     public static final ModelResourceLocation MODEL_CONTROLRODMODULE_ROD = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/controlrodmodulerod"));
+    public static final ModelResourceLocation MODEL_FISSIONINTERFACE_ROD = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/fissioninterfacerods"));
 
 
     public static final ResourceLocation TEXTURE_JEIBLACKHOLE = ResourceLocation.fromNamespaceAndPath(References.ID, "block/custom/particleaccelerator_dmblackhole");
@@ -56,6 +57,7 @@ public class ClientRegister {
         event.register(MODEL_MSCONTROLROD_ROD);
         event.register(MODEL_FALLOUTSCRUBBER_FAN);
         event.register(MODEL_CONTROLRODMODULE_ROD);
+        event.register(MODEL_FISSIONINTERFACE_ROD);
     }
 
     @SubscribeEvent
@@ -96,6 +98,7 @@ public class ClientRegister {
         event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_CLOUDCHAMBER.get(), RenderCloudChamber::new);
         event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_FALLOUTSCRUBBER.get(), RenderFalloutScrubber::new);
         event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_CONTROLRODMODULE.get(), RenderControlRodModule::new);
+        event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_FISSIONINTERFACE.get(), RenderFissionInterface::new);
 
         event.registerEntityRenderer(NuclearScienceEntities.ENTITY_PARTICLE.get(), RenderParticle::new);
 

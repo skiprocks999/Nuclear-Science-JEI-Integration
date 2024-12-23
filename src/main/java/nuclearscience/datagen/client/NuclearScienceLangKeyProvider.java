@@ -118,7 +118,7 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 
 			addBlock(NuclearScienceBlocks.BLOCKS_MOLTENSALTPIPE.getValue(SubtypeMoltenSaltPipe.vanadiumsteelceramic), "VS-Ceramic Pipe");
 
-			addBlock(NuclearScienceBlocks.BLOCKS_REACTORLOGISTICSCABLE.getValue(SubtypeReactorLogisticsCable.base), "Reactor Logistics Cable");
+			addBlock(NuclearScienceBlocks.BLOCKS_REACTORLOGISTICSCABLE.getValue(SubtypeReactorLogisticsCable.base), "RL Cable");
 
 			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.chunkloader), "Chunkloader");
 			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.cloudchamber), "Cloud Chamber");

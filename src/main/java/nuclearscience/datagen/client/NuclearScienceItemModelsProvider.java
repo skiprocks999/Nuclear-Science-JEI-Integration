@@ -80,6 +80,7 @@ public class NuclearScienceItemModelsProvider extends ElectrodynamicsItemModelsP
 		simpleBlockItem(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.trapdoor), existingBlock(blockLoc("radiationshieldingtrapdoor_bottom")));
 		layeredItem(NuclearScienceItems.ITEMS_REACTORLOGISTICSCABLE.getValue(SubtypeReactorLogisticsCable.base), Parent.GENERATED, itemLoc("pipe/" + SubtypeReactorLogisticsCable.base.tag()));
 		simpleBlockItem(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.controlrodmodule), existingBlock(blockLoc("controlrodmoduleitem")));
+		simpleBlockItem(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fissioninterface), existingBlock(blockLoc("fissioninterfaceitem")));
 
 	}
 

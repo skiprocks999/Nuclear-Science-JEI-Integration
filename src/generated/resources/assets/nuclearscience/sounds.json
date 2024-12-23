@@ -41,6 +41,12 @@
     ],
     "subtitle": "subtitles.nuclearscience.geigercountersound6"
   },
+  "logisticscontroller": {
+    "sounds": [
+      "nuclearscience:logisticscontroller"
+    ],
+    "subtitle": "subtitles.nuclearscience.logisticscontroller"
+  },
   "nuclearboiler": {
     "sounds": [
       "nuclearscience:nuclearboiler"

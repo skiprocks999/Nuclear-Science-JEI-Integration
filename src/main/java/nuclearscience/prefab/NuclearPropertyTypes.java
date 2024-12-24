@@ -11,6 +11,7 @@ import nuclearscience.References;
 import nuclearscience.api.quantumtunnel.TunnelFrequency;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class NuclearPropertyTypes {
@@ -62,6 +63,43 @@ public class NuclearPropertyTypes {
             //
             reader -> {
                 List<Integer> list = new ArrayList<>();
+                CompoundTag data = reader.tag().getCompound(reader.prop().getName());
+                int size = data.getInt("size");
+                for (int i = 0; i < size; i++) {
+                    list.add(data.getInt("" + i));
+                }
+                return list;
+            }
+            //
+    );
+
+    public static final PropertyType<HashSet<Integer>, ByteBuf> INTEGER_SET = new PropertyType<>(
+            //
+            ResourceLocation.fromNamespaceAndPath(References.ID, "integerset"),
+            //
+            (thisSet, otherSet) -> {
+                if (thisSet.size() != otherSet.size()) {
+                    return false;
+                }
+                return thisSet.equals(otherSet);
+            },
+            //
+            ByteBufCodecs.fromCodec(Codec.INT.listOf().xmap(HashSet::new, ArrayList::new)),
+            //
+            writer -> {
+                HashSet<Integer> list = writer.prop().get();
+                CompoundTag data = new CompoundTag();
+                data.putInt("size", list.size());
+                int i = 0;
+                for(int integer : list) {
+                    data.putInt("" + i, integer);
+                    i++;
+                }
+                writer.tag().put(writer.prop().getName(), data);
+            },
+            //
+            reader -> {
+                HashSet<Integer> list = new HashSet<>();
                 CompoundTag data = reader.tag().getCompound(reader.prop().getName());
                 int size = data.getInt("size");
                 for (int i = 0; i < size; i++) {

@@ -84,11 +84,11 @@ public class RenderFissionInterface extends AbstractTileRenderer<TileInterface.T
             double oneMinusHalfPerc = 1.0 - doubleHalfPerc;
 
             AABB pistonRod;
-            double x, y, z;
+            double y;
 
             switch (animation) {
 
-                case FISSION_WASTE_1:
+                case FUSION_DEUTERIUM_INSERT:
 
                     if(perc > 0.5) {
 
@@ -115,7 +115,7 @@ public class RenderFissionInterface extends AbstractTileRenderer<TileInterface.T
 
                     break;
 
-                case FISSION_WASTE_2:
+                case FUSION_TRITIUM_INSERT:
 
                     if(perc > 0.5) {
 

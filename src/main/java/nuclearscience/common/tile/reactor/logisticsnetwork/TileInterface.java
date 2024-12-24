@@ -31,7 +31,7 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
     public CachedTileOutput reactor;
     public CachedTileOutput networkCable;
 
-    public Property<ArrayList<Integer>> queuedAnimations = property(new Property<>(NuclearPropertyTypes.INTEGER_LIST, "queuedanimations", new ArrayList<>()));
+    public Property<HashSet<Integer>> queuedAnimations = property(new Property<>(NuclearPropertyTypes.INTEGER_SET, "queuedanimations", new HashSet<>()));
 
     public final HashMap<InterfaceAnimation, Long> clientAnimations = new HashMap<>();
     //Nothing is rendered with this map; it is used to keep track of what the interface is doing only
@@ -45,7 +45,7 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
 
     public void tickServer(ComponentTickable tickable) {
 
-        queuedAnimations.set(new ArrayList<>());
+        queuedAnimations.set(new HashSet<>());
         queuedAnimations.forceDirty();
 
         if (reactor == null) {
@@ -92,7 +92,11 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
 
         queuedAnimations.get().forEach(val -> {
 
-            clientAnimations.put(InterfaceAnimation.values()[val], currTime);
+            InterfaceAnimation animation = InterfaceAnimation.values()[val];
+
+            if (!clientAnimations.containsKey(animation)) {
+                clientAnimations.put(animation, currTime);
+            }
 
         });
 
@@ -128,7 +132,11 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
 
         queuedAnimations.get().forEach(val -> {
 
-            serverAnimations.put(InterfaceAnimation.values()[val], currTime);
+            InterfaceAnimation animation = InterfaceAnimation.values()[val];
+
+            if (!serverAnimations.containsKey(animation)) {
+                serverAnimations.put(animation, currTime);
+            }
 
         });
 
@@ -350,6 +358,7 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
                                         coreInv.setItem(i, supplyItem.copy());
                                         supplyInv.setItem(j, ItemStack.EMPTY);
                                         taken++;
+                                        inserted = true;
                                         break;
                                     }
                                 }
@@ -524,6 +533,9 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
 
                 ComponentInventory supplyInv;
 
+                boolean isInsertingTritium = serverAnimations.containsKey(InterfaceAnimation.FUSION_TRITIUM_INSERT);
+                boolean isInsertingDeuterium = serverAnimations.containsKey(InterfaceAnimation.FUSION_DEUTERIUM_INSERT);
+
                 for (TileSupplyModule supplyModule : network.supplyModules) {
 
                     supplyInv = supplyModule.getComponent(IComponentType.Inventory);
@@ -537,7 +549,7 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
 
                     ItemStack stack;
 
-                    if (checkDeuterium) {
+                    if (!isInsertingTritium && checkDeuterium) {
 
                         boolean inserted = false;
 
@@ -550,10 +562,10 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
 
                             int accepted = core.addDeuteriumCells(stack.getCount());
 
-                            stack.shrink(accepted);
-
                             if (accepted > 0) {
+                                supplyInv.removeItem(i, accepted);
                                 inserted = true;
+                                isInsertingDeuterium = true;
                             }
 
                             if (core.isDeuteriumFull()) {
@@ -561,13 +573,13 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
                             }
                         }
 
-                        if (inserted && !queuedAnimations.get().contains(InterfaceAnimation.FUSION_DEUTERIUM_INSERT.ordinal())) {
-                            queuedAnimations.get().add(InterfaceAnimation.FUSION_TRITIUM_INSERT.ordinal());
+                        if (inserted) {
+                            queuedAnimations.get().add(InterfaceAnimation.FUSION_DEUTERIUM_INSERT.ordinal());
                             queuedAnimations.forceDirty();
                         }
                     }
 
-                    if (checkTritium) {
+                    if (!isInsertingDeuterium && checkTritium) {
 
                         boolean inserted = false;
 
@@ -580,9 +592,8 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
 
                             int accepted = core.addTritiumCells(stack.getCount());
 
-                            stack.shrink(accepted);
-
                             if (accepted > 0) {
+                                supplyInv.removeItem(i, accepted);
                                 inserted = true;
                             }
 
@@ -591,7 +602,7 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
                             }
                         }
 
-                        if (inserted && !queuedAnimations.get().contains(InterfaceAnimation.FUSION_TRITIUM_INSERT.ordinal())) {
+                        if (inserted) {
                             queuedAnimations.get().add(InterfaceAnimation.FUSION_TRITIUM_INSERT.ordinal());
                             queuedAnimations.forceDirty();
                         }
@@ -600,6 +611,8 @@ public abstract class TileInterface extends GenericTile implements ILogisticsMem
 
                 }
             }
+
+            super.handleServerAnimations(tickable);
 
 
         }

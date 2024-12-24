@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 import electrodynamics.common.block.voxelshapes.VoxelShapeProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 
 public class NuclearScienceVoxelShapes {
@@ -523,6 +524,21 @@ public class NuclearScienceVoxelShapes {
                     //
             ).reduce(Shapes::or).get()
             //
+    );
+
+    public static final VoxelShapeProvider MS_INTERFACE = VoxelShapeProvider.createDirectional(
+            //
+            Direction.WEST,
+            //
+            Shapes.join(
+                    //
+                    Block.box(2, 0, 2, 14, 11, 14),
+                    //
+                    Block.box(14, 4, 5, 16, 10, 11),
+                    //
+                    BooleanOp.OR
+                    //
+            )
     );
 
     public static final VoxelShapeProvider MOLTEN_SALT_SUPPLIER = VoxelShapeProvider.createDirectional(

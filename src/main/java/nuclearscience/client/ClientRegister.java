@@ -37,7 +37,7 @@ public class ClientRegister {
 
 
     public static final ResourceLocation TEXTURE_JEIBLACKHOLE = ResourceLocation.fromNamespaceAndPath(References.ID, "block/custom/particleaccelerator_dmblackhole");
-    public static final ResourceLocation TEXTURE_FUELCELL = ResourceLocation.fromNamespaceAndPath(References.ID, "block/model/fuelcell");
+    public static final ResourceLocation TEXTURE_FUELCELL = ResourceLocation.fromNamespaceAndPath(References.ID, "block/custom/fuelcell");
 
     private static final HashMap<ResourceLocation, TextureAtlasSprite> CACHED_TEXTUREATLASSPRITES = new HashMap<>();
     private static final List<ResourceLocation> CUSTOM_TEXTURES = List.of(TEXTURE_FUELCELL, electrodynamics.client.ClientRegister.TEXTURE_WHITE);
@@ -99,6 +99,8 @@ public class ClientRegister {
         event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_FALLOUTSCRUBBER.get(), RenderFalloutScrubber::new);
         event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_CONTROLRODMODULE.get(), RenderControlRodModule::new);
         event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_FISSIONINTERFACE.get(), RenderFissionInterface::new);
+        event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_MSINTERFACE.get(), RenderMSInterface::new);
+        event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_FUSIONINTERFACE.get(), RenderFusionInterface::new);
 
         event.registerEntityRenderer(NuclearScienceEntities.ENTITY_PARTICLE.get(), RenderParticle::new);
 

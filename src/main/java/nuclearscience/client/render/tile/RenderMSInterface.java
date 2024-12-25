@@ -10,9 +10,9 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import nuclearscience.client.ClientRegister;
 import nuclearscience.common.tile.reactor.TileControlRod;
-import nuclearscience.common.tile.reactor.logisticsnetwork.TileInterface;
+import nuclearscience.common.tile.reactor.logisticsnetwork.interfaces.TileMSInterface;
 
-public class RenderMSInterface extends AbstractTileRenderer<TileInterface.TileMSInterface> {
+public class RenderMSInterface extends AbstractTileRenderer<TileMSInterface> {
 
     private static final double MAX_DELTA = 10.0 / 16.0;
 
@@ -21,7 +21,7 @@ public class RenderMSInterface extends AbstractTileRenderer<TileInterface.TileMS
     }
 
     @Override
-    public void render(TileInterface.TileMSInterface tile, float partialTicks, PoseStack stack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
+    public void render(TileMSInterface tile, float partialTicks, PoseStack stack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
 
         stack.pushPose();
 

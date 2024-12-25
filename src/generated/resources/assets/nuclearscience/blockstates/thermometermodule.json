@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "nuclearscience:block/thermometermodule"
+    },
+    "facing=north": {
+      "model": "nuclearscience:block/thermometermodule",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "nuclearscience:block/thermometermodule",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "nuclearscience:block/thermometermodule",
+      "y": 180
+    }
+  }
+}

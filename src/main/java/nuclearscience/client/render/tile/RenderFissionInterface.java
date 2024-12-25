@@ -15,10 +15,9 @@ import net.minecraft.world.phys.AABB;
 import nuclearscience.client.ClientRegister;
 import nuclearscience.common.tile.reactor.TileControlRod;
 import nuclearscience.common.tile.reactor.fission.TileFissionReactorCore;
-import nuclearscience.common.tile.reactor.logisticsnetwork.TileInterface;
-import org.jetbrains.annotations.NotNull;
+import nuclearscience.common.tile.reactor.logisticsnetwork.interfaces.TileFissionInterface;
 
-public class RenderFissionInterface extends AbstractTileRenderer<TileInterface.TileFissionInterface> {
+public class RenderFissionInterface extends AbstractTileRenderer<TileFissionInterface> {
 
     private static final double START_Y = 0;
     private static final double MAX_Y = 13.0 / 16.0;
@@ -43,7 +42,7 @@ public class RenderFissionInterface extends AbstractTileRenderer<TileInterface.T
     }
 
     @Override
-    public void render(TileInterface.@NotNull TileFissionInterface tile, float partialTicks, PoseStack matrix, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
+    public void render(TileFissionInterface tile, float partialTicks, PoseStack matrix, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
 
         matrix.pushPose();
 
@@ -57,7 +56,23 @@ public class RenderFissionInterface extends AbstractTileRenderer<TileInterface.T
 
         matrix.popPose();
 
-        if(!tile.reactor.valid() || !(tile.reactor.getSafe() instanceof TileFissionReactorCore)) {
+        if (tile.clientAnimations.isEmpty() || !tile.reactor.valid() || !(tile.reactor.getSafe() instanceof TileFissionReactorCore)) {
+
+            if (insertion > 0) {
+
+                matrix.pushPose();
+
+                TextureAtlasSprite white = electrodynamics.client.ClientRegister.getSprite(electrodynamics.client.ClientRegister.TEXTURE_WHITE);
+                renderBox(matrix, FUEL_ROD_PISTON_1, PISTON_HEAD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                renderBox(matrix, FUEL_ROD_PISTON_2, PISTON_HEAD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                renderBox(matrix, FUEL_ROD_PISTON_3, PISTON_HEAD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                renderBox(matrix, FUEL_ROD_PISTON_4, PISTON_HEAD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+                renderBox(matrix, TRITIUM_CELL_PISTON, PISTON_HEAD_GRAY, white, bufferIn, combinedLightIn, RenderingUtils.ALL_FACES);
+
+                matrix.popPose();
+
+            }
+
             return;
         }
 
@@ -88,9 +103,9 @@ public class RenderFissionInterface extends AbstractTileRenderer<TileInterface.T
 
             switch (animation) {
 
-                case FUSION_DEUTERIUM_INSERT:
+                case FISSION_WASTE_1:
 
-                    if(perc > 0.5) {
+                    if (perc > 0.5) {
 
                         y = DELTA_FLOOR_Y * oneMinusHalfPerc;
 
@@ -115,9 +130,9 @@ public class RenderFissionInterface extends AbstractTileRenderer<TileInterface.T
 
                     break;
 
-                case FUSION_TRITIUM_INSERT:
+                case FISSION_WASTE_2:
 
-                    if(perc > 0.5) {
+                    if (perc > 0.5) {
 
                         y = DELTA_FLOOR_Y * oneMinusHalfPerc;
 
@@ -144,7 +159,7 @@ public class RenderFissionInterface extends AbstractTileRenderer<TileInterface.T
 
                 case FISSION_WASTE_3:
 
-                    if(perc > 0.5) {
+                    if (perc > 0.5) {
 
                         y = DELTA_FLOOR_Y * oneMinusHalfPerc;
 
@@ -171,7 +186,7 @@ public class RenderFissionInterface extends AbstractTileRenderer<TileInterface.T
 
                 case FISSION_WASTE_4:
 
-                    if(perc > 0.5) {
+                    if (perc > 0.5) {
 
                         y = DELTA_FLOOR_Y * oneMinusHalfPerc;
 
@@ -198,7 +213,7 @@ public class RenderFissionInterface extends AbstractTileRenderer<TileInterface.T
 
                 case FISSION_FUEL_1:
 
-                    if(perc < 0.5) {
+                    if (perc < 0.5) {
 
                         y = DELTA_FLOOR_Y * doublePerc;
 
@@ -225,7 +240,7 @@ public class RenderFissionInterface extends AbstractTileRenderer<TileInterface.T
 
                 case FISSION_FUEL_2:
 
-                    if(perc < 0.5) {
+                    if (perc < 0.5) {
 
                         y = DELTA_FLOOR_Y * doublePerc;
 
@@ -252,7 +267,7 @@ public class RenderFissionInterface extends AbstractTileRenderer<TileInterface.T
 
                 case FISSION_FUEL_3:
 
-                    if(perc < 0.5) {
+                    if (perc < 0.5) {
 
                         y = DELTA_FLOOR_Y * doublePerc;
 
@@ -279,7 +294,7 @@ public class RenderFissionInterface extends AbstractTileRenderer<TileInterface.T
 
                 case FISSION_FUEL_4:
 
-                    if(perc < 0.5) {
+                    if (perc < 0.5) {
 
                         y = DELTA_FLOOR_Y * doublePerc;
 
@@ -305,7 +320,7 @@ public class RenderFissionInterface extends AbstractTileRenderer<TileInterface.T
 
                 case FISSION_TRITIUM_EXTRACT:
 
-                    if(perc > 0.5) {
+                    if (perc > 0.5) {
 
                         y = DELTA_FLOOR_Y * oneMinusHalfPerc;
 
@@ -332,7 +347,7 @@ public class RenderFissionInterface extends AbstractTileRenderer<TileInterface.T
 
                 case FISSION_DEUTERIUM_INSERT:
 
-                    if(perc < 0.5) {
+                    if (perc < 0.5) {
 
                         y = DELTA_FLOOR_Y * doublePerc;
 

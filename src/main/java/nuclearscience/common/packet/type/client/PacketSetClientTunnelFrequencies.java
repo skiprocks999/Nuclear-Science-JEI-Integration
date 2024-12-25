@@ -21,7 +21,7 @@ public class PacketSetClientTunnelFrequencies implements CustomPacketPayload {
     public static final ResourceLocation PACKET_SETCLIENTRADIOACTIVEGASES_PACKETID = NetworkHandler.id("packetsetclienttunnelfrequencies");
     public static final Type<PacketSetClientTunnelFrequencies> TYPE = new Type<>(PACKET_SETCLIENTRADIOACTIVEGASES_PACKETID);
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, PacketSetClientTunnelFrequencies> CODEC = new StreamCodec<RegistryFriendlyByteBuf, PacketSetClientTunnelFrequencies>() {
+    public static final StreamCodec<RegistryFriendlyByteBuf, PacketSetClientTunnelFrequencies> CODEC = new StreamCodec<>() {
         @Override
         public PacketSetClientTunnelFrequencies decode(RegistryFriendlyByteBuf buf) {
             HashMap<UUID, HashSet<TunnelFrequency>> data = new HashMap<>();

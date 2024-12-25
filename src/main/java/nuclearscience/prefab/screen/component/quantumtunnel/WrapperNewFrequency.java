@@ -3,6 +3,7 @@ package nuclearscience.prefab.screen.component.quantumtunnel;
 import electrodynamics.prefab.screen.component.button.ScreenComponentButton;
 import electrodynamics.prefab.screen.component.editbox.ScreenComponentEditBox;
 import electrodynamics.prefab.screen.component.types.ScreenComponentSimpleLabel;
+import electrodynamics.prefab.screen.component.types.guitab.ScreenComponentGuiTab;
 import electrodynamics.prefab.utilities.ElectroTextUtils;
 import electrodynamics.prefab.utilities.math.Color;
 import net.minecraft.ChatFormatting;
@@ -13,6 +14,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import nuclearscience.api.quantumtunnel.FrequencyType;
 import nuclearscience.client.screen.ScreenQuantumTunnel;
 import nuclearscience.common.packet.type.server.PacketCreateNewFreqeuency;
+import nuclearscience.prefab.screen.component.NuclearIconTypes;
 import nuclearscience.prefab.utils.NuclearTextUtils;
 
 import java.util.ArrayList;
@@ -21,12 +23,12 @@ import java.util.List;
 public class WrapperNewFrequency {
 
 
-    public ButtonNewFrequency button;
+    public ScreenComponentButton<?> button;
 
     private ScreenComponentSimpleLabel titleLabel;
     private ScreenComponentSimpleLabel typeLabel;
-    private ButtonFrequencySelecter publicButton;
-    private ButtonFrequencySelecter privateButton;
+    private ScreenComponentButton<?> publicButton;
+    private ScreenComponentButton<?> privateButton;
 
     private ScreenComponentSimpleLabel nameLabel;
     public ScreenComponentEditBox nameEditBox;
@@ -35,9 +37,8 @@ public class WrapperNewFrequency {
 
     public WrapperNewFrequency(ScreenQuantumTunnel screen, int tabX, int tabY, int x, int y) {
 
-        screen.addComponent(button = new ButtonNewFrequency(tabX, tabY).setOnPress(but -> {
+        screen.addComponent(button = (ScreenComponentButton<?>) new ScreenComponentButton<>(ScreenComponentGuiTab.GuiInfoTabTextures.REGULAR, tabX, tabY).setOnPress(button -> {
             //
-            ButtonNewFrequency button = (ButtonNewFrequency) but;
             button.isPressed = !button.isPressed;
 
             if (button.isPressed) {
@@ -66,7 +67,7 @@ public class WrapperNewFrequency {
 
         }).onTooltip((graphics, but, xAxis, yAxis) -> {
             //
-            ButtonNewFrequency button = (ButtonNewFrequency) but;
+            ScreenComponentButton<?> button = (ScreenComponentButton<?>) but;
             List<Component> tooltips = new ArrayList<>();
             tooltips.add(NuclearTextUtils.tooltip("quantumtunnel.createnew").withStyle(ChatFormatting.DARK_GRAY));
             if (!button.isPressed) {
@@ -77,22 +78,22 @@ public class WrapperNewFrequency {
 
             graphics.renderComponentTooltip(screen.getFontRenderer(), tooltips, xAxis, yAxis);
 
-        }));
+        }).setIcon(NuclearIconTypes.CREATENEW));
 
         screen.addComponent(titleLabel = new ScreenComponentSimpleLabel(x + 15, y + 20, 10, Color.TEXT_GRAY, NuclearTextUtils.gui("quantumtunnel.newfrequency")));
 
         screen.addComponent(typeLabel = new ScreenComponentSimpleLabel(x + 15, y + 40, 10, Color.TEXT_GRAY, NuclearTextUtils.gui("quantumtunnel.frequencytype")));
-        screen.addComponent(privateButton = new ButtonFrequencySelecter(x + 13, y + 55, 70, 20).setOnPress(button -> {
+        screen.addComponent(privateButton = new ScreenComponentButton<>(x + 13, y + 55, 70, 20).setOnPress(button -> {
 
-            privateButton.isSelected = true;
-            publicButton.isSelected = false;
+            privateButton.isPressed = true;
+            publicButton.isPressed = false;
 
         }).setLabel(NuclearTextUtils.gui("quantumtunnel.private")));
 
-        screen.addComponent(publicButton = new ButtonFrequencySelecter(x + 93, y + 55, 70, 20).setOnPress(button -> {
+        screen.addComponent(publicButton = new ScreenComponentButton<>(x + 93, y + 55, 70, 20).setOnPress(button -> {
 
-            privateButton.isSelected = false;
-            publicButton.isSelected = true;
+            privateButton.isPressed = false;
+            publicButton.isPressed = true;
 
         }).setLabel(NuclearTextUtils.gui("quantumtunnel.public")));
 
@@ -114,9 +115,9 @@ public class WrapperNewFrequency {
 
             FrequencyType type;
 
-            if(privateButton.isSelected) {
+            if(privateButton.isPressed) {
                 type = FrequencyType.PRIVATE;
-            } else if (publicButton.isSelected) {
+            } else if (publicButton.isPressed) {
                 type = FrequencyType.PUBLIC;
             } else {
                 return;
@@ -155,9 +156,9 @@ public class WrapperNewFrequency {
         titleLabel.setVisible(show);
         typeLabel.setVisible(show);
         publicButton.setVisible(show);
-        publicButton.isSelected = false;
+        publicButton.isPressed = false;
         privateButton.setVisible(show);
-        privateButton.isSelected = false;
+        privateButton.isPressed = false;
         nameLabel.setVisible(show);
         nameEditBox.setVisible(show);
         nameEditBox.setActive(show);

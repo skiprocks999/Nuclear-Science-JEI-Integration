@@ -5,7 +5,6 @@ import electrodynamics.prefab.properties.Property;
 import electrodynamics.prefab.properties.PropertyTypes;
 import electrodynamics.prefab.sound.SoundBarrierMethods;
 import electrodynamics.prefab.sound.utils.ITickableSound;
-import electrodynamics.prefab.tile.GenericTile;
 import electrodynamics.prefab.tile.components.IComponentType;
 import electrodynamics.prefab.tile.components.type.ComponentElectrodynamic;
 import electrodynamics.prefab.tile.components.type.ComponentTickable;
@@ -16,12 +15,12 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.state.BlockState;
-import nuclearscience.api.network.reactorlogistics.ILogisticsMember;
 import nuclearscience.common.network.ReactorLogisticsNetwork;
+import nuclearscience.common.tile.reactor.logisticsnetwork.util.GenericTileLogisticsMember;
 import nuclearscience.registers.NuclearScienceSounds;
 import nuclearscience.registers.NuclearScienceTiles;
 
-public class TileController extends GenericTile implements ILogisticsMember, ITickableSound {
+public class TileController extends GenericTileLogisticsMember implements ITickableSound {
 
     private static final double USAGE = 100;
 
@@ -37,7 +36,10 @@ public class TileController extends GenericTile implements ILogisticsMember, ITi
         relativeBack = BlockEntityUtils.getRelativeSide(getFacing(), BlockEntityUtils.MachineDirection.BACK.mappedDir);
     }
 
-    private void tickServer(ComponentTickable tickable) {
+    @Override
+    public void tickServer(ComponentTickable tickable) {
+        super.tickServer(tickable);
+
         ComponentElectrodynamic electro = getComponent(IComponentType.Electrodynamic);
 
         boolean canRun = electro.getJoulesStored() >= USAGE;
@@ -53,7 +55,7 @@ public class TileController extends GenericTile implements ILogisticsMember, ITi
 
     }
 
-    private void tickClient(ComponentTickable tickable) {
+    public void tickClient(ComponentTickable tickable) {
         if (!isSoundPlaying && shouldPlaySound()) {
             isSoundPlaying = true;
             SoundBarrierMethods.playTileSound(NuclearScienceSounds.SOUND_LOGISTICSCONTROLLER.get(), this, true);
@@ -61,13 +63,13 @@ public class TileController extends GenericTile implements ILogisticsMember, ITi
     }
 
     @Override
-    public boolean isValidConnection(Direction dir) {
-        return dir == relativeBack;
+    public Direction getCableLocation() {
+        return relativeBack;
     }
 
     @Override
     public boolean canConnect(ReactorLogisticsNetwork network) {
-        return network.controller == null || network.controller.getBlockPos().equals(getBlockPos());
+        return network.getController() == null || network.getController().getBlockPos().equals(getBlockPos());
     }
 
     @Override
@@ -93,7 +95,6 @@ public class TileController extends GenericTile implements ILogisticsMember, ITi
     public boolean isActive() {
         return active.get();
     }
-
 
     @Override
     public void setNotPlaying() {

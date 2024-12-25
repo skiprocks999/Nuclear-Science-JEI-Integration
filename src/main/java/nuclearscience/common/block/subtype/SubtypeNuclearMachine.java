@@ -13,10 +13,10 @@ import nuclearscience.common.tile.*;
 import nuclearscience.common.tile.reactor.TileControlRod;
 import nuclearscience.common.tile.reactor.fission.TileFissionReactorCore;
 import nuclearscience.common.tile.reactor.fusion.TileFusionReactorCore;
-import nuclearscience.common.tile.reactor.logisticsnetwork.TileControlRodModule;
-import nuclearscience.common.tile.reactor.logisticsnetwork.TileController;
-import nuclearscience.common.tile.reactor.logisticsnetwork.TileInterface;
-import nuclearscience.common.tile.reactor.logisticsnetwork.TileSupplyModule;
+import nuclearscience.common.tile.reactor.logisticsnetwork.*;
+import nuclearscience.common.tile.reactor.logisticsnetwork.interfaces.TileFissionInterface;
+import nuclearscience.common.tile.reactor.logisticsnetwork.interfaces.TileFusionInterface;
+import nuclearscience.common.tile.reactor.logisticsnetwork.interfaces.TileMSInterface;
 import nuclearscience.common.tile.reactor.moltensalt.*;
 
 public enum SubtypeNuclearMachine implements ISubtype, IMachine {
@@ -42,11 +42,13 @@ public enum SubtypeNuclearMachine implements ISubtype, IMachine {
     fusionreactorcore(true, TileFusionReactorCore::new, MachineProperties.builder().setLitBrightness(15)),
     particleinjector(true, TileParticleInjector::new, MachineProperties.builder().setShapeProvider(NuclearScienceVoxelShapes.PARTICLE_INJECTOR)),
     logisticscontroller(true, TileController::new, MachineProperties.builder().setLitBrightness(15)),
-    fissioninterface(true, TileInterface.TileFissionInterface::new),
-    msinterface(true, TileInterface.TileMSInterface::new, MachineProperties.builder().setShapeProvider(NuclearScienceVoxelShapes.MS_INTERFACE)),
-    fusioninterface(true, TileInterface.TileFusionInterface::new),
+    fissioninterface(true, TileFissionInterface::new),
+    msinterface(true, TileMSInterface::new, MachineProperties.builder().setShapeProvider(NuclearScienceVoxelShapes.MS_INTERFACE)),
+    fusioninterface(true, TileFusionInterface::new),
     controlrodmodule(true, TileControlRodModule::new, MachineProperties.builder().setShapeProvider(NuclearScienceVoxelShapes.CONTROL_ROD_MODULE)),
     supplymodule(true, TileSupplyModule::new),
+    monitormodule(true, TileMonitorModule::new, MachineProperties.builder().setShapeProvider(NuclearScienceVoxelShapes.MONITOR_MODULE)),
+    thermometermodule(true, TileThermometerModule::new),
 
 
     teleporter(true, TileTeleporter::new, MachineProperties.builder().setShapeProvider(NuclearScienceVoxelShapes.TELEPORTER).setLitBrightness(15)),

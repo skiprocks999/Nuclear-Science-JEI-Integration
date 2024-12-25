@@ -1,6 +1,9 @@
 package nuclearscience.prefab.screen.component.quantumtunnel;
 
+import electrodynamics.prefab.screen.component.button.ScreenComponentButton;
+import electrodynamics.prefab.screen.component.types.ScreenComponentFillArea;
 import electrodynamics.prefab.screen.component.types.ScreenComponentSimpleLabel;
+import electrodynamics.prefab.screen.component.types.ScreenComponentVerticalSlider;
 import electrodynamics.prefab.utilities.math.Color;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -13,7 +16,6 @@ import nuclearscience.client.screen.ScreenQuantumTunnel;
 import nuclearscience.common.packet.type.server.PacketDeleteFrequency;
 import nuclearscience.common.tile.TileQuantumTunnel;
 import nuclearscience.prefab.screen.component.NuclearIconTypes;
-import nuclearscience.prefab.screen.component.ScreenComponentVerticalSlider;
 import nuclearscience.prefab.utils.NuclearTextUtils;
 
 import java.util.ArrayList;
@@ -27,15 +29,15 @@ public class WrapperQuantumTunnelFrequencies {
     private ScreenComponentFillArea box;
     private ScreenComponentSimpleLabel frequencyLabel;
 
-    private ButtonVanillaIcon enable;
-    private ButtonVanillaIcon disable;
+    private ScreenComponentButton<?> enable;
+    private ScreenComponentButton<?> disable;
 
     private ButtonTunnelFrequency[] frequencyButtons = new ButtonTunnelFrequency[5];
-    private ButtonVanillaIcon[] editButtons = new ButtonVanillaIcon[5];
-    private ButtonVanillaIcon[] deleteButtons = new ButtonVanillaIcon[5];
+    private ScreenComponentButton[] editButtons = new ScreenComponentButton[5];
+    private ScreenComponentButton[] deleteButtons = new ScreenComponentButton[5];
 
-    private ButtonFrequencySelecter publicSelector;
-    private ButtonFrequencySelecter privateSelector;
+    private ScreenComponentButton<?> publicSelector;
+    private ScreenComponentButton<?> privateSelector;
 
     private int topRowIndex = 0;
     private int lastRowCount = 0;
@@ -66,35 +68,35 @@ public class WrapperQuantumTunnelFrequencies {
 
         });
 
-        enable = new ButtonVanillaIcon(x + 127, y + 19,20, 20, NuclearIconTypes.ENABLE).setOnPress(but -> {
+        enable = (ScreenComponentButton<?>) new ScreenComponentButton<>(x + 127, y + 19,20, 20).setOnPress(but -> {
             TileQuantumTunnel tile = screen.getMenu().getSafeHost();
             if(tile == null || selectedFrequency == null || tile.frequency.get().equals(selectedFrequency)) {
                 return;
             }
             tile.frequency.set(selectedFrequency);
 
-        }).onTooltip((graphics, button, xAxis, yAxis) -> graphics.renderTooltip(screen.getFontRenderer(), NuclearTextUtils.gui("quantumtunnel.enable"), xAxis, yAxis));
+        }).onTooltip((graphics, button, xAxis, yAxis) -> graphics.renderTooltip(screen.getFontRenderer(), NuclearTextUtils.gui("quantumtunnel.enable"), xAxis, yAxis)).setIcon(NuclearIconTypes.ENABLE);
 
-        disable = new ButtonVanillaIcon(x + 150, y + 19,20, 20, NuclearIconTypes.DISABLE).setOnPress(but -> {
+        disable = (ScreenComponentButton<?>) new ScreenComponentButton<>(x + 150, y + 19,20, 20).setOnPress(but -> {
             TileQuantumTunnel tile = screen.getMenu().getSafeHost();
             if(tile == null) {
                 return;
             }
             tile.frequency.set(TunnelFrequency.NO_FREQUENCY);
 
-        }).onTooltip((graphics, button, xAxis, yAxis) -> graphics.renderTooltip(screen.getFontRenderer(), NuclearTextUtils.gui("quantumtunnel.disable"), xAxis, yAxis));
+        }).onTooltip((graphics, button, xAxis, yAxis) -> graphics.renderTooltip(screen.getFontRenderer(), NuclearTextUtils.gui("quantumtunnel.disable"), xAxis, yAxis)).setIcon(NuclearIconTypes.DISABLE);
 
-        publicSelector = new ButtonFrequencySelecter(x + 16, y + 44, 70, 15).setOnPress(but -> {
-            ButtonFrequencySelecter button = (ButtonFrequencySelecter) but;
-            button.setSelected(true);
-            privateSelector.setSelected(false);
+        publicSelector = new ScreenComponentButton<>(x + 16, y + 44, 70, 15).setOnPress(but -> {
+            ScreenComponentButton<?> button = but;
+            button.isPressed = true;
+            privateSelector.isPressed = false;
             isPrivate = false;
         }).setLabel(NuclearTextUtils.gui("quantumtunnel.public"));
 
-        privateSelector = new ButtonFrequencySelecter(x + 70 + 16 + 5, y + 44, 70, 15).setOnPress(but -> {
-            ButtonFrequencySelecter button = (ButtonFrequencySelecter) but;
-            button.setSelected(true);
-            publicSelector.setSelected(false);
+        privateSelector = new ScreenComponentButton<>(x + 70 + 16 + 5, y + 44, 70, 15).setOnPress(but -> {
+            ScreenComponentButton<?> button = (ScreenComponentButton<?>) but;
+            button.isPressed = true;
+            publicSelector.isPressed = false;
             isPrivate = true;
         }).setLabel(NuclearTextUtils.gui("quantumtunnel.private"));
 
@@ -120,7 +122,7 @@ public class WrapperQuantumTunnelFrequencies {
 
             final int index = i;
 
-            editButtons[i] = new ButtonVanillaIcon(x + butOffX + 111, y + 2 + butOffY + 25 * i,20, 20, NuclearIconTypes.PENCIL).setOnPress(but -> {
+            editButtons[i] = (ScreenComponentButton) new ScreenComponentButton<>(x + butOffX + 111, y + 2 + butOffY + 25 * i,20, 20).setOnPress(but -> {
 
                 ButtonTunnelFrequency tunnel = frequencyButtons[index];
 
@@ -141,14 +143,14 @@ public class WrapperQuantumTunnelFrequencies {
 
 
 
-            }).onTooltip((graphics, button, xAxis, yAxis) -> graphics.renderTooltip(screen.getFontRenderer(), NuclearTextUtils.gui("quantumtunnel.edit"), xAxis, yAxis));
+            }).onTooltip((graphics, button, xAxis, yAxis) -> graphics.renderTooltip(screen.getFontRenderer(), NuclearTextUtils.gui("quantumtunnel.edit"), xAxis, yAxis)).setIcon(NuclearIconTypes.PENCIL);
         }
 
         for (int i = 0; i < BUTTON_COUNT; i++) {
 
             final int index = i;
 
-            deleteButtons[i] = new ButtonVanillaIcon(x + butOffX + 132, y + 2 + butOffY + 25 * i,20, 20, NuclearIconTypes.DELETE).setOnPress(but -> {
+            deleteButtons[i] = (ScreenComponentButton) new ScreenComponentButton<>(x + butOffX + 132, y + 2 + butOffY + 25 * i,20, 20).setOnPress(but -> {
 
                 ButtonTunnelFrequency tunnel = frequencyButtons[index];
 
@@ -174,7 +176,7 @@ public class WrapperQuantumTunnelFrequencies {
 
 
 
-            }).onTooltip((graphics, button, xAxis, yAxis) -> graphics.renderTooltip(screen.getFontRenderer(), NuclearTextUtils.gui("quantumtunnel.delete"), xAxis, yAxis));
+            }).onTooltip((graphics, button, xAxis, yAxis) -> graphics.renderTooltip(screen.getFontRenderer(), NuclearTextUtils.gui("quantumtunnel.delete"), xAxis, yAxis)).setIcon(NuclearIconTypes.DELETE);
         }
 
 
@@ -198,7 +200,7 @@ public class WrapperQuantumTunnelFrequencies {
             screen.addComponent(deleteButtons[i]);
         }
 
-        privateSelector.setSelected(true);
+        privateSelector.isPressed = true;
 
     }
 
@@ -330,11 +332,11 @@ public class WrapperQuantumTunnelFrequencies {
             button.setVisible(show);
         }
 
-        for(ButtonVanillaIcon button : editButtons) {
+        for(ScreenComponentButton<?> button : editButtons) {
             button.setVisible(show);
         }
 
-        for(ButtonVanillaIcon button : deleteButtons) {
+        for(ScreenComponentButton<?> button : deleteButtons) {
             button.setVisible(show);
         }
 

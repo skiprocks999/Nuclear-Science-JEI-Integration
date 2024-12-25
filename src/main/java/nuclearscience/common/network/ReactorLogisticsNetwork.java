@@ -2,24 +2,26 @@ package nuclearscience.common.network;
 
 import electrodynamics.common.network.NetworkRegistry;
 import electrodynamics.prefab.network.AbstractNetwork;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import nuclearscience.api.network.reactorlogistics.ILogisticsMember;
 import nuclearscience.api.network.reactorlogistics.IReactorLogisticsCable;
 import nuclearscience.common.block.subtype.SubtypeReactorLogisticsCable;
 import nuclearscience.common.tile.reactor.logisticsnetwork.*;
+import nuclearscience.common.tile.reactor.logisticsnetwork.interfaces.GenericTileInterface;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import javax.annotation.Nullable;
+import java.util.*;
 
 public class ReactorLogisticsNetwork extends AbstractNetwork<IReactorLogisticsCable, SubtypeReactorLogisticsCable, BlockEntity, Void> {
 
-    public TileController controller;
-    public TileControlRodModule controlRod;
-    public final HashSet<TileSupplyModule> supplyModules = new HashSet<>();
-    public final HashSet<TileInterface> interfaces = new HashSet<>();
+    private TileController controller;
+    private final HashMap<BlockPos, TileControlRodModule> controlRods = new HashMap<>();
+    private final HashMap<BlockPos, TileSupplyModule> supplyModules = new HashMap<>();
+    private final HashMap<BlockPos, GenericTileInterface> interfaces = new HashMap<>();
+    private final HashMap<BlockPos, TileMonitorModule> monitors = new HashMap<>();
+    private final HashMap<BlockPos, TileThermometerModule> thermometers = new HashMap<>();
 
     public ReactorLogisticsNetwork() {
         this(new HashSet<IReactorLogisticsCable>());
@@ -56,8 +58,10 @@ public class ReactorLogisticsNetwork extends AbstractNetwork<IReactorLogisticsCa
     public void refresh() {
         controller = null;
         interfaces.clear();
-        controlRod = null;
+        controlRods.clear();
         supplyModules.clear();
+        monitors.clear();
+        thermometers.clear();
         super.refresh();
     }
 
@@ -66,12 +70,16 @@ public class ReactorLogisticsNetwork extends AbstractNetwork<IReactorLogisticsCa
 
         if(reciever instanceof TileController controller) {
             this.controller = controller;
-        } else if (reciever instanceof TileInterface reactorInterface) {
-            interfaces.add(reactorInterface);
+        } else if (reciever instanceof GenericTileInterface reactorInterface) {
+            interfaces.put(reactorInterface.getBlockPos(), reactorInterface);
         } else if (reciever instanceof  TileControlRodModule controlRod) {
-            this.controlRod = controlRod;
+            controlRods.put(controlRod.getBlockPos(), controlRod);
         } else if (reciever instanceof TileSupplyModule supplyModule) {
-            supplyModules.add(supplyModule);
+            supplyModules.put(supplyModule.getBlockPos(), supplyModule);
+        } else if (reciever instanceof TileMonitorModule monitor) {
+            monitors.put(monitor.getBlockPos(), monitor);
+        } else if (reciever instanceof TileThermometerModule thermometer) {
+            thermometers.put(thermometer.getBlockPos(), thermometer);
         }
 
     }
@@ -126,6 +134,45 @@ public class ReactorLogisticsNetwork extends AbstractNetwork<IReactorLogisticsCa
             return member.isValidConnection(dir) && member.canConnect(this);
         }
         return false;
+    }
+
+    @Nullable
+    public TileController getController() {
+        return controller;
+    }
+
+    @Nullable
+    public TileControlRodModule getControlRod(BlockPos pos) {
+        return controlRods.getOrDefault(pos, null);
+    }
+
+    @Nullable
+    public TileSupplyModule getSupplyModule(BlockPos pos) {
+        return supplyModules.getOrDefault(pos, null);
+    }
+
+    @Nullable
+    public GenericTileInterface getInterface(BlockPos pos) {
+        return interfaces.getOrDefault(pos, null);
+    }
+
+    public List<GenericTileInterface> getInterfacesForType(GenericTileInterface.InterfaceType... types) {
+        List<GenericTileInterface> interfaces = new ArrayList<>();
+
+        this.interfaces.forEach((pos, tile) -> {
+            for(GenericTileInterface.InterfaceType type : types) {
+                if(tile.getInterfaceType() == type) {
+                    interfaces.add(tile);
+                }
+            }
+        });
+
+
+        return interfaces;
+    }
+
+    public boolean isControllerActive() {
+        return controller != null && controller.isActive();
     }
 
 }

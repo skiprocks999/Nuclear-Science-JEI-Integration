@@ -565,6 +565,22 @@ public class NuclearScienceVoxelShapes {
             //
     );
 
+    public static final VoxelShapeProvider MONITOR_MODULE = VoxelShapeProvider.createDirectional(
+            //
+            Direction.EAST,
+            //
+            Stream.of(
+                    //
+                    Block.box(0, 0, 0, 16, 5, 16),
+                    //
+                    Block.box(0, 5, 2, 12, 7, 14),
+                    //
+                    Block.box(0, 7, 3, 11, 16, 13)
+                    //
+            ).reduce(Shapes::or).get()
+            //
+    );
+
     public static final VoxelShapeProvider MS_CONTROL_ROD = VoxelShapeProvider.createDirectional(
             //
             Direction.WEST,

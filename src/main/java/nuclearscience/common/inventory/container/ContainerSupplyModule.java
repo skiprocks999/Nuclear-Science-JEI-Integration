@@ -1,17 +1,17 @@
 package nuclearscience.common.inventory.container;
 
 import electrodynamics.prefab.inventory.container.slot.item.SlotGeneric;
-import electrodynamics.prefab.inventory.container.types.GenericContainerBlockEntity;
 import electrodynamics.prefab.utilities.math.Color;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
+import nuclearscience.common.inventory.container.util.GenericInterfaceBoundContainer;
 import nuclearscience.common.tile.reactor.logisticsnetwork.TileSupplyModule;
 import nuclearscience.registers.NuclearScienceMenuTypes;
 
-public class ContainerSupplyModule extends GenericContainerBlockEntity<TileSupplyModule> {
+public class ContainerSupplyModule extends GenericInterfaceBoundContainer<TileSupplyModule> {
 
     public ContainerSupplyModule(int id, Inventory playerinv) {
         this(id, playerinv, new SimpleContainer(18), new SimpleContainerData(3));

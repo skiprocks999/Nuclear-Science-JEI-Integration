@@ -79,6 +79,7 @@ public class ClientRegister {
         event.register(NuclearScienceMenuTypes.CONTAINER_CLOUDCHAMBER.get(), ScreenCloudChamber::new);
         event.register(NuclearScienceMenuTypes.CONTAINER_FALLOUTSCRUBBER.get(), ScreenFalloutScrubber::new);
         event.register(NuclearScienceMenuTypes.CONTAINER_SUPPLYMODULE.get(), ScreenSupplyModule::new);
+        event.register(NuclearScienceMenuTypes.CONTAINER_CONTROLRODMODULE.get(), ScreenControlRodModule::new);
     }
 
     @SubscribeEvent

@@ -13,10 +13,9 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.world.phys.AABB;
 import nuclearscience.client.ClientRegister;
 import nuclearscience.common.tile.reactor.fusion.TileFusionReactorCore;
-import nuclearscience.common.tile.reactor.logisticsnetwork.TileInterface;
-import org.jetbrains.annotations.NotNull;
+import nuclearscience.common.tile.reactor.logisticsnetwork.interfaces.TileFusionInterface;
 
-public class RenderFusionInterface extends AbstractTileRenderer<TileInterface.TileFusionInterface> {
+public class RenderFusionInterface extends AbstractTileRenderer<TileFusionInterface> {
 
     private static final double FISSION_REACTOR_FLOOR_Y = 17.0 / 16.0;
     private static final double FLOOR_Y = 1.0 / 16.0;
@@ -30,7 +29,7 @@ public class RenderFusionInterface extends AbstractTileRenderer<TileInterface.Ti
     }
 
     @Override
-    public void render(TileInterface.@NotNull TileFusionInterface tile, float partialTicks, PoseStack matrix, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
+    public void render(TileFusionInterface tile, float partialTicks, PoseStack matrix, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
 
         if(!tile.reactor.valid() || !(tile.reactor.getSafe() instanceof TileFusionReactorCore)) {
             return;

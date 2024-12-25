@@ -107,10 +107,11 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fusioninterface), "Fusion Interface");
 			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.controlrodmodule), "Control Rod Module");
 			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.supplymodule), "Supply Module");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.monitormodule), "Monitor Module");
+			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.thermometermodule), "Thermometer Module");
 			addBlock(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.soil), "Irradiated Soil");
 			addBlock(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.grass), "Irradiated Grass");
 			addBlock(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.petrifiedwood), "Petrified Wood");
-			//addBlock(NuclearScienceBlocks.BLOCK_RADIOACTIVEAIR, "Radioactive Air");
 			addBlock(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.base), "Lead-lined Block");
 			addBlock(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.door), "Lead-lined Door");
 			addBlock(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.glass), "Lead-lined Glass");
@@ -148,6 +149,9 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addContainer("cloudchamber", "Cloud Chamber");
 			addContainer("falloutscrubber", "Fallout Scrubber");
 			addContainer("supplymodule", "Supply Module");
+			addContainer("monitormodule", "Monitor Module");
+			addContainer("controlrodmodule", "Control Rod Module");
+			addContainer("thermometermodule", "Thermometer Module");
 
 			addGuiLabel("machine.usage", "Usage: %s");
 			addGuiLabel("machine.voltage", "Voltage: %s");
@@ -207,6 +211,8 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addGuiLabel("cloudchamber.active", "Active");
 			addGuiLabel("cloudchamber.detected", "Detected: %s");
 
+			addGuiLabel("logisticsnetwork.network", "Network");
+
 
 			addDamageSource("radiation", "%s just did a speedrun of evolution!");
 			addDamageSource("plasma", "%s was ionized!");
@@ -232,6 +238,8 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addTooltip("quantumtunnel.none", "None");
 			addTooltip("quantumtunnel.createnew", "New Frequency");
 			addTooltip("quantumtunnel.buffer", "Buffer");
+
+			addTooltip("logisticsnetwork.linkinterface", "Link Interface");
 
 			addSubtitle(NuclearScienceSounds.SOUND_GASCENTRIFUGE, "Gas Centrifuge spins");
 			addSubtitle(NuclearScienceSounds.SOUND_NUCLEARBOILER, "Nuclear Boiler boils");

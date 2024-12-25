@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "nuclearscience:block/monitormodule"
+    },
+    "facing=north": {
+      "model": "nuclearscience:block/monitormodule",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "nuclearscience:block/monitormodule",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "nuclearscience:block/monitormodule",
+      "y": 180
+    }
+  }
+}

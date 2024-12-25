@@ -5,6 +5,7 @@ import electrodynamics.api.electricity.formatting.ChatFormatter;
 import electrodynamics.api.electricity.formatting.DisplayUnit;
 import electrodynamics.api.gas.GasStack;
 import electrodynamics.prefab.screen.GenericScreen;
+import electrodynamics.prefab.screen.component.types.ScreenComponentVerticalSlider;
 import electrodynamics.prefab.screen.component.types.guitab.ScreenComponentGuiTab;
 import electrodynamics.prefab.screen.component.utils.AbstractScreenComponentInfo;
 import electrodynamics.prefab.utilities.object.TransferPack;
@@ -18,7 +19,6 @@ import nuclearscience.api.quantumtunnel.TunnelFrequencyBuffer;
 import nuclearscience.common.inventory.container.ContainerQuantumTunnel;
 import nuclearscience.common.tile.TileQuantumTunnel;
 import nuclearscience.prefab.screen.component.NuclearIconTypes;
-import nuclearscience.prefab.screen.component.ScreenComponentVerticalSlider;
 import nuclearscience.prefab.screen.component.quantumtunnel.*;
 import nuclearscience.prefab.utils.NuclearTextUtils;
 
@@ -147,6 +147,9 @@ public class ScreenQuantumTunnel extends GenericScreen<ContainerQuantumTunnel> {
 
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
-        return slider.mouseDragged(mouseX, mouseY, button, dragX, dragY);
+        if(slider.isVisible()) {
+            return slider.mouseDragged(mouseX, mouseY, button, dragX, dragY);
+        }
+        return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
     }
 }

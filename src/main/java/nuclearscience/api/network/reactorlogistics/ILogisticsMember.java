@@ -7,6 +7,8 @@ public interface ILogisticsMember {
 
     boolean isValidConnection(Direction dir);
 
-    boolean canConnect(ReactorLogisticsNetwork network);
+    default boolean canConnect(ReactorLogisticsNetwork network) {
+        return true;
+    }
 
 }

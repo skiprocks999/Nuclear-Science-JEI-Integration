@@ -4,7 +4,6 @@ import electrodynamics.prefab.properties.Property;
 import electrodynamics.prefab.properties.PropertyTypes;
 import electrodynamics.prefab.tile.GenericTile;
 import electrodynamics.prefab.tile.components.type.ComponentPacketHandler;
-import electrodynamics.prefab.tile.components.type.ComponentTickable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
@@ -25,7 +24,6 @@ public abstract class TileControlRod extends GenericTile {
 
     public TileControlRod(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
-        addComponent(new ComponentTickable(this));
         addComponent(new ComponentPacketHandler(this));
     }
 

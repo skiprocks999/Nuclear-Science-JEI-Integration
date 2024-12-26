@@ -12,7 +12,7 @@ public class ScreenSupplyModule extends GenericInterfaceBoundScreen<ContainerSup
     private WrapperInventoryIO wrapper;
 
     public ScreenSupplyModule(ContainerSupplyModule container, Inventory inv, Component title) {
-        super(container, inv, title, true);
+        super(container, inv, title, true, true);
 
         wrapper = new WrapperInventoryIO(this, -AbstractScreenComponentInfo.SIZE + 1, AbstractScreenComponentInfo.SIZE + 2, 75, 82, 8, 72)
                 //

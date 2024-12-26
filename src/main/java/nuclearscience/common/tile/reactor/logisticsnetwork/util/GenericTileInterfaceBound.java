@@ -23,6 +23,8 @@ public abstract class GenericTileInterfaceBound extends GenericTileLogisticsMemb
     public static final GenericTileInterface.InterfaceType[] SUPPLIES =  {GenericTileInterface.InterfaceType.FISSION, GenericTileInterface.InterfaceType.FUSION};
     public static final GenericTileInterface.InterfaceType[] ALL = {GenericTileInterface.InterfaceType.FISSION, GenericTileInterface.InterfaceType.MS, GenericTileInterface.InterfaceType.FUSION};
 
+    public final Property<Boolean> linked = property(new Property<>(PropertyTypes.BOOLEAN, "islinked", false));
+
     public final Property<BlockPos> interfaceLocation = property(new Property<>(PropertyTypes.BLOCK_POS, "interfacelocation", BlockEntityUtils.OUT_OF_REACH)).onChange((prop, old) -> {
 
         if(level.isClientSide) {
@@ -45,12 +47,14 @@ public abstract class GenericTileInterfaceBound extends GenericTileLogisticsMemb
         super.tickServer(tickable);
 
         if (!networkCable.valid() || !(networkCable.getSafe() instanceof TileReactorLogisticsCable)) {
+            linked.set(false);
             return;
         }
 
         TileReactorLogisticsCable cable = networkCable.getSafe();
 
         if (cable.isRemoved()) {
+            linked.set(false);
             return;
         }
 
@@ -58,14 +62,18 @@ public abstract class GenericTileInterfaceBound extends GenericTileLogisticsMemb
 
         GenericTileInterface inter = network.getInterface(interfaceLocation.get());
 
-        if (inter == null) {
+        if (!network.isControllerActive() || inter == null) {
+            linked.set(false);
             return;
         }
 
         if (inter.getInterfaceType() != GenericTileInterface.InterfaceType.values()[interfaceType.get()]) {
             interfaceLocation.set(BlockEntityUtils.OUT_OF_REACH);
             interfaceType.set(GenericTileInterface.InterfaceType.NONE.ordinal());
+            linked.set(false);
         }
+
+        linked.set(true);
 
     }
 

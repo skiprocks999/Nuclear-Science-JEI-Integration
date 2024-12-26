@@ -212,6 +212,19 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addGuiLabel("cloudchamber.detected", "Detected: %s");
 
 			addGuiLabel("logisticsnetwork.network", "Network");
+			addGuiLabel("logisticsnetwork.unlinked", "Unlinked...");
+			addGuiLabel("logisticsnetwork.temperature", "Temperature: %s");
+			addGuiLabel("logisticsnetwork.fuel", "Fuel");
+			addGuiLabel("logisticsnetwork.other", "Other");
+			addGuiLabel("logisticsnetwork.status", "Status: %s");
+			addGuiLabel("logisticsnetwork.statusgood", "GOOD");
+			addGuiLabel("logisticsnetwork.statusnofuel", "NO FUEL");
+			addGuiLabel("logisticsnetwork.statusoverheat", "OVERHEATING");
+			addGuiLabel("logisticsnetwork.statusnopower", "NO POWER");
+			addGuiLabel("logisticsnetwork.waste", "Waste");
+			addGuiLabel("logisticsnetwork.deuterium", "Deuterium");
+			addGuiLabel("logisticsnetwork.tritium", "Tritium");
+			addGuiLabel("logisticsnetwork.power", "Energy Satisfaction");
 
 
 			addDamageSource("radiation", "%s just did a speedrun of evolution!");

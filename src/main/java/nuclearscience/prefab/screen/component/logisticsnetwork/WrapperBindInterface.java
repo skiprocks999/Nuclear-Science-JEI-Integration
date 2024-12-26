@@ -45,7 +45,7 @@ public class WrapperBindInterface {
 
     private static final int BUTTON_COUNT = 5;
 
-    public WrapperBindInterface(GenericInterfaceBoundScreen<?> screen, int x, int y, int tabX, int tabY, boolean needsButton) {
+    public WrapperBindInterface(GenericInterfaceBoundScreen<?> screen, int x, int y, int tabX, int tabY, boolean needsButton, boolean updateSlots) {
         this.screen = screen;
 
         if (needsButton) {
@@ -60,7 +60,10 @@ public class WrapperBindInterface {
 
                     updateVisibility(true);
 
-                    hideSlots();
+                    if(updateSlots) {
+                        hideSlots();
+                        screen.playerInvLabel.setVisible(false);
+                    }
 
                     screen.binderSlider.setVisible(true);
 
@@ -70,7 +73,10 @@ public class WrapperBindInterface {
 
                     updateVisibility(false);
 
-                    showSlots();
+                    if(updateSlots) {
+                        showSlots();
+                        screen.playerInvLabel.setVisible(true);
+                    }
 
                     screen.binderSlider.setVisible(false);
 
@@ -154,6 +160,11 @@ public class WrapperBindInterface {
     }
 
     public void tick() {
+
+        if(!screen.binderSlider.isVisible()) {
+            return;
+        }
+
         GenericTileInterfaceBound tile = screen.getMenu().getSafeHost();
         if (tile == null) {
             return;

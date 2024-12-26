@@ -13,10 +13,10 @@ public abstract class GenericInterfaceBoundScreen<T extends GenericInterfaceBoun
     public final WrapperBindInterface binderWrapper;
     public final ScreenComponentVerticalSlider binderSlider;
 
-    public GenericInterfaceBoundScreen(T container, Inventory inv, Component title, boolean needsButton) {
+    public GenericInterfaceBoundScreen(T container, Inventory inv, Component title, boolean needsButton, boolean updateSlots) {
         super(container, inv, title);
 
-        binderWrapper = new WrapperBindInterface(this, 0, 0, -AbstractScreenComponentInfo.SIZE + 1, 2, needsButton);
+        binderWrapper = new WrapperBindInterface(this, 0, 0, -AbstractScreenComponentInfo.SIZE + 1, 2, needsButton, updateSlots);
         addComponent(binderSlider = new ScreenComponentVerticalSlider(153, 57, 100).setClickConsumer(binderWrapper.getSliderClickedConsumer()).setDragConsumer(binderWrapper.getSliderDraggedConsumer()));
         if (needsButton) {
             binderSlider.setVisible(false);

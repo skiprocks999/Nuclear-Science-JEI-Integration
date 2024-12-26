@@ -1,13 +1,16 @@
 package nuclearscience.common.tile.reactor.logisticsnetwork;
 
 import electrodynamics.common.block.states.ElectrodynamicsBlockStates;
+import electrodynamics.prefab.tile.components.type.ComponentContainerProvider;
 import electrodynamics.prefab.tile.components.type.ComponentTickable;
 import electrodynamics.prefab.utilities.BlockEntityUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.level.block.state.BlockState;
+import nuclearscience.common.inventory.container.ContainerMonitorModule;
 import nuclearscience.common.tile.reactor.logisticsnetwork.interfaces.GenericTileInterface;
 import nuclearscience.common.tile.reactor.logisticsnetwork.util.GenericTileInterfaceBound;
 import nuclearscience.registers.NuclearScienceTiles;
@@ -19,6 +22,7 @@ public class TileMonitorModule extends GenericTileInterfaceBound {
     public TileMonitorModule(BlockPos worldPos, BlockState blockState) {
         super(NuclearScienceTiles.TILE_MONITORMODULE.get(), worldPos, blockState);
         addComponent(new ComponentTickable(this).tickServer(this::tickServer));
+        addComponent(new ComponentContainerProvider("container.monitormodule", this).createMenu((id, player) -> new ContainerMonitorModule(id, player, new SimpleContainer(0), getCoordsArray())));
         relativeBack = BlockEntityUtils.getRelativeSide(getFacing(), BlockEntityUtils.MachineDirection.BACK.mappedDir);
     }
 

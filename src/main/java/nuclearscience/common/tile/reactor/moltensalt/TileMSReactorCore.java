@@ -92,7 +92,7 @@ public class TileMSReactorCore extends GenericTile {
 
 		if(controlRodCache.valid() && controlRodCache.getSafe() instanceof IMSControlRod rod) {
 
-			if(rod.facingDir().getOpposite() == getFacing()) {
+			if(rod.facingDir() == getFacing()) {
 				insertion = rod.getInsertion();
 			}
 

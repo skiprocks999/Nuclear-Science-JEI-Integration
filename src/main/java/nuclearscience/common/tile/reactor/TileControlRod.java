@@ -78,7 +78,7 @@ public abstract class TileControlRod extends GenericTile {
 
         @Override
         public Direction facingDir() {
-            return getFacing();
+            return getFacing().getOpposite();
         }
     }
 

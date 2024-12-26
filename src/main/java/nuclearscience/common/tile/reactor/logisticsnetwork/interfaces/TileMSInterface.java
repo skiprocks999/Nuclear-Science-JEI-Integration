@@ -65,7 +65,7 @@ public class TileMSInterface extends GenericTileInterface implements IMSControlR
 
     @Override
     public Direction getReactorDirection() {
-        return getFacing();
+        return getFacing().getOpposite();
     }
 
     @Override

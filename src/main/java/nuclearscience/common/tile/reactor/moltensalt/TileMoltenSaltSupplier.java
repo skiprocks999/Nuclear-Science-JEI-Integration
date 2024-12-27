@@ -29,7 +29,7 @@ public class TileMoltenSaltSupplier extends GenericTile {
 
 	protected CachedTileOutput output;
 
-	public final Property<Double> reactorWaste = property(new Property<>(PropertyTypes.DOUBLE, "reactorwaste", 0.0).setNoSave());
+	public final Property<Double> reactorWaste = property(new Property<>(PropertyTypes.DOUBLE, "reactorwaste", 0.0));
 
 	public TileMoltenSaltSupplier(BlockPos pos, BlockState state) {
 

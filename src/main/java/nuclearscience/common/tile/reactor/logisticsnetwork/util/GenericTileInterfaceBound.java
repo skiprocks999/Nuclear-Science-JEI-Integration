@@ -20,14 +20,25 @@ public abstract class GenericTileInterfaceBound extends GenericTileLogisticsMemb
 
     public static final GenericTileInterface.InterfaceType[] CONTROL_RODS = {GenericTileInterface.InterfaceType.FISSION, GenericTileInterface.InterfaceType.MS};
     public static final GenericTileInterface.InterfaceType[] TEMPERATURE = {GenericTileInterface.InterfaceType.FISSION, GenericTileInterface.InterfaceType.MS};
-    public static final GenericTileInterface.InterfaceType[] SUPPLIES =  {GenericTileInterface.InterfaceType.FISSION, GenericTileInterface.InterfaceType.FUSION};
+    public static final GenericTileInterface.InterfaceType[] SUPPLIES = {GenericTileInterface.InterfaceType.FISSION, GenericTileInterface.InterfaceType.FUSION};
     public static final GenericTileInterface.InterfaceType[] ALL = {GenericTileInterface.InterfaceType.FISSION, GenericTileInterface.InterfaceType.MS, GenericTileInterface.InterfaceType.FUSION};
 
-    public final Property<Boolean> linked = property(new Property<>(PropertyTypes.BOOLEAN, "islinked", false));
+    public final Property<Boolean> linked = property(new Property<>(PropertyTypes.BOOLEAN, "islinked", false)).onChange((prop, old) -> {
+
+        if (level.isClientSide) {
+            return;
+        }
+
+        if (BlockEntityUtils.isLit(this) ^ prop.get()) {
+            BlockEntityUtils.updateLit(this, prop.get());
+        }
+
+
+    });
 
     public final Property<BlockPos> interfaceLocation = property(new Property<>(PropertyTypes.BLOCK_POS, "interfacelocation", BlockEntityUtils.OUT_OF_REACH)).onChange((prop, old) -> {
 
-        if(level.isClientSide) {
+        if (level.isClientSide) {
             return;
         }
 

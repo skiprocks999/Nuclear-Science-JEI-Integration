@@ -54,7 +54,9 @@ public class RenderControlRodModule extends AbstractTileRenderer<TileControlRodM
         stack.popPose();
 
 
-
+        if(!tile.linked.get()) {
+            return;
+        }
 
 
         Font font = Minecraft.getInstance().font;

@@ -225,6 +225,14 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addGuiLabel("logisticsnetwork.deuterium", "Deuterium");
 			addGuiLabel("logisticsnetwork.tritium", "Tritium");
 			addGuiLabel("logisticsnetwork.power", "Energy Satisfaction");
+			addGuiLabel("logisticsnetwork.outputmode", "Output Mode");
+			addGuiLabel("logisticsnetwork.signalmode", "Signal Mode");
+			addGuiLabel("logisticsnetwork.targettemp", "Target Temperature");
+			addGuiLabel("logisticsnetwork.signalstrength", "Signal Strength: %s");
+			addGuiLabel("logisticsnetwork.signalnormal", "Normal");
+			addGuiLabel("logisticsnetwork.signalinverted", "Inverted");
+			addGuiLabel("logisticsnetwork.modeconstant", "Constant");
+			addGuiLabel("logisticsnetwork.modebuildup", "Build-Up");
 
 
 			addDamageSource("radiation", "%s just did a speedrun of evolution!");

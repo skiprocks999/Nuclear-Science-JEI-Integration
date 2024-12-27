@@ -46,9 +46,9 @@ public enum SubtypeNuclearMachine implements ISubtype, IMachine {
     msinterface(true, TileMSInterface::new, MachineProperties.builder().setShapeProvider(NuclearScienceVoxelShapes.MS_INTERFACE)),
     fusioninterface(true, TileFusionInterface::new),
     controlrodmodule(true, TileControlRodModule::new, MachineProperties.builder().setShapeProvider(NuclearScienceVoxelShapes.CONTROL_ROD_MODULE)),
-    supplymodule(true, TileSupplyModule::new),
-    monitormodule(true, TileMonitorModule::new, MachineProperties.builder().setShapeProvider(NuclearScienceVoxelShapes.MONITOR_MODULE)),
-    thermometermodule(true, TileThermometerModule::new),
+    supplymodule(true, TileSupplyModule::new, MachineProperties.builder().setUsesLit()),
+    monitormodule(true, TileMonitorModule::new, MachineProperties.builder().setShapeProvider(NuclearScienceVoxelShapes.MONITOR_MODULE).setUsesLit()),
+    thermometermodule(true, TileThermometerModule::new, MachineProperties.builder().setUsesLit()),
 
 
     teleporter(true, TileTeleporter::new, MachineProperties.builder().setShapeProvider(NuclearScienceVoxelShapes.TELEPORTER).setLitBrightness(15)),
@@ -112,6 +112,11 @@ public enum SubtypeNuclearMachine implements ISubtype, IMachine {
 
     public VoxelShapeProvider getVoxelShapeProvider() {
         return this.properties.provider;
+    }
+
+    @Override
+    public boolean usesLit() {
+        return properties.usesLit;
     }
 
     public boolean showInItemGroup() {

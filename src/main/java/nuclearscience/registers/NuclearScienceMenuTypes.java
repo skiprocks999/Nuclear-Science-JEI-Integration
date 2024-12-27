@@ -32,6 +32,7 @@ public class NuclearScienceMenuTypes {
 	public static final DeferredHolder<MenuType<?>, MenuType<ContainerSupplyModule>> CONTAINER_SUPPLYMODULE = register("supplymodule", ContainerSupplyModule::new);
 	public static final DeferredHolder<MenuType<?>, MenuType<ContainerControlRodModule>> CONTAINER_CONTROLRODMODULE = register("controlrodmodule", ContainerControlRodModule::new);
 	public static final DeferredHolder<MenuType<?>, MenuType<ContainerMonitorModule>> CONTAINER_MONITORMODULE = register("monitormodule", ContainerMonitorModule::new);
+	public static final DeferredHolder<MenuType<?>, MenuType<ContainerThermometerModule>> CONTAINER_THERMOMETERMODULE = register("thermometermodule", ContainerThermometerModule::new);
 
 	private static <T extends AbstractContainerMenu> DeferredHolder<MenuType<?>, MenuType<T>> register(String id, MenuSupplier<T> supplier) {
 		return MENU_TYPES.register(id, () -> new MenuType<>(supplier, FeatureFlags.VANILLA_SET));

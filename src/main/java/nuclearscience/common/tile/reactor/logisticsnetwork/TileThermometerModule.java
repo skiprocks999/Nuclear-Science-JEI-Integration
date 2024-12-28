@@ -112,13 +112,13 @@ public class TileThermometerModule extends GenericTileInterfaceBound {
         switch (Mode.values()[mode.get()]) {
             case CONSTANT:
                 if (inverted.get()) {
-                    if (temp < targetTemperature.get()) {
+                    if (temp <= targetTemperature.get()) {
                         perc = 1;
                     } else {
                         perc = 0;
                     }
                 } else {
-                    if (temp > targetTemperature.get()) {
+                    if (temp >= targetTemperature.get()) {
                         perc = 1;
                     } else {
                         perc = 0;
@@ -133,7 +133,7 @@ public class TileThermometerModule extends GenericTileInterfaceBound {
                         perc = 1;
                     } else {
 
-                        perc = 1.0 - (temp / targetTemperature.get());
+                        perc = 1.0 - Math.min(1, (temp / targetTemperature.get()));
 
                     }
                 } else {
@@ -141,7 +141,7 @@ public class TileThermometerModule extends GenericTileInterfaceBound {
                         perc = 0;
                     } else {
 
-                        perc = temp / targetTemperature.get();
+                        perc = Math.min(1, temp / targetTemperature.get());
 
                     }
 
@@ -153,6 +153,11 @@ public class TileThermometerModule extends GenericTileInterfaceBound {
         redstoneSignal.set((int) (MAX_REDSTONE * perc));
 
 
+    }
+
+    @Override
+    public boolean checkLinkedPosition(GenericTileInterface inter) {
+        return true;
     }
 
     @Override

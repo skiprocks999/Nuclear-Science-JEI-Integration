@@ -378,8 +378,43 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addGuidebook("chapter.fusionreactor.l2", "Next, surround the side of the 13x13 diamond with a ring of Electromagnets.");
 			addGuidebook("chapter.fusionreactor.l3", "Next, build another 13x13 diamond to act as the roof. Leave a hole in the middle for the Reactor Core like before.");
 			addGuidebook("chapter.fusionreactor.l4", "Next, you will need to cover the top of the Electromagnets with water. The plasma of the reactor will heat the water generating steam, which can in turn be used for spinning turbines. Note the turbines will operate at 480V.");
-			addGuidebook("chapter.fusionreactor.l5", "The core requires 50 kJ/t at 480V to operate. While the initial energy must come from somewhere else, you can use the outuput of the turbines to feed back into the reaction. The wire can be connected to the top or the bottom of the reactor. In this case, we will be using the top.");
+			addGuidebook("chapter.fusionreactor.l5", "The core requires 50 kJ/t at 480V to operate. While the initial energy must come from somewhere else, you can use the output of the turbines to feed back into the reaction. The wire can be connected to the top or the bottom of the reactor. In this case, we will be using the top.");
 			addGuidebook("chapter.fusionreactor.l6", "The Reactor uses Deuterium and Tritium Cells to fuel the reaction. To add fuel to the core, right-click a cell on it. This can be done through the convenient hole left in the bottom.");
+
+
+			addGuidebook("chapter.reactorlogistics", "Nuclear Control");
+
+			addGuidebook("chapter.reactorlogistics.l1", "By now, you have probably noticed that interacting manually with reactors and their various supporting equipment is incredibly tedious. On top of that, you have to expose yourself to deadly radiation in order to refuel the Fission and MS reactors. Surly " +
+					"there has to be some way to automate things to relieve the burden you might be saying. Well say no more, because that's exactly what the %s is for! The RL Network will allow you to accomplish all of these things and more. The following pages will cover the components of the network.");
+			addGuidebook("chapter.reactorlogistics.network", "Reactor Logistics Network");
+
+			addGuidebook("chapter.reactorlogistics.logisticscable", "The Reactor Logistics Cable is used to connect the various components of the network together. A radiation-hardened fiber optic cable, it can travel great distances without taking energy!");
+			addGuidebook("chapter.reactorlogistics.logisticscontroller", "The RL Controller is the brain and the router of the network. Only one is allowed per network, and the device takes %1$s at %2$s to run. It is responsible for allowing the various components to communicate to each other. Individual components " +
+					"will not lose what they are linked to if the controller loses power, however they will not be able to communicate with each-other!");
+			addGuidebook("chapter.reactorlogistics.fissioninterface", "The Fission Interface takes the place of the Fission Control Rod under the Fission Reactor. It is what allows the network to interact with the Fission Reactor Core.");
+			addGuidebook("chapter.reactorlogistics.msinterface", "The MS Interface takes the place of the MS Control rod on the MS Reactor Core. It allows the network to interact with the MS Reactor Core.");
+			addGuidebook("chapter.reactorlogistics.fusioninterface", "The Fusion Interface is placed underneath the Fusion Reactor Core akin to a Fission Control Rod. It allows the network to interact with the Fusion Reactor Core.");
+
+			addGuidebook("chapter.reactorlogistics.linkinggui", "Link GUI");
+			addGuidebook("chapter.reactorlogistics.linkinggui.l1", "The Link GUI is used to link various modules to an interface. The GUI will either be the only option displayed in a Network module's GUI, or can be accessed via the link tab:");
+			addGuidebook("chapter.reactorlogistics.linkinggui.l2", "The GUI will display the different interfaces on the network that the module can be linked to. Note only reactors compatible with the module will be shown:");
+			addGuidebook("chapter.reactorlogistics.linkinggui.l3", "To link the module, select it and press the \"enable\" button:");
+			addGuidebook("chapter.reactorlogistics.linkinggui.l4", "The de-link a module, press the \"disable\" button:");
+
+			addGuidebook("chapter.reactorlogistics.controlrodmodule", "The Control Rod Module acts as a remote control rod to the reactor it is linked to. The insertion can be controlled as with a normal control rod. If the block receives a redstone signal, the insertion will be interpreted as the strength of the signal, " +
+					"with a signal of 15 resulting in 100% insertion. To access the linking GUI, right-click the block while holding a wrench. Multiple Control Rod Modules can be connected to a network, but only one can be linked to a single reactor at a time.");
+
+			addGuidebook("chapter.reactorlogistics.supplymodule", "The Supply Module allows the Network to refuel and extract waste from reactors. Items placed in the top 9 slots will be inserted into the linked reactor, and the network will attempt to deposit waste into the bottom 9 slots. The module can also be used to automate " +
+					"Tritium production. Multiple Supply Modules can be connected to a network, but only one can be linked to a single reactor at a time.");
+
+			addGuidebook("chapter.reactorlogistics.monitormodule", "The Monitor Module can be used to view information about its linked reactor remotely via its GUI. Multiple can be connected to a network at a time, and multiple can be linked to the same reactor.");
+
+			addGuidebook("chapter.reactorlogistics.thermometermodule", "The Thermometer Module can be used to monitor the temperature of the reactor it is linked to. When read with a Redstone Comparator, it will produce a signal with respect to the target temperature it is programmed with. The Module has two signal modes: Constant and Build-up. " +
+					"In Constant mode, the module will read a redstone signal of 15 once the reactor's temperature has reached or surpasses the target temperature and a signal of 0 otherwise. If inverted, it will do the opposite, and emit a signal of 15 while the reactor's temperature is below the target temperature and a signal of 0 otherwise. In Build-up mode, " +
+					"the module will read a signal that increases linearly from 0 to 15 based upon the ratio of the reactor's temperature to the target temperature, with a maximum of 15 possible once the target temperature has been reached or exceeded. If inverted, The module will read a signal that decreases linearly with the aforementioned ration, with a signal of " +
+					"0 being read once the target temperature has been reached or exceeded. Multiple Thermometer Modules be connected to a network at a time, and multiple can be linked to the same reactor.");
+
+
 
 			addGuidebook("chapter.particleaccelerator", "Particle Accelerator");
 			addGuidebook("chapter.particleaccelerator.l1", "The Particle Accelerator is used to make Anti-Matter and Dark Matter. Both are generated when two Particles collide at great speeds. The result of a particle collision is determined by the following formula:");
@@ -429,8 +464,6 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addGuidebook("chapter.quantumtunnel.l7.3", "Press the IO Config button again to hide the selector.");
 			addGuidebook("chapter.quantumtunnel.l8.1", "To see the quantities being actively transported by a frequency, you can hover over the buffer view tab:");
 			addGuidebook("chapter.quantumtunnel.l8.2", "It is important to note that a Quantum Tunnel must be loaded in order for it to work!");
-
-
 
 
 			addGuidebook("chapter.othermachines", "Other Machines");

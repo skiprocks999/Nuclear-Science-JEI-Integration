@@ -54,34 +54,9 @@ public class TileControlRodModule extends GenericTileInterfaceBound {
         relativeBack = BlockEntityUtils.getRelativeSide(getFacing(), BlockEntityUtils.MachineDirection.BACK.mappedDir);
     }
 
-    public void tickServer(ComponentTickable tickable) {
-
-        super.tickServer(tickable);
-
-        if (!networkCable.valid() || !(networkCable.getSafe() instanceof TileReactorLogisticsCable)) {
-            return;
-        }
-
-        TileReactorLogisticsCable cable = networkCable.getSafe();
-
-        if (cable.isRemoved()) {
-            return;
-        }
-
-        ReactorLogisticsNetwork network = cable.getNetwork();
-
-        GenericTileInterface inter = network.getInterface(interfaceLocation.get());
-
-        if (inter == null) {
-            return;
-        }
-
-        if(inter.getInterfaceType() != GenericTileInterface.InterfaceType.values()[interfaceType.get()]) {
-            interfaceLocation.set(BlockEntityUtils.OUT_OF_REACH);
-            interfaceType.set(GenericTileInterface.InterfaceType.NONE.ordinal());
-        }
-
-
+    @Override
+    public boolean checkLinkedPosition(GenericTileInterface inter) {
+        return inter.controlRodLocation.get().equals(getBlockPos());
     }
 
     @Override

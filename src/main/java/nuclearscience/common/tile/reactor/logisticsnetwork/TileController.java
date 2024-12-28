@@ -22,7 +22,7 @@ import nuclearscience.registers.NuclearScienceTiles;
 
 public class TileController extends GenericTileLogisticsMember implements ITickableSound {
 
-    private static final double USAGE = 100;
+    public static final double USAGE = 100;
 
     public final Property<Boolean> active = property(new Property<>(PropertyTypes.BOOLEAN, "active", false));
     private Direction relativeBack;

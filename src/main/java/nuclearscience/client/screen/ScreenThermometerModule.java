@@ -149,7 +149,7 @@ public class ScreenThermometerModule extends GenericInterfaceBoundScreen<Contain
 
             graphics.renderItem(GenericTileInterface.getItemFromType(type), guiWidth + 80, guiHeight + 20);
 
-            graphics.drawString(font, NuclearTextUtils.gui("logisticsnetwork.temperature", ChatFormatter.getChatDisplayShort(TileFissionReactorCore.getActualTemp(currTemp), DisplayUnit.TEMPERATURE_CELCIUS).withStyle(ChatFormatting.GOLD)), guiWidth + 20, guiHeight + 45, Color.TEXT_GRAY.color(), false);
+            graphics.drawString(font, NuclearTextUtils.gui("logisticsnetwork.temperature", ChatFormatter.getChatDisplayShort(currTemp, DisplayUnit.TEMPERATURE_CELCIUS).withStyle(ChatFormatting.GOLD)), guiWidth + 20, guiHeight + 45, Color.TEXT_GRAY.color(), false);
 
             Component text = NuclearTextUtils.gui("logisticsnetwork.outputmode");
 

@@ -17,6 +17,7 @@ import nuclearscience.References;
 import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
 import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
 import nuclearscience.common.block.subtype.SubtypeRadiationShielding;
+import nuclearscience.common.block.subtype.SubtypeReactorLogisticsCable;
 import nuclearscience.common.tags.NuclearScienceTags;
 import nuclearscience.registers.NuclearScienceItems;
 
@@ -298,6 +299,20 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				.addKey('V', ElectrodynamicsTags.Items.PLATE_VANADIUMSTEEL)
 				//
 				.complete(References.ID, "moltensaltpipe_ceramicvanadium", output);
+
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_REACTORLOGISTICSCABLE.getValue(SubtypeReactorLogisticsCable.base), 6)
+				//
+				.addPattern("VVV")
+				//
+				.addPattern("GGG")
+				//
+				.addPattern("VVV")
+				//
+				.addKey('G', ElectrodynamicsItems.ITEMS_CUSTOMGLASS.getValue(SubtypeGlass.clear))
+				//
+				.addKey('V', ElectrodynamicsTags.Items.PLATE_VANADIUMSTEEL)
+				//
+				.complete(References.ID, "reactorlogisticscable", output);
 
 		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_POLONIUM210.get(), 1)
 				//
@@ -932,6 +947,158 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				.addKey('M', ElectrodynamicsItems.ITEM_MOTOR.get())
 				//
 				.complete(References.ID, "machine_turbine", output);
+
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.logisticscontroller), 1)
+				//
+				.addPattern("#C#")
+				//
+				.addPattern("CPC")
+				//
+				.addPattern("#C#")
+				//
+				.addKey('#', ElectrodynamicsTags.Items.PLATE_STAINLESSSTEEL)
+				//
+				.addKey('C', ElectrodynamicsTags.Items.CIRCUITS_ULTIMATE)
+				//
+				.addKey('P', NuclearScienceTags.Items.PELLET_PLUTONIUM)
+				//
+				.complete(References.ID, "machine_logisticscontroller", output);
+
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fissioninterface), 1)
+				//
+				.addPattern("GCG")
+				//
+				.addPattern("MRM")
+				//
+				.addPattern("GLG")
+				//
+				.addKey('G', ElectrodynamicsItems.ITEMS_CUSTOMGLASS.getValue(SubtypeGlass.aluminum))
+				//
+				.addKey('C', ElectrodynamicsTags.Items.CIRCUITS_ULTIMATE)
+				//
+				.addKey('M', ElectrodynamicsItems.ITEM_MOTOR.get())
+				//
+				.addKey('R', NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fissioncontrolrod))
+				//
+				.addKey('L', NuclearScienceItems.ITEMS_REACTORLOGISTICSCABLE.getValue(SubtypeReactorLogisticsCable.base))
+				//
+				.complete(References.ID, "machine_fissioninterface", output);
+
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.msinterface), 1)
+				//
+				.addPattern("GMG")
+				//
+				.addPattern("CRL")
+				//
+				.addPattern("GMG")
+				//
+				.addKey('G', ElectrodynamicsItems.ITEMS_CUSTOMGLASS.getValue(SubtypeGlass.aluminum))
+				//
+				.addKey('C', ElectrodynamicsTags.Items.CIRCUITS_ULTIMATE)
+				//
+				.addKey('M', ElectrodynamicsItems.ITEM_MOTOR.get())
+				//
+				.addKey('R', NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.mscontrolrod))
+				//
+				.addKey('L', NuclearScienceItems.ITEMS_REACTORLOGISTICSCABLE.getValue(SubtypeReactorLogisticsCable.base))
+				//
+				.complete(References.ID, "machine_msinterface", output);
+
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fusioninterface), 1)
+				//
+				.addPattern("GEG")
+				//
+				.addPattern("CMC")
+				//
+				.addPattern("GRG")
+				//
+				.addKey('G', NuclearScienceItems.ITEM_ELECTROMAGNETICGLASS.get())
+				//
+				.addKey('E', NuclearScienceItems.ITEM_ELECTROMAGNET.get())
+				//
+				.addKey('C', ElectrodynamicsTags.Items.CIRCUITS_ULTIMATE)
+				//
+				.addKey('M', ElectrodynamicsItems.ITEM_MOTOR.get())
+				//
+				.addKey('R', NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fissioncontrolrod))
+				//
+				.complete(References.ID, "machine_fusioninterface", output);
+
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.controlrodmodule), 1)
+				//
+				.addPattern("#D#")
+				//
+				.addPattern("CRC")
+				//
+				.addPattern("#L#")
+				//
+				.addKey('#', ElectrodynamicsTags.Items.PLATE_STAINLESSSTEEL)
+				//
+				.addKey('D', Tags.Items.DUSTS_GLOWSTONE)
+				//
+				.addKey('C', ElectrodynamicsTags.Items.CIRCUITS_ADVANCED)
+				//
+				.addKey('R', NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fissioncontrolrod))
+				//
+				.addKey('L', NuclearScienceItems.ITEMS_REACTORLOGISTICSCABLE.getValue(SubtypeReactorLogisticsCable.base))
+				//
+				.complete(References.ID, "machine_controlrodmodule", output);
+
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.supplymodule), 1)
+				//
+				.addPattern("#P#")
+				//
+				.addPattern("CHC")
+				//
+				.addPattern("#L#")
+				//
+				.addKey('#', ElectrodynamicsTags.Items.PLATE_STAINLESSSTEEL)
+				//
+				.addKey('P', NuclearScienceTags.Items.PELLET_POLONIUM)
+				//
+				.addKey('C', ElectrodynamicsTags.Items.CIRCUITS_ULTIMATE)
+				//
+				.addKey('H', Tags.Items.CHESTS)
+				//
+				.addKey('L', NuclearScienceItems.ITEMS_REACTORLOGISTICSCABLE.getValue(SubtypeReactorLogisticsCable.base))
+				//
+				.complete(References.ID, "machine_supplymodule", output);
+
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.monitormodule), 1)
+				//
+				.addPattern("#G#")
+				//
+				.addPattern("#C#")
+				//
+				.addPattern("#L#")
+				//
+				.addKey('#', ElectrodynamicsTags.Items.PLATE_STAINLESSSTEEL)
+				//
+				.addKey('G', ElectrodynamicsItems.ITEMS_CUSTOMGLASS.getValue(SubtypeGlass.clear))
+				//
+				.addKey('C', ElectrodynamicsTags.Items.CIRCUITS_ADVANCED)
+				//
+				.addKey('L', NuclearScienceItems.ITEMS_REACTORLOGISTICSCABLE.getValue(SubtypeReactorLogisticsCable.base))
+				//
+				.complete(References.ID, "machine_monitormodule", output);
+
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.thermometermodule), 1)
+				//
+				.addPattern("#R#")
+				//
+				.addPattern("#C#")
+				//
+				.addPattern("#M#")
+				//
+				.addKey('#', ElectrodynamicsTags.Items.PLATE_STAINLESSSTEEL)
+				//
+				.addKey('R', Items.COMPARATOR)
+				//
+				.addKey('C', ElectrodynamicsTags.Items.CIRCUITS_ULTIMATE)
+				//
+				.addKey('M', NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.monitormodule))
+				//
+				.complete(References.ID, "machine_thermometermodule", output);
 
 	}
 

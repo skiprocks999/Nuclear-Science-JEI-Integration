@@ -52,6 +52,11 @@ public class TileMonitorModule extends GenericTileInterfaceBound {
     }
 
     @Override
+    public boolean checkLinkedPosition(GenericTileInterface inter) {
+        return true;
+    }
+
+    @Override
     public GenericTileInterface.InterfaceType[] getValidInterfaces() {
         return ALL;
     }

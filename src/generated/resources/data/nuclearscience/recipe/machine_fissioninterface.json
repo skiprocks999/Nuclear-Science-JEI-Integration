@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "c:circuits/ultimate"
+    },
+    "G": {
+      "item": "electrodynamics:glassaluminum"
+    },
+    "L": {
+      "item": "nuclearscience:logisticscablebase"
+    },
+    "M": {
+      "item": "electrodynamics:motor"
+    },
+    "R": {
+      "item": "nuclearscience:fissioncontrolrod"
+    }
+  },
+  "pattern": [
+    "GCG",
+    "MRM",
+    "GLG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearscience:fissioninterface"
+  }
+}

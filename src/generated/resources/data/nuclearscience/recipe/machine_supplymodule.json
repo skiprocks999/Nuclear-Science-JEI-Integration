@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "c:plates/stainlesssteel"
+    },
+    "C": {
+      "tag": "c:circuits/ultimate"
+    },
+    "H": {
+      "tag": "c:chests"
+    },
+    "L": {
+      "item": "nuclearscience:logisticscablebase"
+    },
+    "P": {
+      "tag": "c:pellets/polonium"
+    }
+  },
+  "pattern": [
+    "#P#",
+    "CHC",
+    "#L#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearscience:supplymodule"
+  }
+}

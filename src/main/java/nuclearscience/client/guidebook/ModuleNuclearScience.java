@@ -32,6 +32,7 @@ public class ModuleNuclearScience extends Module {
 		chapters.add(new ChapterRadioGenerator(this));
 		chapters.add(new ChapterMSReactor(this));
 		chapters.add(new ChapterFusionReactor(this));
+		chapters.add(new ChapterLogisticsNetwork(this));
 		chapters.add(new ChapterParticleAccelerator(this));
 		chapters.add(new ChapterQuantumTunnel(this));
 		chapters.add(new ChapterOtherMachines(this));

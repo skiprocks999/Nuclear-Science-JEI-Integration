@@ -51,6 +51,11 @@ public class TileSupplyModule extends GenericTileInterfaceBound {
     }
 
     @Override
+    public boolean checkLinkedPosition(GenericTileInterface inter) {
+        return inter.supplyModuleLocation.get().equals(getBlockPos());
+    }
+
+    @Override
     public GenericTileInterface.InterfaceType[] getValidInterfaces() {
         return SUPPLIES;
     }

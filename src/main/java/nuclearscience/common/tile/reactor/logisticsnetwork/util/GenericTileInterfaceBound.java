@@ -78,7 +78,7 @@ public abstract class GenericTileInterfaceBound extends GenericTileLogisticsMemb
             return;
         }
 
-        if (inter.getInterfaceType() != GenericTileInterface.InterfaceType.values()[interfaceType.get()]) {
+        if (inter.getInterfaceType() != GenericTileInterface.InterfaceType.values()[interfaceType.get()] || !checkLinkedPosition(inter)) {
             interfaceLocation.set(BlockEntityUtils.OUT_OF_REACH);
             interfaceType.set(GenericTileInterface.InterfaceType.NONE.ordinal());
             linked.set(false);
@@ -87,6 +87,8 @@ public abstract class GenericTileInterfaceBound extends GenericTileLogisticsMemb
         linked.set(true);
 
     }
+
+    public abstract boolean checkLinkedPosition(GenericTileInterface inter);
 
     public abstract GenericTileInterface.InterfaceType[] getValidInterfaces();
 

@@ -4,6 +4,7 @@ import java.util.HashSet;
 
 import electrodynamics.common.block.states.ElectrodynamicsBlockStates;
 import nuclearscience.api.radiation.SimpleRadiationSource;
+import nuclearscience.common.tags.NuclearScienceTags;
 import org.joml.Vector3f;
 
 import electrodynamics.prefab.utilities.object.Location;
@@ -22,7 +23,6 @@ import net.minecraft.world.level.Level.ExplosionInteraction;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import nuclearscience.api.fusion.IElectromagnet;
 import nuclearscience.api.radiation.RadiationSystem;
 import nuclearscience.common.block.BlockElectromagneticBooster;
 import nuclearscience.common.block.facing.FacingDirection;
@@ -34,13 +34,15 @@ import nuclearscience.registers.NuclearScienceEntities;
 public class EntityParticle extends Entity {
 	private static final EntityDataAccessor<Direction> DIRECTION = SynchedEntityData.defineId(EntityParticle.class, EntityDataSerializers.DIRECTION);
 	private static final EntityDataAccessor<Float> SPEED = SynchedEntityData.defineId(EntityParticle.class, EntityDataSerializers.FLOAT);
-	private Direction facingDirection = Direction.UP;
-	public float speed = 0.02f;
-	public BlockPos source = BlockPos.ZERO;
 
+	public static final float STARTING_SPEED = 0.02F;
 	public static final float STRAIGHT_SPEED_INCREMENT = 0.01F / 3.0F;
-	public static final float TURN_SPEED_PENALTY = 0.2F;
+	public static final float TURN_SPEED_PENALTY = 0.8F;
 	public static final float INVERT_SPEED_INCREMENT = -0.02F;
+
+	private Direction facingDirection = Direction.UP;
+	public float speed = STARTING_SPEED;
+	public BlockPos source = BlockPos.ZERO;
 
 	public EntityParticle(EntityType<?> entityTypeIn, Level worldIn) {
 		super(NuclearScienceEntities.ENTITY_PARTICLE.get(), worldIn);
@@ -68,9 +70,9 @@ public class EntityParticle extends Entity {
 	@Override
 	public void tick() {
 
-		boolean isClientside = level().isClientSide();
-		boolean isServerside = !isClientside;
 		Level level = level();
+		boolean isClientside = level.isClientSide();
+		boolean isServerside = !isClientside;
 
 		if(tickCount > 100) {
 			removeAfterChangingDimensions();
@@ -91,9 +93,9 @@ public class EntityParticle extends Entity {
 
 		TileParticleInjector injector = (TileParticleInjector) blockEntity;
 
-		if(isServerside) {
+		injector.addParticle(this);
 
-			injector.addParticle(this);
+		if(isServerside) {
 
 			if (facingDirection == null) {
 				facingDirection = Direction.UP;
@@ -110,37 +112,38 @@ public class EntityParticle extends Entity {
 
 		}
 
-		if(facingDirection == null || facingDirection == Direction.UP) {
+		if(facingDirection == null || facingDirection == Direction.UP || facingDirection == Direction.DOWN) {
 			return;
 		}
 
-		//allows us to speed things up on the server ever so slightly
-		boolean sucessfullCollision = false;
 
 		int i = 0;
-		int checks = (int) (Math.ceil(speed) * 2);
+		int checks = 2;//(int) (Math.ceil(speed) * 2);
 		float localSpeed = speed / checks;
 
-		while(i < checks && !sucessfullCollision) {
+		while(i < checks) {
 
 			i++;
 
-			if(isServerside) {
-				sucessfullCollision = injector.handleCollision();
-			} else {
+			if(injector.handleCollision()) {
+				break;
+			}
+
+			if(isClientside) {
 				level.addParticle(new DustParticleOptions(new Vector3f(1, 1, 1), 5), getX(), getY(), getZ(), 0, 0, 0);
 			}
 
-			BlockPos next = blockPosition();
-			BlockState oldState = level().getBlockState(next);
+			BlockState startOfLoopState = level.getBlockState(blockPosition());
 
-			boolean isBooster = false;
+			boolean startOfLoopStateIsBooster = isBooster(startOfLoopState);
 
-			if (oldState.is(NuclearScienceBlocks.BLOCK_ELECTORMAGNETICBOOSTER)) {
+			// Handle speed increase if we are in a booster
 
-				Direction boosterFacing = oldState.getValue(ElectrodynamicsBlockStates.FACING).getOpposite();
+			if (startOfLoopStateIsBooster) {
 
-				FacingDirection boosterOrientation = oldState.getValue(BlockElectromagneticBooster.FACINGDIRECTION);
+				Direction boosterFacing = startOfLoopState.getValue(ElectrodynamicsBlockStates.FACING).getOpposite();
+
+				FacingDirection boosterOrientation = startOfLoopState.getValue(BlockElectromagneticBooster.FACINGDIRECTION);
 
 				if (boosterOrientation == FacingDirection.RIGHT) {
 
@@ -172,8 +175,9 @@ public class EntityParticle extends Entity {
 
 				}
 
-				isBooster = true;
 			}
+
+			// If the speed is negative flip the particles direction
 
 			if (speed < 0) {
 
@@ -183,19 +187,23 @@ public class EntityParticle extends Entity {
 
 			}
 
+			// Move the particle
+
 			setPos(getX() + facingDirection.getStepX() * localSpeed, getY(), getZ() + facingDirection.getStepZ() * localSpeed);
 
-			if (isBooster) {
+			// If we were in a booster, check if we are now in a switch
+
+			if (startOfLoopStateIsBooster) {
 
 				BlockPos positionNow = blockPosition();
 
-				if (level.getBlockState(positionNow).is(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICSWITCH)) {
+				if (isSwitch(level.getBlockState(positionNow))) {
 
 					HashSet<Direction> directions = new HashSet<>();
 
-					for (Direction dir : Direction.values()) {
+					for (Direction dir : Direction.Plane.HORIZONTAL) {
 
-						if (dir == Direction.UP || dir == Direction.DOWN || (dir == facingDirection.getOpposite() && level.getBlockState(positionNow.relative(dir)).isAir())) {
+						if (dir == facingDirection.getOpposite() && level.getBlockState(positionNow.relative(dir)).isAir()) {
 
 							continue;
 
@@ -213,9 +221,13 @@ public class EntityParticle extends Entity {
 
 						if (directions.size() > (electromagneticSwitch.lastDirection == null ? 2 : 1)) {
 
-							level.explode(this, getX(), getY(), getZ(), speed, ExplosionInteraction.BLOCK);
+							if(isServerside) {
 
-							removeAfterChangingDimensions();
+								level.explode(this, getX(), getY(), getZ(), speed, ExplosionInteraction.BLOCK);
+
+								removeAfterChangingDimensions();
+
+							}
 
 							break;
 
@@ -245,22 +257,28 @@ public class EntityParticle extends Entity {
 
 			// Server-side only code
 
-			BlockPos getPos = blockPosition();
+			BlockPos postMovePos = blockPosition();
 
-			BlockState nextState = level.getBlockState(getPos);
+			BlockState postMoveState = level.getBlockState(postMovePos);
 
-			if (nextState.isAir() || nextState.is(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICSWITCH) /* check if gateway */) {
+			//Check if we are now moved into air, a switch, or a gateway
+
+			if (postMoveState.isAir() || isSwitch(postMoveState) || isGateway(postMoveState)) {
 
 				int amount = 0;
 
+				// Check the number of valid electromagnets around us
+
 				for (Direction dir : Direction.values()) {
 
-					if (level.getBlockState(blockPosition().relative(dir)).getBlock() instanceof IElectromagnet) {
+					if (level.getBlockState(blockPosition().relative(dir)).is(NuclearScienceTags.Blocks.ELECTROMAGNETIC_CONTAINMENT)) {
 
 						amount++;
 
 					}
 				}
+
+				// If the particle is not contained properly, explode it
 
 				if (amount < 4) {
 
@@ -271,15 +289,29 @@ public class EntityParticle extends Entity {
 					break;
 				}
 
-				BlockState testNextBlock = level.getBlockState(getPos.relative(facingDirection));
+				// Get the state in front of us
 
-				if (testNextBlock.getBlock() instanceof IElectromagnet && !testNextBlock.is(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICSWITCH) /* Check if not gateway */) {
+				BlockPos inFrontOfUs = postMovePos.relative(facingDirection);
+
+				BlockState inFrontOfUsState = level.getBlockState(inFrontOfUs);
+
+				BlockPos relative;
+
+				// Check if we cant move through the block in front of us
+
+				if (inFrontOfUsState.is(NuclearScienceTags.Blocks.ELECTROMAGNETIC_CONTAINMENT) && !isSwitch(inFrontOfUsState) && !canPassThroughGateway(level.getBlockEntity(inFrontOfUs), inFrontOfUsState)) {
+
+					// Check to the right
 
 					Direction checkRot = facingDirection.getClockWise();
 
-					testNextBlock = level.getBlockState(getPos.relative(checkRot));
+					relative = postMovePos.relative(checkRot);
 
-					if (testNextBlock.isAir() || testNextBlock.is(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICSWITCH) /* check if gateway */) {
+					inFrontOfUsState = level.getBlockState(relative);
+
+					// Check if we can go through the block to the right
+
+					if (inFrontOfUsState.isAir() || isSwitch(inFrontOfUsState) || canPassThroughGateway(level.getBlockEntity(relative), inFrontOfUsState)) {
 
 						BlockPos floor = blockPosition();
 
@@ -289,11 +321,17 @@ public class EntityParticle extends Entity {
 
 					} else {
 
-						checkRot = facingDirection.getClockWise().getOpposite();
+						// Otherwise check if we can go through the block to the left
 
-						testNextBlock = level.getBlockState(getPos.relative(checkRot));
+						checkRot = facingDirection.getCounterClockWise();
 
-						if (!testNextBlock.isAir() && !testNextBlock.is(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICSWITCH) /* check if not gateay */) {
+						relative = postMovePos.relative(checkRot);
+
+						inFrontOfUsState = level.getBlockState(relative);
+
+						// If we can't, explode the particle
+
+						if (!inFrontOfUsState.isAir() && ! isSwitch(inFrontOfUsState) && !canPassThroughGateway(level.getBlockEntity(relative), inFrontOfUsState)) {
 
 							level.explode(this, getX(), getY(), getZ(), speed, ExplosionInteraction.BLOCK);
 
@@ -312,21 +350,23 @@ public class EntityParticle extends Entity {
 
 				}
 
+				// If we are not in the checked states above, check if the block we started in and the block we are in now are boosters
+
 			} else {
 
-				boolean checkIsBooster = nextState.is(NuclearScienceBlocks.BLOCK_ELECTORMAGNETICBOOSTER) && oldState.is(NuclearScienceBlocks.BLOCK_ELECTORMAGNETICBOOSTER);
+				boolean checkIsBooster = isBooster(postMoveState) && startOfLoopStateIsBooster;
 
 				boolean explode = false;
 
 				if (checkIsBooster) {
 
-					Direction oldDir = oldState.getValue(ElectrodynamicsBlockStates.FACING);
+					Direction oldDir = startOfLoopState.getValue(ElectrodynamicsBlockStates.FACING);
 
-					Direction nextDir = nextState.getValue(ElectrodynamicsBlockStates.FACING);
+					Direction nextDir = postMoveState.getValue(ElectrodynamicsBlockStates.FACING);
 
 					if (oldDir != nextDir) {
 
-						FacingDirection face = oldState.getValue(BlockElectromagneticBooster.FACINGDIRECTION);
+						FacingDirection face = startOfLoopState.getValue(BlockElectromagneticBooster.FACINGDIRECTION);
 
 						if (face == FacingDirection.RIGHT) {
 
@@ -346,7 +386,9 @@ public class EntityParticle extends Entity {
 
 					}
 
-				} else if (nextState.is(NuclearScienceBlocks.BLOCK_ELECTORMAGNETICBOOSTER) /* check if gateway*/) {
+				// If we have re-entered a booster, explode the particle
+
+				} else if (isBooster(postMoveState)) {
 
 					explode = true;
 
@@ -519,6 +561,24 @@ public class EntityParticle extends Entity {
 		}
 
 		 */
+	}
+
+	public boolean isBooster(BlockState state) {
+		return state.is(NuclearScienceBlocks.BLOCK_ELECTORMAGNETICBOOSTER);
+	}
+
+	public boolean isSwitch(BlockState state) {
+		return state.is(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICSWITCH);
+	}
+
+	public boolean isGateway(BlockState state) {
+
+		return false;
+	}
+
+	public boolean canPassThroughGateway(BlockEntity entity, BlockState state) {
+
+		return false;
 	}
 
 

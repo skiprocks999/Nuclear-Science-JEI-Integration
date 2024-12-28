@@ -99,7 +99,9 @@ public class TileParticleInjector extends GenericTile {
 
 	}
 
-	//returns if collision was successful or not
+	// returns if collision was successful or not
+	// We can track particles on the client too to monitor things like speed and what not
+	// in a GUI
 	public boolean handleCollision() {
 
 		ComponentInventory inv = getComponent(IComponentType.Inventory);
@@ -118,30 +120,32 @@ public class TileParticleInjector extends GenericTile {
 			return false;
 		}
 
-		double speedOfMax = Math.pow((one.speed + two.speed) / 4.0, 2);
+		if(!level.isClientSide()) {
+			double speedOfMax = Math.pow((one.speed + two.speed) / 4.0, 2);
 
-		one.remove(RemovalReason.KILLED);
-		two.remove(RemovalReason.KILLED);
+			one.remove(RemovalReason.KILLED);
+			two.remove(RemovalReason.KILLED);
 
-		particles[0] = particles[1] = null;
+			particles[0] = particles[1] = null;
 
-		double mod = level.random.nextDouble();
+			double mod = level.random.nextDouble();
 
-		if (speedOfMax > 0.999) {
-			if (resultStack.getItem() == NuclearScienceItems.ITEM_CELLDARKMATTER.get()) {
-				resultStack.setCount(resultStack.getCount() + 1);
-				cellStack.shrink(1);
-			} else if (resultStack.isEmpty()) {
-				inv.setItem(2, new ItemStack(NuclearScienceItems.ITEM_CELLDARKMATTER.get()));
-				cellStack.shrink(1);
-			}
-		} else if (speedOfMax > mod) {
-			if (resultStack.getItem() == NuclearScienceItems.ITEM_CELLANTIMATTERSMALL.get()) {
-				resultStack.setCount(resultStack.getCount() + 1);
-				cellStack.shrink(1);
-			} else if (resultStack.isEmpty()) {
-				inv.setItem(2, new ItemStack(NuclearScienceItems.ITEM_CELLANTIMATTERSMALL.get()));
-				cellStack.shrink(1);
+			if (speedOfMax > 0.999) {
+				if (resultStack.getItem() == NuclearScienceItems.ITEM_CELLDARKMATTER.get()) {
+					resultStack.setCount(resultStack.getCount() + 1);
+					cellStack.shrink(1);
+				} else if (resultStack.isEmpty()) {
+					inv.setItem(2, new ItemStack(NuclearScienceItems.ITEM_CELLDARKMATTER.get()));
+					cellStack.shrink(1);
+				}
+			} else if (speedOfMax > mod) {
+				if (resultStack.getItem() == NuclearScienceItems.ITEM_CELLANTIMATTERSMALL.get()) {
+					resultStack.setCount(resultStack.getCount() + 1);
+					cellStack.shrink(1);
+				} else if (resultStack.isEmpty()) {
+					inv.setItem(2, new ItemStack(NuclearScienceItems.ITEM_CELLANTIMATTERSMALL.get()));
+					cellStack.shrink(1);
+				}
 			}
 		}
 

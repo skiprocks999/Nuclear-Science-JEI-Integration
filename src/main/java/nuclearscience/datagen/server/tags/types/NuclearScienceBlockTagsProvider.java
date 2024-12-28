@@ -13,6 +13,8 @@ import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import nuclearscience.References;
 import nuclearscience.common.block.subtype.SubtypeIrradiatedBlock;
+import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
+import nuclearscience.common.tags.NuclearScienceTags;
 import nuclearscience.registers.NuclearScienceBlocks;
 
 public class NuclearScienceBlockTagsProvider extends BlockTagsProvider {
@@ -65,6 +67,8 @@ public class NuclearScienceBlockTagsProvider extends BlockTagsProvider {
         tag(BlockTags.MINEABLE_WITH_AXE).add(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.petrifiedwood));
 
         tag(Tags.Blocks.NEEDS_WOOD_TOOL).add(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.soil), NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.grass), NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.petrifiedwood));
+
+        tag(NuclearScienceTags.Blocks.ELECTROMAGNETIC_CONTAINMENT).add(NuclearScienceBlocks.BLOCK_ELECTROMAGNET.get(), NuclearScienceBlocks.BLOCK_ELECTROMAGNETICGLASS.get(), NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.particleinjector)); //TODO add gateway to this tag
 
     }
 

@@ -15,7 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import nuclearscience.common.inventory.container.ContainerParticleInjector;
 import nuclearscience.common.settings.Constants;
-import nuclearscience.common.tile.TileParticleInjector;
+import nuclearscience.common.tile.accelerator.TileParticleInjector;
 import nuclearscience.prefab.screen.component.NuclearArrows;
 import nuclearscience.prefab.utils.NuclearTextUtils;
 

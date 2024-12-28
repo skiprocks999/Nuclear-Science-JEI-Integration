@@ -11,6 +11,8 @@ import nuclearscience.common.block.connect.BlockMoltenSaltPipe;
 import nuclearscience.common.block.connect.BlockReactorLogisticsCable;
 import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
 import nuclearscience.common.tile.*;
+import nuclearscience.common.tile.accelerator.TileElectromagneticSwitch;
+import nuclearscience.common.tile.accelerator.TileParticleInjector;
 import nuclearscience.common.tile.reactor.TileControlRod;
 import nuclearscience.common.tile.reactor.fission.TileFissionReactorCore;
 import nuclearscience.common.tile.reactor.fission.TileMeltedReactor;

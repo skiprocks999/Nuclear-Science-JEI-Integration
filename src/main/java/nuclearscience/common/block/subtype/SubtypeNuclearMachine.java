@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import nuclearscience.common.block.voxelshapes.NuclearScienceVoxelShapes;
 import nuclearscience.common.tile.*;
+import nuclearscience.common.tile.accelerator.TileParticleInjector;
 import nuclearscience.common.tile.reactor.TileControlRod;
 import nuclearscience.common.tile.reactor.fission.TileFissionReactorCore;
 import nuclearscience.common.tile.reactor.fusion.TileFusionReactorCore;

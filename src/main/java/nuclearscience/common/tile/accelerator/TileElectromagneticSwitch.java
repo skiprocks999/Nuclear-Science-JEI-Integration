@@ -1,4 +1,4 @@
-package nuclearscience.common.tile;
+package nuclearscience.common.tile.accelerator;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.ItemInteractionResult;

@@ -3,10 +3,12 @@ package nuclearscience.common.tags;
 import electrodynamics.api.gas.Gas;
 import electrodynamics.registers.ElectrodynamicsGases;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 
 public class NuclearScienceTags {
@@ -14,6 +16,7 @@ public class NuclearScienceTags {
 	public static void init() {
 		Fluids.init();
 		Items.init();
+		Blocks.init();
 		Gases.init();
 	}
 
@@ -58,6 +61,21 @@ public class NuclearScienceTags {
 
 		private static TagKey<Item> forgeTag(String name) {
 			return ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", name));
+		}
+
+	}
+
+	public static class Blocks {
+
+		public static final TagKey<Block> ELECTROMAGNETIC_CONTAINMENT = forgeTag("electromagnetic_containment");
+		public static final TagKey<Block> ELECTROMAGNETIC_PATHWAY = forgeTag("electromagnetic_pathway");
+
+
+		private static void init() {
+		}
+
+		private static TagKey<Block> forgeTag(String name) {
+			return BlockTags.create(ResourceLocation.fromNamespaceAndPath("c", name));
 		}
 
 	}

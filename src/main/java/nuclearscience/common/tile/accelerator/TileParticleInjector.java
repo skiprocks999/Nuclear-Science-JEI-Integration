@@ -1,5 +1,7 @@
-package nuclearscience.common.tile;
+package nuclearscience.common.tile.accelerator;
 
+import electrodynamics.prefab.properties.Property;
+import electrodynamics.prefab.properties.PropertyTypes;
 import electrodynamics.prefab.tile.GenericTile;
 import electrodynamics.prefab.tile.components.IComponentType;
 import electrodynamics.prefab.tile.components.type.*;
@@ -31,6 +33,12 @@ public class TileParticleInjector extends GenericTile {
 
 	private EntityParticle[] particles = new EntityParticle[2];
 	private int timeSinceSpawn = 0;
+
+	public final Property<Boolean> usingGateway = property(new Property<>(PropertyTypes.BOOLEAN, "usinggateway", false));
+
+	private boolean particleOneThroughGate = false;
+	private boolean particleTwoThroughGate = false;
+
 
 	public TileParticleInjector(BlockPos pos, BlockState state) {
 		super(NuclearScienceTiles.TILE_PARTICLEINJECTOR.get(), pos, state);
@@ -91,7 +99,8 @@ public class TileParticleInjector extends GenericTile {
 
 	}
 
-	public void handleCollision() {
+	//returns if collision was successful or not
+	public boolean handleCollision() {
 
 		ComponentInventory inv = getComponent(IComponentType.Inventory);
 
@@ -99,14 +108,14 @@ public class TileParticleInjector extends GenericTile {
 		ItemStack cellStack = inv.getItem(ELECTRO_CELL_SLOT);
 
 		if(cellStack.isEmpty() || resultStack.getCount() >= resultStack.getMaxStackSize() || particles[0] == null && particles[1] == null) {
-			return;
+			return false;
 		}
 
 		EntityParticle one = particles[0];
 		EntityParticle two = particles[1];
 
 		if(one.distanceTo(two) >= 1) {
-			return;
+			return false;
 		}
 
 		double speedOfMax = Math.pow((one.speed + two.speed) / 4.0, 2);
@@ -136,6 +145,7 @@ public class TileParticleInjector extends GenericTile {
 			}
 		}
 
+		return true;
 
 	}
 
@@ -154,11 +164,21 @@ public class TileParticleInjector extends GenericTile {
 	protected void saveAdditional(CompoundTag compound, HolderLookup.Provider registries) {
 		super.saveAdditional(compound, registries);
 		compound.putInt("timesincespawn", timeSinceSpawn);
+		compound.putBoolean("particleonethroughgate", particleOneThroughGate);
+		compound.putBoolean("particletwothroughgate", particleTwoThroughGate);
 	}
 
 	@Override
 	protected void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
 		super.loadAdditional(compound, registries);
 		timeSinceSpawn = compound.getInt("timesincespawn");
+		particleOneThroughGate = compound.getBoolean("particleonethroughgate");
+		particleTwoThroughGate = compound.getBoolean("particletwothroughgate");
+	}
+
+	public void setPassedThroughGate(boolean passed) {
+		if(!particleTwoThroughGate && !particleOneThroughGate) {
+			particleOneThroughGate = passed;
+		}
 	}
 }

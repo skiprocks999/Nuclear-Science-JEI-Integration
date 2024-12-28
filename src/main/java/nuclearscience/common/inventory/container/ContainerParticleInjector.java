@@ -10,7 +10,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
-import nuclearscience.common.tile.TileParticleInjector;
+import nuclearscience.common.tile.accelerator.TileParticleInjector;
 import nuclearscience.prefab.screen.component.NuclearIconTypes;
 import nuclearscience.registers.NuclearScienceItems;
 import nuclearscience.registers.NuclearScienceMenuTypes;

@@ -1,10 +1,18 @@
 package nuclearscience.common.entity;
 
 import java.util.HashSet;
+import java.util.Optional;
 
 import electrodynamics.common.block.states.ElectrodynamicsBlockStates;
+import electrodynamics.prefab.utilities.BlockEntityUtils;
+import net.minecraft.nbt.NbtUtils;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import nuclearscience.api.radiation.SimpleRadiationSource;
+import nuclearscience.common.block.states.NuclearScienceBlockStates;
+import nuclearscience.common.settings.Constants;
 import nuclearscience.common.tags.NuclearScienceTags;
+import nuclearscience.common.tile.accelerator.TileElectromagneticGateway;
 import org.joml.Vector3f;
 
 import electrodynamics.prefab.utilities.object.Location;
@@ -24,16 +32,18 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import nuclearscience.api.radiation.RadiationSystem;
-import nuclearscience.common.block.BlockElectromagneticBooster;
-import nuclearscience.common.block.facing.FacingDirection;
+import nuclearscience.common.block.states.facing.FacingDirection;
 import nuclearscience.common.tile.accelerator.TileElectromagneticSwitch;
 import nuclearscience.common.tile.accelerator.TileParticleInjector;
 import nuclearscience.registers.NuclearScienceBlocks;
 import nuclearscience.registers.NuclearScienceEntities;
 
 public class EntityParticle extends Entity {
+
 	private static final EntityDataAccessor<Direction> DIRECTION = SynchedEntityData.defineId(EntityParticle.class, EntityDataSerializers.DIRECTION);
 	private static final EntityDataAccessor<Float> SPEED = SynchedEntityData.defineId(EntityParticle.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Integer> TICKS_ALIVE = SynchedEntityData.defineId(EntityParticle.class, EntityDataSerializers.INT);
+
 
 	public static final float STARTING_SPEED = 0.02F;
 	public static final float STRAIGHT_SPEED_INCREMENT = 0.01F / 3.0F;
@@ -42,7 +52,9 @@ public class EntityParticle extends Entity {
 
 	private Direction facingDirection = Direction.UP;
 	public float speed = STARTING_SPEED;
-	public BlockPos source = BlockPos.ZERO;
+	public BlockPos source = BlockEntityUtils.OUT_OF_REACH;
+	public boolean passedThroughGate = false;
+	private int ticksAlive = 0;
 
 	public EntityParticle(EntityType<?> entityTypeIn, Level worldIn) {
 		super(NuclearScienceEntities.ENTITY_PARTICLE.get(), worldIn);
@@ -50,12 +62,19 @@ public class EntityParticle extends Entity {
 
 	public EntityParticle(Direction direction, Level worldIn, Location pos) {
 		this(NuclearScienceEntities.ENTITY_PARTICLE.get(), worldIn);
+
 		setPos(new Vec3(pos.x(), pos.y(), pos.z()));
+
 		this.facingDirection = direction;
+
 		noCulling = true;
+
 		if (worldIn.isClientSide) {
+
 			setViewScale(4);
+
 		}
+
 	}
 
 	@Override
@@ -65,6 +84,7 @@ public class EntityParticle extends Entity {
 		}
 		builder.define(DIRECTION, facingDirection);
 		builder.define(SPEED, speed);
+		builder.define(TICKS_ALIVE, ticksAlive);
 	}
 
 	@Override
@@ -74,7 +94,11 @@ public class EntityParticle extends Entity {
 		boolean isClientside = level.isClientSide();
 		boolean isServerside = !isClientside;
 
-		if(tickCount > 100) {
+		if(isServerside) {
+			ticksAlive++;
+		}
+
+		if(ticksAlive > Constants.PARTICLE_SURVIVAL_TICKS) {
 			removeAfterChangingDimensions();
 		}
 
@@ -118,7 +142,7 @@ public class EntityParticle extends Entity {
 
 
 		int i = 0;
-		int checks = 2;//(int) (Math.ceil(speed) * 2);
+		int checks = (int) (Math.ceil(speed) * 2.0);
 		float localSpeed = speed / checks;
 
 		while(i < checks) {
@@ -143,7 +167,7 @@ public class EntityParticle extends Entity {
 
 				Direction boosterFacing = startOfLoopState.getValue(ElectrodynamicsBlockStates.FACING).getOpposite();
 
-				FacingDirection boosterOrientation = startOfLoopState.getValue(BlockElectromagneticBooster.FACINGDIRECTION);
+				FacingDirection boosterOrientation = startOfLoopState.getValue(NuclearScienceBlockStates.FACINGDIRECTION);
 
 				if (boosterOrientation == FacingDirection.RIGHT) {
 
@@ -255,15 +279,17 @@ public class EntityParticle extends Entity {
 
 			}
 
-			// Server-side only code
+			/* Server-side only code */
 
 			BlockPos postMovePos = blockPosition();
 
 			BlockState postMoveState = level.getBlockState(postMovePos);
 
+			boolean isGateway = isGateway(postMoveState);
+
 			//Check if we are now moved into air, a switch, or a gateway
 
-			if (postMoveState.isAir() || isSwitch(postMoveState) || isGateway(postMoveState)) {
+			if (postMoveState.isAir() || isSwitch(postMoveState) || isGateway) {
 
 				int amount = 0;
 
@@ -271,7 +297,7 @@ public class EntityParticle extends Entity {
 
 				for (Direction dir : Direction.values()) {
 
-					if (level.getBlockState(blockPosition().relative(dir)).is(NuclearScienceTags.Blocks.ELECTROMAGNETIC_CONTAINMENT)) {
+					if (level.getBlockState(blockPosition().relative(dir)).is(NuclearScienceTags.Blocks.PARTICLE_CONTAINMENT)) {
 
 						amount++;
 
@@ -289,6 +315,11 @@ public class EntityParticle extends Entity {
 					break;
 				}
 
+				if(isGateway && !passedThroughGate) {
+                    level.playSound(null, blockPosition(), SoundEvents.IRON_TRAPDOOR_OPEN, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    passedThroughGate = true;
+				}
+
 				// Get the state in front of us
 
 				BlockPos inFrontOfUs = postMovePos.relative(facingDirection);
@@ -299,7 +330,7 @@ public class EntityParticle extends Entity {
 
 				// Check if we cant move through the block in front of us
 
-				if (inFrontOfUsState.is(NuclearScienceTags.Blocks.ELECTROMAGNETIC_CONTAINMENT) && !isSwitch(inFrontOfUsState) && !canPassThroughGateway(level.getBlockEntity(inFrontOfUs), inFrontOfUsState)) {
+				if (inFrontOfUsState.is(NuclearScienceTags.Blocks.PARTICLE_CONTAINMENT) && !isSwitch(inFrontOfUsState) && !canPassThroughGateway(level.getBlockEntity(inFrontOfUs), inFrontOfUsState)) {
 
 					// Check to the right
 
@@ -366,7 +397,7 @@ public class EntityParticle extends Entity {
 
 					if (oldDir != nextDir) {
 
-						FacingDirection face = startOfLoopState.getValue(BlockElectromagneticBooster.FACINGDIRECTION);
+						FacingDirection face = startOfLoopState.getValue(NuclearScienceBlockStates.FACINGDIRECTION);
 
 						if (face == FacingDirection.RIGHT) {
 
@@ -572,13 +603,11 @@ public class EntityParticle extends Entity {
 	}
 
 	public boolean isGateway(BlockState state) {
-
-		return false;
+		return state.is(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICGATEWAY);
 	}
 
 	public boolean canPassThroughGateway(BlockEntity entity, BlockState state) {
-
-		return false;
+		return isGateway(state) && entity instanceof TileElectromagneticGateway gateway && gateway.mayPassThrough(speed);
 	}
 
 
@@ -589,20 +618,20 @@ public class EntityParticle extends Entity {
 
 	@Override
 	protected void readAdditionalSaveData(CompoundTag compound) {
-		source = new BlockPos(compound.getInt("sourceX"), compound.getInt("sourceY"), compound.getInt("sourceZ"));
-	}
-
-	@Override
-	public Component getName() {
-		return Component.translatable("entity.particle");
+		Optional<BlockPos> optional = NbtUtils.readBlockPos(compound, "injector");
+        optional.ifPresent(pos -> source = pos);
+		passedThroughGate = compound.getBoolean("passedthroughgate");
 	}
 
 	@Override
 	protected void addAdditionalSaveData(CompoundTag compound) {
-		compound.putInt("sourceX", source.getX());
-		compound.putInt("sourceY", source.getY());
-		compound.putInt("sourceZ", source.getZ());
+		compound.put("injector", NbtUtils.writeBlockPos(source));
+		compound.putBoolean("passedthroughgate", passedThroughGate);
 
 	}
 
+	@Override
+	protected Component getTypeName() {
+		return Component.translatable("entity.particle");
+	}
 }

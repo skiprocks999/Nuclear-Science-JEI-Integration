@@ -7,13 +7,14 @@ import electrodynamics.prefab.tile.components.type.ComponentTickable;
 import electrodynamics.prefab.utilities.object.CachedTileOutput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import nuclearscience.api.fusion.IElectromagnet;
 import nuclearscience.api.turbine.ISteamReceiver;
 import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
 import nuclearscience.common.settings.Constants;
+import nuclearscience.common.tags.NuclearScienceTags;
 import nuclearscience.registers.NuclearScienceTiles;
 import nuclearscience.registers.NuclearScienceBlocks;
 
@@ -45,7 +46,7 @@ public class TilePlasma extends GenericTile {
 				boolean didntExist = false;
 				if (state.getBlock() != getBlockState().getBlock()) {
 					didntExist = true;
-					if (state.getDestroySpeed(level, offset) != -1 && !(state.getBlock() instanceof IElectromagnet) && state.getBlock() != NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fusionreactorcore)) {
+					if (state.getDestroySpeed(level, offset) != -1 && !state.is(NuclearScienceTags.Blocks.FUSION_CONTAINMENT) && state.getBlock() != NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fusionreactorcore)) {
 						level.setBlockAndUpdate(offset, NuclearScienceBlocks.BLOCK_PLASMA.get().defaultBlockState());
 					}
 				}
@@ -60,7 +61,7 @@ public class TilePlasma extends GenericTile {
 				}
 			}
 		}
-		if (ticksExisted.get() > 1 && level.getBlockState(getBlockPos().relative(Direction.UP)).getBlock() instanceof IElectromagnet && level.getBlockState(getBlockPos().relative(Direction.UP, 2)).getBlock() == Blocks.WATER) {
+		if (ticksExisted.get() > 1 && level.getBlockState(getBlockPos().relative(Direction.UP)).is(NuclearScienceTags.Blocks.FUSION_CONTAINMENT) && level.getFluidState(getBlockPos().relative(Direction.UP, 2)).is(FluidTags.WATER)) {
 			if (output == null) {
 				output = new CachedTileOutput(level, getBlockPos().relative(Direction.UP, 3));
 			} else if (output.getSafe() instanceof ISteamReceiver) {

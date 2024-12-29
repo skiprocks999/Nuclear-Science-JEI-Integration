@@ -42,7 +42,7 @@ public class NuclearScienceBlocks {
         }
     }));
 
-    public static final DeferredHolder<Block, BlockTurbine> BLOCK_TURBINE = BLOCKS.register("turbine", () -> new BlockTurbine());
+    public static final DeferredHolder<Block, BlockTurbine> BLOCK_TURBINE = BLOCKS.register("turbine", BlockTurbine::new);
 
     public static final BulkDeferredHolder<Block, BlockMachine, SubtypeNuclearMachine> BLOCKS_NUCLEARMACHINE = new BulkDeferredHolder<>(SubtypeNuclearMachine.values(), subtype -> BLOCKS.register(subtype.tag(), () -> {
 
@@ -71,15 +71,26 @@ public class NuclearScienceBlocks {
 
     );
 
-    public static final DeferredHolder<Block, BlockElectromagnet> BLOCK_ELECTROMAGNET = BLOCKS.register("electromagnet", () -> new BlockElectromagnet(Blocks.IRON_BLOCK.properties(), false));
-    public static final DeferredHolder<Block, BlockElectromagnet> BLOCK_ELECTROMAGNETICGLASS = BLOCKS.register("electromagneticglass", () -> new BlockElectromagnet(Blocks.GLASS.properties(), true));
-    public static final DeferredHolder<Block, BlockElectromagneticBooster> BLOCK_ELECTORMAGNETICBOOSTER = BLOCKS.register("electromagneticbooster", () -> new BlockElectromagneticBooster());
-    public static final DeferredHolder<Block, BlockElectromagneticSwitch> BLOCK_ELECTROMAGNETICSWITCH = BLOCKS.register("electromagneticswitch", () -> new BlockElectromagneticSwitch());
-    public static final DeferredHolder<Block, BlockPlasma> BLOCK_PLASMA = BLOCKS.register("plasma", () -> new BlockPlasma());
+    public static final BulkDeferredHolder<Block, Block, SubtypeElectromagent> BLOCKS_ELECTROMAGENT = new BulkDeferredHolder<>(SubtypeElectromagent.values(), subtype -> BLOCKS.register(subtype.tag(), () -> {
+
+        if(subtype == SubtypeElectromagent.electromagneticglass) {
+            return new BlockCustomGlass(3.5F, 20);
+        } else {
+            return new Block(Blocks.IRON_BLOCK.properties().strength(3.5F, 20).requiresCorrectToolForDrops());
+        }
+
+    }));
+
+    //public static final DeferredHolder<Block, BlockElectromagnet> BLOCK_ELECTROMAGNET = BLOCKS.register("electromagnet", () -> new BlockElectromagnet(Blocks.IRON_BLOCK.properties(), false));
+    //public static final DeferredHolder<Block, BlockElectromagnet> BLOCK_ELECTROMAGNETICGLASS = BLOCKS.register("electromagneticglass", () -> new BlockElectromagnet(Blocks.GLASS.properties(), true));
+    public static final DeferredHolder<Block, BlockElectromagneticBooster> BLOCK_ELECTORMAGNETICBOOSTER = BLOCKS.register("electromagneticbooster", BlockElectromagneticBooster::new);
+    public static final DeferredHolder<Block, BlockElectromagneticSwitch> BLOCK_ELECTROMAGNETICSWITCH = BLOCKS.register("electromagneticswitch", BlockElectromagneticSwitch::new);
+    public static final DeferredHolder<Block, BlockElectromagneticGateway> BLOCK_ELECTROMAGNETICGATEWAY = BLOCKS.register("electromagneticgateway", BlockElectromagneticGateway::new);
+    public static final DeferredHolder<Block, BlockPlasma> BLOCK_PLASMA = BLOCKS.register("plasma", BlockPlasma::new);
     public static final BulkDeferredHolder<Block, BlockMoltenSaltPipe, SubtypeMoltenSaltPipe> BLOCKS_MOLTENSALTPIPE = new BulkDeferredHolder<>(SubtypeMoltenSaltPipe.values(), subtype -> BLOCKS.register(subtype.tag(), () -> new BlockMoltenSaltPipe(subtype)));
     public static final BulkDeferredHolder<Block, BlockReactorLogisticsCable, SubtypeReactorLogisticsCable> BLOCKS_REACTORLOGISTICSCABLE = new BulkDeferredHolder<>(SubtypeReactorLogisticsCable.values(), subtype -> BLOCKS.register(subtype.tag(), () -> new BlockReactorLogisticsCable(subtype)));
-    public static final DeferredHolder<Block, BlockMeltedReactor> BLOCK_MELTEDREACTOR = BLOCKS.register("meltedreactor", () -> new BlockMeltedReactor());
-    public static final DeferredHolder<Block, BlockRadioactiveAir> BLOCK_RADIOACTIVEAIR = BLOCKS.register("radioactiveair", () -> new BlockRadioactiveAir());
+    public static final DeferredHolder<Block, BlockMeltedReactor> BLOCK_MELTEDREACTOR = BLOCKS.register("meltedreactor", BlockMeltedReactor::new);
+    public static final DeferredHolder<Block, BlockRadioactiveAir> BLOCK_RADIOACTIVEAIR = BLOCKS.register("radioactiveair", BlockRadioactiveAir::new);
     public static final BulkDeferredHolder<Block, BlockIrradiated, SubtypeIrradiatedBlock> BLOCKS_IRRADIATED = new BulkDeferredHolder<>(SubtypeIrradiatedBlock.values(), subtype -> BLOCKS.register(subtype.tag(), () -> new BlockIrradiated(subtype)));
 
 

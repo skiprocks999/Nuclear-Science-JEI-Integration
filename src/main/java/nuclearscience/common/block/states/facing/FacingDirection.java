@@ -1,4 +1,4 @@
-package nuclearscience.common.block.facing;
+package nuclearscience.common.block.states.facing;
 
 import java.util.Locale;
 

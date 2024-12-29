@@ -22,9 +22,9 @@ public class NuclearScienceLootTablesProvider extends ElectrodynamicsLootTablesP
 		addMachineTable(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.atomicassembler), NuclearScienceTiles.TILE_ATOMICASSEMBLER, true, false, false, true, false);
 		addMachineTable(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.chemicalextractor), NuclearScienceTiles.TILE_CHEMICALEXTRACTOR, true, true, false, true, false);
 		addSimpleBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fissioncontrolrod));
-		addSimpleBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNET.get());
+		addSimpleBlock(NuclearScienceBlocks.BLOCKS_ELECTROMAGENT.getValue(SubtypeElectromagent.electromagnet));
 		addSimpleBlock(NuclearScienceBlocks.BLOCK_ELECTORMAGNETICBOOSTER.get());
-		addSimpleBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICGLASS.get());
+		addSimpleBlock(NuclearScienceBlocks.BLOCKS_ELECTROMAGENT.getValue(SubtypeElectromagent.electromagneticglass));
 		addSimpleBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICSWITCH.get());
 		addMachineTable(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.freezeplug), NuclearScienceTiles.TILE_FREEZEPLUG, true, false, false, false, false);
 		addMachineTable(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fuelreprocessor), NuclearScienceTiles.TILE_FUELREPROCESSOR, true, false, false, true, false);

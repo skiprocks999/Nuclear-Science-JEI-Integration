@@ -1,4 +1,4 @@
-package nuclearscience.common.block.facing;
+package nuclearscience.common.block.states.facing;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -10,6 +10,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 
 public class FacingDirectionProperty extends EnumProperty<FacingDirection> {
+
 	protected FacingDirectionProperty(String name, Collection<FacingDirection> values) {
 		super(name, FacingDirection.class, values);
 	}
@@ -18,8 +19,8 @@ public class FacingDirectionProperty extends EnumProperty<FacingDirection> {
 		return create(name, Arrays.stream(FacingDirection.values()).filter(filter).collect(Collectors.toList()));
 	}
 
-	public static FacingDirectionProperty create(String p_196962_0_, FacingDirection... p_196962_1_) {
-		return create(p_196962_0_, Lists.newArrayList(p_196962_1_));
+	public static FacingDirectionProperty create(String name, FacingDirection... directions) {
+		return create(name, Lists.newArrayList(directions));
 	}
 
 	public static FacingDirectionProperty create(String name, Collection<FacingDirection> values) {

@@ -67,8 +67,8 @@ public class NuclearScienceTags {
 
 	public static class Blocks {
 
-		public static final TagKey<Block> ELECTROMAGNETIC_CONTAINMENT = forgeTag("electromagnetic_containment");
-		public static final TagKey<Block> ELECTROMAGNETIC_PATHWAY = forgeTag("electromagnetic_pathway");
+		public static final TagKey<Block> PARTICLE_CONTAINMENT = forgeTag("particle_containment");
+		public static final TagKey<Block> FUSION_CONTAINMENT = forgeTag("fusion_containment");
 
 
 		private static void init() {

@@ -11,10 +11,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import nuclearscience.api.fusion.IElectromagnet;
 import nuclearscience.common.tile.accelerator.TileElectromagneticSwitch;
 
-public class BlockElectromagneticSwitch extends GenericEntityBlock implements IElectromagnet {
+public class BlockElectromagneticSwitch extends GenericEntityBlock {
 	private static final VoxelShape shape = Shapes.box(0, 0, 0, 1.0, 2.0 / 16.0, 1.0);
 
 	@Override

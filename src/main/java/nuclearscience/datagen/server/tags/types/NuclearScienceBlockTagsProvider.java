@@ -30,13 +30,11 @@ public class NuclearScienceBlockTagsProvider extends BlockTagsProvider {
                 //
                 .add(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getAllValuesArray(new BlockMachine[0]))
                 //
+                .add(NuclearScienceBlocks.BLOCKS_ELECTROMAGENT.getAllValuesArray(new Block[0]))
+                //
                 .add(
                         //
-                        NuclearScienceBlocks.BLOCK_ELECTROMAGNET.get(),
-                        //
                         NuclearScienceBlocks.BLOCK_ELECTORMAGNETICBOOSTER.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_ELECTROMAGNETICGLASS.get(),
                         //
                         NuclearScienceBlocks.BLOCK_ELECTROMAGNETICSWITCH.get(),
                         //
@@ -48,13 +46,11 @@ public class NuclearScienceBlockTagsProvider extends BlockTagsProvider {
                 //
                 .add(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getAllValuesArray(new BlockMachine[0]))
                 //
+                .add(NuclearScienceBlocks.BLOCKS_ELECTROMAGENT.getAllValuesArray(new Block[0]))
+                //
                 .add(
                         //
-                        NuclearScienceBlocks.BLOCK_ELECTROMAGNET.get(),
-                        //
                         NuclearScienceBlocks.BLOCK_ELECTORMAGNETICBOOSTER.get(),
-                        //
-                        NuclearScienceBlocks.BLOCK_ELECTROMAGNETICGLASS.get(),
                         //
                         NuclearScienceBlocks.BLOCK_ELECTROMAGNETICSWITCH.get(),
                         //
@@ -68,7 +64,21 @@ public class NuclearScienceBlockTagsProvider extends BlockTagsProvider {
 
         tag(Tags.Blocks.NEEDS_WOOD_TOOL).add(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.soil), NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.grass), NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.petrifiedwood));
 
-        tag(NuclearScienceTags.Blocks.ELECTROMAGNETIC_CONTAINMENT).add(NuclearScienceBlocks.BLOCK_ELECTROMAGNET.get(), NuclearScienceBlocks.BLOCK_ELECTROMAGNETICGLASS.get(), NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.particleinjector)); //TODO add gateway to this tag
+        tag(NuclearScienceTags.Blocks.PARTICLE_CONTAINMENT)
+                //
+                .add(NuclearScienceBlocks.BLOCKS_ELECTROMAGENT.getAllValuesArray(new Block[0]))
+                //
+                .add(
+                        //
+                        NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.particleinjector),
+                        //
+                        NuclearScienceBlocks.BLOCK_ELECTORMAGNETICBOOSTER.get(),
+                        //
+                        NuclearScienceBlocks.BLOCK_ELECTROMAGNETICSWITCH.get()
+                        //
+                ); //TODO add gateway to this tag
+
+        tag(NuclearScienceTags.Blocks.FUSION_CONTAINMENT).add(NuclearScienceBlocks.BLOCKS_ELECTROMAGENT.getAllValuesArray(new Block[0]));
 
     }
 

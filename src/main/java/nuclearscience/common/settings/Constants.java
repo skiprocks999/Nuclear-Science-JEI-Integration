@@ -73,5 +73,9 @@ public class Constants {
 	public static int RADIOACTIVE_PROCESSOR_RADIATION_RADIUS = 5;
 	@IntValue(def = 10)
 	public static int RADIO_GENATOR_RADIATION_RADIUS = 10;
+	@IntValue(def = 50)
+	public static int DEFAULT_PARTICLE_COOLDOWN_TICKS = 50;
+	@IntValue(def = 100)
+	public static int PARTICLE_SURVIVAL_TICKS = 100;
 
 }

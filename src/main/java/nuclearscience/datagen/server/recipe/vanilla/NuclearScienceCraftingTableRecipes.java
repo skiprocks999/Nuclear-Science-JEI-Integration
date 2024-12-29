@@ -14,10 +14,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.Tags;
 import nuclearscience.References;
-import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
-import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
-import nuclearscience.common.block.subtype.SubtypeRadiationShielding;
-import nuclearscience.common.block.subtype.SubtypeReactorLogisticsCable;
+import nuclearscience.common.block.subtype.*;
 import nuclearscience.common.tags.NuclearScienceTags;
 import nuclearscience.registers.NuclearScienceItems;
 
@@ -160,7 +157,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.complete(References.ID, "cellempty_clearglass", output);
 
-		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_ELECTROMAGNET.get(), 1)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_ELECTROMAGNET.getValue(SubtypeElectromagent.electromagnet), 1)
 				//
 				.addPattern("BSB")
 				//
@@ -176,7 +173,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.complete(References.ID, "electromagnet_steelbronze", output);
 
-		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_ELECTROMAGNET.get(), 15)
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_ELECTROMAGNET.getValue(SubtypeElectromagent.electromagnet), 15)
 				//
 				.addPattern("THT")
 				//
@@ -196,15 +193,15 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addPattern("EGE")
 				//
-				.addKey('E', NuclearScienceItems.ITEM_ELECTROMAGNET.get())
+				.addKey('E', NuclearScienceItems.ITEMS_ELECTROMAGNET.getValue(SubtypeElectromagent.electromagnet))
 				//
-				.addKey('G', NuclearScienceItems.ITEM_ELECTROMAGNETICGLASS.get())
+				.addKey('G', NuclearScienceItems.ITEMS_ELECTROMAGNET.getValue(SubtypeElectromagent.electromagneticglass))
 				//
 				.complete(References.ID, "electromagneticbooster", output);
 
-		ShapelessCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_ELECTROMAGNETICGLASS.get(), 1)
+		ShapelessCraftingRecipeBuilder.start(NuclearScienceItems.ITEMS_ELECTROMAGNET.getValue(SubtypeElectromagent.electromagneticglass), 1)
 				//
-				.addIngredient(NuclearScienceItems.ITEM_ELECTROMAGNET.get())
+				.addIngredient(NuclearScienceItems.ITEMS_ELECTROMAGNET.getValue(SubtypeElectromagent.electromagnet))
 				//
 				.addIngredient(Tags.Items.GLASS_BLOCKS)
 				//
@@ -690,7 +687,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addKey('U', ElectrodynamicsTags.Items.CIRCUITS_ULTIMATE)
 				//
-				.addKey('E', NuclearScienceItems.ITEM_ELECTROMAGNET.get())
+				.addKey('E', NuclearScienceItems.ITEMS_ELECTROMAGNET.getValue(SubtypeElectromagent.electromagnet))
 				//
 				.addKey('C', NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.msreactorcore))
 				//
@@ -814,7 +811,7 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addPattern("MTM")
 				//
-				.addKey('M', NuclearScienceItems.ITEM_ELECTROMAGNET.get())
+				.addKey('M', NuclearScienceItems.ITEMS_ELECTROMAGNET.getValue(SubtypeElectromagent.electromagnet))
 				//
 				.addKey('T', ElectrodynamicsItems.ITEMS_MACHINE.getValue(SubtypeMachine.upgradetransformer))
 				//
@@ -1012,9 +1009,9 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addPattern("GRG")
 				//
-				.addKey('G', NuclearScienceItems.ITEM_ELECTROMAGNETICGLASS.get())
+				.addKey('G', NuclearScienceItems.ITEMS_ELECTROMAGNET.getValue(SubtypeElectromagent.electromagneticglass))
 				//
-				.addKey('E', NuclearScienceItems.ITEM_ELECTROMAGNET.get())
+				.addKey('E', NuclearScienceItems.ITEMS_ELECTROMAGNET.getValue(SubtypeElectromagent.electromagnet))
 				//
 				.addKey('C', ElectrodynamicsTags.Items.CIRCUITS_ULTIMATE)
 				//

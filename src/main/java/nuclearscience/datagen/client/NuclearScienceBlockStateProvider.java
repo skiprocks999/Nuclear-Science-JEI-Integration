@@ -14,8 +14,8 @@ import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import nuclearscience.References;
-import nuclearscience.common.block.BlockElectromagneticBooster;
-import nuclearscience.common.block.facing.FacingDirection;
+import nuclearscience.common.block.states.NuclearScienceBlockStates;
+import nuclearscience.common.block.states.facing.FacingDirection;
 import nuclearscience.common.block.subtype.*;
 import nuclearscience.registers.NuclearScienceBlocks;
 
@@ -35,8 +35,8 @@ public class NuclearScienceBlockStateProvider extends ElectrodynamicsBlockStateP
         glassBlock(NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.glass), blockLoc("leadlinedglass"), true);
         trapdoorBlock((TrapDoorBlock) NuclearScienceBlocks.BLOCKS_RADIATION_SHIELDING.getValue(SubtypeRadiationShielding.trapdoor), blockLoc("leadlinedtrapdoor"), true);
 
-        simpleColumnBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNET.get(), blockLoc("electromagnet"), blockLoc("electromagnettop"), true);
-        glassBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICGLASS, blockLoc("electromagneticglass"), true);
+        simpleColumnBlock(NuclearScienceBlocks.BLOCKS_ELECTROMAGENT.getValue(SubtypeElectromagent.electromagnet), blockLoc("electromagnet"), blockLoc("electromagnettop"), true);
+        glassBlock(NuclearScienceBlocks.BLOCKS_ELECTROMAGENT.getValue(SubtypeElectromagent.electromagneticglass), blockLoc("electromagneticglass"), true);
         simpleBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.freezeplug), existingBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.freezeplug)), true);
         simpleBlockCustomRenderType(NuclearScienceBlocks.BLOCK_PLASMA, blockLoc("plasma"), ResourceLocation.parse("translucent"), true);
         airBlock(NuclearScienceBlocks.BLOCK_RADIOACTIVEAIR, "block/plasma", true);
@@ -156,29 +156,29 @@ public class NuclearScienceBlockStateProvider extends ElectrodynamicsBlockStateP
     public ItemModelBuilder rotatedLeftRightBlock(Block block, ModelFile none, ModelFile left, ModelFile right, int rotationOffset, boolean registerItem) {
         getVariantBuilder(block)
                 //
-                .partialState().with(ElectrodynamicsBlockStates.FACING, Direction.NORTH).with(BlockElectromagneticBooster.FACINGDIRECTION, FacingDirection.NONE).modelForState().modelFile(none).rotationY((270 + rotationOffset) % 360).addModel()
+                .partialState().with(ElectrodynamicsBlockStates.FACING, Direction.NORTH).with(NuclearScienceBlockStates.FACINGDIRECTION, FacingDirection.NONE).modelForState().modelFile(none).rotationY((270 + rotationOffset) % 360).addModel()
                 //
-                .partialState().with(ElectrodynamicsBlockStates.FACING, Direction.EAST).with(BlockElectromagneticBooster.FACINGDIRECTION, FacingDirection.NONE).modelForState().modelFile(none).rotationY((0 + rotationOffset) % 360).addModel()
+                .partialState().with(ElectrodynamicsBlockStates.FACING, Direction.EAST).with(NuclearScienceBlockStates.FACINGDIRECTION, FacingDirection.NONE).modelForState().modelFile(none).rotationY((0 + rotationOffset) % 360).addModel()
                 //
-                .partialState().with(ElectrodynamicsBlockStates.FACING, Direction.SOUTH).with(BlockElectromagneticBooster.FACINGDIRECTION, FacingDirection.NONE).modelForState().modelFile(none).rotationY((90 + rotationOffset) % 360).addModel()
+                .partialState().with(ElectrodynamicsBlockStates.FACING, Direction.SOUTH).with(NuclearScienceBlockStates.FACINGDIRECTION, FacingDirection.NONE).modelForState().modelFile(none).rotationY((90 + rotationOffset) % 360).addModel()
                 //
-                .partialState().with(ElectrodynamicsBlockStates.FACING, Direction.WEST).with(BlockElectromagneticBooster.FACINGDIRECTION, FacingDirection.NONE).modelForState().modelFile(none).rotationY((180 + rotationOffset) % 360).addModel()
+                .partialState().with(ElectrodynamicsBlockStates.FACING, Direction.WEST).with(NuclearScienceBlockStates.FACINGDIRECTION, FacingDirection.NONE).modelForState().modelFile(none).rotationY((180 + rotationOffset) % 360).addModel()
                 //
-                .partialState().with(ElectrodynamicsBlockStates.FACING, Direction.NORTH).with(BlockElectromagneticBooster.FACINGDIRECTION, FacingDirection.LEFT).modelForState().modelFile(left).rotationY((270 + rotationOffset) % 360).addModel()
+                .partialState().with(ElectrodynamicsBlockStates.FACING, Direction.NORTH).with(NuclearScienceBlockStates.FACINGDIRECTION, FacingDirection.LEFT).modelForState().modelFile(left).rotationY((270 + rotationOffset) % 360).addModel()
                 //
-                .partialState().with(ElectrodynamicsBlockStates.FACING, Direction.EAST).with(BlockElectromagneticBooster.FACINGDIRECTION, FacingDirection.LEFT).modelForState().modelFile(left).rotationY((0 + rotationOffset) % 360).addModel()
+                .partialState().with(ElectrodynamicsBlockStates.FACING, Direction.EAST).with(NuclearScienceBlockStates.FACINGDIRECTION, FacingDirection.LEFT).modelForState().modelFile(left).rotationY((0 + rotationOffset) % 360).addModel()
                 //
-                .partialState().with(ElectrodynamicsBlockStates.FACING, Direction.SOUTH).with(BlockElectromagneticBooster.FACINGDIRECTION, FacingDirection.LEFT).modelForState().modelFile(left).rotationY((90 + rotationOffset) % 360).addModel()
+                .partialState().with(ElectrodynamicsBlockStates.FACING, Direction.SOUTH).with(NuclearScienceBlockStates.FACINGDIRECTION, FacingDirection.LEFT).modelForState().modelFile(left).rotationY((90 + rotationOffset) % 360).addModel()
                 //
-                .partialState().with(ElectrodynamicsBlockStates.FACING, Direction.WEST).with(BlockElectromagneticBooster.FACINGDIRECTION, FacingDirection.LEFT).modelForState().modelFile(left).rotationY((180 + rotationOffset) % 360).addModel()
+                .partialState().with(ElectrodynamicsBlockStates.FACING, Direction.WEST).with(NuclearScienceBlockStates.FACINGDIRECTION, FacingDirection.LEFT).modelForState().modelFile(left).rotationY((180 + rotationOffset) % 360).addModel()
                 //
-                .partialState().with(ElectrodynamicsBlockStates.FACING, Direction.NORTH).with(BlockElectromagneticBooster.FACINGDIRECTION, FacingDirection.RIGHT).modelForState().modelFile(right).rotationY((270 + rotationOffset) % 360).addModel()
+                .partialState().with(ElectrodynamicsBlockStates.FACING, Direction.NORTH).with(NuclearScienceBlockStates.FACINGDIRECTION, FacingDirection.RIGHT).modelForState().modelFile(right).rotationY((270 + rotationOffset) % 360).addModel()
                 //
-                .partialState().with(ElectrodynamicsBlockStates.FACING, Direction.EAST).with(BlockElectromagneticBooster.FACINGDIRECTION, FacingDirection.RIGHT).modelForState().modelFile(right).rotationY((0 + rotationOffset) % 360).addModel()
+                .partialState().with(ElectrodynamicsBlockStates.FACING, Direction.EAST).with(NuclearScienceBlockStates.FACINGDIRECTION, FacingDirection.RIGHT).modelForState().modelFile(right).rotationY((0 + rotationOffset) % 360).addModel()
                 //
-                .partialState().with(ElectrodynamicsBlockStates.FACING, Direction.SOUTH).with(BlockElectromagneticBooster.FACINGDIRECTION, FacingDirection.RIGHT).modelForState().modelFile(right).rotationY((90 + rotationOffset) % 360).addModel()
+                .partialState().with(ElectrodynamicsBlockStates.FACING, Direction.SOUTH).with(NuclearScienceBlockStates.FACINGDIRECTION, FacingDirection.RIGHT).modelForState().modelFile(right).rotationY((90 + rotationOffset) % 360).addModel()
                 //
-                .partialState().with(ElectrodynamicsBlockStates.FACING, Direction.WEST).with(BlockElectromagneticBooster.FACINGDIRECTION, FacingDirection.RIGHT).modelForState().modelFile(right).rotationY((180 + rotationOffset) % 360).addModel();
+                .partialState().with(ElectrodynamicsBlockStates.FACING, Direction.WEST).with(NuclearScienceBlockStates.FACINGDIRECTION, FacingDirection.RIGHT).modelForState().modelFile(right).rotationY((180 + rotationOffset) % 360).addModel();
 
         if (registerItem) {
             return blockItem(block, none);

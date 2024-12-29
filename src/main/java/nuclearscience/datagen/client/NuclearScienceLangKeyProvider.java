@@ -80,10 +80,11 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addBlock(NuclearScienceBlocks.BLOCK_TURBINE, "Steam Turbine");
 			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.steamfunnel), "Steam Funnel");
 			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fissionreactorcore), "Fission Reactor Core");
-			addBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNET, "Electromagnet");
-			addBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICGLASS, "Electromagnetic Glass");
+			addBlock(NuclearScienceBlocks.BLOCKS_ELECTROMAGENT.getValue(SubtypeElectromagent.electromagnet), "Electromagnet");
+			addBlock(NuclearScienceBlocks.BLOCKS_ELECTROMAGENT.getValue(SubtypeElectromagent.electromagneticglass), "Electromagnetic Glass");
 			addBlock(NuclearScienceBlocks.BLOCK_ELECTORMAGNETICBOOSTER, "Electromagnetic Booster");
 			addBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICSWITCH, "Electromagnetic Switch");
+			addBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICGATEWAY, "Electromagnetic Gateway");
 			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fusionreactorcore), "Fusion Reactor Core");
 			addBlock(NuclearScienceBlocks.BLOCK_PLASMA, "Plasma");
 			addBlock(NuclearScienceBlocks.BLOCK_MELTEDREACTOR, "Melted Reactor Core");
@@ -152,6 +153,7 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addContainer("monitormodule", "Monitor Module");
 			addContainer("controlrodmodule", "Control Rod Module");
 			addContainer("thermometermodule", "Thermometer Module");
+			addContainer("electromagneticgateway", "Electromagnetic Gateway");
 
 			addGuiLabel("machine.usage", "Usage: %s");
 			addGuiLabel("machine.voltage", "Voltage: %s");
@@ -233,6 +235,8 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addGuiLabel("logisticsnetwork.signalinverted", "Inverted");
 			addGuiLabel("logisticsnetwork.modeconstant", "Constant");
 			addGuiLabel("logisticsnetwork.modebuildup", "Build-Up");
+
+			addGuiLabel("electromagneticswitch.targetspeed", "Target Speed");
 
 
 			addDamageSource("radiation", "%s just did a speedrun of evolution!");

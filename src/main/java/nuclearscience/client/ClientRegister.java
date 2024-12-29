@@ -82,6 +82,7 @@ public class ClientRegister {
         event.register(NuclearScienceMenuTypes.CONTAINER_CONTROLRODMODULE.get(), ScreenControlRodModule::new);
         event.register(NuclearScienceMenuTypes.CONTAINER_MONITORMODULE.get(), ScreenMonitorModule::new);
         event.register(NuclearScienceMenuTypes.CONTAINER_THERMOMETERMODULE.get(), ScreenThermometerModule::new);
+        event.register(NuclearScienceMenuTypes.CONTAINER_ELECTROMAGNETICGATEWAY.get(), ScreenElectromagneticGateway::new);
     }
 
     @SubscribeEvent

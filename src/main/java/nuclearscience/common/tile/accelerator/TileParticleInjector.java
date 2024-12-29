@@ -29,20 +29,15 @@ public class TileParticleInjector extends GenericTile {
 	public static final int ELECTRO_CELL_SLOT = 1;
 	public static final int OUTPUT_SLOT = 2;
 
-	public static final int TIME_PER_PARTICLE = 100;
-
-	private EntityParticle[] particles = new EntityParticle[2];
+	private final EntityParticle[] particles = new EntityParticle[2];
 	private int timeSinceSpawn = 0;
 
 	public final Property<Boolean> usingGateway = property(new Property<>(PropertyTypes.BOOLEAN, "usinggateway", false));
 
-	private boolean particleOneThroughGate = false;
-	private boolean particleTwoThroughGate = false;
-
 
 	public TileParticleInjector(BlockPos pos, BlockState state) {
 		super(NuclearScienceTiles.TILE_PARTICLEINJECTOR.get(), pos, state);
-		addComponent(new ComponentTickable(this).tickServer(this::tickServer));
+		addComponent(new ComponentTickable(this).tickServer(this::tickServer).tickCommon(this::tickCommon));
 		addComponent(new ComponentPacketHandler(this));
 		addComponent(new ComponentInventory(this, InventoryBuilder.newInv().inputs(2).outputs(1)).valid((index, stack, i) -> index != 1 || stack.getItem() == NuclearScienceItems.ITEM_CELLELECTROMAGNETIC.get()).setSlotsByDirection(BlockEntityUtils.MachineDirection.TOP, 0, 1)
 				//
@@ -51,9 +46,7 @@ public class TileParticleInjector extends GenericTile {
 		addComponent(new ComponentContainerProvider("container.particleinjector", this).createMenu((id, player) -> new ContainerParticleInjector(id, player, getComponent(IComponentType.Inventory), getCoordsArray())));
 	}
 
-	private void tickServer(ComponentTickable componentTickable) {
-
-		RadiationUtils.handleRadioactiveItems(this, (ComponentInventory) getComponent(IComponentType.Inventory), Constants.PARTICLE_INJECTOR_RADIATION_RADIUS, true, 0, false);
+	private void tickCommon(ComponentTickable tickable) {
 
 		if (particles[0] != null && !particles[0].isAlive()) {
 			particles[0] = null;
@@ -62,17 +55,36 @@ public class TileParticleInjector extends GenericTile {
 			particles[1] = null;
 		}
 
+		if(particles[0] == null && particles[1] != null) {
+			particles[0] = particles[1];
+			particles[1] = null;
+		}
+
+	}
+
+	private void tickServer(ComponentTickable componentTickable) {
+
+		RadiationUtils.handleRadioactiveItems(this, (ComponentInventory) getComponent(IComponentType.Inventory), Constants.PARTICLE_INJECTOR_RADIATION_RADIUS, true, 0, false);
+
 		ComponentElectrodynamic electro = getComponent(IComponentType.Electrodynamic);
 		ComponentInventory inv = getComponent(IComponentType.Inventory);
+
+		ItemStack input = inv.getItem(INPUT_SLOT);
+
+		if(electro.getJoulesStored() < Constants.PARTICLEINJECTOR_USAGE_PER_PARTICLE || input.isEmpty()) {
+			return;
+		}
+
+		if(usingGateway.get() && particles[0] != null && !particles[0].passedThroughGate) {
+			return;
+		}
 
 		if(timeSinceSpawn > 0) {
 			timeSinceSpawn--;
 			return;
 		}
 
-		ItemStack input = inv.getItem(INPUT_SLOT);
-
-		if(electro.getJoulesStored() < Constants.PARTICLEINJECTOR_USAGE_PER_PARTICLE || input.isEmpty() || (particles[0] != null && particles[1] != null)) {
+		if(particles[0] != null && particles[1] != null) {
 			return;
 		}
 
@@ -82,7 +94,7 @@ public class TileParticleInjector extends GenericTile {
 			return;
 		}
 
-		timeSinceSpawn = TIME_PER_PARTICLE;
+		timeSinceSpawn = Constants.DEFAULT_PARTICLE_COOLDOWN_TICKS;
 
 		input.shrink(1);
 
@@ -128,8 +140,6 @@ public class TileParticleInjector extends GenericTile {
 
 			particles[0] = particles[1] = null;
 
-			double mod = level.random.nextDouble();
-
 			if (speedOfMax > 0.999) {
 				if (resultStack.getItem() == NuclearScienceItems.ITEM_CELLDARKMATTER.get()) {
 					resultStack.setCount(resultStack.getCount() + 1);
@@ -138,7 +148,7 @@ public class TileParticleInjector extends GenericTile {
 					inv.setItem(2, new ItemStack(NuclearScienceItems.ITEM_CELLDARKMATTER.get()));
 					cellStack.shrink(1);
 				}
-			} else if (speedOfMax > mod) {
+			} else if (speedOfMax > level.random.nextDouble()) {
 				if (resultStack.getItem() == NuclearScienceItems.ITEM_CELLANTIMATTERSMALL.get()) {
 					resultStack.setCount(resultStack.getCount() + 1);
 					cellStack.shrink(1);
@@ -155,34 +165,38 @@ public class TileParticleInjector extends GenericTile {
 
 
 	public void addParticle(EntityParticle particle) {
-		if (particles[0] != particle && particles[1] != particle) {
-			if (particles[0] == null) {
-				particles[0] = particle;
+
+		if(particles[0] == null && particles[1] == null) {
+			particles[0] = particle;
+		}
+
+		if(particles[0] != null) {
+			if(particles[0].getUUID().equals(particle.getUUID())) {
+				return;
 			} else if (particles[1] == null) {
 				particles[1] = particle;
 			}
 		}
+
+		if(particles[1] != null) {
+			if(particles[1].getUUID().equals(particle.getUUID())) {
+				return;
+			} else if(particles[0] == null) {
+				particles[0] = particle;
+			}
+		}
+
 	}
 
 	@Override
 	protected void saveAdditional(CompoundTag compound, HolderLookup.Provider registries) {
 		super.saveAdditional(compound, registries);
 		compound.putInt("timesincespawn", timeSinceSpawn);
-		compound.putBoolean("particleonethroughgate", particleOneThroughGate);
-		compound.putBoolean("particletwothroughgate", particleTwoThroughGate);
 	}
 
 	@Override
 	protected void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
 		super.loadAdditional(compound, registries);
 		timeSinceSpawn = compound.getInt("timesincespawn");
-		particleOneThroughGate = compound.getBoolean("particleonethroughgate");
-		particleTwoThroughGate = compound.getBoolean("particletwothroughgate");
-	}
-
-	public void setPassedThroughGate(boolean passed) {
-		if(!particleTwoThroughGate && !particleOneThroughGate) {
-			particleOneThroughGate = passed;
-		}
 	}
 }

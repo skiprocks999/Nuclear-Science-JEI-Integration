@@ -10,10 +10,12 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import nuclearscience.client.ClientRegister;
+import nuclearscience.common.block.states.NuclearScienceBlockStates;
 import nuclearscience.common.block.voxelshapes.NuclearScienceVoxelShapes;
 import nuclearscience.common.reloadlistener.*;
 import nuclearscience.common.settings.Constants;
 import nuclearscience.common.tags.NuclearScienceTags;
+import nuclearscience.datagen.client.NuclearScienceBlockStateProvider;
 import nuclearscience.registers.UnifiedNuclearScienceRegister;
 
 @Mod(References.ID)
@@ -22,6 +24,7 @@ public class NuclearScience {
 
 	public NuclearScience(IEventBus bus) {
 		ConfigurationHandler.registerConfig(Constants.class);
+		NuclearScienceBlockStates.init();
 		NuclearScienceVoxelShapes.init();
 		UnifiedNuclearScienceRegister.register(bus);
 	}

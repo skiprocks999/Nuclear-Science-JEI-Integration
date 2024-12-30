@@ -23,6 +23,7 @@ public class NuclearScienceSounds {
 	public static final DeferredHolder<SoundEvent, SoundEvent> SOUND_GEIGERCOUNTER_5 = sound("geigercountersound5");
 	public static final DeferredHolder<SoundEvent, SoundEvent> SOUND_GEIGERCOUNTER_6 = sound("geigercountersound6");
 	public static final DeferredHolder<SoundEvent, SoundEvent> SOUND_LOGISTICSCONTROLLER = sound("logisticscontroller");
+	public static final DeferredHolder<SoundEvent, SoundEvent> SOUND_PARTICLE = sound("particle");
 
 	private static DeferredHolder<SoundEvent, SoundEvent> sound(String name) {
 		return SOUNDS.register(name, () -> SoundEvent.createFixedRangeEvent(ResourceLocation.parse(References.ID + ":" + name), 16.0F));

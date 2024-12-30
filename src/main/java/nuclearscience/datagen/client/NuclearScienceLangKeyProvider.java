@@ -275,6 +275,8 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addTooltip("particleinjector.gatewaymode", "Toggle Gateway Mode");
 			addTooltip("particleinjector.gatewayenabled", "Enabled");
 			addTooltip("particleinjector.gatewaydisabled", "Disabled");
+			addTooltip("particleinjector.particle1speed", "Particle 1: %s");
+			addTooltip("particleinjector.particle2speed", "Particle 2: %s");
 
 			addSubtitle(NuclearScienceSounds.SOUND_GASCENTRIFUGE, "Gas Centrifuge spins");
 			addSubtitle(NuclearScienceSounds.SOUND_NUCLEARBOILER, "Nuclear Boiler boils");
@@ -287,6 +289,7 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addSubtitle(NuclearScienceSounds.SOUND_GEIGERCOUNTER_5, "Geiger Counter ticks!");
 			addSubtitle(NuclearScienceSounds.SOUND_GEIGERCOUNTER_6, "Geiger Counter ticks!");
 			addSubtitle(NuclearScienceSounds.SOUND_LOGISTICSCONTROLLER, "Reactor Logistics Controller runs");
+			addSubtitle(NuclearScienceSounds.SOUND_PARTICLE, "Particle Accelerates");
 
 			addJei(NuclearBoilerRecipe.RECIPE_GROUP, "Nuclear Boiler");
 			addJei(ChemicalExtractorRecipe.RECIPE_GROUP, "Chemical Extractor");
@@ -431,24 +434,36 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 
 
 			addGuidebook("chapter.particleaccelerator", "Particle Accelerator");
-			addGuidebook("chapter.particleaccelerator.l1", "The Particle Accelerator is used to make Anti-Matter and Dark Matter. Both are generated when two Particles collide at great speeds. The result of a particle collision is determined by the following formula:");
+			addGuidebook("chapter.particleaccelerator.l1", "The Particle Accelerator is used to make Anti-Matter and Dark Matter. Both are generated when two Particles collide at semi-luminal speeds. The result of a particle collision is determined by the following formula:");
 			addGuidebook("chapter.particleaccelerator.formula", "((s1 + s2) / 4) ^ 2");
-			addGuidebook("chapter.particleaccelerator.l2", "where s1 and s2 are the speeds of the two particles. Dark Matter is created when the resulting value is greater than 0.999, and has a 100% chance of being created. Otherwise, Anti-Matter is created from the collision. However, the chance of Anti-Matter being generated is not guaranteed, and its chance of being created " +
-					"increases the closer the resulting value gets to 0.999.");
+			addGuidebook("chapter.particleaccelerator.l2", "where s1 and s2 are the speeds of the two particles. Dark Matter is created when the resulting value is greater than 0.999, and has a 100% chance of being created. To achieve this, both particles must be traveling at least 99.99% the Speed of Light. Otherwise, Anti-Matter is created from the collision. " +
+					"Unlike Dark Matter, the chance of Anti-Matter being generated is not guaranteed, and its chance of being created increases the closer the resulting value gets to 0.999. Note nothing will be created if both particles are not traveling at least 50% the speed of light.");
 
-			addGuidebook("chapter.particleaccelerator.l3", "In order to collide particles, you will first need to create particles. For this, you will need a Particle Injector. The Injector uses matter to make a particle. Any block or item can be used to supply the matter. Place the matter in its respective slot in the Injector. To catch the result of the collision, " + "you will need to craft an Electromagnetic Cell and place it in its respective slot in the Injector as well. The Injector uses 200 MJ per particle at 960 V. This means you will need 400 MJ for each collision.");
+			addGuidebook("chapter.particleaccelerator.l3", "In order to collide particles, you will first need to create them. For this, you will need a %1$s. The Injector uses matter to make a particle, and any block or item can be used to supply the matter. Place the matter in its respective slot in the Injector. While this will create the particle, to actually catch the " +
+					"result of the collision, you will need to craft an %2$s and insert it as well. The Injector uses %3$s per particle at 960 V. This means you will actually need %4$s for each collision. Note the injector can be disabled using redstone.");
 
-			addGuidebook("chapter.particleaccelerator.l4", "While the Injector creates particles, it spawns them at very low speeds. In order to facilitate a collision, both particles will need to be moving at very high speeds. This can be accomplished by passing a Particle through an Electromagnetic Booster. If the Particle and Booster are facing the " + "same direction, the Booster will increase the Particle's speed by 0.33% for every tick the Particle is inside the Booster. If the Booster is a corner, it will increase the Particle's speed by 0.17% for every tick the Particle is inside the Booster. This means that the faster a Particle moves, " + "the less effective each successive Booster becomes. It is important to note that moving particles emit radiation.");
+			addGuidebook("chapter.particleaccelerator.l4", "While the Injector creates particles, it only spawns them at very low speeds. In order to achieve the speeds needed for a collision, the particle will need to be passed through an %1$s. Particles while passing through boosters follow two simple principles. If the Particle and Booster are facing the same direction, the " +
+					"Booster will increase the Particle's speed by %2$s for every tick the Particle is inside the Booster. If the Booster is a corner causing the particle to turn, the Particle's speed will receive a %3$s penalty for each tick it is inside the corner. This means that corners should be kept to a minimum when creating the accelerator ring. It is worth noting now that moving " +
+					"particles emit radiation.");
 
-			addGuidebook("chapter.particleaccelerator.l5", "To reach 100% speed, it will take 200 Boosters in a straight line. However, this would require a very large amount of room. Fortunately, Boosters can be set up in a snake pattern to help compact them by converting a placed Booster to a corner variant. To make one a corner variant, stand on top " + "of Booster segment you wish to turn, and place a Booster to start the next segment after the corner. Looking at the outter bottom corner of the next segment's Booster, place the corner Booster. If you did it properly, you will not be able to directly see the inside of Booster.");
+			addGuidebook("chapter.particleaccelerator.l5", "But how do we get two particles to actually collide? This is where regular Electromagnets come in. You will need to construct a ring of Electromagnets to allow the Particles to circle and collide. It is incredibly important to note that particles will expire after %s ticks, so it is desirable to make the Electromagnet " +
+					"ring as small as possible. In this example case, we will be using a 3x3 ring.");
+			addGuidebook("chapter.particleaccelerator.l6", "Start by laying out the bottom of the ring at the end of the Booster chain like so:");
 
-			addGuidebook("chapter.particleaccelerator.l6", "The Particle Accelerator setup pictured here with 60 Boosters has a roughly 1 in 5 chance of creating Anti Matter from a collision:");
+			addGuidebook("chapter.particleaccelerator.l7", "To ensure the particles actually collide, you will need to switch the direction of one, which can be accomplished using a %s. The Switch flips the direction of every other particle that crosses it. Place the switch at the entrance to the collider ring like so:");
+			addGuidebook("chapter.particleaccelerator.l8", "Now, fill in the sides and top of the ring to create an enclosed structure for the Particles. Note either Electromagnets or Electromagnetic Glass can be used. Note the turn penalty is no longer in affect once the particle passes through the switch for the first time.");
 
-			addGuidebook("chapter.particleaccelerator.l7", "But how do we get two particles to actually collide? This is where regular Electromagnets come in. You will need to construct a ring of Electromagnets to allow the Particles to circle and collide. It is incredibally important to note that particles will begin to lose speed the moment they exit " + "the Booster chain, so it is desirable to make the Electromagnet ring as small as possible. In this case, we will be using a 3x3 ring.");
-			addGuidebook("chapter.particleaccelerator.l8", "Start by laying out the bottom of the ring at the end of the Booster chain like so:");
+			addGuidebook("chapter.particleaccelerator.l9", "You may have noticed that up until now, there has been little discussion of how to construct the accelerator ring. This is because there are two methods to construct it. The first method is to create a line of accelerators long enough to achieve the particle's needed speed. This method is the simplest solution, " +
+					"however it is rather bulky, and attempts to compact it will result in many turns being introduced as can be demonstrated below:");
+			addGuidebook("chapter.particleaccelerator.l10", "While bulky, it is the fastest method to achieve collisions.");
 
-			addGuidebook("chapter.particleaccelerator.l9", "To ensure the particles actually collide, you will need to switch the direction of one. This is what the Electromagnetic Switch is for. The switch flips the direction of every other particle that crosses it. Place an Electromagnetic switch in front of the output of the Booster chain like so:");
-			addGuidebook("chapter.particleaccelerator.l10", "Now, fill in the sides and top of the ring to create an enclosed structure for the Particles. Note either Electromagnets or Electromagnetic Glass can be used.");
+			addGuidebook("chapter.particleaccelerator.l11", "The second option is to make use of a Cyclotron ring. This method is more complex and slower at producing collisions, however it gains the ability to be more space efficient. To make use of a Cyclotron ring, you will additionally need an %1$s and %2$s. To construct the Cyclotron, build a ring of Boosters. Note one corner " +
+					"will need to be a junction made of out Electromagnets to give the Particle Injector a spot.");
+			addGuidebook("chapter.particleaccelerator.l12", "In another corner, place another Electromagnet junction to give the Electromagnetic Gateway access to the ring. The most efficient spot to place the Gateway is in the same Junction as the Particle Injector.");
+			addGuidebook("chapter.particleaccelerator.l13", "The Gateway will only allow particles to pass through if they have a specific percentage speed of light equal or greater to the value programmed. The value can be programmed using the Gateway's GUI.");
+			addGuidebook("chapter.particleaccelerator.l14", "After the Gateway, place the Electromagnetic Diode. The arrow must be pointing in the direction of travel of the particle. Place the Electromagnetic Switch after the Diode.");
+			addGuidebook("chapter.particleaccelerator.l15", "Finally, surround everything with Electromagnets and create the collision loop.");
+			addGuidebook("chapter.particleaccelerator.l16", "An important item to note about the two methods described above is that the Injector must be programmed to use the respective method. This can be accomplished via the tab button in its GUI. You can also view the speed of the two particles by hovering over the Speed tab.");
 
 			addGuidebook("chapter.quantumtunnel", "Quantum Tunnel");
 			addGuidebook("chapter.quantumtunnel.l1", "The Quantum Tunnel is a highly useful block for moving things long distances. The block acts like those that have come before it including the infamous Tesseract, allowing various quantities to be transported between two points instantly and effortlessly. This chapter will discuss " +

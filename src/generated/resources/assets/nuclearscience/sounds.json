@@ -53,6 +53,12 @@
     ],
     "subtitle": "subtitles.nuclearscience.nuclearboiler"
   },
+  "particle": {
+    "sounds": [
+      "nuclearscience:particle"
+    ],
+    "subtitle": "subtitles.nuclearscience.particle"
+  },
   "siren": {
     "sounds": [
       "nuclearscience:siren"

@@ -16,7 +16,8 @@ public enum NuclearIconTypes implements ITexture {
 	CREATENEW(0, 0, 16, 16, 16, 16, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/component/icon/createnew.png")),
 	BUFFER(0, 0, 10, 11, 10, 11, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/component/icon/buffer.png")),
 	LINK(0, 0, 17, 15, 17, 15, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/component/icon/link.png")),
-	GATEWAY(0, 0, 16, 16, 16, 16, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/component/icon/gateway.png"));
+	GATEWAY(0, 0, 16, 16, 16, 16, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/component/icon/gateway.png")),
+	PARTICLEACCELERATOR_DMATOM(16, 16, 0, 0, 16, 16, ResourceLocation.parse(References.ID + ":textures/screen/jei/particleaccelerator_dmatom.png"));
 
 	private final int textU;
 	private final int textV;

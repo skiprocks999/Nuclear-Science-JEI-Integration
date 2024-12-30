@@ -2,6 +2,7 @@ package nuclearscience.common.entity;
 
 import java.util.Optional;
 
+import electrodynamics.Electrodynamics;
 import electrodynamics.common.block.states.ElectrodynamicsBlockStates;
 import electrodynamics.prefab.utilities.BlockEntityUtils;
 import net.minecraft.nbt.NbtUtils;
@@ -12,12 +13,11 @@ import nuclearscience.api.radiation.SimpleRadiationSource;
 import nuclearscience.common.block.states.NuclearScienceBlockStates;
 import nuclearscience.common.tags.NuclearScienceTags;
 import nuclearscience.common.tile.accelerator.TileElectromagneticGateway;
-import org.joml.Vector3f;
+import nuclearscience.prefab.sound.SoundBarrierMethods;
 
 import electrodynamics.prefab.utilities.object.Location;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -48,10 +48,11 @@ public class EntityParticle extends Entity {
 
     public static final float STARTING_SPEED = 0.02F;
     public static final float STRAIGHT_SPEED_INCREMENT = 0.01F / 3.0F;
-    public static final float TURN_SPEED_PENALTY = 0.95F;
+    public static final float TURN_SPEED_PENALTY = 0.90F;
     public static final float INVERT_SPEED_INCREMENT = -0.02F;
 
     public static final float MAX_SPEED = 2F;
+    public static final float MIN_COLLISION_SPEED = 1.0F;
 
     private Direction facingDirection = Direction.UP;
     private Direction switchDirection = Direction.UP;
@@ -60,6 +61,8 @@ public class EntityParticle extends Entity {
     public boolean passedThroughGate = false;
     private int ticksAlive = 0;
     private boolean passedThroughSwitch = false;
+
+    private boolean firstTick = true;
 
     public EntityParticle(EntityType<?> entityTypeIn, Level worldIn) {
         super(NuclearScienceEntities.ENTITY_PARTICLE.get(), worldIn);
@@ -112,12 +115,41 @@ public class EntityParticle extends Entity {
         boolean isServerside = !isClientside;
 
         if (isServerside) {
+
+            if (facingDirection == null) {
+                facingDirection = Direction.UP;
+            }
+            entityData.set(DIRECTION, facingDirection);
+            entityData.set(SPEED, speed);
+            entityData.set(TICKS_ALIVE, ticksAlive);
+            entityData.set(SOURCE, source);
+            entityData.set(PASSED_THROUGH_GATEWAY, passedThroughGate);
+            entityData.set(PASSED_THROUGH_SWITCH, passedThroughSwitch);
+            entityData.set(SWITCH_DIRECTION, switchDirection);
+
+            RadiationSystem.addRadiationSource(level, new SimpleRadiationSource(1000, 1, 2, true, 0, blockPosition(), false));
+
+        } else {
+
+            facingDirection = entityData.get(DIRECTION);
+            speed = entityData.get(SPEED);
+            ticksAlive = entityData.get(TICKS_ALIVE);
+            source = entityData.get(SOURCE);
+            passedThroughGate = entityData.get(PASSED_THROUGH_GATEWAY);
+            passedThroughSwitch = entityData.get(PASSED_THROUGH_SWITCH);
+            switchDirection = entityData.get(SWITCH_DIRECTION);
+        }
+
+        if (isServerside) {
             //Electrodynamics.LOGGER.info(speed);
             ticksAlive++;
         }
 
         if (ticksAlive > 1000) {
-            removeAfterChangingDimensions();
+            if(isServerside) {
+                removeAfterChangingDimensions();
+            }
+            return;
         }
 
         if (facingDirection == null || facingDirection == Direction.UP) {
@@ -141,25 +173,13 @@ public class EntityParticle extends Entity {
             return;
         }
 
-        if (isServerside) {
-
-            if (facingDirection == null) {
-                facingDirection = Direction.UP;
-            }
-            entityData.set(DIRECTION, facingDirection);
-            entityData.set(SPEED, speed);
-
-            RadiationSystem.addRadiationSource(level, new SimpleRadiationSource(1000, 1, 2, true, 0, blockPosition(), false));
-
-        } else {
-
-            facingDirection = entityData.get(DIRECTION);
-            speed = entityData.get(SPEED);
-
-        }
-
         if (facingDirection == null || facingDirection == Direction.UP || facingDirection == Direction.DOWN) {
             return;
+        }
+
+        if(firstTick && isClientside) {
+            firstTick = false;
+            SoundBarrierMethods.playParticleSound(this);
         }
 
 
@@ -177,6 +197,8 @@ public class EntityParticle extends Entity {
             boolean startofLoopStateIsDiode = isDiode(startOfLoopState);
 
             // Handle speed increase if we are in a booster
+
+            Vec3 proposedMove = new Vec3(getX() + facingDirection.getStepX() * localSpeed, getY(), getZ() + facingDirection.getStepZ() * localSpeed);
 
             if (startOfLoopStateIsBooster) {
 
@@ -210,7 +232,7 @@ public class EntityParticle extends Entity {
 
                     BlockPos floor = blockPosition();
 
-                    setPos(floor.getX() + 0.5, floor.getY() + 0.5, floor.getZ() + 0.5);
+                    proposedMove = new Vec3(floor.getX() + 0.5, floor.getY() + 0.5, floor.getZ() + 0.5);
 
                 }
 
@@ -228,15 +250,14 @@ public class EntityParticle extends Entity {
 
             // Move the particle
 
-            setPos(getX() + facingDirection.getStepX() * localSpeed, getY(), getZ() + facingDirection.getStepZ() * localSpeed);
+            BlockPos proposedMoveBlockPos = new BlockPos((int) Math.floor(proposedMove.x()), (int) Math.floor(proposedMove.y()), (int) Math.floor(proposedMove.z()));
 
             // If we were in a booster, check if we are now in a switch
 
             if ((startOfLoopStateIsBooster || startofLoopStateIsDiode) && !passedThroughSwitch) {
 
-                BlockPos positionNow = blockPosition();
 
-                if (isSwitch(level.getBlockState(positionNow))) {
+                if (isSwitch(level.getBlockState(proposedMoveBlockPos))) {
 
 
                     if (injector.particles[0].getUUID().equals(getUUID())) {
@@ -248,18 +269,18 @@ public class EntityParticle extends Entity {
                             Direction clockwise = facingDirection.getClockWise();
                             Direction counterClockwise = facingDirection.getCounterClockWise();
 
-                            if (facingDirection != otherSwitchDirection && level.getBlockState(positionNow.relative(facingDirection)).isAir()) {
+                            if (facingDirection != otherSwitchDirection && level.getBlockState(proposedMoveBlockPos.relative(facingDirection)).isAir()) {
                                 switchDirection = facingDirection;
                                 passedThroughSwitch = true;
-                            } else if (clockwise != otherSwitchDirection && level.getBlockState(positionNow.relative(clockwise)).isAir()) {
+                            } else if (clockwise != otherSwitchDirection && level.getBlockState(proposedMoveBlockPos.relative(clockwise)).isAir()) {
                                 switchDirection = clockwise;
                                 passedThroughSwitch = true;
-                            } else if (counterClockwise != otherSwitchDirection && level.getBlockState(positionNow.relative(counterClockwise)).isAir()) {
+                            } else if (counterClockwise != otherSwitchDirection && level.getBlockState(proposedMoveBlockPos.relative(counterClockwise)).isAir()) {
                                 switchDirection = counterClockwise;
                                 passedThroughSwitch = true;
                             } else {
                                 if (isServerside) {
-                                    level.explode(this, getX(), getY(), getZ(), speed, ExplosionInteraction.BLOCK);
+                                    level.explode(this, proposedMove.x(), proposedMove.y(), proposedMove.z(), speed, ExplosionInteraction.BLOCK);
 
                                     removeAfterChangingDimensions();
                                 }
@@ -271,18 +292,18 @@ public class EntityParticle extends Entity {
                             Direction clockwise = facingDirection.getClockWise();
                             Direction counterClockwise = facingDirection.getCounterClockWise();
 
-                            if (level.getBlockState(positionNow.relative(facingDirection)).isAir()) {
+                            if (level.getBlockState(proposedMoveBlockPos.relative(facingDirection)).isAir()) {
                                 switchDirection = facingDirection;
                                 passedThroughSwitch = true;
-                            } else if (level.getBlockState(positionNow.relative(clockwise)).isAir()) {
+                            } else if (level.getBlockState(proposedMoveBlockPos.relative(clockwise)).isAir()) {
                                 switchDirection = clockwise;
                                 passedThroughSwitch = true;
-                            } else if (level.getBlockState(positionNow.relative(counterClockwise)).isAir()) {
+                            } else if (level.getBlockState(proposedMoveBlockPos.relative(counterClockwise)).isAir()) {
                                 switchDirection = counterClockwise;
                                 passedThroughSwitch = true;
                             } else {
                                 if (isServerside) {
-                                    level.explode(this, getX(), getY(), getZ(), speed, ExplosionInteraction.BLOCK);
+                                    level.explode(this, proposedMove.x(), proposedMove.y(), proposedMove.z(), speed, ExplosionInteraction.BLOCK);
 
                                     removeAfterChangingDimensions();
                                 }
@@ -294,7 +315,7 @@ public class EntityParticle extends Entity {
 
                         if (!injector.particles[0].passedThroughSwitch) {
                             if (isServerside) {
-                                level.explode(this, getX(), getY(), getZ(), speed, ExplosionInteraction.BLOCK);
+                                level.explode(this, proposedMove.x(), proposedMove.y(), proposedMove.z(), speed, ExplosionInteraction.BLOCK);
 
                                 removeAfterChangingDimensions();
                             }
@@ -307,18 +328,18 @@ public class EntityParticle extends Entity {
                         Direction clockwise = facingDirection.getClockWise();
                         Direction counterClockwise = facingDirection.getCounterClockWise();
 
-                        if (facingDirection != otherSwitchDirection && level.getBlockState(positionNow.relative(facingDirection)).isAir()) {
+                        if (facingDirection != otherSwitchDirection && level.getBlockState(proposedMoveBlockPos.relative(facingDirection)).isAir()) {
                             switchDirection = facingDirection;
                             passedThroughSwitch = true;
-                        } else if (clockwise != otherSwitchDirection && level.getBlockState(positionNow.relative(clockwise)).isAir()) {
+                        } else if (clockwise != otherSwitchDirection && level.getBlockState(proposedMoveBlockPos.relative(clockwise)).isAir()) {
                             switchDirection = clockwise;
                             passedThroughSwitch = true;
-                        } else if (counterClockwise != otherSwitchDirection && level.getBlockState(positionNow.relative(counterClockwise)).isAir()) {
+                        } else if (counterClockwise != otherSwitchDirection && level.getBlockState(proposedMoveBlockPos.relative(counterClockwise)).isAir()) {
                             switchDirection = counterClockwise;
                             passedThroughSwitch = true;
                         } else {
                             if (isServerside) {
-                                level.explode(this, getX(), getY(), getZ(), speed, ExplosionInteraction.BLOCK);
+                                level.explode(this, proposedMove.x(), proposedMove.y(), proposedMove.z(), speed, ExplosionInteraction.BLOCK);
 
                                 removeAfterChangingDimensions();
                             }
@@ -329,7 +350,7 @@ public class EntityParticle extends Entity {
                     } else {
 
                         if (isServerside) {
-                            level.explode(this, getX(), getY(), getZ(), speed, ExplosionInteraction.BLOCK);
+                            level.explode(this, proposedMove.x(), proposedMove.y(), proposedMove.z(), speed, ExplosionInteraction.BLOCK);
 
                             removeAfterChangingDimensions();
                         }
@@ -342,28 +363,18 @@ public class EntityParticle extends Entity {
 
                         facingDirection = switchDirection;
 
-                        setPos(positionNow.getX() + 0.5, positionNow.getY() + 0.5, positionNow.getZ() + 0.5);
+                        proposedMove = new Vec3(proposedMoveBlockPos.getX() + 0.5, proposedMoveBlockPos.getY() + 0.5, proposedMoveBlockPos.getZ() + 0.5);
                     }
 
                 }
 
             }
 
-            if (isClientside) {
-
-                continue;
-
-            }
-
-            /* Server-side only code */
-
-            BlockPos postMovePos = blockPosition();
-
-            BlockState postMoveState = level.getBlockState(postMovePos);
+            BlockState proposedMoveState = level.getBlockState(proposedMoveBlockPos);
 
             //Check if we are now moved into air, a switch, or a gateway
 
-            if (postMoveState.isAir() || isSwitch(postMoveState) || isGateway(postMoveState) || isDiode(postMoveState)) {
+            if (proposedMoveState.isAir() || isSwitch(proposedMoveState) || isGateway(proposedMoveState) || isDiode(proposedMoveState)) {
 
                 int amount = 0;
 
@@ -371,7 +382,7 @@ public class EntityParticle extends Entity {
 
                 for (Direction dir : Direction.values()) {
 
-                    if (level.getBlockState(postMovePos.relative(dir)).is(NuclearScienceTags.Blocks.PARTICLE_CONTAINMENT)) {
+                    if (level.getBlockState(proposedMoveBlockPos.relative(dir)).is(NuclearScienceTags.Blocks.PARTICLE_CONTAINMENT)) {
 
                         amount++;
 
@@ -382,16 +393,20 @@ public class EntityParticle extends Entity {
 
                 if (amount < 4) {
 
-                    level.explode(this, getX(), getY(), getZ(), speed, ExplosionInteraction.BLOCK);
+                    if(isServerside) {
 
-                    removeAfterChangingDimensions();
+                        level.explode(this, proposedMove.x(), proposedMove.y(), proposedMove.z(), speed, ExplosionInteraction.BLOCK);
+
+                        removeAfterChangingDimensions();
+
+                    }
 
                     break;
                 }
 
                 // Get the state in front of us
 
-                BlockPos inFrontOfUs = postMovePos.relative(facingDirection);
+                BlockPos inFrontOfUs = proposedMoveBlockPos.relative(facingDirection);
 
                 BlockState inFrontOfUsState = level.getBlockState(inFrontOfUs);
 
@@ -400,8 +415,9 @@ public class EntityParticle extends Entity {
                 boolean canPassThroughGateway = canPassThroughGateway(level.getBlockEntity(inFrontOfUs), inFrontOfUsState);
 
                 if (canPassThroughGateway && !passedThroughGate) {
-                    level.playSound(null, blockPosition(), SoundEvents.IRON_TRAPDOOR_OPEN, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    level.playSound(null, proposedMoveBlockPos, SoundEvents.IRON_TRAPDOOR_OPEN, SoundSource.BLOCKS, 1.0F, 1.0F);
                     passedThroughGate = true;
+                    injector.timeSinceSpawn += 5;
                 }
 
                 // Check if we cant move through the block in front of us
@@ -412,7 +428,7 @@ public class EntityParticle extends Entity {
 
                     Direction checkRot = facingDirection.getClockWise();
 
-                    relative = postMovePos.relative(checkRot);
+                    relative = proposedMoveBlockPos.relative(checkRot);
 
                     inFrontOfUsState = level.getBlockState(relative);
 
@@ -420,11 +436,11 @@ public class EntityParticle extends Entity {
 
                     if (inFrontOfUsState.isAir() || (isBooster(inFrontOfUsState) && !passedThroughSwitch) || isSwitch(inFrontOfUsState) || canPassThroughGateway(level.getBlockEntity(relative), inFrontOfUsState) || canPassThroughDiode(inFrontOfUsState, checkRot)) {
 
-                        BlockPos floor = blockPosition();
+                        //BlockPos floor = blockPosition();
 
                         facingDirection = checkRot;
 
-                        setPos(floor.getX() + 0.5, floor.getY() + 0.5, floor.getZ() + 0.5);
+                        proposedMove = new Vec3(proposedMoveBlockPos.getX() + 0.5, proposedMoveBlockPos.getY() + 0.5, proposedMoveBlockPos.getZ() + 0.5);
 
                         if (!passedThroughGate && !passedThroughSwitch) {
                             setSpeed(speed *= TURN_SPEED_PENALTY);
@@ -436,7 +452,7 @@ public class EntityParticle extends Entity {
 
                         checkRot = facingDirection.getCounterClockWise();
 
-                        relative = postMovePos.relative(checkRot);
+                        relative = proposedMoveBlockPos.relative(checkRot);
 
                         inFrontOfUsState = level.getBlockState(relative);
 
@@ -444,14 +460,16 @@ public class EntityParticle extends Entity {
 
                         if (!inFrontOfUsState.isAir() && (!isBooster(inFrontOfUsState) && !passedThroughSwitch) && !isSwitch(inFrontOfUsState) && !canPassThroughGateway(level.getBlockEntity(relative), inFrontOfUsState) && !canPassThroughDiode(inFrontOfUsState, checkRot)) {
 
-                            level.explode(this, getX(), getY(), getZ(), speed, ExplosionInteraction.BLOCK);
+                            if(isServerside) {
 
-                            removeAfterChangingDimensions();
+                                level.explode(this, proposedMove.x(), proposedMove.y(), proposedMove.z(), speed, ExplosionInteraction.BLOCK);
+
+                                removeAfterChangingDimensions();
+
+                            }
 
                             break;
                         }
-
-                        BlockPos floor = blockPosition();
 
                         facingDirection = checkRot;
 
@@ -459,7 +477,7 @@ public class EntityParticle extends Entity {
                             setSpeed(speed *= TURN_SPEED_PENALTY);
                         }
 
-                        setPos(floor.getX() + 0.5, floor.getY() + 0.5, floor.getZ() + 0.5);
+                        proposedMove = new Vec3(proposedMoveBlockPos.getX() + 0.5, proposedMoveBlockPos.getY() + 0.5, proposedMoveBlockPos.getZ() + 0.5);
 
                     }
 
@@ -469,7 +487,7 @@ public class EntityParticle extends Entity {
 
             } else {
 
-                boolean checkIsBooster = isBooster(postMoveState) && startOfLoopStateIsBooster;
+                boolean checkIsBooster = isBooster(proposedMoveState) && startOfLoopStateIsBooster;
 
                 boolean explode = false;
 
@@ -477,7 +495,7 @@ public class EntityParticle extends Entity {
 
                     Direction oldDir = startOfLoopState.getValue(ElectrodynamicsBlockStates.FACING);
 
-                    Direction nextDir = postMoveState.getValue(ElectrodynamicsBlockStates.FACING);
+                    Direction nextDir = proposedMoveState.getValue(ElectrodynamicsBlockStates.FACING);
 
                     if (oldDir != nextDir) {
 
@@ -506,14 +524,20 @@ public class EntityParticle extends Entity {
 
                 if (explode) {
 
-                    level.explode(this, getX(), getY(), getZ(), speed, ExplosionInteraction.BLOCK);
+                    if(isServerside) {
 
-                    removeAfterChangingDimensions();
+                        level.explode(this, proposedMove.x(), proposedMove.y(), proposedMove.z(), speed, ExplosionInteraction.BLOCK);
+
+                        removeAfterChangingDimensions();
+
+                    }
 
                     break;
                 }
 
             }
+
+            setPos(proposedMove);
 
         }
 

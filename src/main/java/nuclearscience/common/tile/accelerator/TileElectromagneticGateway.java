@@ -26,8 +26,12 @@ public class TileElectromagneticGateway extends GenericTile {
         return speed >= getActualSpeed(targetSpeed.get());
     }
 
-    public static float getActualSpeed(float speed) {
-        return speed / 100.0F * EntityParticle.MAX_SPEED;
+    public static float getActualSpeed(float lightSpeedPerc) {
+        return lightSpeedPerc / 100.0F * EntityParticle.MAX_SPEED;
+    }
+
+    public static float getLightSpeedPerc(float actualSpeed) {
+        return actualSpeed / EntityParticle.MAX_SPEED * 100.0F;
     }
 
 }

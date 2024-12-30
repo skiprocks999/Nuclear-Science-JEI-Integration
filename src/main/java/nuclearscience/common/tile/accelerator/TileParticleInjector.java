@@ -1,5 +1,6 @@
 package nuclearscience.common.tile.accelerator;
 
+import electrodynamics.Electrodynamics;
 import electrodynamics.prefab.properties.Property;
 import electrodynamics.prefab.properties.PropertyTypes;
 import electrodynamics.prefab.tile.GenericTile;
@@ -12,7 +13,9 @@ import electrodynamics.registers.ElectrodynamicsCapabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity.RemovalReason;
@@ -25,6 +28,8 @@ import nuclearscience.prefab.utils.RadiationUtils;
 import nuclearscience.registers.NuclearScienceTiles;
 import nuclearscience.registers.NuclearScienceItems;
 
+import java.util.Random;
+
 public class TileParticleInjector extends GenericTile {
 
 	public static final int INPUT_SLOT = 0;
@@ -32,7 +37,7 @@ public class TileParticleInjector extends GenericTile {
 	public static final int OUTPUT_SLOT = 2;
 
 	public final EntityParticle[] particles = new EntityParticle[2];
-	private int timeSinceSpawn = 0;
+	public int timeSinceSpawn = 0;
 
 	public final Property<Boolean> usingGateway = property(new Property<>(PropertyTypes.BOOLEAN, "usinggateway", false));
 	public final Property<Boolean> hasRedstoneSignal = property(new Property<>(PropertyTypes.BOOLEAN, "hasredstonesignal", false));
@@ -107,7 +112,7 @@ public class TileParticleInjector extends GenericTile {
 
 		Direction dir = getFacing();
 
-		EntityParticle particle = new EntityParticle(dir, level, new Location(worldPosition.getX() + 0.5f + dir.getStepX() * 1.5f, worldPosition.getY() + 0.5f + dir.getStepY() * 1.5f, worldPosition.getZ() + 0.5f + dir.getStepZ() * 1.5f), getBlockPos());
+		EntityParticle particle = new EntityParticle(dir, level, new Location(worldPosition.getX() + 0.5f + dir.getStepX(), worldPosition.getY() + 0.5f + dir.getStepY(), worldPosition.getZ() + 0.5f + dir.getStepZ()), getBlockPos());
 
 		addParticle(particle);
 
@@ -139,18 +144,33 @@ public class TileParticleInjector extends GenericTile {
 			return false;
 		}
 
+		BlockPos pos = one.blockPosition();
+
 		if(!level.isClientSide()) {
 
-			level.playSound(null, one.blockPosition(), SoundEvents.END_PORTAL_SPAWN, SoundSource.BLOCKS, 1, 1);
+			level.playSound(null, pos, SoundEvents.END_PORTAL_SPAWN, SoundSource.BLOCKS, 1, 1);
 
 			one.remove(RemovalReason.KILLED);
 			two.remove(RemovalReason.KILLED);
 
-			if(!cellStack.isEmpty() && resultStack.getCount() < resultStack.getMaxStackSize()) {
+			Random random = Electrodynamics.RANDOM;
+
+			for(int i = 0; i < 50; i++) {
+				double d0 = (double)pos.getX() + random.nextDouble();
+				double d1 = (double)pos.getY() + random.nextDouble();
+				double d2 = (double)pos.getZ() + random.nextDouble();
+				double d3 = ((double)random.nextFloat() - 0.5) * 0.5;
+				double d4 = ((double)random.nextFloat() - 0.5) * 0.5;
+				double d5 = ((double)random.nextFloat() - 0.5) * 0.5;
+
+				((ServerLevel) level).sendParticles(ParticleTypes.PORTAL, d0, d1, d2, 1, 0, 0, 0, d3);
+			}
+
+			if(!cellStack.isEmpty() && resultStack.getCount() < resultStack.getMaxStackSize() && one.speed >= EntityParticle.MIN_COLLISION_SPEED && two.speed >= EntityParticle.MIN_COLLISION_SPEED) {
 
 				double speedOfMax = Math.pow((one.speed + two.speed) / 4.0, 2);
 
-				if (speedOfMax > 0.999) {
+				if (speedOfMax > 0.999) { //Speed needs to be 1.999
 					if (resultStack.getItem() == NuclearScienceItems.ITEM_CELLDARKMATTER.get()) {
 						resultStack.setCount(resultStack.getCount() + 1);
 						cellStack.shrink(1);

@@ -28,6 +28,7 @@ public class NuclearScienceSoundProvider extends SoundDefinitionsProvider {
 		add(NuclearScienceSounds.SOUND_SIREN);
 		add(NuclearScienceSounds.SOUND_TURBINE);
 		add(NuclearScienceSounds.SOUND_LOGISTICSCONTROLLER);
+		add(NuclearScienceSounds.SOUND_PARTICLE);
 	}
 
 	private void add(DeferredHolder<SoundEvent, SoundEvent> sound) {

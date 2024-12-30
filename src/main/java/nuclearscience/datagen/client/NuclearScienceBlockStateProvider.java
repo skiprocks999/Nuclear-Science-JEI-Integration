@@ -102,6 +102,9 @@ public class NuclearScienceBlockStateProvider extends ElectrodynamicsBlockStateP
         horrRotatedLitBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.controlrodmodule), existingBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.controlrodmodule)), existingBlock(blockLoc("controlrodmoduleon")), false);
         horrRotatedLitBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.monitormodule), existingBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.monitormodule)), existingBlock(blockLoc("monitormoduleon")), true);
         horrRotatedLitBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.thermometermodule), existingBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.thermometermodule)), existingBlock(blockLoc("thermometermoduleon")), true);
+        simpleBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICGATEWAY, existingBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICGATEWAY), true);
+        horrRotatedBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICDIODE, existingBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICDIODE), true);
+
 
 
         genPipes();

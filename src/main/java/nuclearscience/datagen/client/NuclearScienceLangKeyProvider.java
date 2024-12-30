@@ -85,6 +85,7 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addBlock(NuclearScienceBlocks.BLOCK_ELECTORMAGNETICBOOSTER, "Electromagnetic Booster");
 			addBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICSWITCH, "Electromagnetic Switch");
 			addBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICGATEWAY, "Electromagnetic Gateway");
+			addBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICDIODE, "Electromagnetic Diode");
 			addBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.fusionreactorcore), "Fusion Reactor Core");
 			addBlock(NuclearScienceBlocks.BLOCK_PLASMA, "Plasma");
 			addBlock(NuclearScienceBlocks.BLOCK_MELTEDREACTOR, "Melted Reactor Core");
@@ -182,6 +183,10 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addGuiLabel("displayunit.radname", "Rad");
 			addGuiLabel("displayunit.radnameplural", "Rads");
 
+			addGuiLabel("displayunit.speedoflightsymbol", "C");
+			addGuiLabel("displayunit.speedoflightname", "C");
+			addGuiLabel("displayunit.speedoflightnameplural", "C");
+
 			addGuiLabel("freezeplug.status", "Status: %s");
 			addGuiLabel("freezeplug.frozen", "FROZEN");
 			addGuiLabel("freezeplug.off", "OFF");
@@ -265,6 +270,11 @@ public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvide
 			addTooltip("quantumtunnel.buffer", "Buffer");
 
 			addTooltip("logisticsnetwork.linkinterface", "Link Interface");
+
+			addTooltip("particleinjector.charge", "Charge: %1$s / %2$s");
+			addTooltip("particleinjector.gatewaymode", "Toggle Gateway Mode");
+			addTooltip("particleinjector.gatewayenabled", "Enabled");
+			addTooltip("particleinjector.gatewaydisabled", "Disabled");
 
 			addSubtitle(NuclearScienceSounds.SOUND_GASCENTRIFUGE, "Gas Centrifuge spins");
 			addSubtitle(NuclearScienceSounds.SOUND_NUCLEARBOILER, "Nuclear Boiler boils");

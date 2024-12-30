@@ -14,11 +14,11 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import nuclearscience.common.tile.accelerator.TileElectromagneticSwitch;
 
 public class BlockElectromagneticSwitch extends GenericEntityBlock {
-	private static final VoxelShape shape = Shapes.box(0, 0, 0, 1.0, 2.0 / 16.0, 1.0);
+	private static final VoxelShape SHAPE = Shapes.box(0, 0, 0, 1.0, 2.0 / 16.0, 1.0);
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
-		return shape;
+		return SHAPE;
 	}
 
 	public BlockElectromagneticSwitch() {

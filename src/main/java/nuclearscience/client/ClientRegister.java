@@ -38,9 +38,10 @@ public class ClientRegister {
 
     public static final ResourceLocation TEXTURE_JEIBLACKHOLE = ResourceLocation.fromNamespaceAndPath(References.ID, "block/custom/particleaccelerator_dmblackhole");
     public static final ResourceLocation TEXTURE_FUELCELL = ResourceLocation.fromNamespaceAndPath(References.ID, "block/custom/fuelcell");
+    public static final ResourceLocation TEXTURE_GATEWAYLASER = ResourceLocation.fromNamespaceAndPath(References.ID, "block/custom/gatewaylaser");
 
     private static final HashMap<ResourceLocation, TextureAtlasSprite> CACHED_TEXTUREATLASSPRITES = new HashMap<>();
-    private static final List<ResourceLocation> CUSTOM_TEXTURES = List.of(TEXTURE_FUELCELL, electrodynamics.client.ClientRegister.TEXTURE_WHITE);
+    private static final List<ResourceLocation> CUSTOM_TEXTURES = List.of(TEXTURE_FUELCELL, TEXTURE_GATEWAYLASER, electrodynamics.client.ClientRegister.TEXTURE_WHITE);
 
     public static void setup() {
 
@@ -107,6 +108,7 @@ public class ClientRegister {
         event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_FUSIONINTERFACE.get(), RenderFusionInterface::new);
         event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_THERMOMETERMODULE.get(), RenderThermometerModule::new);
         event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_MONITORMODULE.get(), RenderMonitorModule::new);
+        event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_ELECTROMAGNETICGATEWAY.get(), RenderElectromagneticGateway::new);
 
         event.registerEntityRenderer(NuclearScienceEntities.ENTITY_PARTICLE.get(), RenderParticle::new);
 

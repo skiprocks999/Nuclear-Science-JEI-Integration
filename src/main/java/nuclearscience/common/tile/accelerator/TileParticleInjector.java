@@ -13,6 +13,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity.RemovalReason;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
@@ -29,10 +31,11 @@ public class TileParticleInjector extends GenericTile {
 	public static final int ELECTRO_CELL_SLOT = 1;
 	public static final int OUTPUT_SLOT = 2;
 
-	private final EntityParticle[] particles = new EntityParticle[2];
+	public final EntityParticle[] particles = new EntityParticle[2];
 	private int timeSinceSpawn = 0;
 
 	public final Property<Boolean> usingGateway = property(new Property<>(PropertyTypes.BOOLEAN, "usinggateway", false));
+	public final Property<Boolean> hasRedstoneSignal = property(new Property<>(PropertyTypes.BOOLEAN, "hasredstonesignal", false));
 
 
 	public TileParticleInjector(BlockPos pos, BlockState state) {
@@ -42,7 +45,7 @@ public class TileParticleInjector extends GenericTile {
 		addComponent(new ComponentInventory(this, InventoryBuilder.newInv().inputs(2).outputs(1)).valid((index, stack, i) -> index != 1 || stack.getItem() == NuclearScienceItems.ITEM_CELLELECTROMAGNETIC.get()).setSlotsByDirection(BlockEntityUtils.MachineDirection.TOP, 0, 1)
 				//
 				.setSlotsByDirection(BlockEntityUtils.MachineDirection.RIGHT, 0, 1).setDirectionsBySlot(2, BlockEntityUtils.MachineDirection.BOTTOM, BlockEntityUtils.MachineDirection.LEFT));
-		addComponent(new ComponentElectrodynamic(this, false, true).voltage(ElectrodynamicsCapabilities.DEFAULT_VOLTAGE * 8).setInputDirections(BlockEntityUtils.MachineDirection.TOP).maxJoules(Constants.PARTICLEINJECTOR_USAGE_PER_PARTICLE * 10));
+		addComponent(new ComponentElectrodynamic(this, false, true).voltage(ElectrodynamicsCapabilities.DEFAULT_VOLTAGE * 8).setInputDirections(BlockEntityUtils.MachineDirection.BACK).maxJoules(Constants.PARTICLEINJECTOR_USAGE_PER_PARTICLE));
 		addComponent(new ComponentContainerProvider("container.particleinjector", this).createMenu((id, player) -> new ContainerParticleInjector(id, player, getComponent(IComponentType.Inventory), getCoordsArray())));
 	}
 
@@ -64,6 +67,10 @@ public class TileParticleInjector extends GenericTile {
 
 	private void tickServer(ComponentTickable componentTickable) {
 
+		if(hasRedstoneSignal.get()) {
+			return;
+		}
+
 		RadiationUtils.handleRadioactiveItems(this, (ComponentInventory) getComponent(IComponentType.Inventory), Constants.PARTICLE_INJECTOR_RADIATION_RADIUS, true, 0, false);
 
 		ComponentElectrodynamic electro = getComponent(IComponentType.Electrodynamic);
@@ -75,12 +82,12 @@ public class TileParticleInjector extends GenericTile {
 			return;
 		}
 
-		if(usingGateway.get() && particles[0] != null && !particles[0].passedThroughGate) {
+		if(timeSinceSpawn > 0) {
+			timeSinceSpawn--;
 			return;
 		}
 
-		if(timeSinceSpawn > 0) {
-			timeSinceSpawn--;
+		if(usingGateway.get() && particles[0] != null && !particles[0].passedThroughGate) {
 			return;
 		}
 
@@ -100,7 +107,7 @@ public class TileParticleInjector extends GenericTile {
 
 		Direction dir = getFacing();
 
-		EntityParticle particle = new EntityParticle(dir, level, new Location(worldPosition.getX() + 0.5f + dir.getStepX() * 1.5f, worldPosition.getY() + 0.5f + dir.getStepY() * 1.5f, worldPosition.getZ() + 0.5f + dir.getStepZ() * 1.5f));
+		EntityParticle particle = new EntityParticle(dir, level, new Location(worldPosition.getX() + 0.5f + dir.getStepX() * 1.5f, worldPosition.getY() + 0.5f + dir.getStepY() * 1.5f, worldPosition.getZ() + 0.5f + dir.getStepZ() * 1.5f), getBlockPos());
 
 		addParticle(particle);
 
@@ -121,7 +128,7 @@ public class TileParticleInjector extends GenericTile {
 		ItemStack resultStack = inv.getItem(OUTPUT_SLOT);
 		ItemStack cellStack = inv.getItem(ELECTRO_CELL_SLOT);
 
-		if(cellStack.isEmpty() || resultStack.getCount() >= resultStack.getMaxStackSize() || particles[0] == null && particles[1] == null) {
+		if(particles[0] == null || particles[1] == null) {
 			return false;
 		}
 
@@ -133,30 +140,38 @@ public class TileParticleInjector extends GenericTile {
 		}
 
 		if(!level.isClientSide()) {
-			double speedOfMax = Math.pow((one.speed + two.speed) / 4.0, 2);
+
+			level.playSound(null, one.blockPosition(), SoundEvents.END_PORTAL_SPAWN, SoundSource.BLOCKS, 1, 1);
 
 			one.remove(RemovalReason.KILLED);
 			two.remove(RemovalReason.KILLED);
 
+			if(!cellStack.isEmpty() && resultStack.getCount() < resultStack.getMaxStackSize()) {
+
+				double speedOfMax = Math.pow((one.speed + two.speed) / 4.0, 2);
+
+				if (speedOfMax > 0.999) {
+					if (resultStack.getItem() == NuclearScienceItems.ITEM_CELLDARKMATTER.get()) {
+						resultStack.setCount(resultStack.getCount() + 1);
+						cellStack.shrink(1);
+					} else if (resultStack.isEmpty()) {
+						inv.setItem(2, new ItemStack(NuclearScienceItems.ITEM_CELLDARKMATTER.get()));
+						cellStack.shrink(1);
+					}
+				} else if (speedOfMax > level.random.nextDouble()) {
+					if (resultStack.getItem() == NuclearScienceItems.ITEM_CELLANTIMATTERSMALL.get()) {
+						resultStack.setCount(resultStack.getCount() + 1);
+						cellStack.shrink(1);
+					} else if (resultStack.isEmpty()) {
+						inv.setItem(2, new ItemStack(NuclearScienceItems.ITEM_CELLANTIMATTERSMALL.get()));
+						cellStack.shrink(1);
+					}
+				}
+
+			}
+
 			particles[0] = particles[1] = null;
 
-			if (speedOfMax > 0.999) {
-				if (resultStack.getItem() == NuclearScienceItems.ITEM_CELLDARKMATTER.get()) {
-					resultStack.setCount(resultStack.getCount() + 1);
-					cellStack.shrink(1);
-				} else if (resultStack.isEmpty()) {
-					inv.setItem(2, new ItemStack(NuclearScienceItems.ITEM_CELLDARKMATTER.get()));
-					cellStack.shrink(1);
-				}
-			} else if (speedOfMax > level.random.nextDouble()) {
-				if (resultStack.getItem() == NuclearScienceItems.ITEM_CELLANTIMATTERSMALL.get()) {
-					resultStack.setCount(resultStack.getCount() + 1);
-					cellStack.shrink(1);
-				} else if (resultStack.isEmpty()) {
-					inv.setItem(2, new ItemStack(NuclearScienceItems.ITEM_CELLANTIMATTERSMALL.get()));
-					cellStack.shrink(1);
-				}
-			}
 		}
 
 		return true;
@@ -198,5 +213,12 @@ public class TileParticleInjector extends GenericTile {
 	protected void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
 		super.loadAdditional(compound, registries);
 		timeSinceSpawn = compound.getInt("timesincespawn");
+	}
+
+	@Override
+	public void onNeightborChanged(BlockPos neighbor, boolean blockStateTrigger) {
+		if(!level.isClientSide()) {
+			hasRedstoneSignal.set(level.hasNeighborSignal(getBlockPos()));
+		}
 	}
 }

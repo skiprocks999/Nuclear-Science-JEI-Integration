@@ -74,9 +74,13 @@ public class NuclearScienceBlockTagsProvider extends BlockTagsProvider {
                         //
                         NuclearScienceBlocks.BLOCK_ELECTORMAGNETICBOOSTER.get(),
                         //
+                        NuclearScienceBlocks.BLOCK_ELECTROMAGNETICGATEWAY.get(),
+                        //
+                        NuclearScienceBlocks.BLOCK_ELECTROMAGNETICDIODE.get(),
+                        //
                         NuclearScienceBlocks.BLOCK_ELECTROMAGNETICSWITCH.get()
                         //
-                ); //TODO add gateway to this tag
+                );
 
         tag(NuclearScienceTags.Blocks.FUSION_CONTAINMENT).add(NuclearScienceBlocks.BLOCKS_ELECTROMAGENT.getAllValuesArray(new Block[0]));
 

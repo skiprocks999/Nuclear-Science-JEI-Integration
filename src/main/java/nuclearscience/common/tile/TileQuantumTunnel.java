@@ -53,18 +53,22 @@ public class TileQuantumTunnel extends GenericTile {
 
     public Property<TunnelFrequency> frequency = property(new Property<>(NuclearPropertyTypes.TUNNEL_FREQUENCY, "frequency", TunnelFrequency.NO_FREQUENCY));
     public Property<Integer> inputDirections = property(new Property<>(PropertyTypes.INTEGER, "inputdirections", 0)).onChange((prop, val) -> {
-        if(level != null && level.isClientSide()){
-            level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 8); //
+        if(level == null) {
+            return;
         }
-        if (!level.isClientSide()) {
+        if(level.isClientSide()){
+            level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 8); //
+        } else {
             refreshCapabilities();
         }
     });
     public Property<Integer> outputDirections = property(new Property<>(PropertyTypes.INTEGER, "outputdirections", 0)).onChange((prop, val) -> {
-        if(level != null && level.isClientSide()){
-            level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 8); //
+        if(level == null) {
+            return;
         }
-        if (!level.isClientSide()) {
+        if(level.isClientSide()){
+            level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 8); //
+        } else {
             refreshCapabilities();
         }
     });

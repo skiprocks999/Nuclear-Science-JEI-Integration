@@ -70,7 +70,7 @@ public class TileMoltenSaltSupplier extends GenericTile {
 		ItemStack fuel = inv.getItem(0);
 
 		if (!output.valid() || !(output.getSafe() instanceof TileMSReactorCore)) {
-			reactorWaste.set(0);
+			reactorWaste.set(0.0);
 			return;
 		}
 

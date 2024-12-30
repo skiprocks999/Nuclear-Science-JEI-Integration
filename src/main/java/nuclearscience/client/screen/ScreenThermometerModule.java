@@ -33,7 +33,7 @@ public class ScreenThermometerModule extends GenericInterfaceBoundScreen<Contain
 
     private boolean hidden = false;
 
-    boolean needsUpdate = true;
+    private boolean needsUpdate = true;
 
     public ScreenThermometerModule(ContainerThermometerModule container, Inventory inv, Component title) {
         super(container, inv, title, true, false);

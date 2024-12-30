@@ -1,13 +1,13 @@
 package nuclearscience.common.tile.accelerator;
 
-import net.minecraft.core.HolderLookup;
+import electrodynamics.prefab.properties.Property;
+import electrodynamics.prefab.properties.PropertyTypes;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.item.ItemStack;
 
 import electrodynamics.prefab.tile.GenericTile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -16,26 +16,13 @@ import net.minecraft.world.phys.BlockHitResult;
 import nuclearscience.registers.NuclearScienceTiles;
 
 public class TileElectromagneticSwitch extends GenericTile {
-	public Direction lastDirection;
 
 	public TileElectromagneticSwitch(BlockPos worldPosition, BlockState blockState) {
 		super(NuclearScienceTiles.TILE_ELECTROMAGNETICSWITCH.get(), worldPosition, blockState);
 	}
 
-	@Override
-	protected void saveAdditional(CompoundTag compound, HolderLookup.Provider registries) {
-		if (lastDirection != null) {
-			compound.putInt("lastDirectionOrdinal", lastDirection.ordinal());
-		}
-		super.saveAdditional(compound, registries);
-	}
-
-	@Override
-	protected void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
-		if (compound.contains("lastDirectionOrdinal")) {
-			lastDirection = Direction.from3DDataValue(compound.getInt("lastDirectionOrdinal"));
-		}
-		super.loadAdditional(compound, registries);
+	public Direction readLastDirection() {
+		return Direction.UP;//Direction.values()[lastDirection.get()];
 	}
 
 	@Override

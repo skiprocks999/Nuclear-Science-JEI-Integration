@@ -66,6 +66,8 @@ public class NuclearScienceLootTablesProvider extends ElectrodynamicsLootTablesP
 		addSimpleBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.supplymodule));
 		addSimpleBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.monitormodule));
 		addSimpleBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.thermometermodule));
+		addSimpleBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICGATEWAY.get());
+		addSimpleBlock(NuclearScienceBlocks.BLOCK_ELECTROMAGNETICDIODE.get());
 
 	}
 

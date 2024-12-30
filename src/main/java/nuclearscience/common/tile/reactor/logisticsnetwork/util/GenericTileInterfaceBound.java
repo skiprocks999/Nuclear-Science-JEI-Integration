@@ -25,7 +25,7 @@ public abstract class GenericTileInterfaceBound extends GenericTileLogisticsMemb
 
     public final Property<Boolean> linked = property(new Property<>(PropertyTypes.BOOLEAN, "islinked", false)).onChange((prop, old) -> {
 
-        if (level.isClientSide) {
+        if (level == null || level.isClientSide) {
             return;
         }
 
@@ -38,7 +38,7 @@ public abstract class GenericTileInterfaceBound extends GenericTileLogisticsMemb
 
     public final Property<BlockPos> interfaceLocation = property(new Property<>(PropertyTypes.BLOCK_POS, "interfacelocation", BlockEntityUtils.OUT_OF_REACH)).onChange((prop, old) -> {
 
-        if (level.isClientSide) {
+        if (level == null || level.isClientSide) {
             return;
         }
 

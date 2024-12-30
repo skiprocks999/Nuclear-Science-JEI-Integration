@@ -34,17 +34,17 @@ public class TileControlRodModule extends GenericTileInterfaceBound {
 
     public final Property<Integer> insertion = property(new Property<>(PropertyTypes.INTEGER, "insertion", 0));
     public final Property<Integer> redstoneSignal = property(new Property<>(PropertyTypes.INTEGER, "redstonesignal", 0)).onChange((prop, oldVal) -> {
-        if (!level.isClientSide && prop.get() != oldVal) {
-
-            double perc = (double) prop.get() / 15.0;
-
-            double tot = perc * (double) TileControlRod.MAX_EXTENSION;
-
-            int mult = (int) (tot / (double) TileControlRod.EXTENSION_PER_CLICK);
-
-            insertion.set(mult * TileControlRod.EXTENSION_PER_CLICK);
-
+        if(level == null || level.isClientSide || prop.get() == oldVal) {
+            return;
         }
+
+        double perc = (double) prop.get() / 15.0;
+
+        double tot = perc * (double) TileControlRod.MAX_EXTENSION;
+
+        int mult = (int) (tot / (double) TileControlRod.EXTENSION_PER_CLICK);
+
+        insertion.set(mult * TileControlRod.EXTENSION_PER_CLICK);
     });
 
     public TileControlRodModule(BlockPos worldPos, BlockState blockState) {

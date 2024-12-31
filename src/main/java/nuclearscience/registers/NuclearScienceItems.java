@@ -96,7 +96,7 @@ public class NuclearScienceItems {
 
 
 	@EventBusSubscriber(value = Dist.CLIENT, modid = References.ID, bus = EventBusSubscriber.Bus.MOD)
-	private static class ElectroCreativeRegistry {
+	private static class NuclearCreativeRegistry {
 
 		@SubscribeEvent
 		public static void registerItems(BuildCreativeModeTabContentsEvent event) {

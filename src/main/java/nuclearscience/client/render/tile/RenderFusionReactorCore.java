@@ -1,6 +1,8 @@
 package nuclearscience.client.render.tile;
 
 import electrodynamics.prefab.utilities.math.Color;
+import net.minecraft.client.Camera;
+import net.minecraft.world.phys.AABB;
 import org.joml.Matrix4f;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -15,10 +17,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import nuclearscience.common.tile.reactor.fusion.TileFusionReactorCore;
 import nuclearscience.prefab.utils.NuclearTextUtils;
+import org.joml.Quaternionf;
 
 public class RenderFusionReactorCore extends AbstractTileRenderer<TileFusionReactorCore> {
-
-	//private static final Color BACKGROUND = new Color(0, 0, 0, 255);
 
 	public RenderFusionReactorCore(BlockEntityRendererProvider.Context context) {
 		super(context);
@@ -45,7 +46,9 @@ public class RenderFusionReactorCore extends AbstractTileRenderer<TileFusionReac
 
 		matrixStackIn.scale(-0.025F, -0.025F, 0.025F);
 
-		matrixStackIn.mulPose(minecraft().getEntityRenderDispatcher().camera.rotation());
+		Camera camera = minecraft().getEntityRenderDispatcher().camera;
+
+		matrixStackIn.mulPose(new Quaternionf().rotationYXZ((float) Math.toRadians(camera.getYRot()), (float) Math.toRadians(-camera.getXRot()), 0.0F));
 
 		Matrix4f matrix4f = matrixStackIn.last().pose();
 
@@ -58,5 +61,10 @@ public class RenderFusionReactorCore extends AbstractTileRenderer<TileFusionReac
 		font.drawInBatch(text, xOffset, 0, color, false, matrix4f, bufferIn, DisplayMode.NORMAL, backgroundColor, combinedLightIn);
 
 		matrixStackIn.popPose();
+	}
+
+	@Override
+	public AABB getRenderBoundingBox(TileFusionReactorCore blockEntity) {
+		return super.getRenderBoundingBox(blockEntity);//AABB.encapsulatingFullBlocks(blockEntity.getBlockPos().above(), blockEntity.getBlockPos().below());
 	}
 }

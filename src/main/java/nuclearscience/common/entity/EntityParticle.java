@@ -2,7 +2,6 @@ package nuclearscience.common.entity;
 
 import java.util.Optional;
 
-import electrodynamics.Electrodynamics;
 import electrodynamics.common.block.states.ElectrodynamicsBlockStates;
 import electrodynamics.prefab.utilities.BlockEntityUtils;
 import net.minecraft.nbt.NbtUtils;
@@ -11,6 +10,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import nuclearscience.api.radiation.SimpleRadiationSource;
 import nuclearscience.common.block.states.NuclearScienceBlockStates;
+import nuclearscience.common.settings.Constants;
 import nuclearscience.common.tags.NuclearScienceTags;
 import nuclearscience.common.tile.accelerator.TileElectromagneticGateway;
 import nuclearscience.prefab.sound.SoundBarrierMethods;
@@ -141,13 +141,13 @@ public class EntityParticle extends Entity {
         }
 
         if (isServerside) {
-            //Electrodynamics.LOGGER.info(speed);
             ticksAlive++;
         }
 
-        if (ticksAlive > 1000) {
+        if (ticksAlive > Constants.PARTICLE_SURVIVAL_TICKS) {
             if(isServerside) {
                 removeAfterChangingDimensions();
+                level.explode(this, getX(), getY(), getZ(), speed, ExplosionInteraction.BLOCK);
             }
             return;
         }
@@ -161,6 +161,7 @@ public class EntityParticle extends Entity {
         if (!(blockEntity instanceof TileParticleInjector)) {
             if (isServerside) {
                 remove(RemovalReason.DISCARDED);
+                level.explode(this, getX(), getY(), getZ(), speed, ExplosionInteraction.BLOCK);
             }
             return;
         }

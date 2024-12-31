@@ -2,7 +2,8 @@
   "credit": "skip999",
   "parent": "block/cube_all",
   "textures": {
-    "up": "nuclearscience:block/electromagnettop"
+    "up": "nuclearscience:block/electromagnettop",
+    "particle" : "nuclearscience:block/electromagnettop"
   },
   "elements": [
     {

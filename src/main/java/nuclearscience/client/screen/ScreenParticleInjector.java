@@ -98,7 +98,7 @@ public class ScreenParticleInjector extends GenericScreen<ContainerParticleInjec
 
             float twoSpeed = 0.0F;
 
-            if(one != null && one.isAlive() && !one.isRemoved()) {
+            if(two != null && two.isAlive() && !two.isRemoved()) {
                 twoSpeed = two.speed;
             }
 

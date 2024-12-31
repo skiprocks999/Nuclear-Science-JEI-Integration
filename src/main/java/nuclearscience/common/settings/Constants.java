@@ -75,7 +75,7 @@ public class Constants {
 	public static int RADIO_GENATOR_RADIATION_RADIUS = 10;
 	@IntValue(def = 50)
 	public static int DEFAULT_PARTICLE_COOLDOWN_TICKS = 50;
-	@IntValue(def = 100)
-	public static int PARTICLE_SURVIVAL_TICKS = 100;
+	@IntValue(def = 800)
+	public static int PARTICLE_SURVIVAL_TICKS = 800;
 
 }

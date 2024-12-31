@@ -3,17 +3,17 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "nuclearscience:electromagneticbooster"
+      "item": "nuclearscience:electromagneticswitch"
     },
     {
       "item": "electrodynamics:motor"
     },
     {
-      "tag": "c:plates/steel"
+      "tag": "c:circuits/ultimate"
     }
   ],
   "result": {
     "count": 1,
-    "id": "nuclearscience:electromagneticswitch"
+    "id": "nuclearscience:electromagneticgateway"
   }
 }

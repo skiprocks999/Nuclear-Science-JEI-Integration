@@ -191,11 +191,17 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 
 		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_ELECTROMAGNETICBOOSTER.get(), 1)
 				//
+				.addPattern(" C ")
+				//
 				.addPattern("EGE")
+				//
+				.addPattern(" C ")
 				//
 				.addKey('E', NuclearScienceItems.ITEMS_ELECTROMAGNET.getValue(SubtypeElectromagent.electromagnet))
 				//
 				.addKey('G', NuclearScienceItems.ITEMS_ELECTROMAGNET.getValue(SubtypeElectromagent.electromagneticglass))
+				//
+				.addKey('C', ElectrodynamicsItems.ITEM_COIL.get())
 				//
 				.complete(References.ID, "electromagneticbooster", output);
 
@@ -213,7 +219,33 @@ public class NuclearScienceCraftingTableRecipes extends AbstractRecipeGenerator 
 				//
 				.addIngredient(ElectrodynamicsItems.ITEM_MOTOR.get())
 				//
+				.addIngredient(ElectrodynamicsTags.Items.PLATE_STEEL)
+				//
 				.complete(References.ID, "electromagneticswitch", output);
+
+		ShapelessCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_ELECTROMAGNETICGATEWAY.get(), 1)
+				//
+				.addIngredient(NuclearScienceItems.ITEM_ELECTROMAGNETICSWITCH.get())
+				//
+				.addIngredient(ElectrodynamicsItems.ITEM_MOTOR.get())
+				//
+				.addIngredient(ElectrodynamicsTags.Items.CIRCUITS_ULTIMATE)
+				//
+				.complete(References.ID, "electromagneticgateway", output);
+
+		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_ELECTROMAGNETICDIODE.get(), 1)
+				//
+				.addPattern("C")
+				//
+				.addPattern("S")
+				//
+				.addPattern("C")
+				//
+				.addKey('S', NuclearScienceItems.ITEM_ELECTROMAGNETICSWITCH.get())
+				//
+				.addKey('C', ElectrodynamicsTags.Items.CIRCUITS_ULTIMATE)
+				//
+				.complete(References.ID, "electromagneticdiode", output);
 
 		ShapedCraftingRecipeBuilder.start(NuclearScienceItems.ITEM_FREQUENCYCARD.get(), 1)
 				//

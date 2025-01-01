@@ -66,6 +66,8 @@ public interface IRadiationManager {
      */
     public boolean removeRadiationSource(BlockPos pos, boolean shouldLeaveFadingSource, Level level);
 
+    public void wipeAllSources(Level level);
+
 
     /**
      * Returns whether the handler has changed during the tick

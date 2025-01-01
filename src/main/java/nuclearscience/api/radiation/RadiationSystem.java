@@ -86,6 +86,11 @@ public class RadiationSystem {
 		manager.removeLocalizedDisipation(volume, world);
 	}
 
+	public static void wipeAllSources(Level world) {
+		IRadiationManager manager = world.getData(NuclearScienceAttachmentTypes.RADIATION_MANAGER);
+		manager.wipeAllSources(world);
+	}
+
 
 	/*
 	public static ThreadLocal<HashMap<Player, Double>> radiationMap = ThreadLocal.withInitial(HashMap::new);

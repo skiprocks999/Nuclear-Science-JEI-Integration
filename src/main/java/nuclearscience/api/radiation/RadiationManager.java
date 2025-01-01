@@ -108,6 +108,13 @@ public class RadiationManager implements IRadiationManager {
     }
 
     @Override
+    public void wipeAllSources(Level level) {
+        level.removeData(NuclearScienceAttachmentTypes.PERMANENT_RADIATION_SOURCES);
+        level.removeData(NuclearScienceAttachmentTypes.TEMPORARY_RADIATION_SOURCES);
+        level.removeData(NuclearScienceAttachmentTypes.FADING_RADIATION_SOURCES);
+    }
+
+    @Override
     public void tick(Level world) {
 
         /* Apply Radiation */

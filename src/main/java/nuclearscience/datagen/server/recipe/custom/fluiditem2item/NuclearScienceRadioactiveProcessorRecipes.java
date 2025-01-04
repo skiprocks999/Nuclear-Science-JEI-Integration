@@ -73,6 +73,14 @@ public class NuclearScienceRadioactiveProcessorRecipes extends AbstractRecipeGen
 				//
 				.save(output);
 
+		newRecipe(new ItemStack(NuclearScienceItems.ITEM_THORIANITEDUST.get()), 0.0F, RADIOACTIVEPROCESSOR_REQUIRED_TICKS, RADIOACTIVEPROCESSOR_USAGE_PER_TICK, "thorianite_dust_from_monazite", modID)
+				//
+				.addItemTagInput(ElectrodynamicsTags.Items.ORE_MONAZITE, 1)
+				//
+				.addFluidTagInput(ElectrodynamicsTags.Fluids.SULFURIC_ACID, 1000)
+				//
+				.save(output);
+
 	}
 
 	public FluidItem2ItemBuilder<RadioactiveProcessorRecipe> newRecipe(ItemStack stack, float xp, int ticks, double usagePerTick, String name, String group) {

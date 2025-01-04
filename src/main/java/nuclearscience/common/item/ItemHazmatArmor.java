@@ -5,9 +5,13 @@ import java.util.EnumMap;
 import electrodynamics.common.item.gear.armor.ItemElectrodynamicsArmor;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
+import nuclearscience.References;
 import nuclearscience.api.radiation.util.IHazmatSuit;
-import nuclearscience.registers.NuclearScienceArmorMaterials;
+import org.jetbrains.annotations.Nullable;
 
 public class ItemHazmatArmor extends ItemElectrodynamicsArmor implements IHazmatSuit {
 
@@ -28,10 +32,13 @@ public class ItemHazmatArmor extends ItemElectrodynamicsArmor implements IHazmat
 	private final double radiationProtection;
 	private final double radiationStrengthProtection;
 
-	public ItemHazmatArmor(Holder<ArmorMaterial> materialIn, Type slot, Properties properties, Holder<CreativeModeTab> creativeTab, double radiationProtection, double radiationStrengthRating) {
+	private final ResourceLocation armorTexture;
+
+	public ItemHazmatArmor(Holder<ArmorMaterial> materialIn, Type slot, Properties properties, Holder<CreativeModeTab> creativeTab, double radiationProtection, double radiationStrengthRating, String armorTexture) {
 		super(materialIn, slot, properties, creativeTab);
 		this.radiationProtection = radiationProtection;
 		this.radiationStrengthProtection = radiationStrengthRating;
+		this.armorTexture = ResourceLocation.parse(References.ID + ":textures/models/armor/" + armorTexture + ".png");
 	}
 
 	@Override
@@ -44,11 +51,16 @@ public class ItemHazmatArmor extends ItemElectrodynamicsArmor implements IHazmat
 		return radiationStrengthProtection;
 	}
 
+	@Override
+	public @Nullable ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
+		return armorTexture;
+	}
+
 	/*
 
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-		return References.ID + ":textures/block/model/" + (material == ArmorMaterialHazmat.hazmat ? "" : "reinforced") + "hazmatarmor.png";
+
 	}
 
 	public enum ArmorMaterialHazmat implements ArmorMaterial {

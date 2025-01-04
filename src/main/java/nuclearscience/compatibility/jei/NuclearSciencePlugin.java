@@ -4,21 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import electrodynamics.api.gas.Gas;
+import electrodynamics.api.gas.GasStack;
 import electrodynamics.client.screen.tile.ScreenO2OProcessor;
 import electrodynamics.compatibility.jei.ElectrodynamicsJEIPlugin;
 import electrodynamics.compatibility.jei.recipecategories.utils.psuedorecipes.types.PsuedoItem2ItemRecipe;
+import electrodynamics.compatibility.jei.utils.ingredients.ElectrodynamicsJeiTypes;
+import electrodynamics.registers.ElectrodynamicsGases;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.recipe.RecipeType;
-import mezz.jei.api.registration.IGuiHandlerRegistration;
-import mezz.jei.api.registration.IRecipeCatalystRegistration;
-import mezz.jei.api.registration.IRecipeCategoryRegistration;
-import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.registration.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.level.material.Fluid;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import nuclearscience.client.screen.ScreenChemicalExtractor;
 import nuclearscience.client.screen.ScreenFissionReactorCore;
 import nuclearscience.client.screen.ScreenGasCentrifuge;
@@ -44,6 +49,8 @@ import nuclearscience.compatibility.jei.recipecategories.psuedo.specificmachines
 import nuclearscience.compatibility.jei.recipecategories.psuedo.specificmachines.ParticleAcceleratorDarkMatterRecipeCategory;
 import nuclearscience.compatibility.jei.utils.psuedorecipes.NuclearSciencePsuedoRecipes;
 import nuclearscience.compatibility.jei.utils.psuedorecipes.PsuedoGasCentrifugeRecipe;
+import nuclearscience.registers.NuclearScienceFluids;
+import nuclearscience.registers.NuclearScienceGases;
 
 @JeiPlugin
 public class NuclearSciencePlugin implements IModPlugin {
@@ -143,6 +150,25 @@ public class NuclearSciencePlugin implements IModPlugin {
 
     private static void nuclearScienceInfoTabs(IRecipeRegistration registration) {
 
+    }
+
+    @Override
+    public void registerExtraIngredients(IExtraIngredientRegistration registration) {
+        List<FluidStack> fluids = new ArrayList<>();
+        for (DeferredHolder<Fluid, ? extends Fluid> fluid : NuclearScienceFluids.FLUIDS.getEntries()) {
+            fluids.add(new FluidStack(fluid.get(), 1000));
+        }
+        registration.addExtraIngredients(NeoForgeTypes.FLUID_STACK, fluids);
+
+        List<GasStack> gases = new ArrayList<>();
+        for(DeferredHolder<Gas, ? extends Gas> gas : NuclearScienceGases.GASES.getEntries()) {
+            if(gas.get() == ElectrodynamicsGases.EMPTY.value()) {
+                continue;
+            }
+
+            gases.add(new GasStack(gas.get(), 1000, Gas.ROOM_TEMPERATURE, Gas.PRESSURE_AT_SEA_LEVEL));
+        }
+        registration.addExtraIngredients(ElectrodynamicsJeiTypes.GAS_STACK, gases);
     }
 
 }

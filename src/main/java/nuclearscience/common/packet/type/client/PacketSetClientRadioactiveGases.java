@@ -32,7 +32,7 @@ public class PacketSetClientRadioactiveGases implements CustomPacketPayload {
         public void encode(RegistryFriendlyByteBuf buf, PacketSetClientRadioactiveGases packet) {
             buf.writeInt(packet.gases.size());
             packet.gases.forEach((gas, value) -> {
-                GasStack.STREAM_CODEC.encode(buf, new GasStack(gas));
+                GasStack.STREAM_CODEC.encode(buf, new GasStack(gas, 1, Gas.ROOM_TEMPERATURE, Gas.PRESSURE_AT_SEA_LEVEL));
                 RadioactiveObject.STREAM_CODEC.encode(buf, value);
             });
 

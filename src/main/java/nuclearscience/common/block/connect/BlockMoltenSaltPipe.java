@@ -2,13 +2,14 @@ package nuclearscience.common.block.connect;
 
 import java.util.HashSet;
 
+import com.mojang.serialization.MapCodec;
 import electrodynamics.api.network.cable.IRefreshableCable;
 import electrodynamics.common.block.connect.util.AbstractRefreshingConnectBlock;
 import electrodynamics.common.block.connect.util.EnumConnectType;
 import electrodynamics.prefab.tile.types.GenericConnectTile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -16,9 +17,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import nuclearscience.api.network.moltensalt.IMoltenSaltPipe;
 import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
-import nuclearscience.common.tile.msreactor.TileHeatExchanger;
-import nuclearscience.common.tile.msreactor.TileMSReactorCore;
-import nuclearscience.common.tile.saltpipe.TileMoltenSaltPipe;
+import nuclearscience.common.tile.reactor.moltensalt.TileHeatExchanger;
+import nuclearscience.common.tile.reactor.moltensalt.TileMSReactorCore;
+import nuclearscience.common.tile.reactor.moltensalt.TileMoltenSaltPipe;
 
 public class BlockMoltenSaltPipe extends AbstractRefreshingConnectBlock {
 
@@ -27,14 +28,9 @@ public class BlockMoltenSaltPipe extends AbstractRefreshingConnectBlock {
 	public final SubtypeMoltenSaltPipe pipe;
 
 	public BlockMoltenSaltPipe(SubtypeMoltenSaltPipe pipe) {
-		super(Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.METAL).strength(0.15f).dynamicShape(), 3);
+		super(Blocks.IRON_BLOCK.properties().sound(SoundType.METAL).strength(0.15f).dynamicShape(), 3);
 		this.pipe = pipe;
 		PIPESET.add(this);
-	}
-
-	@Override
-	public boolean propagatesSkylightDown(BlockState state, BlockGetter reader, BlockPos pos) {
-		return true;
 	}
 
 	@Override
@@ -66,4 +62,8 @@ public class BlockMoltenSaltPipe extends AbstractRefreshingConnectBlock {
 		return state;
 	}
 
+	@Override
+	protected MapCodec<? extends BaseEntityBlock> codec() {
+		return null;
+	}
 }

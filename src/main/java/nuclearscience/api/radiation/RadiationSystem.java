@@ -1,36 +1,98 @@
 package nuclearscience.api.radiation;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import electrodynamics.prefab.utilities.object.Location;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.TickEvent.ClientTickEvent;
-import net.minecraftforge.event.TickEvent.Phase;
-import net.minecraftforge.event.TickEvent.ServerTickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import nuclearscience.References;
-import nuclearscience.common.item.ItemGeigerCounter;
-import nuclearscience.common.item.ItemHazmatArmor;
-import nuclearscience.registers.NuclearScienceBlocks;
-import nuclearscience.registers.NuclearScienceEffects;
+import nuclearscience.api.radiation.util.BlockPosVolume;
+import nuclearscience.api.radiation.util.IRadiationManager;
+import nuclearscience.api.radiation.util.IRadiationRecipient;
+import nuclearscience.registers.NuclearScienceAttachmentTypes;
+import nuclearscience.registers.NuclearScienceCapabilities;
 
-@EventBusSubscriber(modid = References.ID, bus = Bus.FORGE)
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
+@EventBusSubscriber(modid = References.ID, bus = EventBusSubscriber.Bus.GAME)
 public class RadiationSystem {
+
+	@SubscribeEvent
+	public static void tickServer(LevelTickEvent.Pre event) {
+
+		Level level = event.getLevel();
+
+		if(level.isClientSide()) {
+			return;
+		}
+
+		IRadiationManager manager = level.getData(NuclearScienceAttachmentTypes.RADIATION_MANAGER);
+
+		manager.tick(level);
+
+
+	}
+
+	@SubscribeEvent
+	public static void entityTick(EntityTickEvent.Post event) {
+		if(event.getEntity().level().isClientSide() || !(event.getEntity() instanceof LivingEntity)) {
+			return;
+		}
+		IRadiationRecipient capability = event.getEntity().getCapability(NuclearScienceCapabilities.CAPABILITY_RADIATIONRECIPIENT);
+		if(capability == null) {
+			return;
+		}
+		capability.tick((LivingEntity) event.getEntity());
+
+	}
+
+	public static void addRadiationSource(Level world, SimpleRadiationSource source) {
+		if(source == null) {
+			throw new UnsupportedOperationException("source cannot be null");
+		}
+		IRadiationManager manager = world.getData(NuclearScienceAttachmentTypes.RADIATION_MANAGER);
+		manager.addRadiationSource(source, world);
+
+	}
+
+	public static void removeRadiationSource(Level world, BlockPos pos, boolean shouldLinger) {
+		if(pos == null) {
+			throw new UnsupportedOperationException("position cannot be null");
+		}
+		IRadiationManager manager = world.getData(NuclearScienceAttachmentTypes.RADIATION_MANAGER);
+		manager.removeRadiationSource(pos, shouldLinger, world);
+	}
+
+	public static List<BlockPos> getRadiationSources(Level world) {
+		IRadiationManager manager = world.getData(NuclearScienceAttachmentTypes.RADIATION_MANAGER);
+		HashSet<BlockPos> sources = new HashSet<>();
+		sources.addAll(manager.getPermanentLocations(world));
+		sources.addAll(manager.getTemporaryLocations(world));
+		sources.addAll(manager.getFadingLocations(world));
+		return new ArrayList<>(sources);
+	}
+
+	public static void addDisipation(Level world, double amount, BlockPosVolume volume) {
+		IRadiationManager manager = world.getData(NuclearScienceAttachmentTypes.RADIATION_MANAGER);
+		manager.setLocalizedDisipation(amount, volume, world);
+	}
+
+	public static void removeDisipation(Level world, BlockPosVolume volume) {
+		IRadiationManager manager = world.getData(NuclearScienceAttachmentTypes.RADIATION_MANAGER);
+		manager.removeLocalizedDisipation(volume, world);
+	}
+
+	public static void wipeAllSources(Level world) {
+		IRadiationManager manager = world.getData(NuclearScienceAttachmentTypes.RADIATION_MANAGER);
+		manager.wipeAllSources(world);
+	}
+
+
+	/*
 	public static ThreadLocal<HashMap<Player, Double>> radiationMap = ThreadLocal.withInitial(HashMap::new);
 
 	private static double getRadiationModifier(Level world, Location source, Location end) {
@@ -75,7 +137,7 @@ public class RadiationSystem {
 						float damage = (float) (strength * 2.15f) / 2169.9975f;
 						if (Math.random() < damage) {
 							int integerDamage = Math.round(damage);
-							if (next.getDamageValue() > next.getMaxDamage() || next.hurt(integerDamage, entity.level().random, player instanceof ServerPlayer s ? s : null)) {
+							if (next.getDamageValue() > next.getMaxDamage() || next.hurthurt(integerDamage, entity.level().random, player instanceof ServerPlayer s ? s : null)) {
 								player.getInventory().armor.set(i, ItemStack.EMPTY);
 							}
 						}
@@ -114,24 +176,22 @@ public class RadiationSystem {
 	}
 
 	@SubscribeEvent
-	public static void onTick(ServerTickEvent event) {
-		if (event.side == LogicalSide.SERVER && event.phase == Phase.START) {
-			radiationMap.get().clear();
-		}
+	public static void onTick(ServerTickEvent.Pre event) {
+		radiationMap.get().clear();
 	}
 
 	private static int tick = 0;
 
 	@SubscribeEvent
-	public static void onTickC(ClientTickEvent event) {
-		if (event.side == LogicalSide.CLIENT && event.phase == Phase.END) {
-			tick++;
-			if (tick % 20 == 0) {
-				for (Map.Entry<Player, Double> en : ((HashMap<Player, Double>) radiationMap.get().clone()).entrySet()) {
-					radiationMap.get().put(en.getKey(), en.getValue() * 0.3);
-				}
-				tick = 0;
+	public static void onTickC(ClientTickEvent.Post event) {
+		tick++;
+		if (tick % 20 == 0) {
+			for (Map.Entry<Player, Double> en : ((HashMap<Player, Double>) radiationMap.get().clone()).entrySet()) {
+				radiationMap.get().put(en.getKey(), en.getValue() * 0.3);
 			}
+			tick = 0;
 		}
 	}
+
+	 */
 }

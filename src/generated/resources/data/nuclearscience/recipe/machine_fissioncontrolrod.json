@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "c:circuits/advanced"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    },
+    "S": {
+      "tag": "c:plates/steel"
+    },
+    "s": {
+      "tag": "c:ingots/silver"
+    }
+  },
+  "pattern": [
+    "SsS",
+    " P ",
+    "SCS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearscience:fissioncontrolrod"
+  }
+}

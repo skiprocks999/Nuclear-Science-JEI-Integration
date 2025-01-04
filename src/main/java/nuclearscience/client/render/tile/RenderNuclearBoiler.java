@@ -18,8 +18,8 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import nuclearscience.common.tile.TileNuclearBoiler;
 
 public class RenderNuclearBoiler extends AbstractTileRenderer<TileNuclearBoiler> {
@@ -86,7 +86,7 @@ public class RenderNuclearBoiler extends AbstractTileRenderer<TileNuclearBoiler>
 
 		}
 
-		RenderingUtils.renderFluidBox(stack, minecraft(), builder, box, fluid, light, overlay);
+		RenderingUtils.renderFluidBox(stack, minecraft(), builder, box, fluid, light, overlay, RenderingUtils.ALL_FACES);
 	}
 
 	private void drawGasOutput(PoseStack stack, VertexConsumer builder, GasStack fluid, Direction facing, float height, int light, int overlay) {
@@ -112,11 +112,15 @@ public class RenderNuclearBoiler extends AbstractTileRenderer<TileNuclearBoiler>
 
 		}
 
-		TextureAtlasSprite sprite = ClientRegister.CACHED_TEXTUREATLASSPRITES.get(ClientRegister.TEXTURE_GAS);
+		TextureAtlasSprite sprite = ClientRegister.getSprite(ClientRegister.TEXTURE_GAS);
 
 		float[] colors = new Color(sprite.getPixelRGBA(0, 10, 10)).colorFloatArr();
 
-		RenderingUtils.renderFilledBox(stack, builder, box, colors[0], colors[1], colors[2], colors[3], sprite.getU0(), sprite.getV0(), sprite.getU1(), sprite.getV1(), light, overlay);
+		RenderingUtils.renderFilledBox(stack, builder, box, colors[0], colors[1], colors[2], colors[3], sprite.getU0(), sprite.getV0(), sprite.getU1(), sprite.getV1(), light, overlay, RenderingUtils.ALL_FACES);
 	}
 
+	@Override
+	public AABB getRenderBoundingBox(TileNuclearBoiler blockEntity) {
+		return super.getRenderBoundingBox(blockEntity).inflate(1);
+	}
 }

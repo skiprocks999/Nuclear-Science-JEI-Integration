@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "item": "minecraft:dispenser"
+    },
+    "M": {
+      "item": "nuclearscience:electromagnet"
+    },
+    "T": {
+      "item": "electrodynamics:upgradetransformer"
+    },
+    "U": {
+      "tag": "c:circuits/ultimate"
+    }
+  },
+  "pattern": [
+    "MTM",
+    "UDU",
+    "MTM"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearscience:particleinjector"
+  }
+}

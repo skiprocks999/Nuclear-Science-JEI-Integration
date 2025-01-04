@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "c:circuits/basic"
+    },
+    "H": {
+      "item": "minecraft:leather_helmet"
+    },
+    "L": {
+      "tag": "c:plates/lead"
+    },
+    "W": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "pattern": [
+    "WWW",
+    "LHL",
+    "WCW"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearscience:hazmathelmet"
+  }
+}

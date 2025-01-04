@@ -1,0 +1,24 @@
+{
+  "type": "nuclearscience:radioactive_processor_recipe",
+  "fluidinputs": [
+    {
+      "amount": 3000,
+      "tag": "c:sulfates/iron"
+    }
+  ],
+  "group": "nuclearscience",
+  "iteminputs": [
+    {
+      "count": 2,
+      "ingredient": {
+        "tag": "c:dusts/fissile"
+      }
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "nuclearscience:plutoniumoxide"
+  },
+  "ticks": 300,
+  "usagepertick": 480.0
+}

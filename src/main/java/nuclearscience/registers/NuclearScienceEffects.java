@@ -1,16 +1,18 @@
 package nuclearscience.registers;
 
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffect;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import nuclearscience.References;
 import nuclearscience.api.radiation.EffectRadiation;
+import nuclearscience.api.radiation.EffectRadiationResistance;
 
 public class NuclearScienceEffects {
 
-	public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, References.ID);
+	public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(Registries.MOB_EFFECT, References.ID);
 
-	public static final RegistryObject<MobEffect> RADIATION = EFFECTS.register("radiation", EffectRadiation::new);
+	public static final DeferredHolder<MobEffect, EffectRadiation> RADIATION = EFFECTS.register("radiation", EffectRadiation::new);
+	public static final DeferredHolder<MobEffect, EffectRadiationResistance> RADIATION_RESISTANCE = EFFECTS.register("radiationresistance", EffectRadiationResistance::new);
 
 }

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:leather_boots"
+    },
+    "C": {
+      "tag": "c:circuits/basic"
+    },
+    "L": {
+      "tag": "c:plates/lead"
+    },
+    "W": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "pattern": [
+    "WWW",
+    "LBL",
+    "WCW"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearscience:hazmatboots"
+  }
+}

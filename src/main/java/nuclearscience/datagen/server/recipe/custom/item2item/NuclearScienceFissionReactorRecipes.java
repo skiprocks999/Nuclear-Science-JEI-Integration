@@ -1,14 +1,12 @@
 package nuclearscience.datagen.server.recipe.custom.item2item;
 
-import java.util.function.Consumer;
-
-import electrodynamics.datagen.utils.recipe.AbstractElectrodynamicsFinishedRecipe.RecipeCategory;
 import electrodynamics.datagen.utils.recipe.AbstractRecipeGenerator;
-import electrodynamics.datagen.utils.recipe.FinishedRecipeItemOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
+import electrodynamics.datagen.utils.recipe.builders.ElectrodynamicsRecipeBuilder;
+import electrodynamics.datagen.utils.recipe.builders.Item2ItemBuilder;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.world.item.ItemStack;
 import nuclearscience.References;
-import nuclearscience.common.recipe.NuclearScienceRecipeInit;
+import nuclearscience.common.recipe.categories.item2item.FissionReactorRecipe;
 import nuclearscience.common.tags.NuclearScienceTags;
 import nuclearscience.registers.NuclearScienceItems;
 
@@ -25,18 +23,18 @@ public class NuclearScienceFissionReactorRecipes extends AbstractRecipeGenerator
 	}
 
 	@Override
-	public void addRecipes(Consumer<FinishedRecipe> consumer) {
+	public void addRecipes(RecipeOutput output) {
 
-		newRecipe(new ItemStack(NuclearScienceItems.ITEM_CELLTRITIUM.get()), 0.0F, 1, 1, "cell_tritium")
+		newRecipe(new ItemStack(NuclearScienceItems.ITEM_CELLTRITIUM.get()), 0.0F, 1, 1, "cell_tritium", modID)
 				//
 				.addItemTagInput(NuclearScienceTags.Items.CELL_DEUTERIUM, 1)
 				//
-				.complete(consumer);
+				.save(output);
 
 	}
 
-	public FinishedRecipeItemOutput newRecipe(ItemStack stack, float xp, int ticks, double usagePerTick, String name) {
-		return FinishedRecipeItemOutput.of(NuclearScienceRecipeInit.FISSION_REACTOR_SERIALIZER.get(), stack, xp, ticks, usagePerTick).name(RecipeCategory.ITEM_2_ITEM, modID, "fission_reactor/" + name);
+	public Item2ItemBuilder<FissionReactorRecipe> newRecipe(ItemStack stack, float xp, int ticks, double usagePerTick, String name, String group) {
+		return new Item2ItemBuilder<>(FissionReactorRecipe::new, stack, ElectrodynamicsRecipeBuilder.RecipeCategory.ITEM_2_ITEM, modID, "fission_reactor/" + name, group, xp, ticks, usagePerTick);
 	}
 
 }

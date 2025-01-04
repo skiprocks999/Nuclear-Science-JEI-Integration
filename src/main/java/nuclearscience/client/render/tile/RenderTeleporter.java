@@ -28,7 +28,7 @@ public class RenderTeleporter extends AbstractTileRenderer<TileTeleporter> {
 		ComponentElectrodynamic electro = tileEntityIn.getComponent(IComponentType.Electrodynamic);
 
 		if (electro.getJoulesStored() > 0) {
-			AABB bb = new AABB(tileEntityIn.getBlockPos(), tileEntityIn.getBlockPos().offset(1, 2, 1));
+			AABB bb = AABB.encapsulatingFullBlocks(tileEntityIn.getBlockPos(), tileEntityIn.getBlockPos().offset(1, 2, 1));
 			List<Player> player = tileEntityIn.getLevel().getEntities(EntityType.PLAYER, bb, en -> true);
 			if (!player.isEmpty()) {
 
@@ -38,5 +38,10 @@ public class RenderTeleporter extends AbstractTileRenderer<TileTeleporter> {
 			}
 		}
 		stack.popPose();
+	}
+
+	@Override
+	public AABB getRenderBoundingBox(TileTeleporter blockEntity) {
+		return super.getRenderBoundingBox(blockEntity).inflate(3);
 	}
 }

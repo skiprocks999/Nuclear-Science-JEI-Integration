@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "c:circuits/basic"
+    },
+    "L": {
+      "tag": "c:plates/lead"
+    },
+    "W": {
+      "tag": "minecraft:wool"
+    },
+    "c": {
+      "item": "minecraft:leather_chestplate"
+    }
+  },
+  "pattern": [
+    "WWW",
+    "LcL",
+    "WCW"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearscience:hazmatplate"
+  }
+}

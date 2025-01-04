@@ -1,20 +1,22 @@
 package nuclearscience.common.tags;
 
 import electrodynamics.api.gas.Gas;
-import electrodynamics.registers.ElectrodynamicsRegistries;
+import electrodynamics.registers.ElectrodynamicsGases;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
-import nuclearscience.common.fluid.types.FluidAmmonia;
 
 public class NuclearScienceTags {
 
 	public static void init() {
 		Fluids.init();
 		Items.init();
+		Blocks.init();
 		Gases.init();
 	}
 
@@ -58,21 +60,38 @@ public class NuclearScienceTags {
 		}
 
 		private static TagKey<Item> forgeTag(String name) {
-			return ItemTags.create(new ResourceLocation("forge", name));
+			return ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", name));
+		}
+
+	}
+
+	public static class Blocks {
+
+		public static final TagKey<Block> PARTICLE_CONTAINMENT = forgeTag("particle_containment");
+		public static final TagKey<Block> FUSION_CONTAINMENT = forgeTag("fusion_containment");
+
+
+		private static void init() {
+		}
+
+		private static TagKey<Block> forgeTag(String name) {
+			return BlockTags.create(ResourceLocation.fromNamespaceAndPath("c", name));
 		}
 
 	}
 
 	public static class Fluids {
 
-		public static final TagKey<Fluid> AMMONIA = forgeTag(FluidAmmonia.FORGE_TAG);
+		public static final TagKey<Fluid> DECONTAMINATION_FOAM = forgeTag("decontamination_foam");
+		public static final TagKey<Fluid> IODINE_SOLUTION = forgeTag("iodine_solution");
+		public static final TagKey<Fluid> METHANOL = forgeTag("methanol");
 
 		private static void init() {
 
 		}
 
 		private static TagKey<Fluid> forgeTag(String name) {
-			return FluidTags.create(new ResourceLocation("forge", name));
+			return FluidTags.create(ResourceLocation.fromNamespaceAndPath("c", name));
 		}
 	}
 
@@ -85,11 +104,11 @@ public class NuclearScienceTags {
 		}
 
 		private static TagKey<Gas> forgeTag(String name) {
-			return create(new ResourceLocation("forge", name));
+			return create(ResourceLocation.fromNamespaceAndPath("c", name));
 		}
 
 		public static TagKey<Gas> create(ResourceLocation loc) {
-			return TagKey.create(ElectrodynamicsRegistries.GAS_REGISTRY_KEY, loc);
+			return TagKey.create(ElectrodynamicsGases.GAS_REGISTRY_KEY, loc);
 		}
 	}
 

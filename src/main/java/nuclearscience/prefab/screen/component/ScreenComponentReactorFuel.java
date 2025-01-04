@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import electrodynamics.api.electricity.formatting.ChatFormatter;
-import electrodynamics.prefab.inventory.container.GenericContainerBlockEntity;
+import electrodynamics.prefab.inventory.container.types.GenericContainerBlockEntity;
 import electrodynamics.prefab.screen.GenericScreen;
 import electrodynamics.prefab.screen.component.types.gauges.AbstractScreenComponentGauge;
 import electrodynamics.prefab.utilities.ElectroTextUtils;
@@ -14,8 +14,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
-import nuclearscience.common.tile.msreactor.TileMSReactorCore;
+import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
+import nuclearscience.common.tile.reactor.moltensalt.TileMSReactorCore;
 
 public class ScreenComponentReactorFuel extends AbstractScreenComponentGauge {
 
@@ -30,7 +30,7 @@ public class ScreenComponentReactorFuel extends AbstractScreenComponentGauge {
 
 	@Override
 	protected int getScaledLevel() {
-		TileMSReactorCore core = ((GenericContainerBlockEntity<TileMSReactorCore>) ((GenericScreen<?>) gui).getMenu()).getHostFromIntArray();
+		TileMSReactorCore core = ((GenericContainerBlockEntity<TileMSReactorCore>) ((GenericScreen<?>) gui).getMenu()).getSafeHost();
 		if (core == null) {
 			return 0;
 		}
@@ -46,7 +46,7 @@ public class ScreenComponentReactorFuel extends AbstractScreenComponentGauge {
 	@Override
 	protected List<? extends FormattedCharSequence> getTooltips() {
 		List<FormattedCharSequence> list = new ArrayList<>();
-		TileMSReactorCore core = ((GenericContainerBlockEntity<TileMSReactorCore>) ((GenericScreen<?>) gui).getMenu()).getHostFromIntArray();
+		TileMSReactorCore core = ((GenericContainerBlockEntity<TileMSReactorCore>) ((GenericScreen<?>) gui).getMenu()).getSafeHost();
 		if (core == null) {
 			return list;
 		}

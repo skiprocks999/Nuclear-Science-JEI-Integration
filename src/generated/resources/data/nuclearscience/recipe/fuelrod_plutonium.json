@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "tag": "c:glass_blocks"
+    },
+    "L": {
+      "tag": "c:pellets/uranium238"
+    },
+    "P": {
+      "tag": "c:pellets/plutonium"
+    }
+  },
+  "pattern": [
+    "GLG",
+    "GPG",
+    "GLG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearscience:fuelplutonium"
+  }
+}

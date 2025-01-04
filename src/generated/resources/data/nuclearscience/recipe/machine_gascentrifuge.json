@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "c:plates/bronze"
+    },
+    "C": {
+      "tag": "c:cells/empty"
+    },
+    "E": {
+      "tag": "c:circuits/elite"
+    },
+    "G": {
+      "tag": "c:gears/steel"
+    },
+    "M": {
+      "item": "electrodynamics:motor"
+    },
+    "S": {
+      "tag": "c:plates/stainlesssteel"
+    }
+  },
+  "pattern": [
+    "SES",
+    "CGC",
+    "BMB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearscience:gascentrifuge"
+  }
+}

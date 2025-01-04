@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "c:plates/stainlesssteel"
+    },
+    "C": {
+      "tag": "c:circuits/advanced"
+    },
+    "D": {
+      "tag": "c:dusts/glowstone"
+    },
+    "L": {
+      "item": "nuclearscience:logisticscablebase"
+    },
+    "R": {
+      "item": "nuclearscience:fissioncontrolrod"
+    }
+  },
+  "pattern": [
+    "#D#",
+    "CRC",
+    "#L#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearscience:controlrodmodule"
+  }
+}

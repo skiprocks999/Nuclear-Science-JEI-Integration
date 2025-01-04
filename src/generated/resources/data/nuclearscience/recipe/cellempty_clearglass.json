@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "electrodynamics:glassclear"
+    },
+    "T": {
+      "tag": "c:ingots/tin"
+    }
+  },
+  "pattern": [
+    "GTG",
+    "T T",
+    "GTG"
+  ],
+  "result": {
+    "count": 6,
+    "id": "nuclearscience:cellempty"
+  }
+}

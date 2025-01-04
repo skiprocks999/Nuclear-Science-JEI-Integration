@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "c:plates/stainlesssteel"
+    },
+    "C": {
+      "tag": "c:circuits/ultimate"
+    },
+    "P": {
+      "tag": "c:pellets/plutonium"
+    }
+  },
+  "pattern": [
+    "#C#",
+    "CPC",
+    "#C#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearscience:logisticscontroller"
+  }
+}

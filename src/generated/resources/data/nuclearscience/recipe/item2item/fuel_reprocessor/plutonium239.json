@@ -1,0 +1,27 @@
+{
+  "type": "nuclearscience:fuel_reprocessor_recipe",
+  "group": "nuclearscience",
+  "itembi": [
+    {
+      "chance": 1.0,
+      "item": {
+        "count": 3,
+        "id": "nuclearscience:polonium210chunk"
+      }
+    }
+  ],
+  "iteminputs": [
+    {
+      "count": 1,
+      "ingredient": {
+        "tag": "c:oxide/plutonium"
+      }
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "nuclearscience:plutonium239"
+  },
+  "ticks": 200,
+  "usagepertick": 480.0
+}

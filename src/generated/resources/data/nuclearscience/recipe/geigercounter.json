@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "c:circuits/basic"
+    },
+    "C": {
+      "item": "electrodynamics:coil"
+    },
+    "P": {
+      "tag": "c:plates/steel"
+    }
+  },
+  "pattern": [
+    "PPP",
+    "PBP",
+    "PCP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearscience:geigercounter"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "nuclearscience:radioactive_processor_recipe",
+  "fluidinputs": [
+    {
+      "amount": 100,
+      "tag": "c:hydrofluoric_acid"
+    }
+  ],
+  "group": "nuclearscience",
+  "iteminputs": [
+    {
+      "count": 1,
+      "ingredient": {
+        "tag": "c:oxide/actinium"
+      }
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "nuclearscience:actinium225"
+  },
+  "ticks": 300,
+  "usagepertick": 480.0
+}

@@ -1,6 +1,6 @@
 package nuclearscience.common.block;
 
-import electrodynamics.prefab.block.GenericEntityBlock;
+import electrodynamics.common.block.states.ElectrodynamicsBlockStates;
 import electrodynamics.prefab.tile.IWrenchable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -18,42 +18,39 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import nuclearscience.api.fusion.IElectromagnet;
-import nuclearscience.common.block.facing.FacingDirection;
-import nuclearscience.common.block.facing.FacingDirectionProperty;
+import nuclearscience.common.block.states.NuclearScienceBlockStates;
+import nuclearscience.common.block.states.facing.FacingDirection;
 
-public class BlockElectromagneticBooster extends Block implements IElectromagnet, IWrenchable {
-	public static final FacingDirectionProperty FACINGDIRECTION = FacingDirectionProperty.create("side", FacingDirection.values());
+public class BlockElectromagneticBooster extends Block implements IWrenchable {
+
 
 	public BlockElectromagneticBooster() {
-		super(Properties.copy(Blocks.GLASS).strength(3.5f, 20).requiresCorrectToolForDrops().noOcclusion().isRedstoneConductor((x, y, z) -> false));
-		registerDefaultState(stateDefinition.any().setValue(GenericEntityBlock.FACING, Direction.NORTH).setValue(FACINGDIRECTION, FacingDirection.NONE));
+		super(Blocks.GLASS.properties().strength(3.5f, 20).requiresCorrectToolForDrops().noOcclusion().isRedstoneConductor((x, y, z) -> false));
+		registerDefaultState(stateDefinition.any().setValue(ElectrodynamicsBlockStates.FACING, Direction.NORTH).setValue(NuclearScienceBlockStates.FACINGDIRECTION, FacingDirection.NONE));
 	}
 
 	@Override
 	public BlockState rotate(BlockState state, Rotation rot) {
-		return state.setValue(GenericEntityBlock.FACING, rot.rotate(state.getValue(GenericEntityBlock.FACING)));
+		return state.setValue(ElectrodynamicsBlockStates.FACING, rot.rotate(state.getValue(ElectrodynamicsBlockStates.FACING)));
 	}
 
 	@Override
 	public BlockState mirror(BlockState state, Mirror mirrorIn) {
-		return state.rotate(mirrorIn.getRotation(state.getValue(GenericEntityBlock.FACING)));
+		return state.rotate(mirrorIn.getRotation(state.getValue(ElectrodynamicsBlockStates.FACING)));
 	}
 
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		Direction movingdirection = context.getHorizontalDirection();
-		BlockState state = super.getStateForPlacement(context).setValue(GenericEntityBlock.FACING, context.getHorizontalDirection().getOpposite());
+		BlockState state = super.getStateForPlacement(context).setValue(ElectrodynamicsBlockStates.FACING, context.getHorizontalDirection().getOpposite());
 		// left check first in front
 		BlockState check = context.getLevel().getBlockState(context.getClickedPos().relative(movingdirection.getClockWise().getOpposite()));
-		if (check.getBlock() == this && check.getValue(GenericEntityBlock.FACING).getOpposite() == movingdirection.getClockWise().getOpposite()) {
-			state = state.setValue(FACINGDIRECTION, FacingDirection.LEFT);
+		if (check.getBlock() == this && check.getValue(ElectrodynamicsBlockStates.FACING).getOpposite() == movingdirection.getClockWise().getOpposite()) {
+			state = state.setValue(NuclearScienceBlockStates.FACINGDIRECTION, FacingDirection.LEFT);
 		} else {
 			check = context.getLevel().getBlockState(context.getClickedPos().relative(movingdirection.getClockWise()));
-			if (check.getBlock() == this && check.getValue(GenericEntityBlock.FACING).getOpposite() == movingdirection.getClockWise()) {
-				state = state.setValue(FACINGDIRECTION, FacingDirection.RIGHT);
+			if (check.getBlock() == this && check.getValue(ElectrodynamicsBlockStates.FACING).getOpposite() == movingdirection.getClockWise()) {
+				state = state.setValue(NuclearScienceBlockStates.FACINGDIRECTION, FacingDirection.RIGHT);
 			}
 		}
 		return state;
@@ -61,8 +58,8 @@ public class BlockElectromagneticBooster extends Block implements IElectromagnet
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(GenericEntityBlock.FACING);
-		builder.add(FACINGDIRECTION);
+		builder.add(ElectrodynamicsBlockStates.FACING);
+		builder.add(NuclearScienceBlockStates.FACINGDIRECTION);
 	}
 
 	@Override
@@ -74,9 +71,9 @@ public class BlockElectromagneticBooster extends Block implements IElectromagnet
 	public void onPickup(ItemStack stack, BlockPos pos, Player player) {
 		Level world = player.level();
 		BlockState current = world.getBlockState(pos);
-		FacingDirection face = current.getValue(FACINGDIRECTION);
+		FacingDirection face = current.getValue(NuclearScienceBlockStates.FACINGDIRECTION);
 		if (face != FacingDirection.NONE) {
-			current = current.setValue(FACINGDIRECTION, face == FacingDirection.LEFT ? FacingDirection.RIGHT : FacingDirection.LEFT);
+			current = current.setValue(NuclearScienceBlockStates.FACINGDIRECTION, face == FacingDirection.LEFT ? FacingDirection.RIGHT : FacingDirection.LEFT);
 			if (face == FacingDirection.RIGHT) {
 				current = rotate(current, Rotation.CLOCKWISE_180);
 			}
@@ -92,7 +89,6 @@ public class BlockElectromagneticBooster extends Block implements IElectromagnet
 		return Shapes.empty();
 	}
 
-	@OnlyIn(Dist.CLIENT)
 	@Override
 	public float getShadeBrightness(BlockState state, BlockGetter worldIn, BlockPos pos) {
 		return 1.0F;

@@ -1,0 +1,24 @@
+{
+  "type": "electrodynamics:chemical_reactor_recipe",
+  "fluidoutput": {
+    "amount": 100,
+    "id": "nuclearscience:methanol"
+  },
+  "gasinputs": [
+    {
+      "amount": 200,
+      "pressure": 128,
+      "tag": "c:carbondioxide",
+      "temp": 525
+    },
+    {
+      "amount": 200,
+      "pressure": 128,
+      "tag": "c:hydrogen",
+      "temp": 525
+    }
+  ],
+  "group": "nuclearscience",
+  "ticks": 200,
+  "usagepertick": 1000.0
+}

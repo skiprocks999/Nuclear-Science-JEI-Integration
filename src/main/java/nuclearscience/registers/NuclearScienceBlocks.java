@@ -1,134 +1,154 @@
 package nuclearscience.registers;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import electrodynamics.api.ISubtype;
-import electrodynamics.prefab.block.GenericMachineBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import electrodynamics.api.registration.BulkDeferredHolder;
+import electrodynamics.common.block.BlockCustomGlass;
+import electrodynamics.common.block.BlockMachine;
+import electrodynamics.prefab.utilities.math.Color;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import nuclearscience.References;
-import nuclearscience.common.block.BlockControlRodAssembly;
-import nuclearscience.common.block.BlockElectromagnet;
-import nuclearscience.common.block.BlockElectromagneticBooster;
-import nuclearscience.common.block.BlockElectromagneticSwitch;
-import nuclearscience.common.block.BlockFissionReactorCore;
-import nuclearscience.common.block.BlockFuelReprocessor;
-import nuclearscience.common.block.BlockFusionReactorCore;
-import nuclearscience.common.block.BlockMSRFuelPreprocessor;
-import nuclearscience.common.block.BlockMeltedReactor;
-import nuclearscience.common.block.BlockMoltenSaltSupplier;
-import nuclearscience.common.block.BlockPlasma;
-import nuclearscience.common.block.BlockQuantumCapacitor;
-import nuclearscience.common.block.BlockRadioactiveAir;
-import nuclearscience.common.block.BlockRadioactiveProcessor;
-import nuclearscience.common.block.BlockRadioactiveSoil;
-import nuclearscience.common.block.BlockTeleporter;
-import nuclearscience.common.block.BlockTurbine;
+import nuclearscience.common.block.*;
 import nuclearscience.common.block.connect.BlockMoltenSaltPipe;
-import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
-import nuclearscience.common.tile.TileAtomicAssembler;
-import nuclearscience.common.tile.TileChemicalExtractor;
-import nuclearscience.common.tile.TileGasCentrifuge;
-import nuclearscience.common.tile.TileNuclearBoiler;
-import nuclearscience.common.tile.TileParticleInjector;
-import nuclearscience.common.tile.TileRadioisotopeGenerator;
-import nuclearscience.common.tile.TileSiren;
-import nuclearscience.common.tile.TileSteamFunnel;
-import nuclearscience.common.tile.msreactor.TileFreezePlug;
-import nuclearscience.common.tile.msreactor.TileHeatExchanger;
-import nuclearscience.common.tile.msreactor.TileMSRFuelPreProcessor;
-import nuclearscience.common.tile.msreactor.TileMSReactorCore;
+import nuclearscience.common.block.connect.BlockReactorLogisticsCable;
+import nuclearscience.common.block.subtype.*;
+import nuclearscience.common.tile.TileQuantumTunnel;
+import nuclearscience.common.tile.reactor.fission.TileFissionReactorCore;
 
 public class NuclearScienceBlocks {
-	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, References.ID);
-	public static final HashMap<ISubtype, RegistryObject<Block>> SUBTYPEBLOCKREGISTER_MAPPINGS = new HashMap<>();
 
-	public static GenericMachineBlock blockGasCentrifuge;
-	public static GenericMachineBlock blockNuclearBoiler;
-	public static GenericMachineBlock blockChemicalExtractor;
-	public static GenericMachineBlock blockRadioisotopeGenerator;
-	public static BlockTurbine blockTurbine;
-	public static BlockFissionReactorCore blockFissionReactorCore;
-	public static BlockElectromagnet blockElectromagnet;
-	public static BlockElectromagnet blockElectromagneticGlass;
-	public static BlockElectromagneticBooster blockElectromagneticBooster;
-	public static BlockElectromagneticSwitch blockElectromagneticSwitch;
-	public static BlockFusionReactorCore blockFusionReactorCore;
-	public static BlockPlasma blockPlasma;
-	public static BlockMeltedReactor blockMeltedReactor;
-	public static GenericMachineBlock blockParticleInjector;
-	public static BlockQuantumCapacitor blockQuantumCapacitor;
-	public static BlockTeleporter blockTeleporter;
-	public static BlockControlRodAssembly blockControlRodAssembly;
-	public static BlockFuelReprocessor blockFuelReprocessor;
-	public static BlockRadioactiveProcessor blockRadioactiveProcessor;
-	public static BlockMSRFuelPreprocessor blockMSRFuelPreProcessor;
-	public static GenericMachineBlock blockFreezePlug;
-	public static GenericMachineBlock blockMSReactorCore;
-	public static GenericMachineBlock blockHeatExchanger;
-	public static GenericMachineBlock blockSiren;
-	public static GenericMachineBlock blockAtomicAssembler;
-	public static BlockMoltenSaltSupplier blockMoltenSaltSupplier;
-	public static BlockRadioactiveSoil blockRadioactiveSoil;
-	public static BlockRadioactiveAir blockRadioactiveAir;
-	public static Block blocklead;
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Registries.BLOCK, References.ID);
 
-	public static GenericMachineBlock blockSteamFunnel;
+    public static final BulkDeferredHolder<Block, Block, SubtypeRadiationShielding> BLOCKS_RADIATION_SHIELDING = new BulkDeferredHolder<>(SubtypeRadiationShielding.values(), subtype -> BLOCKS.register(subtype.tag(), () -> {
+        if (subtype == SubtypeRadiationShielding.door) {
+            return new DoorBlock(BlockSetType.IRON, subtype.properties);
+        } else if (subtype == SubtypeRadiationShielding.trapdoor) {
+            return new TrapDoorBlock(BlockSetType.IRON, subtype.properties);
+        } else if (subtype == SubtypeRadiationShielding.glass) {
+            return new BlockCustomGlass(5.0f, 3.0f);
+        } else {
+            return new Block(subtype.properties);
+        }
+    }));
 
-	static {
-		BLOCKS.register("gascentrifuge", () -> blockGasCentrifuge = new GenericMachineBlock(TileGasCentrifuge::new));
-		BLOCKS.register("nuclearboiler", () -> blockNuclearBoiler = new GenericMachineBlock(TileNuclearBoiler::new));
-		BLOCKS.register("chemicalextractor", () -> blockChemicalExtractor = new GenericMachineBlock(TileChemicalExtractor::new));
-		BLOCKS.register("radioisotopegenerator", () -> blockRadioisotopeGenerator = new GenericMachineBlock(TileRadioisotopeGenerator::new));
-		BLOCKS.register("freezeplug", () -> blockFreezePlug = new GenericMachineBlock(TileFreezePlug::new));
-		BLOCKS.register("turbine", () -> blockTurbine = new BlockTurbine());
-		BLOCKS.register("steamfunnel", () -> blockSteamFunnel = new GenericMachineBlock(TileSteamFunnel::new));
-		BLOCKS.register("fissionreactorcore", () -> blockFissionReactorCore = new BlockFissionReactorCore());
-		BLOCKS.register("electromagnet", () -> blockElectromagnet = new BlockElectromagnet(false));
-		BLOCKS.register("electromagneticglass", () -> blockElectromagneticGlass = new BlockElectromagnet(true));
-		BLOCKS.register("electromagneticbooster", () -> blockElectromagneticBooster = new BlockElectromagneticBooster());
-		BLOCKS.register("electromagneticswitch", () -> blockElectromagneticSwitch = new BlockElectromagneticSwitch());
-		BLOCKS.register("fusionreactorcore", () -> blockFusionReactorCore = new BlockFusionReactorCore());
-		BLOCKS.register("plasma", () -> blockPlasma = new BlockPlasma());
-		BLOCKS.register("particleinjector", () -> blockParticleInjector = new GenericMachineBlock(TileParticleInjector::new));
-		BLOCKS.register("quantumcapacitor", () -> blockQuantumCapacitor = new BlockQuantumCapacitor());
-		BLOCKS.register("teleporter", () -> blockTeleporter = new BlockTeleporter());
-		BLOCKS.register("controlrodassembly", () -> blockControlRodAssembly = new BlockControlRodAssembly());
-		BLOCKS.register("fuelreprocessor", () -> blockFuelReprocessor = new BlockFuelReprocessor());
-		BLOCKS.register("radioactiveprocessor", () -> blockRadioactiveProcessor = new BlockRadioactiveProcessor());
-		BLOCKS.register("msrfuelpreprocessor", () -> blockMSRFuelPreProcessor = new BlockMSRFuelPreprocessor(TileMSRFuelPreProcessor::new));
-		BLOCKS.register("blocklead", () -> blocklead = new Block(Properties.copy(Blocks.NETHERITE_BLOCK).strength(5.0f, 3.0f).sound(SoundType.METAL).requiresCorrectToolForDrops()));
-		BLOCKS.register("msreactorcore", () -> blockMSReactorCore = new GenericMachineBlock(TileMSReactorCore::new));
-		BLOCKS.register("heatexchanger", () -> blockHeatExchanger = new GenericMachineBlock(TileHeatExchanger::new));
-		BLOCKS.register("siren", () -> blockSiren = new GenericMachineBlock(TileSiren::new));
-		BLOCKS.register("atomicassembler", () -> blockAtomicAssembler = new GenericMachineBlock(TileAtomicAssembler::new));
-		BLOCKS.register("moltensaltsupplier", () -> blockMoltenSaltSupplier = new BlockMoltenSaltSupplier());
-		for (SubtypeMoltenSaltPipe subtype : SubtypeMoltenSaltPipe.values()) {
-			SUBTYPEBLOCKREGISTER_MAPPINGS.put(subtype, BLOCKS.register(subtype.tag(), () -> new BlockMoltenSaltPipe(subtype)));
-		}
-		BLOCKS.register("meltedreactor", () -> blockMeltedReactor = new BlockMeltedReactor());
-		BLOCKS.register("radioactiveair", () -> blockRadioactiveAir = new BlockRadioactiveAir());
-		BLOCKS.register("radioactivesoil", () -> blockRadioactiveSoil = new BlockRadioactiveSoil());
+    public static final DeferredHolder<Block, BlockTurbine> BLOCK_TURBINE = BLOCKS.register("turbine", BlockTurbine::new);
 
-	}
+    public static final BulkDeferredHolder<Block, BlockMachine, SubtypeNuclearMachine> BLOCKS_NUCLEARMACHINE = new BulkDeferredHolder<>(SubtypeNuclearMachine.values(), subtype -> BLOCKS.register(subtype.tag(), () -> {
 
-	public static Block[] getAllBlockForSubtype(ISubtype[] values) {
-		List<Block> list = new ArrayList<>();
-		for (ISubtype value : values) {
-			list.add(SUBTYPEBLOCKREGISTER_MAPPINGS.get(value).get());
-		}
-		return list.toArray(new Block[] {});
-	}
+        if (subtype == SubtypeNuclearMachine.chunkloader) {
+            return new BlockMachine(subtype) {
+                @Override
+                public int getLightEmission(BlockState state, BlockGetter world, BlockPos pos) {
+                    return 15;
+                }
+            };
+        } else if (subtype == SubtypeNuclearMachine.fissionreactorcore) {
+            return new BlockMachine(subtype) {
+                @Override
+                public int getLightEmission(BlockState state, BlockGetter world, BlockPos pos) {
+                    if (world.getBlockEntity(pos) instanceof TileFissionReactorCore core) {
+                        return (int) Math.max(0, Math.min(core.temperature.get() / TileFissionReactorCore.MELTDOWN_TEMPERATURE_ACTUAL * 15, 15));
+                    }
+                    return super.getLightEmission(state, world, pos);
+                }
+            };
+        } else {
+            return new BlockMachine(subtype);
+        }
 
-	public static Block getBlock(ISubtype value) {
-		return SUBTYPEBLOCKREGISTER_MAPPINGS.get(value).get();
-	}
+    })
+
+    );
+
+    public static final BulkDeferredHolder<Block, Block, SubtypeElectromagent> BLOCKS_ELECTROMAGENT = new BulkDeferredHolder<>(SubtypeElectromagent.values(), subtype -> BLOCKS.register(subtype.tag(), () -> {
+
+        if(subtype == SubtypeElectromagent.electromagneticglass) {
+            return new BlockCustomGlass(3.5F, 20);
+        } else {
+            return new Block(Blocks.IRON_BLOCK.properties().strength(3.5F, 20).requiresCorrectToolForDrops());
+        }
+
+    }));
+
+    //public static final DeferredHolder<Block, BlockElectromagnet> BLOCK_ELECTROMAGNET = BLOCKS.register("electromagnet", () -> new BlockElectromagnet(Blocks.IRON_BLOCK.properties(), false));
+    //public static final DeferredHolder<Block, BlockElectromagnet> BLOCK_ELECTROMAGNETICGLASS = BLOCKS.register("electromagneticglass", () -> new BlockElectromagnet(Blocks.GLASS.properties(), true));
+    public static final DeferredHolder<Block, BlockElectromagneticBooster> BLOCK_ELECTORMAGNETICBOOSTER = BLOCKS.register("electromagneticbooster", BlockElectromagneticBooster::new);
+    public static final DeferredHolder<Block, BlockElectromagneticSwitch> BLOCK_ELECTROMAGNETICSWITCH = BLOCKS.register("electromagneticswitch", BlockElectromagneticSwitch::new);
+    public static final DeferredHolder<Block, BlockElectromagneticGateway> BLOCK_ELECTROMAGNETICGATEWAY = BLOCKS.register("electromagneticgateway", BlockElectromagneticGateway::new);
+    public static final DeferredHolder<Block, BlockElectromagneticDiode> BLOCK_ELECTROMAGNETICDIODE = BLOCKS.register("electromagneticdiode", BlockElectromagneticDiode::new);
+    public static final DeferredHolder<Block, BlockPlasma> BLOCK_PLASMA = BLOCKS.register("plasma", BlockPlasma::new);
+    public static final BulkDeferredHolder<Block, BlockMoltenSaltPipe, SubtypeMoltenSaltPipe> BLOCKS_MOLTENSALTPIPE = new BulkDeferredHolder<>(SubtypeMoltenSaltPipe.values(), subtype -> BLOCKS.register(subtype.tag(), () -> new BlockMoltenSaltPipe(subtype)));
+    public static final BulkDeferredHolder<Block, BlockReactorLogisticsCable, SubtypeReactorLogisticsCable> BLOCKS_REACTORLOGISTICSCABLE = new BulkDeferredHolder<>(SubtypeReactorLogisticsCable.values(), subtype -> BLOCKS.register(subtype.tag(), () -> new BlockReactorLogisticsCable(subtype)));
+    public static final DeferredHolder<Block, BlockMeltedReactor> BLOCK_MELTEDREACTOR = BLOCKS.register("meltedreactor", BlockMeltedReactor::new);
+    public static final DeferredHolder<Block, BlockRadioactiveAir> BLOCK_RADIOACTIVEAIR = BLOCKS.register("radioactiveair", BlockRadioactiveAir::new);
+    public static final BulkDeferredHolder<Block, BlockIrradiated, SubtypeIrradiatedBlock> BLOCKS_IRRADIATED = new BulkDeferredHolder<>(SubtypeIrradiatedBlock.values(), subtype -> BLOCKS.register(subtype.tag(), () -> new BlockIrradiated(subtype)));
+
+
+
+
+    @EventBusSubscriber(value = Dist.CLIENT, modid = References.ID, bus = EventBusSubscriber.Bus.MOD)
+    private static class ColorHandlerInternal {
+
+        private static final Color NONE = new Color(114, 114, 114, 255);
+        private static final Color INPUT = new Color(167, 223, 248, 255);
+        private static final Color OUTPUT = new Color(255, 120, 46, 255);
+
+        @SubscribeEvent
+        public static void registerColoredBlocks(RegisterColorHandlersEvent.Block event) {
+            Block block = BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.quantumcapacitor);
+
+            event.register((state, level, pos, tintIndex) -> {
+                if (tintIndex >= 1) {
+
+                    BlockEntity tile = level.getBlockEntity(pos);
+
+                    if(tile instanceof TileQuantumTunnel tunnel) {
+
+                        Direction dir = getDirFromIndex(tintIndex);
+
+                        if(tunnel.readInputDirections().contains(dir)) {
+                            return INPUT.color();
+                        } else if (tunnel.readOutputDirections().contains(dir)) {
+                            return OUTPUT.color();
+                        } else {
+                            return NONE.color();
+                        }
+
+                    } else {
+                        return NONE.color();
+                    }
+                }
+                return Color.WHITE.color();
+            }, block);
+        }
+    }
+
+    private static Direction getDirFromIndex(int index) {
+        if(index == 1) {
+            return Direction.SOUTH.getCounterClockWise();
+        } else if (index == 2) {
+            return Direction.NORTH.getCounterClockWise();
+        } else if (index == 3) {
+            return Direction.EAST.getCounterClockWise();
+        } else if (index == 4) {
+            return Direction.WEST.getCounterClockWise();
+        } else if (index == 5) {
+            return Direction.UP;
+        } else if (index == 6) {
+            return Direction.DOWN;
+        }
+        return Direction.UP;
+    }
 
 }

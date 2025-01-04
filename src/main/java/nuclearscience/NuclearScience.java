@@ -1,38 +1,32 @@
 package nuclearscience;
 
 import electrodynamics.prefab.configuration.ConfigurationHandler;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import nuclearscience.api.radiation.RadiationRegister;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import nuclearscience.client.ClientRegister;
-import nuclearscience.common.block.voxelshapes.NuclearScienceVoxelShapeRegistry;
-import nuclearscience.common.packet.NetworkHandler;
-import nuclearscience.common.recipe.NuclearScienceRecipeInit;
-import nuclearscience.common.reloadlistener.AtomicAssemblerBlacklistRegister;
-import nuclearscience.common.reloadlistener.RadioactiveItemLoader;
+import nuclearscience.common.block.states.NuclearScienceBlockStates;
+import nuclearscience.common.block.voxelshapes.NuclearScienceVoxelShapes;
+import nuclearscience.common.reloadlistener.*;
 import nuclearscience.common.settings.Constants;
 import nuclearscience.common.tags.NuclearScienceTags;
+import nuclearscience.datagen.client.NuclearScienceBlockStateProvider;
 import nuclearscience.registers.UnifiedNuclearScienceRegister;
 
 @Mod(References.ID)
-@EventBusSubscriber(modid = References.ID, bus = Bus.MOD)
+@EventBusSubscriber(modid = References.ID, bus = EventBusSubscriber.Bus.MOD)
 public class NuclearScience {
 
-	public NuclearScience() {
+	public NuclearScience(IEventBus bus) {
 		ConfigurationHandler.registerConfig(Constants.class);
-		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+		NuclearScienceBlockStates.init();
+		NuclearScienceVoxelShapes.init();
 		UnifiedNuclearScienceRegister.register(bus);
-		NuclearScienceRecipeInit.RECIPE_TYPES.register(bus);
-		NuclearScienceRecipeInit.RECIPE_SERIALIZER.register(bus);
-		RadiationRegister.init();
 	}
 
 	@SubscribeEvent
@@ -45,11 +39,13 @@ public class NuclearScience {
 
 	@SubscribeEvent
 	public static void onCommonSetup(FMLCommonSetupEvent event) {
-		NetworkHandler.init();
 		NuclearScienceTags.init();
-		RadioactiveItemLoader.INSTANCE = new RadioactiveItemLoader().subscribeAsSyncable(NetworkHandler.CHANNEL);
-		AtomicAssemblerBlacklistRegister.INSTANCE = new AtomicAssemblerBlacklistRegister().subscribeAsSyncable(NetworkHandler.CHANNEL);
-		NuclearScienceVoxelShapeRegistry.init();
+		RadioactiveItemRegister.INSTANCE = new RadioactiveItemRegister().subscribeAsSyncable();
+		RadioactiveFluidRegister.INSTANCE = new RadioactiveFluidRegister().subscribeAsSyncable();
+		RadioactiveGasRegister.INSTANCE = new RadioactiveGasRegister().subscribeAsSyncable();
+		AtomicAssemblerBlacklistRegister.INSTANCE = new AtomicAssemblerBlacklistRegister().subscribeAsSyncable();
+		RadiationShieldingRegister.INSTANCE = new RadiationShieldingRegister().subscribeAsSyncable();
+
 	}
 
 }

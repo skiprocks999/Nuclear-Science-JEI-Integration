@@ -1,0 +1,38 @@
+{
+  "type": "electrodynamics:chemical_reactor_recipe",
+  "fluidinputs": [
+    {
+      "amount": 2000,
+      "tag": "minecraft:water"
+    }
+  ],
+  "fluidoutput": {
+    "amount": 1000,
+    "id": "nuclearscience:decontaminationfoam"
+  },
+  "gasinputs": [
+    {
+      "amount": 1000,
+      "pressure": 4,
+      "tag": "c:ammonia",
+      "temp": 293
+    }
+  ],
+  "group": "nuclearscience",
+  "iteminputs": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "electrodynamics:crystalpotassiumchloride"
+      }
+    },
+    {
+      "count": 2,
+      "ingredient": {
+        "tag": "c:dusts/sulfur"
+      }
+    }
+  ],
+  "ticks": 100,
+  "usagepertick": 1000.0
+}

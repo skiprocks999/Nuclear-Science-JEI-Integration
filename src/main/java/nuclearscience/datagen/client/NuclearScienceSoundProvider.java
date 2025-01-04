@@ -2,12 +2,10 @@ package nuclearscience.datagen.client;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.common.data.SoundDefinition;
-import net.minecraftforge.common.data.SoundDefinition.Sound;
-import net.minecraftforge.common.data.SoundDefinition.SoundType;
-import net.minecraftforge.common.data.SoundDefinitionsProvider;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.SoundDefinition;
+import net.neoforged.neoforge.common.data.SoundDefinitionsProvider;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import nuclearscience.References;
 import nuclearscience.registers.NuclearScienceSounds;
 
@@ -20,14 +18,21 @@ public class NuclearScienceSoundProvider extends SoundDefinitionsProvider {
 	@Override
 	public void registerSounds() {
 		add(NuclearScienceSounds.SOUND_GASCENTRIFUGE);
-		add(NuclearScienceSounds.SOUND_GEIGER);
+		add(NuclearScienceSounds.SOUND_GEIGERCOUNTER_1);
+		add(NuclearScienceSounds.SOUND_GEIGERCOUNTER_2);
+		add(NuclearScienceSounds.SOUND_GEIGERCOUNTER_3);
+		add(NuclearScienceSounds.SOUND_GEIGERCOUNTER_4);
+		add(NuclearScienceSounds.SOUND_GEIGERCOUNTER_5);
+		add(NuclearScienceSounds.SOUND_GEIGERCOUNTER_6);
 		add(NuclearScienceSounds.SOUND_NUCLEARBOILER);
 		add(NuclearScienceSounds.SOUND_SIREN);
 		add(NuclearScienceSounds.SOUND_TURBINE);
+		add(NuclearScienceSounds.SOUND_LOGISTICSCONTROLLER);
+		add(NuclearScienceSounds.SOUND_PARTICLE);
 	}
 
-	private void add(RegistryObject<SoundEvent> sound) {
-		add(sound.get(), SoundDefinition.definition().subtitle("subtitles." + References.ID + "." + sound.getId().getPath()).with(Sound.sound(sound.getId(), SoundType.SOUND)));
+	private void add(DeferredHolder<SoundEvent, SoundEvent> sound) {
+		add(sound.get(), SoundDefinition.definition().subtitle("subtitles." + References.ID + "." + sound.getId().getPath()).with(SoundDefinition.Sound.sound(sound.getId(), SoundDefinition.SoundType.SOUND)));
 	}
 
 }

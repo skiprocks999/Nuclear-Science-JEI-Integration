@@ -1,112 +1,145 @@
 package nuclearscience.client;
 
 import electrodynamics.client.guidebook.ScreenGuidebook;
-import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.renderer.RenderType;
+import electrodynamics.client.misc.SWBFClientExtensions;
+import electrodynamics.common.fluid.SimpleWaterBasedFluidType;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.ModelEvent.RegisterAdditional;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.*;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import nuclearscience.References;
 import nuclearscience.client.guidebook.ModuleNuclearScience;
+import nuclearscience.client.particle.smoke.ParticleSmoke;
 import nuclearscience.client.render.entity.RenderParticle;
-import nuclearscience.client.render.tile.RenderAtomicAssembler;
-import nuclearscience.client.render.tile.RenderChemicalExtractor;
-import nuclearscience.client.render.tile.RenderFissionReactorCore;
-import nuclearscience.client.render.tile.RenderFusionReactorCore;
-import nuclearscience.client.render.tile.RenderGasCentrifuge;
-import nuclearscience.client.render.tile.RenderNuclearBoiler;
-import nuclearscience.client.render.tile.RenderQuantumCapacitor;
-import nuclearscience.client.render.tile.RenderRadioactiveProcessor;
-import nuclearscience.client.render.tile.RenderRodAssembly;
-import nuclearscience.client.render.tile.RenderTeleporter;
-import nuclearscience.client.render.tile.RenderTurbine;
-import nuclearscience.client.screen.ScreenAtomicAssembler;
-import nuclearscience.client.screen.ScreenChemicalExtractor;
-import nuclearscience.client.screen.ScreenFissionReactorCore;
-import nuclearscience.client.screen.ScreenFreezePlug;
-import nuclearscience.client.screen.ScreenGasCentrifuge;
-import nuclearscience.client.screen.ScreenMSRFuelPreProcessor;
-import nuclearscience.client.screen.ScreenMSReactorCore;
-import nuclearscience.client.screen.ScreenMoltenSaltSupplier;
-import nuclearscience.client.screen.ScreenNuclearBoiler;
-import nuclearscience.client.screen.ScreenParticleInjector;
-import nuclearscience.client.screen.ScreenQuantumCapacitor;
-import nuclearscience.client.screen.ScreenRadioactiveProcessor;
-import nuclearscience.client.screen.ScreenRadioisotopeGenerator;
-import nuclearscience.registers.NuclearScienceBlockTypes;
-import nuclearscience.registers.NuclearScienceEntities;
-import nuclearscience.registers.NuclearScienceMenuTypes;
+import nuclearscience.client.render.tile.*;
+import nuclearscience.client.screen.*;
+import nuclearscience.registers.*;
 
-@OnlyIn(Dist.CLIENT)
-@EventBusSubscriber(modid = References.ID, bus = Bus.MOD, value = { Dist.CLIENT })
+import java.util.HashMap;
+import java.util.List;
+
+@EventBusSubscriber(modid = References.ID, bus = EventBusSubscriber.Bus.MOD, value = {Dist.CLIENT})
 public class ClientRegister {
 
-	@SubscribeEvent
-	public static void onModelEvent(RegisterAdditional event) {
-		event.register(MODEL_GASCENTRIFUGECENTER);
-		event.register(MODEL_TURBINECASING);
-		event.register(MODEL_TURBINEROTORLAYER);
-		event.register(MODEL_FISSIONREACTORCORE);
-		event.register(MODEL_FISSIONREACTORFUELROD);
-		event.register(MODEL_FISSIONREACTORDEUTERIUM);
-		event.register(MODEL_CONTROLRODASSEMBLYSTRUCTURE);
-		event.register(MODEL_CONTROLRODASSEMBLYSROD);
-	}
+    public static final ModelResourceLocation MODEL_GASCENTRIFUGECENTER = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/gascentrifugecenter"));
+    public static final ModelResourceLocation MODEL_TURBINECASING = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/turbinecasing"));
+    public static final ModelResourceLocation MODEL_TURBINEROTORLAYER = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/turbinerotorlayer"));
+    public static final ModelResourceLocation MODEL_FISSIONCONTROLROD_ROD = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/fissioncontrolrodrod"));
+    public static final ModelResourceLocation MODEL_MSCONTROLROD_ROD = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/mscontrolrodrod"));
+    public static final ModelResourceLocation MODEL_FALLOUTSCRUBBER_FAN = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/falloutscrubberfan"));
+    public static final ModelResourceLocation MODEL_CONTROLRODMODULE_ROD = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/controlrodmodulerod"));
+    public static final ModelResourceLocation MODEL_FISSIONINTERFACE_ROD = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/fissioninterfacerods"));
 
-	public static final ResourceLocation MODEL_GASCENTRIFUGECENTER = new ResourceLocation(References.ID + ":block/gascentrifugecenter");
-	public static final ResourceLocation MODEL_TURBINECASING = new ResourceLocation(References.ID + ":block/turbinecasing");
-	public static final ResourceLocation MODEL_TURBINEROTORLAYER = new ResourceLocation(References.ID + ":block/turbinerotorlayer");
-	public static final ResourceLocation MODEL_FISSIONREACTORCORE = new ResourceLocation(References.ID + ":block/fissionreactorcore");
-	public static final ResourceLocation MODEL_FISSIONREACTORFUELROD = new ResourceLocation(References.ID + ":block/fissionreactorfuelrod");
-	public static final ResourceLocation MODEL_FISSIONREACTORDEUTERIUM = new ResourceLocation(References.ID + ":block/fissionreactordeuterium");
-	public static final ResourceLocation MODEL_CONTROLRODASSEMBLYSTRUCTURE = new ResourceLocation(References.ID + ":block/controlrodassemblystructure");
-	public static final ResourceLocation MODEL_CONTROLRODASSEMBLYSROD = new ResourceLocation(References.ID + ":block/controlrodassemblyrod");
 
-	public static final ResourceLocation TEXTURE_JEIBLACKHOLE = new ResourceLocation(References.ID, "custom/particleaccelerator_dmblackhole");
+    public static final ResourceLocation TEXTURE_JEIBLACKHOLE = ResourceLocation.fromNamespaceAndPath(References.ID, "block/custom/particleaccelerator_dmblackhole");
+    public static final ResourceLocation TEXTURE_FUELCELL = ResourceLocation.fromNamespaceAndPath(References.ID, "block/custom/fuelcell");
+    public static final ResourceLocation TEXTURE_GATEWAYLASER = ResourceLocation.fromNamespaceAndPath(References.ID, "block/custom/gatewaylaser");
 
-	public static void setup() {
-		MenuScreens.register(NuclearScienceMenuTypes.CONTAINER_GASCENTRIFUGE.get(), ScreenGasCentrifuge::new);
-		MenuScreens.register(NuclearScienceMenuTypes.CONTAINER_NUCLEARBOILER.get(), ScreenNuclearBoiler::new);
-		MenuScreens.register(NuclearScienceMenuTypes.CONTAINER_CHEMICALEXTRACTOR.get(), ScreenChemicalExtractor::new);
-		MenuScreens.register(NuclearScienceMenuTypes.CONTAINER_RADIOISOTOPEGENERATOR.get(), ScreenRadioisotopeGenerator::new);
-		MenuScreens.register(NuclearScienceMenuTypes.CONTAINER_FREEZEPLUG.get(), ScreenFreezePlug::new);
-		MenuScreens.register(NuclearScienceMenuTypes.CONTAINER_REACTORCORE.get(), ScreenFissionReactorCore::new);
-		MenuScreens.register(NuclearScienceMenuTypes.CONTAINER_PARTICLEINJECTOR.get(), ScreenParticleInjector::new);
-		MenuScreens.register(NuclearScienceMenuTypes.CONTAINER_QUANTUMCAPACITOR.get(), ScreenQuantumCapacitor::new);
-		MenuScreens.register(NuclearScienceMenuTypes.CONTAINER_MSRFUELPREPROCESSOR.get(), ScreenMSRFuelPreProcessor::new);
-		MenuScreens.register(NuclearScienceMenuTypes.CONTAINER_RADIOACTIVEPROCESSOR.get(), ScreenRadioactiveProcessor::new);
-		MenuScreens.register(NuclearScienceMenuTypes.CONTAINER_MSRREACTORCORE.get(), ScreenMSReactorCore::new);
-		MenuScreens.register(NuclearScienceMenuTypes.CONTAINER_MOLTENSALTSUPPLIER.get(), ScreenMoltenSaltSupplier::new);
-		MenuScreens.register(NuclearScienceMenuTypes.CONTAINER_ATOMICASSEMBLER.get(), ScreenAtomicAssembler::new);
+    private static final HashMap<ResourceLocation, TextureAtlasSprite> CACHED_TEXTUREATLASSPRITES = new HashMap<>();
+    private static final List<ResourceLocation> CUSTOM_TEXTURES = List.of(TEXTURE_FUELCELL, TEXTURE_GATEWAYLASER, electrodynamics.client.ClientRegister.TEXTURE_WHITE);
 
-		ScreenGuidebook.addGuidebookModule(new ModuleNuclearScience());
-	}
+    public static void setup() {
 
-	@SubscribeEvent
-	public static void registerEntities(EntityRenderersEvent.RegisterRenderers event) {
-		event.registerBlockEntityRenderer(NuclearScienceBlockTypes.TILE_GASCENTRIFUGE.get(), RenderGasCentrifuge::new);
-		event.registerBlockEntityRenderer(NuclearScienceBlockTypes.TILE_CHEMICALEXTRACTOR.get(), RenderChemicalExtractor::new);
-		event.registerBlockEntityRenderer(NuclearScienceBlockTypes.TILE_CHEMICALBOILER.get(), RenderNuclearBoiler::new);
-		event.registerBlockEntityRenderer(NuclearScienceBlockTypes.TILE_TURBINE.get(), RenderTurbine::new);
-		event.registerBlockEntityRenderer(NuclearScienceBlockTypes.TILE_REACTORCORE.get(), RenderFissionReactorCore::new);
-		event.registerBlockEntityRenderer(NuclearScienceBlockTypes.TILE_FUSIONREACTORCORE.get(), RenderFusionReactorCore::new);
-		event.registerBlockEntityRenderer(NuclearScienceBlockTypes.TILE_QUANTUMCAPACITOR.get(), RenderQuantumCapacitor::new);
-		event.registerBlockEntityRenderer(NuclearScienceBlockTypes.TILE_TELEPORTER.get(), RenderTeleporter::new);
-		event.registerBlockEntityRenderer(NuclearScienceBlockTypes.TILE_CONTROLRODASSEMBLY.get(), RenderRodAssembly::new);
-		event.registerBlockEntityRenderer(NuclearScienceBlockTypes.TILE_ATOMICASSEMBLER.get(), RenderAtomicAssembler::new);
-		event.registerBlockEntityRenderer(NuclearScienceBlockTypes.TILE_RADIOACTIVEPROCESSOR.get(), RenderRadioactiveProcessor::new);
+        ClientEvents.init();
+        ScreenGuidebook.addGuidebookModule(new ModuleNuclearScience());
+    }
 
-		event.registerEntityRenderer(NuclearScienceEntities.ENTITY_PARTICLE.get(), RenderParticle::new);
+    @SubscribeEvent
+    public static void onModelEvent(ModelEvent.RegisterAdditional event) {
+        event.register(MODEL_GASCENTRIFUGECENTER);
+        event.register(MODEL_TURBINECASING);
+        event.register(MODEL_TURBINEROTORLAYER);
+        event.register(MODEL_FISSIONCONTROLROD_ROD);
+        event.register(MODEL_MSCONTROLROD_ROD);
+        event.register(MODEL_FALLOUTSCRUBBER_FAN);
+        event.register(MODEL_CONTROLRODMODULE_ROD);
+        event.register(MODEL_FISSIONINTERFACE_ROD);
+    }
 
-	}
+    @SubscribeEvent
+    public static void registerMenus(RegisterMenuScreensEvent event) {
+        event.register(NuclearScienceMenuTypes.CONTAINER_GASCENTRIFUGE.get(), ScreenGasCentrifuge::new);
+        event.register(NuclearScienceMenuTypes.CONTAINER_NUCLEARBOILER.get(), ScreenNuclearBoiler::new);
+        event.register(NuclearScienceMenuTypes.CONTAINER_CHEMICALEXTRACTOR.get(), ScreenChemicalExtractor::new);
+        event.register(NuclearScienceMenuTypes.CONTAINER_RADIOISOTOPEGENERATOR.get(), ScreenRadioisotopeGenerator::new);
+        event.register(NuclearScienceMenuTypes.CONTAINER_FREEZEPLUG.get(), ScreenFreezePlug::new);
+        event.register(NuclearScienceMenuTypes.CONTAINER_REACTORCORE.get(), ScreenFissionReactorCore::new);
+        event.register(NuclearScienceMenuTypes.CONTAINER_PARTICLEINJECTOR.get(), ScreenParticleInjector::new);
+        event.register(NuclearScienceMenuTypes.CONTAINER_QUANTUMTUNNEL.get(), ScreenQuantumTunnel::new);
+        event.register(NuclearScienceMenuTypes.CONTAINER_MSRFUELPREPROCESSOR.get(), ScreenMSRFuelPreProcessor::new);
+        event.register(NuclearScienceMenuTypes.CONTAINER_RADIOACTIVEPROCESSOR.get(), ScreenRadioactiveProcessor::new);
+        event.register(NuclearScienceMenuTypes.CONTAINER_MSRREACTORCORE.get(), ScreenMSReactorCore::new);
+        event.register(NuclearScienceMenuTypes.CONTAINER_MOLTENSALTSUPPLIER.get(), ScreenMoltenSaltSupplier::new);
+        event.register(NuclearScienceMenuTypes.CONTAINER_ATOMICASSEMBLER.get(), ScreenAtomicAssembler::new);
+        event.register(NuclearScienceMenuTypes.CONTAINER_TELEPORTER.get(), ScreenTeleporter::new);
+        event.register(NuclearScienceMenuTypes.CONTAINER_CLOUDCHAMBER.get(), ScreenCloudChamber::new);
+        event.register(NuclearScienceMenuTypes.CONTAINER_FALLOUTSCRUBBER.get(), ScreenFalloutScrubber::new);
+        event.register(NuclearScienceMenuTypes.CONTAINER_SUPPLYMODULE.get(), ScreenSupplyModule::new);
+        event.register(NuclearScienceMenuTypes.CONTAINER_CONTROLRODMODULE.get(), ScreenControlRodModule::new);
+        event.register(NuclearScienceMenuTypes.CONTAINER_MONITORMODULE.get(), ScreenMonitorModule::new);
+        event.register(NuclearScienceMenuTypes.CONTAINER_THERMOMETERMODULE.get(), ScreenThermometerModule::new);
+        event.register(NuclearScienceMenuTypes.CONTAINER_ELECTROMAGNETICGATEWAY.get(), ScreenElectromagneticGateway::new);
+    }
 
-	public static boolean shouldMultilayerRender(RenderType type) {
-		return type == RenderType.translucent() || type == RenderType.solid();
-	}
+    @SubscribeEvent
+    public static void registerEntities(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_GASCENTRIFUGE.get(), RenderGasCentrifuge::new);
+        event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_CHEMICALEXTRACTOR.get(), RenderChemicalExtractor::new);
+        event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_CHEMICALBOILER.get(), RenderNuclearBoiler::new);
+        event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_TURBINE.get(), RenderTurbine::new);
+        event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_REACTORCORE.get(), RenderFissionReactorCore::new);
+        event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_FUSIONREACTORCORE.get(), RenderFusionReactorCore::new);
+        event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_QUANTUMCAPACITOR.get(), RenderQuantumTunnel::new);
+        event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_TELEPORTER.get(), RenderTeleporter::new);
+        event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_FISSIONCONTROLROD.get(), RenderFissionControlRod::new);
+        event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_MSCONTROLROD.get(), RenderMSControlRod::new);
+        event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_ATOMICASSEMBLER.get(), RenderAtomicAssembler::new);
+        event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_RADIOACTIVEPROCESSOR.get(), RenderRadioactiveProcessor::new);
+        event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_CLOUDCHAMBER.get(), RenderCloudChamber::new);
+        event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_FALLOUTSCRUBBER.get(), RenderFalloutScrubber::new);
+        event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_CONTROLRODMODULE.get(), RenderControlRodModule::new);
+        event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_FISSIONINTERFACE.get(), RenderFissionInterface::new);
+        event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_MSINTERFACE.get(), RenderMSInterface::new);
+        event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_FUSIONINTERFACE.get(), RenderFusionInterface::new);
+        event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_THERMOMETERMODULE.get(), RenderThermometerModule::new);
+        event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_MONITORMODULE.get(), RenderMonitorModule::new);
+        event.registerBlockEntityRenderer(NuclearScienceTiles.TILE_ELECTROMAGNETICGATEWAY.get(), RenderElectromagneticGateway::new);
+
+        event.registerEntityRenderer(NuclearScienceEntities.ENTITY_PARTICLE.get(), RenderParticle::new);
+
+    }
+
+    @SubscribeEvent
+    public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
+
+        NuclearScienceFluids.FLUIDS.getEntries().forEach((fluid) -> {
+            event.registerFluidType(new SWBFClientExtensions((SimpleWaterBasedFluidType) fluid.get().getFluidType()), fluid.get().getFluidType());
+        });
+
+    }
+
+    @SubscribeEvent
+    public static void registerParticles(RegisterParticleProvidersEvent event) {
+        event.registerSpriteSet(NuclearScienceParticles.PARTICLE_SMOKE.get(), ParticleSmoke.Factory::new);
+    }
+
+    @SubscribeEvent
+    public static void cacheCustomTextureAtlases(TextureAtlasStitchedEvent event) {
+        if (event.getAtlas().location().equals(TextureAtlas.LOCATION_BLOCKS)) {
+            CACHED_TEXTUREATLASSPRITES.clear();
+            for (ResourceLocation loc : CUSTOM_TEXTURES) {
+                ClientRegister.CACHED_TEXTUREATLASSPRITES.put(loc, event.getAtlas().getSprite(loc));
+            }
+        }
+    }
+
+    public static TextureAtlasSprite getSprite(ResourceLocation sprite) {
+        return CACHED_TEXTUREATLASSPRITES.getOrDefault(sprite, CACHED_TEXTUREATLASSPRITES.get(electrodynamics.client.ClientRegister.TEXTURE_WHITE));
+    }
 
 }

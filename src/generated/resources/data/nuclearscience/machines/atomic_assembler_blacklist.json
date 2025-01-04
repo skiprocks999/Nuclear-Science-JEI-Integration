@@ -1,6 +1,9 @@
 {
   "values": [
     "minecraft:air",
-    "#forge:air"
+    "#c:air",
+    "nuclearscience:teleporter",
+    "nuclearscience:quantumcapacitor",
+    "nuclearscience:chunkloader"
   ]
 }

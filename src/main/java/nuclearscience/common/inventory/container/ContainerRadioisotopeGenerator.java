@@ -1,7 +1,7 @@
 package nuclearscience.common.inventory.container;
 
-import electrodynamics.prefab.inventory.container.GenericContainerBlockEntity;
 import electrodynamics.prefab.inventory.container.slot.item.type.SlotRestricted;
+import electrodynamics.prefab.inventory.container.types.GenericContainerBlockEntity;
 import electrodynamics.prefab.utilities.math.Color;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -9,7 +9,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.item.ItemStack;
-import nuclearscience.api.radiation.RadiationRegister;
+import nuclearscience.common.reloadlistener.RadioactiveItemRegister;
 import nuclearscience.common.tile.TileRadioisotopeGenerator;
 import nuclearscience.registers.NuclearScienceMenuTypes;
 
@@ -28,7 +28,7 @@ public class ContainerRadioisotopeGenerator extends GenericContainerBlockEntity<
 		addSlot(new SlotRestricted(inv, nextIndex(), 25, 42) {
 			@Override
 			public boolean mayPlace(ItemStack stack) {
-				return !RadiationRegister.get(stack.getItem()).isNull();
+				return RadioactiveItemRegister.getValue(stack.getItem()).amount() > 0;
 			}
 		}.setIOColor(new Color(0, 240, 255, 255)));
 	}

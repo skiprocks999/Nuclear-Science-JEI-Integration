@@ -1,30 +1,50 @@
 package nuclearscience.common.item;
 
-import java.util.function.Supplier;
+import java.util.EnumMap;
 
 import electrodynamics.common.item.gear.armor.ItemElectrodynamicsArmor;
-import electrodynamics.common.item.subtype.SubtypePlate;
-import electrodynamics.registers.ElectrodynamicsItems;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
-import nuclearscience.References;
+import net.minecraft.Util;
+import net.minecraft.core.Holder;
+import net.minecraft.world.item.*;
+import nuclearscience.api.radiation.util.IHazmatSuit;
+import nuclearscience.registers.NuclearScienceArmorMaterials;
 
-public class ItemHazmatArmor extends ItemElectrodynamicsArmor {
+public class ItemHazmatArmor extends ItemElectrodynamicsArmor implements IHazmatSuit {
 
-	public ItemHazmatArmor(ArmorMaterial materialIn, Type slot, Properties properties, Supplier<CreativeModeTab> creativeTab) {
+	public static final EnumMap<Type, Integer> DEFENSE_MAP_BASE = Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
+		map.put(Type.HELMET, 2);
+		map.put(Type.CHESTPLATE, 2);
+		map.put(Type.LEGGINGS, 2);
+		map.put(Type.BOOTS, 2);
+	});
+
+	public static final EnumMap<Type, Integer> DEFENSE_MAP_REINFORCED = Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
+		map.put(Type.HELMET, 4);
+		map.put(Type.CHESTPLATE, 4);
+		map.put(Type.LEGGINGS, 4);
+		map.put(Type.BOOTS, 4);
+	});
+
+	private final double radiationProtection;
+	private final double radiationStrengthProtection;
+
+	public ItemHazmatArmor(Holder<ArmorMaterial> materialIn, Type slot, Properties properties, Holder<CreativeModeTab> creativeTab, double radiationProtection, double radiationStrengthRating) {
 		super(materialIn, slot, properties, creativeTab);
+		this.radiationProtection = radiationProtection;
+		this.radiationStrengthProtection = radiationStrengthRating;
 	}
 
-	public ItemHazmatArmor(Type slot, Properties properties, Supplier<CreativeModeTab> creativeTab) {
-		this(ArmorMaterialHazmat.hazmat, slot, properties, creativeTab);
+	@Override
+	public double getRadResistance() {
+		return radiationProtection;
 	}
+
+	@Override
+	public double getRadStrengthProtection() {
+		return radiationStrengthProtection;
+	}
+
+	/*
 
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
@@ -76,4 +96,6 @@ public class ItemHazmatArmor extends ItemElectrodynamicsArmor {
 		}
 
 	}
+
+	 */
 }

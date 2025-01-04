@@ -1,31 +1,34 @@
 package nuclearscience.common.block;
 
-import electrodynamics.prefab.utilities.object.Location;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AirBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import nuclearscience.References;
 import nuclearscience.api.radiation.RadiationSystem;
+import nuclearscience.api.radiation.SimpleRadiationSource;
 
-@EventBusSubscriber(modid = References.ID, bus = Bus.FORGE)
 public class BlockRadioactiveAir extends AirBlock {
 
 	public BlockRadioactiveAir() {
-		super(Properties.copy(Blocks.AIR).noCollission().air());
+		super(Blocks.AIR.properties().noCollission().air().randomTicks());
 	}
 
 	@Override
-	public void entityInside(BlockState state, Level lvl, BlockPos pos, Entity entityIn) {
-		if (lvl.getLevelData().getGameTime() % 10 == 0) {
-			RadiationSystem.emitRadiationFromLocation(lvl, new Location(pos), 3, 500);
+	protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
+		super.onPlace(state, level, pos, oldState, movedByPiston);
+		if(level.isClientSide()) {
+			return;
 		}
+		RadiationSystem.addRadiationSource(level, new SimpleRadiationSource(500, 1, 3, false, 100, pos, true));
+	}
+
+	@Override
+	protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+		super.onRemove(state, level, pos, newState, movedByPiston);
+		RadiationSystem.removeRadiationSource(level, pos, true);
 	}
 
 	@Override

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "nuclearscience:electromagneticbooster"
+    },
+    {
+      "item": "electrodynamics:motor"
+    },
+    {
+      "tag": "c:plates/steel"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearscience:electromagneticswitch"
+  }
+}

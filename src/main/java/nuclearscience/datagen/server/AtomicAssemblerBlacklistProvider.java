@@ -6,6 +6,7 @@ import java.util.concurrent.CompletableFuture;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
@@ -14,9 +15,10 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.registries.ForgeRegistries;
 import nuclearscience.References;
+import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
 import nuclearscience.common.reloadlistener.AtomicAssemblerBlacklistRegister;
+import nuclearscience.registers.NuclearScienceItems;
 
 public class AtomicAssemblerBlacklistProvider implements DataProvider {
 
@@ -42,7 +44,11 @@ public class AtomicAssemblerBlacklistProvider implements DataProvider {
 		JsonArray json = new JsonArray();
 
 		addItem(Items.AIR, json);
-		addTag(ItemTags.create(new ResourceLocation("forge", "air")), json); // dummy tag for demonstration purposes
+		addTag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", "air")), json); // dummy tag for demonstration purposes
+
+		addItem(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.teleporter), json);
+		addItem(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.quantumcapacitor), json);
+		addItem(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.chunkloader), json);
 
 		object.add(AtomicAssemblerBlacklistRegister.KEY, json);
 	}
@@ -52,7 +58,7 @@ public class AtomicAssemblerBlacklistProvider implements DataProvider {
 	}
 
 	private void addItem(Item item, JsonArray json) {
-		json.add(ForgeRegistries.ITEMS.getKey(item).toString());
+		json.add(BuiltInRegistries.ITEM.getKey(item).toString());
 	}
 
 	@Override

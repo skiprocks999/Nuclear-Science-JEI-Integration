@@ -1,17 +1,15 @@
 package nuclearscience.datagen.server.recipe.custom.item2item;
 
-import java.util.function.Consumer;
-
 import electrodynamics.common.item.subtype.SubtypeIngot;
 import electrodynamics.common.recipe.recipeutils.ProbableItem;
-import electrodynamics.datagen.utils.recipe.AbstractElectrodynamicsFinishedRecipe.RecipeCategory;
 import electrodynamics.datagen.utils.recipe.AbstractRecipeGenerator;
-import electrodynamics.datagen.utils.recipe.FinishedRecipeItemOutput;
+import electrodynamics.datagen.utils.recipe.builders.ElectrodynamicsRecipeBuilder;
+import electrodynamics.datagen.utils.recipe.builders.Item2ItemBuilder;
 import electrodynamics.registers.ElectrodynamicsItems;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.world.item.ItemStack;
 import nuclearscience.References;
-import nuclearscience.common.recipe.NuclearScienceRecipeInit;
+import nuclearscience.common.recipe.categories.item2item.FuelReprocessorRecipe;
 import nuclearscience.common.tags.NuclearScienceTags;
 import nuclearscience.registers.NuclearScienceBlocks;
 import nuclearscience.registers.NuclearScienceItems;
@@ -32,44 +30,44 @@ public class NuclearScienceFuelReprocessorRecipes extends AbstractRecipeGenerato
 	}
 
 	@Override
-	public void addRecipes(Consumer<FinishedRecipe> consumer) {
+	public void addRecipes(RecipeOutput output) {
 
-		newRecipe(new ItemStack(NuclearScienceItems.ITEM_FISSILEDUST.get()), 0.0F, FUELREPROCESSOR_REQUIRED_TICKS, FUELREPROCESSOR_USAGE_PER_TICK, "fissile_dust")
+		newRecipe(new ItemStack(NuclearScienceItems.ITEM_FISSILEDUST.get()), 0.0F, FUELREPROCESSOR_REQUIRED_TICKS, FUELREPROCESSOR_USAGE_PER_TICK, "fissile_dust", modID)
 				//
 				.addItemTagInput(NuclearScienceTags.Items.FUELROD_SPENT, 1)
 				//
 				.addItemBiproduct(new ProbableItem(new ItemStack(NuclearScienceItems.ITEM_POLONIUM210_CHUNK.get()), 0.5D))
 				//
-				.complete(consumer);
+				.save(output);
 
-		newRecipe(new ItemStack(NuclearScienceItems.ITEM_PLUTONIUM239.get()), 0.0F, FUELREPROCESSOR_REQUIRED_TICKS, FUELREPROCESSOR_USAGE_PER_TICK, "plutonium239")
+		newRecipe(new ItemStack(NuclearScienceItems.ITEM_PLUTONIUM239.get()), 0.0F, FUELREPROCESSOR_REQUIRED_TICKS, FUELREPROCESSOR_USAGE_PER_TICK, "plutonium239", modID)
 				//
 				.addItemTagInput(NuclearScienceTags.Items.OXIDE_PLUTONIUM, 1)
 				//
 				.addItemBiproduct(new ProbableItem(new ItemStack(NuclearScienceItems.ITEM_POLONIUM210_CHUNK.get(), 3), 1.0D))
 				//
-				.complete(consumer);
+				.save(output);
 
-		newRecipe(new ItemStack(ElectrodynamicsItems.getItem(SubtypeIngot.steel), 2), 0.0F, FUELREPROCESSOR_REQUIRED_TICKS, FUELREPROCESSOR_USAGE_PER_TICK, "reactor_salvage")
+		newRecipe(new ItemStack(ElectrodynamicsItems.ITEMS_INGOT.getValue(SubtypeIngot.steel), 2), 0.0F, FUELREPROCESSOR_REQUIRED_TICKS, FUELREPROCESSOR_USAGE_PER_TICK, "reactor_salvage", modID)
 				//
-				.addItemStackInput(new ItemStack(NuclearScienceBlocks.blockMeltedReactor))
+				.addItemStackInput(new ItemStack(NuclearScienceBlocks.BLOCK_MELTEDREACTOR.get()))
 				//
 				.addItemBiproduct(new ProbableItem(new ItemStack(NuclearScienceItems.ITEM_PLUTONIUM239.get()), 1.0D))
 				//
-				.complete(consumer);
+				.save(output);
 
-		newRecipe(new ItemStack(NuclearScienceItems.ITEM_ACTINIUMOXIDE.get()), 0.0F, FUELREPROCESSOR_REQUIRED_TICKS, FUELREPROCESSOR_USAGE_PER_TICK, "actinium_oxide")
+		newRecipe(new ItemStack(NuclearScienceItems.ITEM_ACTINIUMOXIDE.get()), 0.0F, FUELREPROCESSOR_REQUIRED_TICKS, FUELREPROCESSOR_USAGE_PER_TICK, "actinium_oxide", modID)
 				//
 				.addItemTagInput(NuclearScienceTags.Items.SALT_FISSILE, 1)
 				//
 				.addItemBiproduct(new ProbableItem(new ItemStack(NuclearScienceItems.ITEM_POLONIUM210_CHUNK.get(), 3), 1.0D))
 				//
-				.complete(consumer);
+				.save(output);
 
 	}
 
-	public FinishedRecipeItemOutput newRecipe(ItemStack stack, float xp, int ticks, double usagePerTick, String name) {
-		return FinishedRecipeItemOutput.of(NuclearScienceRecipeInit.FUEL_REPROCESSOR_SERIALIZER.get(), stack, xp, ticks, usagePerTick).name(RecipeCategory.ITEM_2_ITEM, modID, "fuel_reprocessor/" + name);
+	public Item2ItemBuilder<FuelReprocessorRecipe> newRecipe(ItemStack stack, float xp, int ticks, double usagePerTick, String name, String group) {
+		return new Item2ItemBuilder<>(FuelReprocessorRecipe::new, stack, ElectrodynamicsRecipeBuilder.RecipeCategory.ITEM_2_ITEM, modID, "fuel_reprocessor/" + name, group, xp, ticks, usagePerTick);
 	}
 
 }

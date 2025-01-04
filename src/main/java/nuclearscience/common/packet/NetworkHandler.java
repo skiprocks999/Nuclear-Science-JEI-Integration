@@ -1,22 +1,42 @@
 package nuclearscience.common.packet;
 
-import java.util.Optional;
-
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.simple.SimpleChannel;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import nuclearscience.References;
-import nuclearscience.common.packet.type.client.PacketSetClientAtomicAssemblerBlacklistVals;
-import nuclearscience.common.packet.type.client.PacketSetClientRadRegisterItemVals;
+import nuclearscience.common.packet.type.client.*;
+import nuclearscience.common.packet.type.server.PacketCreateNewFreqeuency;
+import nuclearscience.common.packet.type.server.PacketDeleteFrequency;
+import nuclearscience.common.packet.type.server.PacketEditFrequency;
 
+@EventBusSubscriber(modid = References.ID, bus = EventBusSubscriber.Bus.MOD)
 public class NetworkHandler {
 	private static final String PROTOCOL_VERSION = "1";
-	private static int disc = 0;
-	public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(new ResourceLocation(References.ID, "main"), () -> PROTOCOL_VERSION, PROTOCOL_VERSION::equals, PROTOCOL_VERSION::equals);
+	@SubscribeEvent
+	public static void registerPackets(final RegisterPayloadHandlersEvent event) {
+		final PayloadRegistrar registry = event.registrar(References.ID).versioned(PROTOCOL_VERSION).optional();
 
-	public static void init() {
-		CHANNEL.registerMessage(disc++, PacketSetClientRadRegisterItemVals.class, PacketSetClientRadRegisterItemVals::encode, PacketSetClientRadRegisterItemVals::decode, PacketSetClientRadRegisterItemVals::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
-		CHANNEL.registerMessage(disc++, PacketSetClientAtomicAssemblerBlacklistVals.class, PacketSetClientAtomicAssemblerBlacklistVals::encode, PacketSetClientAtomicAssemblerBlacklistVals::decode, PacketSetClientAtomicAssemblerBlacklistVals::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+		//CLIENT
+		registry.playToClient(PacketSetClientAtomicAssemblerBlacklistVals.TYPE, PacketSetClientAtomicAssemblerBlacklistVals.CODEC, PacketSetClientAtomicAssemblerBlacklistVals::handle);
+		registry.playToClient(PacketSetClientRadioactiveItems.TYPE, PacketSetClientRadioactiveItems.CODEC, PacketSetClientRadioactiveItems::handle);
+		registry.playToClient(PacketSetClientRadioactiveFluids.TYPE, PacketSetClientRadioactiveFluids.CODEC, PacketSetClientRadioactiveFluids::handle);
+		registry.playToClient(PacketSetClientRadioactiveGases.TYPE, PacketSetClientRadioactiveGases.CODEC, PacketSetClientRadioactiveGases::handle);
+		registry.playToClient(PacketSetClientRadiationShielding.TYPE, PacketSetClientRadiationShielding.CODEC, PacketSetClientRadiationShielding::handle);
+		registry.playToClient(PacketSetClientTunnelFrequencies.TYPE, PacketSetClientTunnelFrequencies.CODEC, PacketSetClientTunnelFrequencies::handle);
+		registry.playToClient(PacketSetClientInterfaces.TYPE, PacketSetClientInterfaces.CODEC, PacketSetClientInterfaces::handle);
+
+		//SERVER
+
+		registry.playToServer(PacketCreateNewFreqeuency.TYPE, PacketCreateNewFreqeuency.CODEC, PacketCreateNewFreqeuency::handle);
+		registry.playToServer(PacketDeleteFrequency.TYPE, PacketDeleteFrequency.CODEC, PacketDeleteFrequency::handle);
+		registry.playToServer(PacketEditFrequency.TYPE, PacketEditFrequency.CODEC, PacketEditFrequency::handle);
+
 	}
+
+	public static ResourceLocation id(String name) {
+		return ResourceLocation.fromNamespaceAndPath(References.ID, name);
+	}
+
 }

@@ -93,11 +93,6 @@ public class ReactorLogisticsNetwork extends AbstractNetwork<TileReactorLogistic
         return new ReactorLogisticsNetwork(set);
     }
 
-    @Override
-    public SubtypeReactorLogisticsCable[] getConductorTypes() {
-        return SubtypeReactorLogisticsCable.values();
-    }
-
     private boolean validateConnection(BlockEntity blockEntity, Direction dir) {
         if(blockEntity instanceof ILogisticsMember member) {
             return member.isValidConnection(dir) && member.canConnect(this);

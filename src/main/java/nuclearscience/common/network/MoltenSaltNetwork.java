@@ -50,13 +50,14 @@ public class MoltenSaltNetwork extends AbstractNetwork<TileMoltenSaltPipe, Subty
 				Double rec = ((TileHeatExchanger) receiver).receiveHeat(perReceiver - getSize() * 5);
 				heat += rec;
 				transmittedThisTick += rec;
-				checkForOverload((int) transmittedThisTick);
+				//checkForOverload((int) transmittedThisTick);
 			}
 		}
 
 		return heat;
 	}
 
+	/*
 	private boolean checkForOverload(int attemptSend) {
 		if (attemptSend <= networkMaxTransfer) {
 			return false;
@@ -76,6 +77,8 @@ public class MoltenSaltNetwork extends AbstractNetwork<TileMoltenSaltPipe, Subty
 		return true;
 	}
 
+	 */
+
 	@Override
 	public boolean isConductor(BlockEntity tile, TileMoltenSaltPipe requesterCable) {
 		return tile instanceof TileMoltenSaltPipe;
@@ -84,11 +87,6 @@ public class MoltenSaltNetwork extends AbstractNetwork<TileMoltenSaltPipe, Subty
 	@Override
 	public MoltenSaltNetwork createInstanceConductor(Set<TileMoltenSaltPipe> conductors) {
 		return new MoltenSaltNetwork(conductors);
-	}
-
-	@Override
-	public SubtypeMoltenSaltPipe[] getConductorTypes() {
-		return SubtypeMoltenSaltPipe.values();
 	}
 
 }

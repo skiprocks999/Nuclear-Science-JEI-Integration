@@ -1,7 +1,6 @@
 package nuclearscience.common.block.connect;
 
 import com.mojang.serialization.MapCodec;
-import electrodynamics.api.network.cable.IRefreshableCable;
 import electrodynamics.common.block.connect.util.AbstractRefreshingConnectBlock;
 import electrodynamics.common.block.connect.util.EnumConnectType;
 import net.minecraft.core.BlockPos;
@@ -13,14 +12,13 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import nuclearscience.api.network.reactorlogistics.ILogisticsMember;
-import nuclearscience.api.network.reactorlogistics.IReactorLogisticsCable;
 import nuclearscience.common.block.subtype.SubtypeReactorLogisticsCable;
 import nuclearscience.common.tile.reactor.logisticsnetwork.TileReactorLogisticsCable;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
 
-public class BlockReactorLogisticsCable extends AbstractRefreshingConnectBlock {
+public class BlockReactorLogisticsCable extends AbstractRefreshingConnectBlock<TileReactorLogisticsCable> {
 
     public static final HashSet<Block> PIPESET = new HashSet<>();
 
@@ -33,25 +31,20 @@ public class BlockReactorLogisticsCable extends AbstractRefreshingConnectBlock {
     }
 
     @Override
-    public BlockState refreshConnections(BlockState otherState, BlockEntity otherTile, BlockState state, BlockEntity thisTile, Direction dir) {
-        if(!(thisTile instanceof TileReactorLogisticsCable)) {
-            return state;
-        }
-        TileReactorLogisticsCable thisConnect = (TileReactorLogisticsCable) thisTile;
+    public EnumConnectType getConnection(BlockState otherState, BlockEntity otherTile, TileReactorLogisticsCable thisCable, Direction dir) {
         EnumConnectType connection = EnumConnectType.NONE;
-        if (otherTile instanceof IReactorLogisticsCable) {
+        if (otherTile instanceof TileReactorLogisticsCable) {
             connection = EnumConnectType.WIRE;
-        } else if (otherTile instanceof ILogisticsMember member && thisConnect.getNetwork(false) != null && member.isValidConnection(dir.getOpposite()) && member.canConnect(thisConnect.getNetwork(false))) {
+        } else if (otherTile instanceof ILogisticsMember member && thisCable.getNetwork() != null && member.isValidConnection(dir.getOpposite()) && member.canConnect(thisCable.getNetwork())) {
             connection = EnumConnectType.INVENTORY;
         }
-        thisConnect.writeConnection(dir, connection);
-        return state;
+        return connection;
     }
 
     @Nullable
     @Override
-    public IRefreshableCable getCableIfValid(BlockEntity tile) {
-        if(tile instanceof IReactorLogisticsCable cable) {
+    public TileReactorLogisticsCable getCableIfValid(BlockEntity tile) {
+        if (tile instanceof TileReactorLogisticsCable cable) {
             return cable;
         }
         return null;

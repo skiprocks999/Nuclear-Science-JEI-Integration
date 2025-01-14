@@ -2,6 +2,7 @@ package nuclearscience.registers;
 
 import electrodynamics.common.blockitem.types.BlockItemDescriptable;
 import electrodynamics.prefab.utilities.ElectroTextUtils;
+import net.minecraft.ChatFormatting;
 import net.neoforged.bus.api.IEventBus;
 import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
 import nuclearscience.common.recipe.NuclearScienceRecipeInit;
@@ -50,7 +51,7 @@ public class UnifiedNuclearScienceRegister {
 		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getHolder(SubtypeNuclearMachine.radioisotopegenerator), ElectroTextUtils.voltageTooltip(120));
 
 		// Misc
-		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getHolder(SubtypeNuclearMachine.steamfunnel), NuclearTextUtils.tooltip("steamfunneluse"));
+		BlockItemDescriptable.addDescription(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getHolder(SubtypeNuclearMachine.steamfunnel), NuclearTextUtils.tooltip("steamfunneluse").withStyle(ChatFormatting.DARK_GRAY));
 	}
 
 }

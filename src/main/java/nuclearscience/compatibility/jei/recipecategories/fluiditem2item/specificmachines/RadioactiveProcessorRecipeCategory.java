@@ -34,7 +34,7 @@ public class RadioactiveProcessorRecipeCategory extends FluidItem2ItemRecipeCate
 	public static final ArrowAnimatedObject ANIM_RIGHT_ARROW_2 = new ArrowAnimatedObject(ProgressBars.PROGRESS_ARROW_RIGHT, 80, 17, StartDirection.LEFT);
 	public static final ArrowAnimatedObject ANIM_LEFT_ARROW = new ArrowAnimatedObject(ProgressBars.PROGRESS_ARROW_LEFT, 30, 37, StartDirection.RIGHT);
 
-	public static final FluidGaugeObject IN_GAUGE = new FluidGaugeObject(10, 5, 5000);
+	public static final FluidGaugeObject IN_GAUGE = new FluidGaugeObject(10, 5);
 
 	public static final PowerLabelWrapperElectroRecipe POWER_LABEL = new PowerLabelWrapperElectroRecipe(2, 55, 480);
 	public static final TimeLabelWrapperElectroRecipe TIME_LABEL = new TimeLabelWrapperElectroRecipe(130, 55);

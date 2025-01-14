@@ -43,7 +43,7 @@ public class GasCentrifugeRecipeCategory extends AbstractRecipeCategory<PsuedoGa
 
 	public static final ArrowAnimatedObject ANIM_RIGHT_ARROW = new ArrowAnimatedObject(NuclearJeiTextures.GASCENTRIFUGE_ARROW_OFF, NuclearJeiTextures.GASCENTRIFUGE_ARROW_ON, 64, 4, StartDirection.LEFT);
 
-	public static final GasGaugeObject IN_GAUGE = new GasGaugeObject(2, 6, 5000);
+	public static final GasGaugeObject IN_GAUGE = new GasGaugeObject(2, 6);
 
 	public static final LabelWrapperGeneric U235 = new LabelWrapperGeneric(LABEL_COLOR, 7, 36, false, ChatFormatter.getChatDisplayShort(TileGasCentrifuge.PERCENT_U235 * 100, DisplayUnit.PERCENTAGE));
 	public static final LabelWrapperGeneric U238 = new LabelWrapperGeneric(LABEL_COLOR, 28, 36, false, ChatFormatter.getChatDisplayShort((1 - TileGasCentrifuge.PERCENT_U235) * 100, DisplayUnit.PERCENTAGE));

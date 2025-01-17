@@ -46,7 +46,7 @@ public class RadioactiveItemsProvider implements DataProvider {
 		addTag(NuclearScienceTags.Items.PELLET_POLONIUM, 2500, 1, json);
 		addTag(NuclearScienceTags.Items.PELLET_ACTINIUM225, 5000, 1, json);
 
-		addTag(NuclearScienceTags.Items.NUGGET_POLONIUM, 1500, 1, json);
+		addTag(NuclearScienceTags.Items.NUGGET_POLONIUM, 625, 1, json);
 
 		addTag(NuclearScienceTags.Items.FUELROD_URANIUM_HIGH_EN, 3000, 1, json);
 		addTag(NuclearScienceTags.Items.FUELROD_URANIUM_LOW_EN, 2000, 1, json);

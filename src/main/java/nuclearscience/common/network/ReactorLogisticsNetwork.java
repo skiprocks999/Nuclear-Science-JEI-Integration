@@ -6,7 +6,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import nuclearscience.api.network.reactorlogistics.ILogisticsMember;
-import nuclearscience.api.network.reactorlogistics.IReactorLogisticsCable;
 import nuclearscience.common.block.subtype.SubtypeReactorLogisticsCable;
 import nuclearscience.common.tile.reactor.logisticsnetwork.*;
 import nuclearscience.common.tile.reactor.logisticsnetwork.interfaces.GenericTileInterface;
@@ -14,7 +13,7 @@ import nuclearscience.common.tile.reactor.logisticsnetwork.interfaces.GenericTil
 import javax.annotation.Nullable;
 import java.util.*;
 
-public class ReactorLogisticsNetwork extends AbstractNetwork<IReactorLogisticsCable, SubtypeReactorLogisticsCable, BlockEntity, Void> {
+public class ReactorLogisticsNetwork extends AbstractNetwork<TileReactorLogisticsCable, SubtypeReactorLogisticsCable, Void, ReactorLogisticsNetwork> {
 
     private TileController controller;
     private final HashMap<BlockPos, TileControlRodModule> controlRods = new HashMap<>();
@@ -23,46 +22,41 @@ public class ReactorLogisticsNetwork extends AbstractNetwork<IReactorLogisticsCa
     private final HashMap<BlockPos, TileMonitorModule> monitors = new HashMap<>();
     private final HashMap<BlockPos, TileThermometerModule> thermometers = new HashMap<>();
 
-    public ReactorLogisticsNetwork() {
-        this(new HashSet<IReactorLogisticsCable>());
-    }
-
-    public ReactorLogisticsNetwork(Collection<? extends IReactorLogisticsCable> varCables) {
+    public ReactorLogisticsNetwork(Collection<TileReactorLogisticsCable> varCables) {
         conductorSet.addAll(varCables);
         NetworkRegistry.register(this);
     }
 
-    public ReactorLogisticsNetwork(Set<AbstractNetwork<IReactorLogisticsCable, SubtypeReactorLogisticsCable, BlockEntity, Void>> networks) {
-        for (AbstractNetwork<IReactorLogisticsCable, SubtypeReactorLogisticsCable, BlockEntity, Void> net : networks) {
-            if (net != null) {
-                conductorSet.addAll(net.conductorSet);
-                net.deregister();
-            }
-        }
-        refresh();
-        NetworkRegistry.register(this);
-    }
-
-    public ReactorLogisticsNetwork(Set<ReactorLogisticsNetwork> networks, boolean special) {
+    public ReactorLogisticsNetwork(Set<ReactorLogisticsNetwork> networks) {
         for (ReactorLogisticsNetwork net : networks) {
             if (net != null) {
                 conductorSet.addAll(net.conductorSet);
                 net.deregister();
             }
         }
-        refresh();
         NetworkRegistry.register(this);
     }
 
     @Override
-    public void refresh() {
+    public void refreshNewNetwork() {
         controller = null;
         interfaces.clear();
         controlRods.clear();
         supplyModules.clear();
         monitors.clear();
         thermometers.clear();
-        super.refresh();
+        super.refreshNewNetwork();
+    }
+
+    @Override
+    public void resetReceiverStatistics() {
+        super.resetReceiverStatistics();
+        controller = null;
+        interfaces.clear();
+        controlRods.clear();
+        supplyModules.clear();
+        monitors.clear();
+        thermometers.clear();
     }
 
     @Override
@@ -90,43 +84,13 @@ public class ReactorLogisticsNetwork extends AbstractNetwork<IReactorLogisticsCa
     }
 
     @Override
-    public boolean isConductor(BlockEntity blockEntity, IReactorLogisticsCable iReactorLogisticsCable) {
-        return blockEntity instanceof IReactorLogisticsCable;
+    public boolean isConductor(BlockEntity blockEntity, TileReactorLogisticsCable iReactorLogisticsCable) {
+        return blockEntity instanceof TileReactorLogisticsCable;
     }
 
     @Override
-    public boolean isConductorClass(BlockEntity blockEntity) {
-        return blockEntity instanceof IReactorLogisticsCable;
-    }
-
-    @Override
-    public boolean isAcceptor(BlockEntity blockEntity, Direction direction) {
-        return isConductorClass(blockEntity) || validateConnection(blockEntity, direction.getOpposite());
-    }
-
-    @Override
-    public boolean canConnect(BlockEntity blockEntity, Direction direction) {
-        return isConductorClass(blockEntity) || validateConnection(blockEntity, direction.getOpposite());
-    }
-
-    @Override
-    public AbstractNetwork<IReactorLogisticsCable, SubtypeReactorLogisticsCable, BlockEntity, Void> createInstance() {
-        return new ReactorLogisticsNetwork();
-    }
-
-    @Override
-    public AbstractNetwork<IReactorLogisticsCable, SubtypeReactorLogisticsCable, BlockEntity, Void> createInstanceConductor(Set<IReactorLogisticsCable> set) {
+    public ReactorLogisticsNetwork createInstanceConductor(Set<TileReactorLogisticsCable> set) {
         return new ReactorLogisticsNetwork(set);
-    }
-
-    @Override
-    public AbstractNetwork<IReactorLogisticsCable, SubtypeReactorLogisticsCable, BlockEntity, Void> createInstance(Set<AbstractNetwork<IReactorLogisticsCable, SubtypeReactorLogisticsCable, BlockEntity, Void>> set) {
-        return new ReactorLogisticsNetwork(set);
-    }
-
-    @Override
-    public SubtypeReactorLogisticsCable[] getConductorTypes() {
-        return SubtypeReactorLogisticsCable.values();
     }
 
     private boolean validateConnection(BlockEntity blockEntity, Direction dir) {

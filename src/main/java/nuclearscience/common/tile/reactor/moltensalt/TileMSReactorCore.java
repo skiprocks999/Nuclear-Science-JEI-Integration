@@ -12,7 +12,6 @@ import electrodynamics.prefab.utilities.object.CachedTileOutput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
-import nuclearscience.api.network.moltensalt.IMoltenSaltPipe;
 import nuclearscience.api.radiation.RadiationSystem;
 import nuclearscience.api.radiation.SimpleRadiationSource;
 import nuclearscience.common.inventory.container.ContainerMSReactorCore;
@@ -115,9 +114,9 @@ public class TileMSReactorCore extends GenericTile {
 
 		currentFuel.set(currentFuel.get() - fuelUse);
 		temperature.set((temperature.get() + (MELTDOWN_TEMPERATURE * insertDecimal * (1.2 + level.random.nextDouble() / 5.0) - temperature.get()) / 600.0));
-		if (outputCache.valid() && outputCache.getSafe() instanceof IMoltenSaltPipe) {
+		if (outputCache.valid() && outputCache.getSafe() instanceof TileMoltenSaltPipe pipe) {
 
-			MoltenSaltNetwork net = (MoltenSaltNetwork) outputCache.<IMoltenSaltPipe>getSafe().getNetwork();
+			MoltenSaltNetwork net = pipe.getNetwork();
 			net.emit(temperature.get() * ((TileFreezePlug) plugCache.getSafe()).getSaltBonus(), new ArrayList<>(), false);
 		}
 

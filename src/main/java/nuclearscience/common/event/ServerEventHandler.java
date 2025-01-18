@@ -21,6 +21,7 @@ public class ServerEventHandler {
 		event.addListener(RadioactiveFluidRegister.INSTANCE);
 		event.addListener(RadioactiveGasRegister.INSTANCE);
 		event.addListener(RadiationShieldingRegister.INSTANCE);
+		event.addListener(AtomicAssemblerWhitelistRegister.INSTANCE);
 	}
 
 	@SubscribeEvent
@@ -30,6 +31,7 @@ public class ServerEventHandler {
 		RadioactiveFluidRegister.INSTANCE.generateTagValues();
 		RadioactiveGasRegister.INSTANCE.generateTagValues();
 		RadiationShieldingRegister.INSTANCE.generateTagValues();
+		AtomicAssemblerWhitelistRegister.INSTANCE.generateTagValues();
 	}
 
 	@SubscribeEvent

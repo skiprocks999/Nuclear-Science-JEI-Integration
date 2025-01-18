@@ -6,21 +6,18 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.resources.ResourceLocation;
-import nuclearscience.References;
 import nuclearscience.api.quantumtunnel.TunnelFrequency;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 
 public class NuclearPropertyTypes {
 
     public static final PropertyType<TunnelFrequency, ByteBuf> TUNNEL_FREQUENCY = new PropertyType<>(
             //
-            ResourceLocation.fromNamespaceAndPath(References.ID, "tunnelfrequency"),
-            //
-            null,
+            Objects::equals,
             //
             TunnelFrequency.STREAM_CODEC,
             //
@@ -31,8 +28,6 @@ public class NuclearPropertyTypes {
     );
 
     public static final PropertyType<List<Integer>, ByteBuf> INTEGER_LIST = new PropertyType<>(
-            //
-            ResourceLocation.fromNamespaceAndPath(References.ID, "integerlist"),
             //
             (thisSet, otherSet) -> {
                 if (thisSet.size() != otherSet.size()) {
@@ -74,8 +69,6 @@ public class NuclearPropertyTypes {
     );
 
     public static final PropertyType<HashSet<Integer>, ByteBuf> INTEGER_SET = new PropertyType<>(
-            //
-            ResourceLocation.fromNamespaceAndPath(References.ID, "integerset"),
             //
             (thisSet, otherSet) -> {
                 if (thisSet.size() != otherSet.size()) {

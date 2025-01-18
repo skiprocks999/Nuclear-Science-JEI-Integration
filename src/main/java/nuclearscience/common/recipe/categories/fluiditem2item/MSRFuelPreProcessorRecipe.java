@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import nuclearscience.References;
+import nuclearscience.NuclearScience;
 import nuclearscience.common.recipe.NuclearScienceRecipeInit;
 
 import java.util.List;
@@ -18,8 +18,7 @@ import java.util.List;
 public class MSRFuelPreProcessorRecipe extends FluidItem2ItemRecipe {
 
 	public static final String RECIPE_GROUP = "msrfuel_preprocessor_recipe";
-	public static final String MOD_ID = References.ID;
-	public static final ResourceLocation RECIPE_ID = ResourceLocation.fromNamespaceAndPath(MOD_ID, RECIPE_GROUP);
+	public static final ResourceLocation RECIPE_ID = NuclearScience.rl(RECIPE_GROUP);
 
 	public MSRFuelPreProcessorRecipe(String group, List<CountableIngredient> itemInputs, List<FluidIngredient> fluidInputs, ItemStack itemOutput, double experience, int ticks, double usagePerTick, List<ProbableItem> itemBiproducts, List<ProbableFluid> fluidBiproducts, List<ProbableGas> gasBiproducts) {
 		super(group, itemInputs, fluidInputs, itemOutput, experience, ticks, usagePerTick, itemBiproducts, fluidBiproducts, gasBiproducts);

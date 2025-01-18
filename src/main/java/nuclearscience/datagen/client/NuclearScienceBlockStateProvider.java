@@ -1,5 +1,6 @@
 package nuclearscience.datagen.client;
 
+import electrodynamics.Electrodynamics;
 import electrodynamics.common.block.states.ElectrodynamicsBlockStates;
 import electrodynamics.datagen.client.ElectrodynamicsBlockStateProvider;
 import net.minecraft.core.Direction;
@@ -38,7 +39,7 @@ public class NuclearScienceBlockStateProvider extends ElectrodynamicsBlockStateP
         simpleColumnBlock(NuclearScienceBlocks.BLOCKS_ELECTROMAGENT.getValue(SubtypeElectromagent.electromagnet), blockLoc("electromagnet"), blockLoc("electromagnettop"), true);
         glassBlock(NuclearScienceBlocks.BLOCKS_ELECTROMAGENT.getValue(SubtypeElectromagent.electromagneticglass), blockLoc("electromagneticglass"), true);
         simpleBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.freezeplug), existingBlock(NuclearScienceBlocks.BLOCKS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.freezeplug)), true);
-        simpleBlockCustomRenderType(NuclearScienceBlocks.BLOCK_PLASMA, blockLoc("plasma"), ResourceLocation.parse("translucent"), true);
+        simpleBlockCustomRenderType(NuclearScienceBlocks.BLOCK_PLASMA, blockLoc("plasma"), Electrodynamics.vanillarl("translucent"), true);
         airBlock(NuclearScienceBlocks.BLOCK_RADIOACTIVEAIR, "block/plasma", true);
         simpleBlock(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.soil), blockLoc("irradiatedblocksoil"), true);
         simpleColumnBlock(NuclearScienceBlocks.BLOCKS_IRRADIATED.getValue(SubtypeIrradiatedBlock.petrifiedwood), modLoc("block/irradiatedblockpetrifiedwood"), modLoc("block/irradiatedblockpetrifiedwoodtop"), true);

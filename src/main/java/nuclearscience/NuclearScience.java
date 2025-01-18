@@ -1,6 +1,7 @@
 package nuclearscience;
 
 import electrodynamics.prefab.configuration.ConfigurationHandler;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.IEventBus;
@@ -15,7 +16,6 @@ import nuclearscience.common.block.voxelshapes.NuclearScienceVoxelShapes;
 import nuclearscience.common.reloadlistener.*;
 import nuclearscience.common.settings.Constants;
 import nuclearscience.common.tags.NuclearScienceTags;
-import nuclearscience.datagen.client.NuclearScienceBlockStateProvider;
 import nuclearscience.registers.UnifiedNuclearScienceRegister;
 
 @Mod(References.ID)
@@ -45,7 +45,12 @@ public class NuclearScience {
 		RadioactiveGasRegister.INSTANCE = new RadioactiveGasRegister().subscribeAsSyncable();
 		AtomicAssemblerBlacklistRegister.INSTANCE = new AtomicAssemblerBlacklistRegister().subscribeAsSyncable();
 		RadiationShieldingRegister.INSTANCE = new RadiationShieldingRegister().subscribeAsSyncable();
+		AtomicAssemblerWhitelistRegister.INSTANCE = new AtomicAssemblerWhitelistRegister().subscribeAsSyncable();
 
+	}
+
+	public static final ResourceLocation rl(String path) {
+		return ResourceLocation.fromNamespaceAndPath(References.ID, path);
 	}
 
 }

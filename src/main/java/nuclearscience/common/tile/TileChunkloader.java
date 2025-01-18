@@ -5,7 +5,6 @@ import electrodynamics.prefab.tile.GenericTile;
 import electrodynamics.prefab.tile.components.type.ComponentPacketHandler;
 import electrodynamics.prefab.tile.components.type.ComponentTickable;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
@@ -14,6 +13,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.world.chunk.RegisterTicketControllersEvent;
 import net.neoforged.neoforge.common.world.chunk.TicketController;
+import nuclearscience.NuclearScience;
 import nuclearscience.References;
 import nuclearscience.registers.NuclearScienceTiles;
 
@@ -76,7 +76,7 @@ public class TileChunkloader extends GenericTile {
     @EventBusSubscriber(modid = References.ID, bus = EventBusSubscriber.Bus.MOD)
     private static final class ChunkloaderManager {
 
-        private static final TicketController TICKET_CONTROLLER = new TicketController(ResourceLocation.fromNamespaceAndPath(References.ID, "chunkloadercontroller"));
+        private static final TicketController TICKET_CONTROLLER = new TicketController(NuclearScience.rl("chunkloadercontroller"));
 
         @SubscribeEvent
         public static void register(RegisterTicketControllersEvent event) {

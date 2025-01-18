@@ -6,11 +6,11 @@ import electrodynamics.api.screen.ITexture;
 import electrodynamics.prefab.screen.component.ScreenComponentGeneric;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
-import nuclearscience.References;
+import nuclearscience.NuclearScience;
 
 public class ScreenComponentGasCentrifuge extends ScreenComponentGeneric {
 
-	private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/component/nsprocessingarrows.png");
+	private static final ResourceLocation TEXTURE = NuclearScience.rl("textures/screen/component/nsprocessingarrows.png");
 
 	private final DoubleSupplier progressInfoHandlerBulbs;
 	private final DoubleSupplier progressInfoHandlerProgressTop;

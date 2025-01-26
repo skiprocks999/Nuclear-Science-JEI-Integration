@@ -10,8 +10,7 @@ import electrodynamics.client.guidebook.utils.pagedata.graphics.ItemWrapperObjec
 import electrodynamics.client.guidebook.utils.pagedata.text.TextWrapperObject;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
-import nuclearscience.References;
+import nuclearscience.NuclearScience;
 import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
 import nuclearscience.common.settings.Constants;
 import nuclearscience.prefab.utils.NuclearTextUtils;
@@ -42,10 +41,10 @@ public class ChapterOtherMachines extends Chapter {
 		pageData.add(new TextWrapperObject(NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.teleporter).getDescription().copy().withStyle(ChatFormatting.BOLD)).setCentered());
 		pageData.add(new ItemWrapperObject(7 + ScreenGuidebook.TEXT_WIDTH / 2 - 16, 5, 32, 32, 32, 2.0F, NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.teleporter)));
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.othermachines.teleporter1", ChatFormatter.getChatDisplayShort(Constants.TELEPORTER_USAGE_PER_TELEPORT, DisplayUnit.JOULES))).setIndentions(1).setSeparateStart());
-		pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 150, 150, 150, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/teleporter1.png")));
+		pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 150, 150, 150, NuclearScience.rl("textures/screen/guidebook/teleporter1.png")));
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.othermachines.teleporter2", NuclearScienceItems.ITEM_FREQUENCYCARD.get().getDescription().copy().withStyle(ChatFormatting.BOLD))).setSeparateStart());
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.othermachines.teleporter3")).setIndentions(1).setSeparateStart());
-		pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 150, 150, 150, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/teleporter2.png")));
+		pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 150, 150, 150, NuclearScience.rl("textures/screen/guidebook/teleporter2.png")));
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.othermachines.teleporter4")).setSeparateStart());
 
 		// Chunkloader
@@ -58,7 +57,7 @@ public class ChapterOtherMachines extends Chapter {
 		pageData.add(new ItemWrapperObject(7 + ScreenGuidebook.TEXT_WIDTH / 2 - 16, 5, 32, 32, 32, 2.0F, NuclearScienceItems.ITEMS_NUCLEARMACHINE.getValue(SubtypeNuclearMachine.atomicassembler)));
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.othermachines.atomicassembler1")).setIndentions(1).setSeparateStart());
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.othermachines.atomicassembler2")).setIndentions(1).setSeparateStart());
-		pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 79, 150, 79, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/atomicassembler1.png")));
+		pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 79, 150, 79, NuclearScience.rl("textures/screen/guidebook/atomicassembler1.png")));
 		pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.othermachines.atomicassembler3")).setIndentions(1).setSeparateStart());
 	}
 

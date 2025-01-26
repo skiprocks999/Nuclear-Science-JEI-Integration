@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import nuclearscience.common.inventory.container.ContainerAtomicAssembler;
 import nuclearscience.common.reloadlistener.AtomicAssemblerBlacklistRegister;
+import nuclearscience.common.reloadlistener.AtomicAssemblerWhitelistRegister;
 import nuclearscience.common.settings.Constants;
 import nuclearscience.prefab.utils.RadiationUtils;
 import nuclearscience.registers.NuclearScienceTiles;
@@ -120,15 +121,19 @@ public class TileAtomicAssembler extends GenericTile {
 
 	private boolean validateDupeItem(ItemStack stack) {
 
+		if(AtomicAssemblerWhitelistRegister.INSTANCE.isWhitelist(stack.getItem())) {
+			return true;
+		}
+
+		if (AtomicAssemblerBlacklistRegister.INSTANCE.isBlacklisted(stack.getItem())) {
+			return false;
+		}
+
 		if (stack.has(DataComponents.CONTAINER)) { // this should filter out shulker boxes with items
 			return false;
 		}
 
 		if (ItemUtils.testItems(stack.getItem(), NuclearScienceItems.ITEM_CELLDARKMATTER.get()) && stack.getCapability(Capabilities.ItemHandler.ITEM) != null) {
-			return false;
-		}
-
-		if (AtomicAssemblerBlacklistRegister.INSTANCE.isBlacklisted(stack.getItem())) {
 			return false;
 		}
 

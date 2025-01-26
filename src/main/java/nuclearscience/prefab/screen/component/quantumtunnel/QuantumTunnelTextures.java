@@ -2,11 +2,11 @@ package nuclearscience.prefab.screen.component.quantumtunnel;
 
 import electrodynamics.api.screen.ITexture;
 import net.minecraft.resources.ResourceLocation;
-import nuclearscience.References;
+import nuclearscience.NuclearScience;
 
 public enum QuantumTunnelTextures implements ITexture {
-    FREQUENCY(18, 18, 0, 0, 18, 18, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/component/quantumtunnel/frequency.png")),
-    FREQUENCY_SELECTED(18, 18, 0, 0, 18, 18, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/component/quantumtunnel/frequencyselected.png"));
+    FREQUENCY(18, 18, 0, 0, 18, 18, NuclearScience.rl("textures/screen/component/quantumtunnel/frequency.png")),
+    FREQUENCY_SELECTED(18, 18, 0, 0, 18, 18, NuclearScience.rl("textures/screen/component/quantumtunnel/frequencyselected.png"));
 
     private final int textureWidth;
     private final int textureHeight;

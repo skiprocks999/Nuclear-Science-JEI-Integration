@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
+import nuclearscience.NuclearScience;
 import nuclearscience.References;
 import nuclearscience.api.radiation.util.IHazmatSuit;
 import org.jetbrains.annotations.Nullable;
@@ -38,7 +39,7 @@ public class ItemHazmatArmor extends ItemElectrodynamicsArmor implements IHazmat
 		super(materialIn, slot, properties, creativeTab);
 		this.radiationProtection = radiationProtection;
 		this.radiationStrengthProtection = radiationStrengthRating;
-		this.armorTexture = ResourceLocation.parse(References.ID + ":textures/models/armor/" + armorTexture + ".png");
+		this.armorTexture = NuclearScience.rl("textures/models/armor/" + armorTexture + ".png");
 	}
 
 	@Override

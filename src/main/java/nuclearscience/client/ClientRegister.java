@@ -12,6 +12,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import nuclearscience.NuclearScience;
 import nuclearscience.References;
 import nuclearscience.client.guidebook.ModuleNuclearScience;
 import nuclearscience.client.particle.smoke.ParticleSmoke;
@@ -26,19 +27,19 @@ import java.util.List;
 @EventBusSubscriber(modid = References.ID, bus = EventBusSubscriber.Bus.MOD, value = {Dist.CLIENT})
 public class ClientRegister {
 
-    public static final ModelResourceLocation MODEL_GASCENTRIFUGECENTER = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/gascentrifugecenter"));
-    public static final ModelResourceLocation MODEL_TURBINECASING = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/turbinecasing"));
-    public static final ModelResourceLocation MODEL_TURBINEROTORLAYER = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/turbinerotorlayer"));
-    public static final ModelResourceLocation MODEL_FISSIONCONTROLROD_ROD = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/fissioncontrolrodrod"));
-    public static final ModelResourceLocation MODEL_MSCONTROLROD_ROD = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/mscontrolrodrod"));
-    public static final ModelResourceLocation MODEL_FALLOUTSCRUBBER_FAN = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/falloutscrubberfan"));
-    public static final ModelResourceLocation MODEL_CONTROLRODMODULE_ROD = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/controlrodmodulerod"));
-    public static final ModelResourceLocation MODEL_FISSIONINTERFACE_ROD = ModelResourceLocation.standalone(ResourceLocation.parse(References.ID + ":block/fissioninterfacerods"));
+    public static final ModelResourceLocation MODEL_GASCENTRIFUGECENTER = ModelResourceLocation.standalone(NuclearScience.rl("block/gascentrifugecenter"));
+    public static final ModelResourceLocation MODEL_TURBINECASING = ModelResourceLocation.standalone(NuclearScience.rl("block/turbinecasing"));
+    public static final ModelResourceLocation MODEL_TURBINEROTORLAYER = ModelResourceLocation.standalone(NuclearScience.rl("block/turbinerotorlayer"));
+    public static final ModelResourceLocation MODEL_FISSIONCONTROLROD_ROD = ModelResourceLocation.standalone(NuclearScience.rl("block/fissioncontrolrodrod"));
+    public static final ModelResourceLocation MODEL_MSCONTROLROD_ROD = ModelResourceLocation.standalone(NuclearScience.rl("block/mscontrolrodrod"));
+    public static final ModelResourceLocation MODEL_FALLOUTSCRUBBER_FAN = ModelResourceLocation.standalone(NuclearScience.rl("block/falloutscrubberfan"));
+    public static final ModelResourceLocation MODEL_CONTROLRODMODULE_ROD = ModelResourceLocation.standalone(NuclearScience.rl("block/controlrodmodulerod"));
+    public static final ModelResourceLocation MODEL_FISSIONINTERFACE_ROD = ModelResourceLocation.standalone(NuclearScience.rl("block/fissioninterfacerods"));
 
 
-    public static final ResourceLocation TEXTURE_JEIBLACKHOLE = ResourceLocation.fromNamespaceAndPath(References.ID, "block/custom/particleaccelerator_dmblackhole");
-    public static final ResourceLocation TEXTURE_FUELCELL = ResourceLocation.fromNamespaceAndPath(References.ID, "block/custom/fuelcell");
-    public static final ResourceLocation TEXTURE_GATEWAYLASER = ResourceLocation.fromNamespaceAndPath(References.ID, "block/custom/gatewaylaser");
+    public static final ResourceLocation TEXTURE_JEIBLACKHOLE = NuclearScience.rl("block/custom/particleaccelerator_dmblackhole");
+    public static final ResourceLocation TEXTURE_FUELCELL = NuclearScience.rl("block/custom/fuelcell");
+    public static final ResourceLocation TEXTURE_GATEWAYLASER = NuclearScience.rl("block/custom/gatewaylaser");
 
     private static final HashMap<ResourceLocation, TextureAtlasSprite> CACHED_TEXTUREATLASSPRITES = new HashMap<>();
     private static final List<ResourceLocation> CUSTOM_TEXTURES = List.of(TEXTURE_FUELCELL, TEXTURE_GATEWAYLASER, electrodynamics.client.ClientRegister.TEXTURE_WHITE);

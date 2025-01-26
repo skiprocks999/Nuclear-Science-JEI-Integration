@@ -1,5 +1,6 @@
 package nuclearscience.common.tags;
 
+import electrodynamics.Electrodynamics;
 import electrodynamics.api.gas.Gas;
 import electrodynamics.registers.ElectrodynamicsGases;
 import net.minecraft.resources.ResourceLocation;
@@ -60,7 +61,7 @@ public class NuclearScienceTags {
 		}
 
 		private static TagKey<Item> forgeTag(String name) {
-			return ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", name));
+			return ItemTags.create(Electrodynamics.commonrl(name));
 		}
 
 	}
@@ -75,7 +76,7 @@ public class NuclearScienceTags {
 		}
 
 		private static TagKey<Block> forgeTag(String name) {
-			return BlockTags.create(ResourceLocation.fromNamespaceAndPath("c", name));
+			return BlockTags.create(Electrodynamics.commonrl(name));
 		}
 
 	}
@@ -91,7 +92,7 @@ public class NuclearScienceTags {
 		}
 
 		private static TagKey<Fluid> forgeTag(String name) {
-			return FluidTags.create(ResourceLocation.fromNamespaceAndPath("c", name));
+			return FluidTags.create(Electrodynamics.commonrl(name));
 		}
 	}
 
@@ -104,7 +105,7 @@ public class NuclearScienceTags {
 		}
 
 		private static TagKey<Gas> forgeTag(String name) {
-			return create(ResourceLocation.fromNamespaceAndPath("c", name));
+			return create(Electrodynamics.commonrl(name));
 		}
 
 		public static TagKey<Gas> create(ResourceLocation loc) {

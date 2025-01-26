@@ -1,7 +1,7 @@
 package nuclearscience.common.block.subtype;
 
 import electrodynamics.api.ISubtype;
-import electrodynamics.api.multiblock.subnodebased.Subnode;
+import electrodynamics.api.multiblock.subnodebased.parent.IMultiblockParentBlock;
 import electrodynamics.api.tile.IMachine;
 import electrodynamics.api.tile.MachineProperties;
 import electrodynamics.common.block.voxelshapes.VoxelShapeProvider;
@@ -107,8 +107,8 @@ public enum SubtypeNuclearMachine implements ISubtype, IMachine {
         return false;
     }
 
-    public Subnode[] getSubnodes() {
-        return this.properties.subnodes;
+    public IMultiblockParentBlock.SubnodeWrapper getSubnodes() {
+        return this.properties.wrapper;
     }
 
     public VoxelShapeProvider getVoxelShapeProvider() {

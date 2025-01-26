@@ -1,10 +1,10 @@
 package nuclearscience.registers;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import nuclearscience.NuclearScience;
 import nuclearscience.References;
 
 public class NuclearScienceSounds {
@@ -26,6 +26,6 @@ public class NuclearScienceSounds {
 	public static final DeferredHolder<SoundEvent, SoundEvent> SOUND_PARTICLE = sound("particle");
 
 	private static DeferredHolder<SoundEvent, SoundEvent> sound(String name) {
-		return SOUNDS.register(name, () -> SoundEvent.createFixedRangeEvent(ResourceLocation.parse(References.ID + ":" + name), 16.0F));
+		return SOUNDS.register(name, () -> SoundEvent.createFixedRangeEvent(NuclearScience.rl(name), 16.0F));
 	}
 }

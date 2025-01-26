@@ -13,7 +13,6 @@ import nuclearscience.api.radiation.util.RadiationShielding;
 import nuclearscience.api.radiation.util.RadioactiveObject;
 import nuclearscience.common.reloadlistener.*;
 import nuclearscience.common.tile.TileQuantumTunnel;
-import nuclearscience.common.tile.reactor.logisticsnetwork.interfaces.GenericTileInterface;
 import nuclearscience.common.tile.reactor.logisticsnetwork.util.GenericTileInterfaceBound;
 
 import java.util.HashMap;
@@ -55,5 +54,9 @@ public class ClientBarrierMethods {
             tunnel.clientInterfaces.addAll(interfaces);
             //tunnel.clientInterfaces.add(new Interface(new BlockPos(-31000000, -31000000, -31000000), GenericTileInterface.InterfaceType.MS));
         }
+    }
+
+    public static void handleSetAtomicAssemblerClientWhitelistValues(HashSet<Item> items) {
+        AtomicAssemblerWhitelistRegister.INSTANCE.setClientValues(items);
     }
 }

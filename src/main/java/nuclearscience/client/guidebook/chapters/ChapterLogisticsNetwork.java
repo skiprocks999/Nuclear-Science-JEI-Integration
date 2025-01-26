@@ -17,10 +17,9 @@ import electrodynamics.registers.ElectrodynamicsCapabilities;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.ItemStack;
-import nuclearscience.References;
+import nuclearscience.NuclearScience;
 import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
 import nuclearscience.common.block.subtype.SubtypeReactorLogisticsCable;
 import nuclearscience.common.tile.reactor.logisticsnetwork.TileController;
@@ -201,13 +200,13 @@ public class ChapterLogisticsNetwork extends Chapter {
 
         pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.reactorlogistics.linkinggui").withStyle(ChatFormatting.BOLD)).setCentered().setNewPage());
         pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.reactorlogistics.linkinggui.l1")).setSeparateStart());
-        pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/linkguitab.png")));
+        pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 75, 150, 75, NuclearScience.rl("textures/screen/guidebook/linkguitab.png")));
         pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.reactorlogistics.linkinggui.l2")).setSeparateStart());
-        pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 150, 150, 150, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/linkgui.png")));
+        pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 150, 150, 150, NuclearScience.rl("textures/screen/guidebook/linkgui.png")));
         pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.reactorlogistics.linkinggui.l3")).setSeparateStart());
-        pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 150, 150, 150, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/linkguiselection.png")));
+        pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 150, 150, 150, NuclearScience.rl("textures/screen/guidebook/linkguiselection.png")));
         pageData.add(new TextWrapperObject(NuclearTextUtils.guidebook("chapter.reactorlogistics.linkinggui.l4")).setSeparateStart());
-        pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 150, 150, 150, ResourceLocation.fromNamespaceAndPath(References.ID, "textures/screen/guidebook/linkguideselection.png")));
+        pageData.add(new ImageWrapperObject(0, 0, 0, 0, 150, 150, 150, 150, NuclearScience.rl("textures/screen/guidebook/linkguideselection.png")));
 
         // Control Rod Module
 

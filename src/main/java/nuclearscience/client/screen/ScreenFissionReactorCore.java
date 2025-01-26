@@ -14,7 +14,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Inventory;
-import nuclearscience.References;
+import nuclearscience.NuclearScience;
 import nuclearscience.common.inventory.container.ContainerFissionReactorCore;
 import nuclearscience.common.tile.reactor.fission.TileFissionReactorCore;
 import nuclearscience.prefab.utils.NuclearTextUtils;
@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ScreenFissionReactorCore extends GenericScreen<ContainerFissionReactorCore> {
-	public static final ResourceLocation SCREEN_BACKGROUND = ResourceLocation.parse(References.ID + ":textures/gui/fissionreactor.png");
+	public static final ResourceLocation SCREEN_BACKGROUND = NuclearScience.rl("textures/gui/fissionreactor.png");
 
 	public ScreenFissionReactorCore(ContainerFissionReactorCore container, Inventory playerInventory, Component title) {
 		super(container, playerInventory, title);

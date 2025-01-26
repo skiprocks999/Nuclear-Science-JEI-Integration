@@ -5,6 +5,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
+import nuclearscience.NuclearScience;
 import nuclearscience.References;
 import nuclearscience.common.packet.type.client.*;
 import nuclearscience.common.packet.type.server.PacketCreateNewFreqeuency;
@@ -26,6 +27,7 @@ public class NetworkHandler {
 		registry.playToClient(PacketSetClientRadiationShielding.TYPE, PacketSetClientRadiationShielding.CODEC, PacketSetClientRadiationShielding::handle);
 		registry.playToClient(PacketSetClientTunnelFrequencies.TYPE, PacketSetClientTunnelFrequencies.CODEC, PacketSetClientTunnelFrequencies::handle);
 		registry.playToClient(PacketSetClientInterfaces.TYPE, PacketSetClientInterfaces.CODEC, PacketSetClientInterfaces::handle);
+		registry.playToClient(PacketSetClientAtomicAssemblerWhitelistVals.TYPE, PacketSetClientAtomicAssemblerWhitelistVals.CODEC, PacketSetClientAtomicAssemblerWhitelistVals::handle);
 
 		//SERVER
 
@@ -36,7 +38,7 @@ public class NetworkHandler {
 	}
 
 	public static ResourceLocation id(String name) {
-		return ResourceLocation.fromNamespaceAndPath(References.ID, name);
+		return NuclearScience.rl(name);
 	}
 
 }

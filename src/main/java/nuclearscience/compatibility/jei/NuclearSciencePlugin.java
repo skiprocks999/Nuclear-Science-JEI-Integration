@@ -24,6 +24,7 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import nuclearscience.NuclearScience;
 import nuclearscience.client.screen.ScreenChemicalExtractor;
 import nuclearscience.client.screen.ScreenFissionReactorCore;
 import nuclearscience.client.screen.ScreenGasCentrifuge;
@@ -55,9 +56,11 @@ import nuclearscience.registers.NuclearScienceGases;
 @JeiPlugin
 public class NuclearSciencePlugin implements IModPlugin {
 
+    public static final ResourceLocation ID = NuclearScience.rl("jei");
+
     @Override
     public ResourceLocation getPluginUid() {
-        return ResourceLocation.fromNamespaceAndPath(nuclearscience.References.ID, "jei");
+        return ID;
     }
 
     @Override

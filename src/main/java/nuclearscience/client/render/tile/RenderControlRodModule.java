@@ -1,10 +1,13 @@
 package nuclearscience.client.render.tile;
 
+import org.jetbrains.annotations.NotNull;
+import org.joml.Matrix4f;
+
 import com.mojang.blaze3d.vertex.PoseStack;
+
 import electrodynamics.api.electricity.formatting.ChatFormatter;
 import electrodynamics.api.electricity.formatting.DisplayUnit;
 import electrodynamics.client.render.tile.AbstractTileRenderer;
-import electrodynamics.prefab.utilities.ElectroTextUtils;
 import electrodynamics.prefab.utilities.RenderingUtils;
 import electrodynamics.prefab.utilities.math.Color;
 import electrodynamics.prefab.utilities.math.MathUtils;
@@ -18,8 +21,6 @@ import net.minecraft.network.chat.Component;
 import nuclearscience.client.ClientRegister;
 import nuclearscience.common.tile.reactor.TileControlRod;
 import nuclearscience.common.tile.reactor.logisticsnetwork.TileControlRodModule;
-import org.jetbrains.annotations.NotNull;
-import org.joml.Matrix4f;
 
 public class RenderControlRodModule extends AbstractTileRenderer<TileControlRodModule> {
 

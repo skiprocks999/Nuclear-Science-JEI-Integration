@@ -8,7 +8,27 @@ import net.minecraft.world.inventory.MenuType.MenuSupplier;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import nuclearscience.References;
-import nuclearscience.common.inventory.container.*;
+import nuclearscience.common.inventory.container.ContainerAtomicAssembler;
+import nuclearscience.common.inventory.container.ContainerChemicalExtractor;
+import nuclearscience.common.inventory.container.ContainerCloudChamber;
+import nuclearscience.common.inventory.container.ContainerControlRodModule;
+import nuclearscience.common.inventory.container.ContainerElectromagneticGateway;
+import nuclearscience.common.inventory.container.ContainerFalloutScrubber;
+import nuclearscience.common.inventory.container.ContainerFissionReactorCore;
+import nuclearscience.common.inventory.container.ContainerFreezePlug;
+import nuclearscience.common.inventory.container.ContainerGasCentrifuge;
+import nuclearscience.common.inventory.container.ContainerMSRFuelPreProcessor;
+import nuclearscience.common.inventory.container.ContainerMSReactorCore;
+import nuclearscience.common.inventory.container.ContainerMoltenSaltSupplier;
+import nuclearscience.common.inventory.container.ContainerMonitorModule;
+import nuclearscience.common.inventory.container.ContainerNuclearBoiler;
+import nuclearscience.common.inventory.container.ContainerParticleInjector;
+import nuclearscience.common.inventory.container.ContainerQuantumTunnel;
+import nuclearscience.common.inventory.container.ContainerRadioactiveProcessor;
+import nuclearscience.common.inventory.container.ContainerRadioisotopeGenerator;
+import nuclearscience.common.inventory.container.ContainerSupplyModule;
+import nuclearscience.common.inventory.container.ContainerTeleporter;
+import nuclearscience.common.inventory.container.ContainerThermometerModule;
 
 public class NuclearScienceMenuTypes {
 	public static final DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(Registries.MENU, References.ID);

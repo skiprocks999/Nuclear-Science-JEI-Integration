@@ -1,5 +1,7 @@
 package nuclearscience.common.packet.type.server;
 
+import java.util.UUID;
+
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.codec.StreamCodec;
@@ -8,8 +10,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import nuclearscience.api.quantumtunnel.TunnelFrequency;
 import nuclearscience.common.packet.NetworkHandler;
-
-import java.util.UUID;
 
 public class PacketEditFrequency implements CustomPacketPayload {
 

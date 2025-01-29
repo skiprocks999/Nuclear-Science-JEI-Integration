@@ -1,5 +1,9 @@
 package nuclearscience.prefab.screen.component.logisticsnetwork;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+
 import electrodynamics.prefab.inventory.container.slot.item.SlotGeneric;
 import electrodynamics.prefab.screen.component.button.ScreenComponentButton;
 import electrodynamics.prefab.screen.component.types.ScreenComponentSimpleLabel;
@@ -19,10 +23,6 @@ import nuclearscience.common.tile.reactor.logisticsnetwork.interfaces.GenericTil
 import nuclearscience.common.tile.reactor.logisticsnetwork.util.GenericTileInterfaceBound;
 import nuclearscience.prefab.screen.component.NuclearIconTypes;
 import nuclearscience.prefab.utils.NuclearTextUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
 
 public class WrapperBindInterface {
 
@@ -51,7 +51,7 @@ public class WrapperBindInterface {
         if (needsButton) {
             screen.addComponent(button = (ScreenComponentButton<?>) new ScreenComponentButton<>(ScreenComponentGuiTab.GuiInfoTabTextures.REGULAR, tabX, tabY).setOnPress(but -> {
                 //
-                ScreenComponentButton<?> button = (ScreenComponentButton<?>) but;
+                ScreenComponentButton<?> button = but;
                 button.isPressed = !button.isPressed;
 
                 if (button.isPressed) {
@@ -200,8 +200,8 @@ public class WrapperBindInterface {
                 int moveRoom = screen.binderSlider.height - 15 - 2;
 
                 // int moveRoom = 102 - 2;
-                double moved = (double) topRowIndex / (double) (lastRowCount - (double) BUTTON_COUNT);
-                slider.setSliderYOffset((int) ((double) moveRoom * moved));
+                double moved = topRowIndex / (lastRowCount - (double) BUTTON_COUNT);
+                slider.setSliderYOffset((int) (moveRoom * moved));
             }
         } else {
             slider.updateActive(false);
@@ -245,8 +245,8 @@ public class WrapperBindInterface {
                     double heightRatio = (double) mouseHeight / (double) sliderHeight;
                     topRowIndex = (int) Math.round((lastRowCount - BUTTON_COUNT) * heightRatio);
                     int moveRoom = slider.height - 15 - 2;
-                    double moved = (double) topRowIndex / (double) (lastRowCount - (double) BUTTON_COUNT);
-                    slider.setSliderYOffset((int) ((double) moveRoom * moved));
+                    double moved = topRowIndex / (lastRowCount - (double) BUTTON_COUNT);
+                    slider.setSliderYOffset((int) (moveRoom * moved));
                 }
             }
         };

@@ -1,17 +1,18 @@
 package nuclearscience.prefab;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+
 import com.mojang.serialization.Codec;
+
 import electrodynamics.prefab.properties.PropertyType;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.codec.ByteBufCodecs;
 import nuclearscience.api.quantumtunnel.TunnelFrequency;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
 
 public class NuclearPropertyTypes {
 

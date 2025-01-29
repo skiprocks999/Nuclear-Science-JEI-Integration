@@ -22,8 +22,8 @@ import nuclearscience.common.reloadlistener.AtomicAssemblerBlacklistRegister;
 import nuclearscience.common.reloadlistener.AtomicAssemblerWhitelistRegister;
 import nuclearscience.common.settings.Constants;
 import nuclearscience.prefab.utils.RadiationUtils;
-import nuclearscience.registers.NuclearScienceTiles;
 import nuclearscience.registers.NuclearScienceItems;
+import nuclearscience.registers.NuclearScienceTiles;
 
 public class TileAtomicAssembler extends GenericTile {
 

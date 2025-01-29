@@ -1,12 +1,18 @@
 package nuclearscience.common.tile.accelerator;
 
+import java.util.Random;
+
 import electrodynamics.Electrodynamics;
 import electrodynamics.prefab.properties.Property;
 import electrodynamics.prefab.properties.PropertyTypes;
 import electrodynamics.prefab.tile.GenericTile;
 import electrodynamics.prefab.tile.components.IComponentType;
-import electrodynamics.prefab.tile.components.type.*;
+import electrodynamics.prefab.tile.components.type.ComponentContainerProvider;
+import electrodynamics.prefab.tile.components.type.ComponentElectrodynamic;
+import electrodynamics.prefab.tile.components.type.ComponentInventory;
 import electrodynamics.prefab.tile.components.type.ComponentInventory.InventoryBuilder;
+import electrodynamics.prefab.tile.components.type.ComponentPacketHandler;
+import electrodynamics.prefab.tile.components.type.ComponentTickable;
 import electrodynamics.prefab.utilities.BlockEntityUtils;
 import electrodynamics.prefab.utilities.object.Location;
 import electrodynamics.registers.ElectrodynamicsCapabilities;
@@ -25,10 +31,8 @@ import nuclearscience.common.entity.EntityParticle;
 import nuclearscience.common.inventory.container.ContainerParticleInjector;
 import nuclearscience.common.settings.Constants;
 import nuclearscience.prefab.utils.RadiationUtils;
-import nuclearscience.registers.NuclearScienceTiles;
 import nuclearscience.registers.NuclearScienceItems;
-
-import java.util.Random;
+import nuclearscience.registers.NuclearScienceTiles;
 
 public class TileParticleInjector extends GenericTile {
 
@@ -156,12 +160,12 @@ public class TileParticleInjector extends GenericTile {
 			Random random = Electrodynamics.RANDOM;
 
 			for(int i = 0; i < 50; i++) {
-				double d0 = (double)pos.getX() + random.nextDouble();
-				double d1 = (double)pos.getY() + random.nextDouble();
-				double d2 = (double)pos.getZ() + random.nextDouble();
-				double d3 = ((double)random.nextFloat() - 0.5) * 0.5;
-				double d4 = ((double)random.nextFloat() - 0.5) * 0.5;
-				double d5 = ((double)random.nextFloat() - 0.5) * 0.5;
+				double d0 = pos.getX() + random.nextDouble();
+				double d1 = pos.getY() + random.nextDouble();
+				double d2 = pos.getZ() + random.nextDouble();
+				double d3 = (random.nextFloat() - 0.5) * 0.5;
+				double d4 = (random.nextFloat() - 0.5) * 0.5;
+				double d5 = (random.nextFloat() - 0.5) * 0.5;
 
 				((ServerLevel) level).sendParticles(ParticleTypes.PORTAL, d0, d1, d2, 1, 0, 0, 0, d3);
 			}

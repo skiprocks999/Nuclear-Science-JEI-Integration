@@ -77,7 +77,7 @@ public class ScreenComponentBoundInterface extends ScreenComponentGeneric {
 
         graphics.pose().scale(scale, scale, 0);
 
-        graphics.drawString(font, text.getVisualOrderText(), (float) xOffset / scale, 7.0F / scale + addY, Color.TEXT_GRAY.color(), false);
+        graphics.drawString(font, text.getVisualOrderText(), xOffset / scale, 7.0F / scale + addY, Color.TEXT_GRAY.color(), false);
 
         graphics.pose().popPose();
 

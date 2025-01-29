@@ -1,5 +1,8 @@
 package nuclearscience.client;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import electrodynamics.client.render.event.levelstage.AbstractLevelStageHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
@@ -10,9 +13,6 @@ import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import nuclearscience.References;
 import nuclearscience.client.render.event.levelstage.HandlerCloudChamber;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @EventBusSubscriber(modid = References.ID, bus = EventBusSubscriber.Bus.GAME, value = { Dist.CLIENT })
 public class ClientEvents {

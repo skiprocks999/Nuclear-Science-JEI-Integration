@@ -1,19 +1,23 @@
 package nuclearscience.api.radiation;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.AABB;
-import nuclearscience.api.radiation.util.*;
+import nuclearscience.api.radiation.util.BlockPosVolume;
+import nuclearscience.api.radiation.util.IRadiationManager;
+import nuclearscience.api.radiation.util.IRadiationRecipient;
+import nuclearscience.api.radiation.util.IRadiationSource;
+import nuclearscience.api.radiation.util.RadiationShielding;
 import nuclearscience.common.reloadlistener.RadiationShieldingRegister;
 import nuclearscience.registers.NuclearScienceAttachmentTypes;
 import nuclearscience.registers.NuclearScienceCapabilities;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class RadiationManager implements IRadiationManager {
 

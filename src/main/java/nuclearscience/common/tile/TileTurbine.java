@@ -1,12 +1,10 @@
 package nuclearscience.common.tile;
 
-import electrodynamics.api.capability.types.electrodynamic.ICapabilityElectrodynamic;
-import electrodynamics.prefab.properties.PropertyTypes;
-import electrodynamics.prefab.utilities.BlockEntityUtils;
-import net.minecraft.world.ItemInteractionResult;
-import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
+import electrodynamics.api.capability.types.electrodynamic.ICapabilityElectrodynamic;
 import electrodynamics.prefab.properties.Property;
+import electrodynamics.prefab.properties.PropertyTypes;
 import electrodynamics.prefab.sound.SoundBarrierMethods;
 import electrodynamics.prefab.sound.utils.ITickableSound;
 import electrodynamics.prefab.tile.GenericTile;
@@ -14,6 +12,7 @@ import electrodynamics.prefab.tile.components.IComponentType;
 import electrodynamics.prefab.tile.components.type.ComponentElectrodynamic;
 import electrodynamics.prefab.tile.components.type.ComponentPacketHandler;
 import electrodynamics.prefab.tile.components.type.ComponentTickable;
+import electrodynamics.prefab.utilities.BlockEntityUtils;
 import electrodynamics.prefab.utilities.ElectricityUtils;
 import electrodynamics.prefab.utilities.object.CachedTileOutput;
 import electrodynamics.prefab.utilities.object.TransferPack;
@@ -21,15 +20,16 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import nuclearscience.api.turbine.ISteamReceiver;
 import nuclearscience.common.block.BlockTurbine;
-import nuclearscience.registers.NuclearScienceTiles;
 import nuclearscience.registers.NuclearScienceSounds;
-import org.jetbrains.annotations.Nullable;
+import nuclearscience.registers.NuclearScienceTiles;
 
 public class TileTurbine extends GenericTile implements ITickableSound, ISteamReceiver {
 

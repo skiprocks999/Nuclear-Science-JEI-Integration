@@ -1,6 +1,10 @@
 package nuclearscience.client.render.tile;
 
+import org.jetbrains.annotations.NotNull;
+import org.joml.Vector3f;
+
 import com.mojang.blaze3d.vertex.PoseStack;
+
 import electrodynamics.Electrodynamics;
 import electrodynamics.client.render.tile.AbstractTileRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -8,8 +12,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import nuclearscience.common.tile.TileCloudChamber;
-import org.jetbrains.annotations.NotNull;
-import org.joml.Vector3f;
 
 public class RenderCloudChamber extends AbstractTileRenderer<TileCloudChamber> {
 
@@ -26,7 +28,7 @@ public class RenderCloudChamber extends AbstractTileRenderer<TileCloudChamber> {
             return;
         }
 
-        double countPerc = Math.min(1.0, (double) tile.sources.get().size() / MAX_COUNT);
+        double countPerc = Math.min(1.0, tile.sources.get().size() / MAX_COUNT);
 
         if(level().getRandom().nextFloat() > countPerc * 0.2) {
             return;

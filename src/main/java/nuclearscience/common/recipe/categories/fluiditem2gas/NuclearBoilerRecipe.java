@@ -1,5 +1,7 @@
 package nuclearscience.common.recipe.categories.fluiditem2gas;
 
+import java.util.List;
+
 import electrodynamics.api.gas.GasStack;
 import electrodynamics.common.recipe.categories.fluiditem2gas.FluidItem2GasRecipe;
 import electrodynamics.common.recipe.recipeutils.CountableIngredient;
@@ -12,8 +14,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import nuclearscience.NuclearScience;
 import nuclearscience.common.recipe.NuclearScienceRecipeInit;
-
-import java.util.List;
 
 public class NuclearBoilerRecipe extends FluidItem2GasRecipe {
 

@@ -13,8 +13,8 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 import nuclearscience.api.radiation.RadiationSystem;
-import nuclearscience.api.radiation.util.RadioactiveObject;
 import nuclearscience.api.radiation.SimpleRadiationSource;
+import nuclearscience.api.radiation.util.RadioactiveObject;
 import nuclearscience.common.reloadlistener.RadioactiveFluidRegister;
 import nuclearscience.registers.NuclearScienceItems;
 

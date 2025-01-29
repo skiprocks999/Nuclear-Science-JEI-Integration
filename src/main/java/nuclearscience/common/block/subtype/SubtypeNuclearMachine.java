@@ -9,16 +9,37 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import nuclearscience.common.block.voxelshapes.NuclearScienceVoxelShapes;
-import nuclearscience.common.tile.*;
+import nuclearscience.common.tile.TileAtomicAssembler;
+import nuclearscience.common.tile.TileChemicalExtractor;
+import nuclearscience.common.tile.TileChunkloader;
+import nuclearscience.common.tile.TileCloudChamber;
+import nuclearscience.common.tile.TileFalloutScrubber;
+import nuclearscience.common.tile.TileFuelReprocessor;
+import nuclearscience.common.tile.TileGasCentrifuge;
+import nuclearscience.common.tile.TileNuclearBoiler;
+import nuclearscience.common.tile.TileQuantumTunnel;
+import nuclearscience.common.tile.TileRadioactiveProcessor;
+import nuclearscience.common.tile.TileRadioisotopeGenerator;
+import nuclearscience.common.tile.TileSiren;
+import nuclearscience.common.tile.TileSteamFunnel;
+import nuclearscience.common.tile.TileTeleporter;
 import nuclearscience.common.tile.accelerator.TileParticleInjector;
 import nuclearscience.common.tile.reactor.TileControlRod;
 import nuclearscience.common.tile.reactor.fission.TileFissionReactorCore;
 import nuclearscience.common.tile.reactor.fusion.TileFusionReactorCore;
-import nuclearscience.common.tile.reactor.logisticsnetwork.*;
+import nuclearscience.common.tile.reactor.logisticsnetwork.TileControlRodModule;
+import nuclearscience.common.tile.reactor.logisticsnetwork.TileController;
+import nuclearscience.common.tile.reactor.logisticsnetwork.TileMonitorModule;
+import nuclearscience.common.tile.reactor.logisticsnetwork.TileSupplyModule;
+import nuclearscience.common.tile.reactor.logisticsnetwork.TileThermometerModule;
 import nuclearscience.common.tile.reactor.logisticsnetwork.interfaces.TileFissionInterface;
 import nuclearscience.common.tile.reactor.logisticsnetwork.interfaces.TileFusionInterface;
 import nuclearscience.common.tile.reactor.logisticsnetwork.interfaces.TileMSInterface;
-import nuclearscience.common.tile.reactor.moltensalt.*;
+import nuclearscience.common.tile.reactor.moltensalt.TileFreezePlug;
+import nuclearscience.common.tile.reactor.moltensalt.TileHeatExchanger;
+import nuclearscience.common.tile.reactor.moltensalt.TileMSRFuelPreProcessor;
+import nuclearscience.common.tile.reactor.moltensalt.TileMSReactorCore;
+import nuclearscience.common.tile.reactor.moltensalt.TileMoltenSaltSupplier;
 
 public enum SubtypeNuclearMachine implements ISubtype, IMachine {
 
@@ -71,46 +92,57 @@ public enum SubtypeNuclearMachine implements ISubtype, IMachine {
         this.properties = properties;
     }
 
+    @Override
     public BlockEntityType.BlockEntitySupplier<BlockEntity> getBlockEntitySupplier() {
         return this.blockEntitySupplier;
     }
 
+    @Override
     public int getLitBrightness() {
         return this.properties.litBrightness;
     }
 
+    @Override
     public RenderShape getRenderShape() {
         return this.properties.renderShape;
     }
 
+    @Override
     public boolean isMultiblock() {
         return this.properties.isMultiblock;
     }
 
+    @Override
     public boolean propegatesLightDown() {
         return this.properties.propegatesLightDown;
     }
 
+    @Override
     public String tag() {
         return this.name();
     }
 
+    @Override
     public String forgeTag() {
         return this.tag();
     }
 
+    @Override
     public boolean isItem() {
         return false;
     }
 
+    @Override
     public boolean isPlayerStorable() {
         return false;
     }
 
+    @Override
     public IMultiblockParentBlock.SubnodeWrapper getSubnodes() {
         return this.properties.wrapper;
     }
 
+    @Override
     public VoxelShapeProvider getVoxelShapeProvider() {
         return this.properties.provider;
     }

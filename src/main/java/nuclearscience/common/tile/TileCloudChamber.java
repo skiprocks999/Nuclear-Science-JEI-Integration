@@ -1,10 +1,16 @@
 package nuclearscience.common.tile;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import electrodynamics.prefab.properties.Property;
 import electrodynamics.prefab.properties.PropertyTypes;
 import electrodynamics.prefab.tile.GenericTile;
 import electrodynamics.prefab.tile.components.IComponentType;
-import electrodynamics.prefab.tile.components.type.*;
+import electrodynamics.prefab.tile.components.type.ComponentContainerProvider;
+import electrodynamics.prefab.tile.components.type.ComponentElectrodynamic;
+import electrodynamics.prefab.tile.components.type.ComponentFluidHandlerSimple;
+import electrodynamics.prefab.tile.components.type.ComponentTickable;
 import electrodynamics.prefab.utilities.BlockEntityUtils;
 import electrodynamics.registers.ElectrodynamicsCapabilities;
 import net.minecraft.core.BlockPos;
@@ -17,9 +23,6 @@ import nuclearscience.common.inventory.container.ContainerCloudChamber;
 import nuclearscience.common.settings.Constants;
 import nuclearscience.common.tags.NuclearScienceTags;
 import nuclearscience.registers.NuclearScienceTiles;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TileCloudChamber extends GenericTile {
 
@@ -101,6 +104,7 @@ public class TileCloudChamber extends GenericTile {
         fluid.drain(Constants.CLOUD_CHAMBER_FLUID_USAGE_PER_TICK, IFluidHandler.FluidAction.EXECUTE);
     }
 
+    @Override
     public void onNeightborChanged(BlockPos neighbor, boolean blockStateTrigger) {
         if (!level.isClientSide) {
             hasRedstoneSignal.set(this.level.hasNeighborSignal(this.getBlockPos()));

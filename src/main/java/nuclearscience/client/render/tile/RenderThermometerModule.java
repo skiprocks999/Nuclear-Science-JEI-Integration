@@ -1,6 +1,10 @@
 package nuclearscience.client.render.tile;
 
+import org.jetbrains.annotations.NotNull;
+import org.joml.Matrix4f;
+
 import com.mojang.blaze3d.vertex.PoseStack;
+
 import electrodynamics.api.electricity.formatting.ChatFormatter;
 import electrodynamics.api.electricity.formatting.DisplayUnit;
 import electrodynamics.client.render.tile.AbstractTileRenderer;
@@ -13,8 +17,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import nuclearscience.common.tile.reactor.logisticsnetwork.TileThermometerModule;
-import org.jetbrains.annotations.NotNull;
-import org.joml.Matrix4f;
 
 public class RenderThermometerModule extends AbstractTileRenderer<TileThermometerModule> {
 
@@ -47,7 +49,7 @@ public class RenderThermometerModule extends AbstractTileRenderer<TileThermomete
 
         stack.translate(0, 0.175, -0.46875);
 
-        Component transfer = ChatFormatter.getChatDisplayShort((double) tile.trackedTemperature.get(), DisplayUnit.TEMPERATURE_CELCIUS);
+        Component transfer = ChatFormatter.getChatDisplayShort(tile.trackedTemperature.get(), DisplayUnit.TEMPERATURE_CELCIUS);
 
         int width = font.width(transfer);
 
@@ -69,7 +71,7 @@ public class RenderThermometerModule extends AbstractTileRenderer<TileThermomete
 
         stack.translate(0, -0.0625, -0.46875);
 
-        transfer = ChatFormatter.getChatDisplayShort((double) tile.targetTemperature.get(), DisplayUnit.TEMPERATURE_CELCIUS);
+        transfer = ChatFormatter.getChatDisplayShort(tile.targetTemperature.get(), DisplayUnit.TEMPERATURE_CELCIUS);
 
         width = font.width(transfer);
 

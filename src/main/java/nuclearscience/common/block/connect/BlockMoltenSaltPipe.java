@@ -3,6 +3,7 @@ package nuclearscience.common.block.connect;
 import java.util.HashSet;
 
 import com.mojang.serialization.MapCodec;
+
 import electrodynamics.common.block.connect.util.AbstractRefreshingConnectBlock;
 import electrodynamics.common.block.connect.util.EnumConnectType;
 import net.minecraft.core.BlockPos;

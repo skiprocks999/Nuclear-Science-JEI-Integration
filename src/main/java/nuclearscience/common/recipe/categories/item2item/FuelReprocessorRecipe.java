@@ -1,5 +1,7 @@
 package nuclearscience.common.recipe.categories.item2item;
 
+import java.util.List;
+
 import electrodynamics.common.recipe.categories.item2item.Item2ItemRecipe;
 import electrodynamics.common.recipe.recipeutils.CountableIngredient;
 import electrodynamics.common.recipe.recipeutils.ProbableFluid;
@@ -11,8 +13,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import nuclearscience.NuclearScience;
 import nuclearscience.common.recipe.NuclearScienceRecipeInit;
-
-import java.util.List;
 
 public class FuelReprocessorRecipe extends Item2ItemRecipe {
 

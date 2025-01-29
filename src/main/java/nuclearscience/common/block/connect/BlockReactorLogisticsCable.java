@@ -1,6 +1,11 @@
 package nuclearscience.common.block.connect;
 
+import java.util.HashSet;
+
+import org.jetbrains.annotations.Nullable;
+
 import com.mojang.serialization.MapCodec;
+
 import electrodynamics.common.block.connect.util.AbstractRefreshingConnectBlock;
 import electrodynamics.common.block.connect.util.EnumConnectType;
 import net.minecraft.core.BlockPos;
@@ -14,9 +19,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import nuclearscience.api.network.reactorlogistics.ILogisticsMember;
 import nuclearscience.common.block.subtype.SubtypeReactorLogisticsCable;
 import nuclearscience.common.tile.reactor.logisticsnetwork.TileReactorLogisticsCable;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.HashSet;
 
 public class BlockReactorLogisticsCable extends AbstractRefreshingConnectBlock<TileReactorLogisticsCable> {
 

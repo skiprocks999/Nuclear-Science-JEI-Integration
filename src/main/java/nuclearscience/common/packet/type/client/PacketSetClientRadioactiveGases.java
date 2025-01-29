@@ -1,5 +1,7 @@
 package nuclearscience.common.packet.type.client;
 
+import java.util.HashMap;
+
 import electrodynamics.api.gas.Gas;
 import electrodynamics.api.gas.GasStack;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -9,8 +11,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import nuclearscience.api.radiation.util.RadioactiveObject;
 import nuclearscience.common.packet.NetworkHandler;
-
-import java.util.HashMap;
 
 public class PacketSetClientRadioactiveGases implements CustomPacketPayload {
 

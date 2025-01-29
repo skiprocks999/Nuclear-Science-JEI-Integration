@@ -17,7 +17,12 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import nuclearscience.References;
 import nuclearscience.common.block.states.NuclearScienceBlockStates;
 import nuclearscience.common.block.states.facing.FacingDirection;
-import nuclearscience.common.block.subtype.*;
+import nuclearscience.common.block.subtype.SubtypeElectromagent;
+import nuclearscience.common.block.subtype.SubtypeIrradiatedBlock;
+import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
+import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
+import nuclearscience.common.block.subtype.SubtypeRadiationShielding;
+import nuclearscience.common.block.subtype.SubtypeReactorLogisticsCable;
 import nuclearscience.registers.NuclearScienceBlocks;
 
 public class NuclearScienceBlockStateProvider extends ElectrodynamicsBlockStateProvider {

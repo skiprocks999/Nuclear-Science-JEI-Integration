@@ -3,6 +3,7 @@ package nuclearscience.client.particle.smoke;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+
 import electrodynamics.prefab.utilities.CodecUtils;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;

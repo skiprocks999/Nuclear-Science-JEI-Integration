@@ -1,6 +1,9 @@
 package nuclearscience.client.render.tile;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.mojang.blaze3d.vertex.PoseStack;
+
 import electrodynamics.client.render.tile.AbstractTileRenderer;
 import electrodynamics.prefab.utilities.RenderingUtils;
 import electrodynamics.prefab.utilities.math.Color;
@@ -11,7 +14,6 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.world.phys.AABB;
 import nuclearscience.client.ClientRegister;
 import nuclearscience.common.tile.accelerator.TileElectromagneticGateway;
-import org.jetbrains.annotations.NotNull;
 
 public class RenderElectromagneticGateway extends AbstractTileRenderer<TileElectromagneticGateway> {
 

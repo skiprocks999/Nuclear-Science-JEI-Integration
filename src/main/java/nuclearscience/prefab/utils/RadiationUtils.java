@@ -1,9 +1,15 @@
 package nuclearscience.prefab.utils;
 
+import java.util.List;
+
 import electrodynamics.api.gas.GasStack;
 import electrodynamics.api.gas.GasTank;
 import electrodynamics.prefab.tile.GenericTile;
-import electrodynamics.prefab.tile.components.type.*;
+import electrodynamics.prefab.tile.components.type.ComponentFluidHandlerMulti;
+import electrodynamics.prefab.tile.components.type.ComponentFluidHandlerSimple;
+import electrodynamics.prefab.tile.components.type.ComponentGasHandlerMulti;
+import electrodynamics.prefab.tile.components.type.ComponentGasHandlerSimple;
+import electrodynamics.prefab.tile.components.type.ComponentInventory;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
@@ -13,8 +19,6 @@ import nuclearscience.api.radiation.util.RadioactiveObject;
 import nuclearscience.common.reloadlistener.RadioactiveFluidRegister;
 import nuclearscience.common.reloadlistener.RadioactiveGasRegister;
 import nuclearscience.common.reloadlistener.RadioactiveItemRegister;
-
-import java.util.List;
 
 public class RadiationUtils {
 

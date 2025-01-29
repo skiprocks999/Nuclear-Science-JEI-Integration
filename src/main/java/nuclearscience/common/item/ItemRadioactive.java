@@ -9,9 +9,9 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import nuclearscience.api.radiation.RadiationSystem;
+import nuclearscience.api.radiation.SimpleRadiationSource;
 import nuclearscience.api.radiation.util.IRadiationRecipient;
 import nuclearscience.api.radiation.util.RadioactiveObject;
-import nuclearscience.api.radiation.SimpleRadiationSource;
 import nuclearscience.common.reloadlistener.RadioactiveItemRegister;
 import nuclearscience.registers.NuclearScienceCapabilities;
 

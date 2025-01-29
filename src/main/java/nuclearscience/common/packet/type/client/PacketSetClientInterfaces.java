@@ -1,5 +1,8 @@
 package nuclearscience.common.packet.type.client;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.codec.StreamCodec;
@@ -8,8 +11,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import nuclearscience.api.network.reactorlogistics.Interface;
 import nuclearscience.common.packet.NetworkHandler;
-
-import java.util.*;
 
 public class PacketSetClientInterfaces implements CustomPacketPayload {
 

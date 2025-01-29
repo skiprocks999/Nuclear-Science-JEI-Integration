@@ -6,9 +6,14 @@ import electrodynamics.datagen.server.ElectrodynamicsLootTablesProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.level.block.Block;
 import nuclearscience.References;
-import nuclearscience.common.block.subtype.*;
-import nuclearscience.registers.NuclearScienceTiles;
+import nuclearscience.common.block.subtype.SubtypeElectromagent;
+import nuclearscience.common.block.subtype.SubtypeIrradiatedBlock;
+import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
+import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
+import nuclearscience.common.block.subtype.SubtypeRadiationShielding;
+import nuclearscience.common.block.subtype.SubtypeReactorLogisticsCable;
 import nuclearscience.registers.NuclearScienceBlocks;
+import nuclearscience.registers.NuclearScienceTiles;
 
 public class NuclearScienceLootTablesProvider extends ElectrodynamicsLootTablesProvider {
 

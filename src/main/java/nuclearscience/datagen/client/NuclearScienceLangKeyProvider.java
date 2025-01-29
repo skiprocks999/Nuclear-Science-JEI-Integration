@@ -3,14 +3,23 @@ package nuclearscience.datagen.client;
 import electrodynamics.datagen.client.ElectrodynamicsLangKeyProvider;
 import net.minecraft.data.PackOutput;
 import nuclearscience.References;
-import nuclearscience.common.block.subtype.*;
+import nuclearscience.common.block.subtype.SubtypeElectromagent;
+import nuclearscience.common.block.subtype.SubtypeIrradiatedBlock;
+import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
+import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
+import nuclearscience.common.block.subtype.SubtypeRadiationShielding;
+import nuclearscience.common.block.subtype.SubtypeReactorLogisticsCable;
 import nuclearscience.common.recipe.categories.fluiditem2gas.NuclearBoilerRecipe;
 import nuclearscience.common.recipe.categories.fluiditem2item.ChemicalExtractorRecipe;
 import nuclearscience.common.recipe.categories.fluiditem2item.MSRFuelPreProcessorRecipe;
 import nuclearscience.common.recipe.categories.fluiditem2item.RadioactiveProcessorRecipe;
 import nuclearscience.common.recipe.categories.item2item.FissionReactorRecipe;
 import nuclearscience.common.recipe.categories.item2item.FuelReprocessorRecipe;
-import nuclearscience.registers.*;
+import nuclearscience.registers.NuclearScienceBlocks;
+import nuclearscience.registers.NuclearScienceFluids;
+import nuclearscience.registers.NuclearScienceGases;
+import nuclearscience.registers.NuclearScienceItems;
+import nuclearscience.registers.NuclearScienceSounds;
 
 public class NuclearScienceLangKeyProvider extends ElectrodynamicsLangKeyProvider {
 

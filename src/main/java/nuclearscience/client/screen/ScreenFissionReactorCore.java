@@ -1,5 +1,8 @@
 package nuclearscience.client.screen;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import electrodynamics.api.electricity.formatting.ChatFormatter;
 import electrodynamics.api.electricity.formatting.DisplayUnit;
 import electrodynamics.prefab.screen.GenericScreen;
@@ -18,9 +21,6 @@ import nuclearscience.NuclearScience;
 import nuclearscience.common.inventory.container.ContainerFissionReactorCore;
 import nuclearscience.common.tile.reactor.fission.TileFissionReactorCore;
 import nuclearscience.prefab.utils.NuclearTextUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ScreenFissionReactorCore extends GenericScreen<ContainerFissionReactorCore> {
 	public static final ResourceLocation SCREEN_BACKGROUND = NuclearScience.rl("textures/gui/fissionreactor.png");

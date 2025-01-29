@@ -1,13 +1,13 @@
 package nuclearscience.common.packet.type.server;
 
+import java.util.UUID;
+
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 import nuclearscience.api.quantumtunnel.FrequencyType;
 import nuclearscience.api.quantumtunnel.TunnelFrequency;
 import nuclearscience.api.quantumtunnel.TunnelFrequencyManager;
-
-import java.util.UUID;
 
 public class ServerBarrierMethods {
     public static void createNewPacket(UUID creator, FrequencyType type, String name) {

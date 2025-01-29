@@ -1,5 +1,8 @@
 package nuclearscience.client.guidebook.chapters;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import electrodynamics.api.electricity.formatting.ChatFormatter;
 import electrodynamics.api.electricity.formatting.DisplayUnit;
 import electrodynamics.client.guidebook.ScreenGuidebook;
@@ -25,9 +28,6 @@ import nuclearscience.common.block.subtype.SubtypeReactorLogisticsCable;
 import nuclearscience.common.tile.reactor.logisticsnetwork.TileController;
 import nuclearscience.prefab.utils.NuclearTextUtils;
 import nuclearscience.registers.NuclearScienceItems;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ChapterLogisticsNetwork extends Chapter {
 

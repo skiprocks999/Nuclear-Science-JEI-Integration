@@ -1,6 +1,11 @@
 package nuclearscience.client.screen;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import com.mojang.blaze3d.platform.InputConstants;
+
 import electrodynamics.api.electricity.formatting.ChatFormatter;
 import electrodynamics.api.electricity.formatting.DisplayUnit;
 import electrodynamics.api.gas.GasStack;
@@ -19,12 +24,11 @@ import nuclearscience.api.quantumtunnel.TunnelFrequencyBuffer;
 import nuclearscience.common.inventory.container.ContainerQuantumTunnel;
 import nuclearscience.common.tile.TileQuantumTunnel;
 import nuclearscience.prefab.screen.component.NuclearIconTypes;
-import nuclearscience.prefab.screen.component.quantumtunnel.*;
+import nuclearscience.prefab.screen.component.quantumtunnel.WrapperEditFrequency;
+import nuclearscience.prefab.screen.component.quantumtunnel.WrapperIOEditor;
+import nuclearscience.prefab.screen.component.quantumtunnel.WrapperNewFrequency;
+import nuclearscience.prefab.screen.component.quantumtunnel.WrapperQuantumTunnelFrequencies;
 import nuclearscience.prefab.utils.NuclearTextUtils;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class ScreenQuantumTunnel extends GenericScreen<ContainerQuantumTunnel> {
 

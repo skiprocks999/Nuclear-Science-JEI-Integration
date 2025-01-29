@@ -45,7 +45,11 @@ import nuclearscience.common.inventory.container.ContainerFissionReactorCore;
 import nuclearscience.common.recipe.NuclearScienceRecipeInit;
 import nuclearscience.common.settings.Constants;
 import nuclearscience.common.tile.reactor.TileControlRod;
-import nuclearscience.registers.*;
+import nuclearscience.registers.NuclearScienceBlocks;
+import nuclearscience.registers.NuclearScienceDamageTypes;
+import nuclearscience.registers.NuclearScienceItems;
+import nuclearscience.registers.NuclearScienceSounds;
+import nuclearscience.registers.NuclearScienceTiles;
 
 public class TileFissionReactorCore extends GenericTile {
 

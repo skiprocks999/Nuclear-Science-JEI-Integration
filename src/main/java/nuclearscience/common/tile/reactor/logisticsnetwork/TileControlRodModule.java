@@ -40,9 +40,9 @@ public class TileControlRodModule extends GenericTileInterfaceBound {
 
         double perc = (double) prop.get() / 15.0;
 
-        double tot = perc * (double) TileControlRod.MAX_EXTENSION;
+        double tot = perc * TileControlRod.MAX_EXTENSION;
 
-        int mult = (int) (tot / (double) TileControlRod.EXTENSION_PER_CLICK);
+        int mult = (int) (tot / TileControlRod.EXTENSION_PER_CLICK);
 
         insertion.set(mult * TileControlRod.EXTENSION_PER_CLICK);
     });

@@ -1,5 +1,7 @@
 package nuclearscience.common.item;
 
+import java.util.function.Function;
+
 import electrodynamics.api.electricity.formatting.ChatFormatter;
 import electrodynamics.api.item.IItemElectric;
 import electrodynamics.prefab.item.ElectricItemProperties;
@@ -15,14 +17,12 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import nuclearscience.api.radiation.util.RadioactiveObject;
 import nuclearscience.api.radiation.util.IRadiationRecipient;
+import nuclearscience.api.radiation.util.RadioactiveObject;
 import nuclearscience.prefab.utils.NuclearDisplayUnits;
 import nuclearscience.prefab.utils.NuclearTextUtils;
 import nuclearscience.registers.NuclearScienceCapabilities;
 import nuclearscience.registers.NuclearScienceSounds;
-
-import java.util.function.Function;
 
 public class ItemGeigerCounter extends ItemElectric {
 

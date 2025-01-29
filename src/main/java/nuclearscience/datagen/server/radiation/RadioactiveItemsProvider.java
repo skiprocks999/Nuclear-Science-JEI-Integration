@@ -4,8 +4,8 @@ import java.nio.file.Path;
 import java.util.concurrent.CompletableFuture;
 
 import com.google.gson.JsonObject;
-
 import com.mojang.serialization.JsonOps;
+
 import electrodynamics.common.tags.ElectrodynamicsTags;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;

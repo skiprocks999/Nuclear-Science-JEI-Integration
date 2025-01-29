@@ -27,9 +27,9 @@ import nuclearscience.common.inventory.container.ContainerGasCentrifuge;
 import nuclearscience.common.settings.Constants;
 import nuclearscience.common.tags.NuclearScienceTags;
 import nuclearscience.prefab.utils.RadiationUtils;
-import nuclearscience.registers.NuclearScienceTiles;
 import nuclearscience.registers.NuclearScienceItems;
 import nuclearscience.registers.NuclearScienceSounds;
+import nuclearscience.registers.NuclearScienceTiles;
 
 public class TileGasCentrifuge extends GenericTile implements ITickableSound {
 

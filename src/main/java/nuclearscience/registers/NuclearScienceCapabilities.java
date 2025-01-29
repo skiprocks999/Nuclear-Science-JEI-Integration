@@ -13,8 +13,8 @@ import net.neoforged.neoforge.capabilities.EntityCapability;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import nuclearscience.NuclearScience;
 import nuclearscience.References;
-import nuclearscience.api.radiation.util.IRadiationRecipient;
 import nuclearscience.api.radiation.CapabilityRadiationRecipient;
+import nuclearscience.api.radiation.util.IRadiationRecipient;
 
 @EventBusSubscriber(modid = References.ID, bus = EventBusSubscriber.Bus.MOD)
 public class NuclearScienceCapabilities {

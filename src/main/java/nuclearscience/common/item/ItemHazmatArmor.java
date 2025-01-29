@@ -2,17 +2,20 @@ package nuclearscience.common.item;
 
 import java.util.EnumMap;
 
+import org.jetbrains.annotations.Nullable;
+
 import electrodynamics.common.item.gear.armor.ItemElectrodynamicsArmor;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import nuclearscience.NuclearScience;
-import nuclearscience.References;
 import nuclearscience.api.radiation.util.IHazmatSuit;
-import org.jetbrains.annotations.Nullable;
 
 public class ItemHazmatArmor extends ItemElectrodynamicsArmor implements IHazmatSuit {
 

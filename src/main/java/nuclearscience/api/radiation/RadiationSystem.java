@@ -1,5 +1,9 @@
 package nuclearscience.api.radiation;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
@@ -13,10 +17,6 @@ import nuclearscience.api.radiation.util.IRadiationManager;
 import nuclearscience.api.radiation.util.IRadiationRecipient;
 import nuclearscience.registers.NuclearScienceAttachmentTypes;
 import nuclearscience.registers.NuclearScienceCapabilities;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 
 @EventBusSubscriber(modid = References.ID, bus = EventBusSubscriber.Bus.GAME)
 public class RadiationSystem {

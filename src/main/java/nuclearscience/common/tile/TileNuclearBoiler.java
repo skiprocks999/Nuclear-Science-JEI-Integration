@@ -28,8 +28,8 @@ import nuclearscience.common.inventory.container.ContainerNuclearBoiler;
 import nuclearscience.common.recipe.NuclearScienceRecipeInit;
 import nuclearscience.common.settings.Constants;
 import nuclearscience.prefab.utils.RadiationUtils;
-import nuclearscience.registers.NuclearScienceTiles;
 import nuclearscience.registers.NuclearScienceSounds;
+import nuclearscience.registers.NuclearScienceTiles;
 
 public class TileNuclearBoiler extends GenericTile implements ITickableSound {
 

@@ -1,5 +1,7 @@
 package nuclearscience.common.tile.reactor.moltensalt;
 
+import java.util.Set;
+
 import electrodynamics.prefab.tile.types.GenericRefreshingConnectTile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -9,8 +11,6 @@ import nuclearscience.common.block.connect.BlockMoltenSaltPipe;
 import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
 import nuclearscience.common.network.MoltenSaltNetwork;
 import nuclearscience.registers.NuclearScienceTiles;
-
-import java.util.Set;
 
 public class TileMoltenSaltPipe extends GenericRefreshingConnectTile<SubtypeMoltenSaltPipe, TileMoltenSaltPipe, MoltenSaltNetwork> {
 

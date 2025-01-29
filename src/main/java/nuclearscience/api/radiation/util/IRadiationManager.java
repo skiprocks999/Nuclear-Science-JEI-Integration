@@ -1,12 +1,13 @@
 package nuclearscience.api.radiation.util;
 
+import java.util.List;
+
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import nuclearscience.api.radiation.SimpleRadiationSource;
-
-import java.util.List;
 
 /**
  * An abstraction and refactor of Radiation System by AurilisDev

@@ -21,8 +21,20 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import nuclearscience.References;
-import nuclearscience.common.block.subtype.*;
-import nuclearscience.common.item.*;
+import nuclearscience.common.block.subtype.SubtypeElectromagent;
+import nuclearscience.common.block.subtype.SubtypeIrradiatedBlock;
+import nuclearscience.common.block.subtype.SubtypeMoltenSaltPipe;
+import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
+import nuclearscience.common.block.subtype.SubtypeRadiationShielding;
+import nuclearscience.common.block.subtype.SubtypeReactorLogisticsCable;
+import nuclearscience.common.item.ItemAntidote;
+import nuclearscience.common.item.ItemAntimatter;
+import nuclearscience.common.item.ItemCanisterLead;
+import nuclearscience.common.item.ItemFrequencyCard;
+import nuclearscience.common.item.ItemGeigerCounter;
+import nuclearscience.common.item.ItemHazmatArmor;
+import nuclearscience.common.item.ItemIodineTablet;
+import nuclearscience.common.item.ItemRadioactive;
 
 public class NuclearScienceItems {
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, References.ID);

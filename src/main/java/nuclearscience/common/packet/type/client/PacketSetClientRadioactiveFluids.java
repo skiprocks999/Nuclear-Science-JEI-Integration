@@ -1,5 +1,7 @@
 package nuclearscience.common.packet.type.client;
 
+import java.util.HashMap;
+
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -9,8 +11,6 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import nuclearscience.api.radiation.util.RadioactiveObject;
 import nuclearscience.common.packet.NetworkHandler;
-
-import java.util.HashMap;
 
 public class PacketSetClientRadioactiveFluids implements CustomPacketPayload {
 

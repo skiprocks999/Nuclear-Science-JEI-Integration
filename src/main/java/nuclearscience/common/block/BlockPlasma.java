@@ -1,6 +1,7 @@
 package nuclearscience.common.block;
 
 import com.mojang.serialization.MapCodec;
+
 import electrodynamics.prefab.block.GenericEntityBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -45,6 +46,7 @@ public class BlockPlasma extends GenericEntityBlock {
 	}
 
 
+	@Override
 	public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
 		return adjacentBlockState.is(this) || super.skipRendering(state, adjacentBlockState, side);
 	}

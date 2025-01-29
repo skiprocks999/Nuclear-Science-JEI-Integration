@@ -1,5 +1,7 @@
 package nuclearscience.common.tile.reactor.logisticsnetwork;
 
+import java.util.Set;
+
 import electrodynamics.prefab.tile.types.GenericRefreshingConnectTile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -9,8 +11,6 @@ import nuclearscience.common.block.connect.BlockReactorLogisticsCable;
 import nuclearscience.common.block.subtype.SubtypeReactorLogisticsCable;
 import nuclearscience.common.network.ReactorLogisticsNetwork;
 import nuclearscience.registers.NuclearScienceTiles;
-
-import java.util.Set;
 
 public class TileReactorLogisticsCable extends GenericRefreshingConnectTile<SubtypeReactorLogisticsCable, TileReactorLogisticsCable, ReactorLogisticsNetwork> {
 
@@ -25,6 +25,7 @@ public class TileReactorLogisticsCable extends GenericRefreshingConnectTile<Subt
     public void destroyViolently() {
     }
 
+    @Override
     public SubtypeReactorLogisticsCable getCableType() {
         if (cable == null) {
             cable = ((BlockReactorLogisticsCable) getBlockState().getBlock()).cable;

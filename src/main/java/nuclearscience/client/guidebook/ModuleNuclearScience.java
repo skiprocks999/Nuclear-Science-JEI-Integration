@@ -5,7 +5,19 @@ import electrodynamics.client.guidebook.utils.pagedata.graphics.ImageWrapperObje
 import net.minecraft.network.chat.MutableComponent;
 import nuclearscience.NuclearScience;
 import nuclearscience.References;
-import nuclearscience.client.guidebook.chapters.*;
+import nuclearscience.client.guidebook.chapters.ChapterFissionReactor;
+import nuclearscience.client.guidebook.chapters.ChapterFusionReactor;
+import nuclearscience.client.guidebook.chapters.ChapterGasCentrifuge;
+import nuclearscience.client.guidebook.chapters.ChapterLogisticsNetwork;
+import nuclearscience.client.guidebook.chapters.ChapterMSReactor;
+import nuclearscience.client.guidebook.chapters.ChapterMisc;
+import nuclearscience.client.guidebook.chapters.ChapterOtherMachines;
+import nuclearscience.client.guidebook.chapters.ChapterParticleAccelerator;
+import nuclearscience.client.guidebook.chapters.ChapterQuantumTunnel;
+import nuclearscience.client.guidebook.chapters.ChapterRadiation;
+import nuclearscience.client.guidebook.chapters.ChapterRadioGenerator;
+import nuclearscience.client.guidebook.chapters.ChapterSteamFunnel;
+import nuclearscience.client.guidebook.chapters.ChapterTurbines;
 import nuclearscience.prefab.utils.NuclearTextUtils;
 
 public class ModuleNuclearScience extends Module {

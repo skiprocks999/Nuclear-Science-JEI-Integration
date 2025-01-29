@@ -1,5 +1,7 @@
 package nuclearscience.common.block;
 
+import org.jetbrains.annotations.Nullable;
+
 import electrodynamics.common.block.states.ElectrodynamicsBlockStates;
 import electrodynamics.prefab.tile.IWrenchable;
 import net.minecraft.core.BlockPos;
@@ -18,7 +20,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
 
 public class BlockElectromagneticDiode extends Block implements IWrenchable {
 
@@ -55,6 +56,7 @@ public class BlockElectromagneticDiode extends Block implements IWrenchable {
         player.level().setBlockAndUpdate(pos, rotate(player.level().getBlockState(pos), Rotation.CLOCKWISE_90));
     }
 
+    @Override
     public void onPickup(ItemStack stack, BlockPos pos, Player player) {
         Level world = player.level();
         world.destroyBlock(pos, true, player);

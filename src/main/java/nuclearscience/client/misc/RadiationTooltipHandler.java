@@ -1,10 +1,10 @@
 package nuclearscience.client.misc;
 
 import com.mojang.datafixers.util.Either;
+
 import electrodynamics.api.electricity.formatting.ChatFormatter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;

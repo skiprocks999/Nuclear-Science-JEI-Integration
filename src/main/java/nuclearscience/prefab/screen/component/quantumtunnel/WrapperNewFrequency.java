@@ -1,5 +1,8 @@
 package nuclearscience.prefab.screen.component.quantumtunnel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import electrodynamics.prefab.screen.component.button.ScreenComponentButton;
 import electrodynamics.prefab.screen.component.editbox.ScreenComponentEditBox;
 import electrodynamics.prefab.screen.component.types.ScreenComponentSimpleLabel;
@@ -16,9 +19,6 @@ import nuclearscience.client.screen.ScreenQuantumTunnel;
 import nuclearscience.common.packet.type.server.PacketCreateNewFreqeuency;
 import nuclearscience.prefab.screen.component.NuclearIconTypes;
 import nuclearscience.prefab.utils.NuclearTextUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class WrapperNewFrequency {
 

@@ -1,5 +1,7 @@
 package nuclearscience.common.packet.type.client;
 
+import java.util.HashMap;
+
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -10,8 +12,6 @@ import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import nuclearscience.api.radiation.util.RadiationShielding;
 import nuclearscience.common.packet.NetworkHandler;
-
-import java.util.HashMap;
 
 public class PacketSetClientRadiationShielding implements CustomPacketPayload {
 

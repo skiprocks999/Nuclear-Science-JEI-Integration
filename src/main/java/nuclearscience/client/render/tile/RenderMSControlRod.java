@@ -1,6 +1,9 @@
 package nuclearscience.client.render.tile;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.mojang.blaze3d.vertex.PoseStack;
+
 import electrodynamics.client.render.tile.AbstractTileRenderer;
 import electrodynamics.prefab.utilities.RenderingUtils;
 import electrodynamics.prefab.utilities.math.MathUtils;
@@ -10,7 +13,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import nuclearscience.client.ClientRegister;
 import nuclearscience.common.tile.reactor.TileControlRod;
-import org.jetbrains.annotations.NotNull;
 
 public class RenderMSControlRod extends AbstractTileRenderer<TileControlRod.TileMSControlRod> {
 

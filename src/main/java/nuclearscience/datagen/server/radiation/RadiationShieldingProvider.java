@@ -1,12 +1,15 @@
 package nuclearscience.datagen.server.radiation;
 
+import java.nio.file.Path;
+import java.util.concurrent.CompletableFuture;
+
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
+
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import nuclearscience.References;
@@ -14,9 +17,6 @@ import nuclearscience.api.radiation.util.RadiationShielding;
 import nuclearscience.common.block.subtype.SubtypeRadiationShielding;
 import nuclearscience.common.reloadlistener.RadiationShieldingRegister;
 import nuclearscience.registers.NuclearScienceBlocks;
-
-import java.nio.file.Path;
-import java.util.concurrent.CompletableFuture;
 
 public class RadiationShieldingProvider implements DataProvider {
 
@@ -47,16 +47,15 @@ public class RadiationShieldingProvider implements DataProvider {
 
     }
 
-    @SuppressWarnings("unused")
-    private void addBlock(Block block, double radiationAmount, double radiationLevel, JsonObject json) {
+    private static void addBlock(Block block, double radiationAmount, double radiationLevel, JsonObject json) {
         JsonObject data = new JsonObject();
         json.add(BuiltInRegistries.BLOCK.getKey(block).toString(), RadiationShielding.CODEC.encode(new RadiationShielding(radiationAmount, radiationLevel), JsonOps.INSTANCE, data).getOrThrow());
     }
 
-    private void addTag(TagKey<Block> tag, double radiationAmount, double radiationLevel, JsonObject json) {
-        JsonObject data = new JsonObject();
-        json.add("#" + tag.location().toString(), RadiationShielding.CODEC.encode(new RadiationShielding(radiationAmount, radiationLevel), JsonOps.INSTANCE, data).getOrThrow());
-    }
+//    private void addTag(TagKey<Block> tag, double radiationAmount, double radiationLevel, JsonObject json) {
+//        JsonObject data = new JsonObject();
+//        json.add("#" + tag.location().toString(), RadiationShielding.CODEC.encode(new RadiationShielding(radiationAmount, radiationLevel), JsonOps.INSTANCE, data).getOrThrow());
+//    }
 
     @Override
     public String getName() {

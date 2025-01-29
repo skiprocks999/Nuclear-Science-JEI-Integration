@@ -1,5 +1,8 @@
 package nuclearscience.prefab.screen.component.quantumtunnel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import electrodynamics.prefab.screen.component.button.ScreenComponentButton;
 import electrodynamics.prefab.screen.component.types.ScreenComponentSimpleLabel;
 import electrodynamics.prefab.screen.component.types.guitab.ScreenComponentGuiTab;
@@ -12,9 +15,6 @@ import nuclearscience.client.screen.ScreenQuantumTunnel;
 import nuclearscience.prefab.screen.component.NuclearIconTypes;
 import nuclearscience.prefab.utils.NuclearTextUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class WrapperIOEditor {
 
     public ScreenComponentButton<?> button;
@@ -26,7 +26,7 @@ public class WrapperIOEditor {
     public WrapperIOEditor(ScreenQuantumTunnel screen, int tabX, int tabY, int slotStartX, int slotStartY, int labelX, int labelY) {
         screen.addComponent(button = (ScreenComponentButton<?>) new ScreenComponentButton<>(ScreenComponentGuiTab.GuiInfoTabTextures.REGULAR, tabX, tabY).setOnPress(but -> {
             //
-            ScreenComponentButton<?> button = (ScreenComponentButton<?>) but;
+            ScreenComponentButton<?> button = but;
             button.isPressed = !button.isPressed;
 
             if (button.isPressed) {

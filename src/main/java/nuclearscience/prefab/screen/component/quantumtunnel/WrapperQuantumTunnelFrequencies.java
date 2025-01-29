@@ -1,5 +1,9 @@
 package nuclearscience.prefab.screen.component.quantumtunnel;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+
 import electrodynamics.prefab.screen.component.button.ScreenComponentButton;
 import electrodynamics.prefab.screen.component.types.ScreenComponentFillArea;
 import electrodynamics.prefab.screen.component.types.ScreenComponentSimpleLabel;
@@ -17,10 +21,6 @@ import nuclearscience.common.packet.type.server.PacketDeleteFrequency;
 import nuclearscience.common.tile.TileQuantumTunnel;
 import nuclearscience.prefab.screen.component.NuclearIconTypes;
 import nuclearscience.prefab.utils.NuclearTextUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
 
 public class WrapperQuantumTunnelFrequencies {
 
@@ -94,7 +94,7 @@ public class WrapperQuantumTunnelFrequencies {
         }).setLabel(NuclearTextUtils.gui("quantumtunnel.public"));
 
         privateSelector = new ScreenComponentButton<>(x + 70 + 16 + 5, y + 44, 70, 15).setOnPress(but -> {
-            ScreenComponentButton<?> button = (ScreenComponentButton<?>) but;
+            ScreenComponentButton<?> button = but;
             button.isPressed = true;
             publicSelector.isPressed = false;
             isPrivate = true;
@@ -247,8 +247,8 @@ public class WrapperQuantumTunnelFrequencies {
                 int moveRoom = screen.slider.height - 15 -2;
 
                 // int moveRoom = 102 - 2;
-                double moved = (double) topRowIndex / (double) (lastRowCount - (double) BUTTON_COUNT);
-                slider.setSliderYOffset((int) ((double) moveRoom * moved));
+                double moved = topRowIndex / (lastRowCount - (double) BUTTON_COUNT);
+                slider.setSliderYOffset((int) (moveRoom * moved));
             }
         } else {
             slider.updateActive(false);
@@ -292,8 +292,8 @@ public class WrapperQuantumTunnelFrequencies {
                     double heightRatio = (double) mouseHeight / (double) sliderHeight;
                     topRowIndex = (int) Math.round((lastRowCount - BUTTON_COUNT) * heightRatio);
                     int moveRoom = slider.height - 15 - 2;
-                    double moved = (double) topRowIndex / (double) (lastRowCount - (double)BUTTON_COUNT);
-                    slider.setSliderYOffset((int) ((double) moveRoom * moved));
+                    double moved = topRowIndex / (lastRowCount - (double)BUTTON_COUNT);
+                    slider.setSliderYOffset((int) (moveRoom * moved));
                 }
             }
         };

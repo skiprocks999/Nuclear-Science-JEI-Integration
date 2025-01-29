@@ -1,6 +1,7 @@
 package nuclearscience.common.block;
 
 import com.mojang.serialization.MapCodec;
+
 import electrodynamics.prefab.block.GenericEntityBlockWaterloggable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.BaseEntityBlock;

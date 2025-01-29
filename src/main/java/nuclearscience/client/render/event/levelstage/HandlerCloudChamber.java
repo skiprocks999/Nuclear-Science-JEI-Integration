@@ -1,7 +1,13 @@
 package nuclearscience.client.render.event.levelstage;
 
+import java.util.HashSet;
+import java.util.Iterator;
+
+import org.joml.Matrix4f;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+
 import electrodynamics.client.render.event.levelstage.AbstractLevelStageHandler;
 import net.minecraft.client.Camera;
 import net.minecraft.client.DeltaTracker;
@@ -14,9 +20,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import nuclearscience.common.tile.TileCloudChamber;
-import org.joml.Matrix4f;
-
-import java.util.*;
 
 public class HandlerCloudChamber extends AbstractLevelStageHandler {
 

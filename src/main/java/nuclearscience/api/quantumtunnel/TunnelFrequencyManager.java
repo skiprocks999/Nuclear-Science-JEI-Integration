@@ -1,14 +1,14 @@
 package nuclearscience.api.quantumtunnel;
 
-import net.minecraft.server.level.ServerLevel;
-import net.neoforged.neoforge.server.ServerLifecycleHooks;
-import nuclearscience.common.settings.Constants;
-import nuclearscience.registers.NuclearScienceAttachmentTypes;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.UUID;
+
+import net.minecraft.server.level.ServerLevel;
+import net.neoforged.neoforge.server.ServerLifecycleHooks;
+import nuclearscience.common.settings.Constants;
+import nuclearscience.registers.NuclearScienceAttachmentTypes;
 
 public class TunnelFrequencyManager {
 

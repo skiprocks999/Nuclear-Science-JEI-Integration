@@ -1,5 +1,9 @@
 package nuclearscience.registers;
 
+import java.util.List;
+import java.util.Map;
+import java.util.function.Supplier;
+
 import electrodynamics.common.tags.ElectrodynamicsTags;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -15,10 +19,6 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import nuclearscience.NuclearScience;
 import nuclearscience.References;
 import nuclearscience.common.item.ItemHazmatArmor;
-
-import java.util.List;
-import java.util.Map;
-import java.util.function.Supplier;
 
 public class NuclearScienceArmorMaterials {
 

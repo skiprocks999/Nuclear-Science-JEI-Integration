@@ -1,5 +1,10 @@
 package nuclearscience.common.packet.type.client;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.UUID;
+
 import electrodynamics.api.gas.Gas;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -11,14 +16,14 @@ import nuclearscience.api.quantumtunnel.TunnelFrequency;
 import nuclearscience.api.quantumtunnel.TunnelFrequencyBuffer;
 import nuclearscience.api.radiation.util.RadiationShielding;
 import nuclearscience.api.radiation.util.RadioactiveObject;
-import nuclearscience.common.reloadlistener.*;
+import nuclearscience.common.reloadlistener.AtomicAssemblerBlacklistRegister;
+import nuclearscience.common.reloadlistener.AtomicAssemblerWhitelistRegister;
+import nuclearscience.common.reloadlistener.RadiationShieldingRegister;
+import nuclearscience.common.reloadlistener.RadioactiveFluidRegister;
+import nuclearscience.common.reloadlistener.RadioactiveGasRegister;
+import nuclearscience.common.reloadlistener.RadioactiveItemRegister;
 import nuclearscience.common.tile.TileQuantumTunnel;
 import nuclearscience.common.tile.reactor.logisticsnetwork.util.GenericTileInterfaceBound;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.UUID;
 
 public class ClientBarrierMethods {
     public static void handleSetAtomicAssemblerClientValues(HashSet<Item> items) {

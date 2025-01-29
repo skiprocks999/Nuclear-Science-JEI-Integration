@@ -1,6 +1,11 @@
 package nuclearscience.client.render.tile;
 
+import java.util.Random;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.mojang.blaze3d.vertex.PoseStack;
+
 import electrodynamics.Electrodynamics;
 import electrodynamics.client.render.tile.AbstractTileRenderer;
 import electrodynamics.prefab.utilities.RenderingUtils;
@@ -13,9 +18,6 @@ import net.minecraft.core.Direction;
 import nuclearscience.client.ClientRegister;
 import nuclearscience.client.particle.smoke.ParticleOptionSmoke;
 import nuclearscience.common.tile.TileFalloutScrubber;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Random;
 
 public class RenderFalloutScrubber extends AbstractTileRenderer<TileFalloutScrubber> {
     public RenderFalloutScrubber(BlockEntityRendererProvider.Context context) {

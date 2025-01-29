@@ -1,7 +1,15 @@
 package nuclearscience.registers;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.UUID;
+
+import org.jetbrains.annotations.Nullable;
+
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.Dynamic;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.UUIDUtil;
@@ -21,12 +29,6 @@ import nuclearscience.api.radiation.SimpleRadiationSource;
 import nuclearscience.api.radiation.util.BlockPosVolume;
 import nuclearscience.api.radiation.util.IRadiationManager;
 import nuclearscience.common.settings.Constants;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.UUID;
 
 public class NuclearScienceAttachmentTypes {
 

@@ -1,5 +1,10 @@
 package nuclearscience.common.packet.type.client;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.UUID;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -10,11 +15,6 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 import nuclearscience.api.quantumtunnel.TunnelFrequency;
 import nuclearscience.api.quantumtunnel.TunnelFrequencyBuffer;
 import nuclearscience.common.packet.NetworkHandler;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.UUID;
 
 public class PacketSetClientTunnelFrequencies implements CustomPacketPayload {
 

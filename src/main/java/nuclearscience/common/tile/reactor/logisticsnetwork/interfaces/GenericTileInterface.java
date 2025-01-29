@@ -1,5 +1,10 @@
 package nuclearscience.common.tile.reactor.logisticsnetwork.interfaces;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+
 import electrodynamics.prefab.properties.Property;
 import electrodynamics.prefab.properties.PropertyTypes;
 import electrodynamics.prefab.tile.components.type.ComponentTickable;
@@ -14,8 +19,6 @@ import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
 import nuclearscience.common.tile.reactor.logisticsnetwork.util.GenericTileLogisticsMember;
 import nuclearscience.prefab.NuclearPropertyTypes;
 import nuclearscience.registers.NuclearScienceItems;
-
-import java.util.*;
 
 public abstract class GenericTileInterface extends GenericTileLogisticsMember {
 

@@ -2,6 +2,7 @@ package nuclearscience.api.radiation.util;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+
 import net.minecraft.core.BlockPos;
 
 public record BlockPosVolume(BlockPos start, BlockPos end) {

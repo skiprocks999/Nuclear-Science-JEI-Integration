@@ -1,5 +1,7 @@
 package nuclearscience.client.screen;
 
+import java.util.List;
+
 import electrodynamics.api.electricity.formatting.ChatFormatter;
 import electrodynamics.api.electricity.formatting.DisplayUnit;
 import electrodynamics.api.screen.ITexture;
@@ -31,8 +33,6 @@ import nuclearscience.common.tile.reactor.moltensalt.TileFreezePlug;
 import nuclearscience.common.tile.reactor.moltensalt.TileMSReactorCore;
 import nuclearscience.prefab.screen.component.NuclearIconTypes;
 import nuclearscience.prefab.utils.NuclearTextUtils;
-
-import java.util.List;
 
 public class ScreenMonitorModule extends GenericInterfaceBoundScreen<ContainerMonitorModule> {
 

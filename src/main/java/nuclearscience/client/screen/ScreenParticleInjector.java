@@ -1,5 +1,8 @@
 package nuclearscience.client.screen;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import electrodynamics.api.electricity.formatting.ChatFormatter;
 import electrodynamics.api.electricity.formatting.DisplayUnit;
 import electrodynamics.prefab.screen.GenericScreen;
@@ -28,9 +31,6 @@ import nuclearscience.prefab.screen.component.NuclearArrows;
 import nuclearscience.prefab.screen.component.NuclearIconTypes;
 import nuclearscience.prefab.utils.NuclearDisplayUnits;
 import nuclearscience.prefab.utils.NuclearTextUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ScreenParticleInjector extends GenericScreen<ContainerParticleInjector> {
 

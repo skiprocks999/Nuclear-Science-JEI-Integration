@@ -1,7 +1,11 @@
 package nuclearscience.datagen.server.radiation;
 
+import java.nio.file.Path;
+import java.util.concurrent.CompletableFuture;
+
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
+
 import electrodynamics.api.gas.Gas;
 import electrodynamics.registers.ElectrodynamicsGases;
 import net.minecraft.data.CachedOutput;
@@ -12,9 +16,6 @@ import nuclearscience.References;
 import nuclearscience.api.radiation.util.RadioactiveObject;
 import nuclearscience.common.reloadlistener.RadioactiveGasRegister;
 import nuclearscience.common.tags.NuclearScienceTags;
-
-import java.nio.file.Path;
-import java.util.concurrent.CompletableFuture;
 
 public class RadioactiveGasesProvider implements DataProvider {
 

@@ -15,8 +15,8 @@ import nuclearscience.api.turbine.ISteamReceiver;
 import nuclearscience.common.block.subtype.SubtypeNuclearMachine;
 import nuclearscience.common.settings.Constants;
 import nuclearscience.common.tags.NuclearScienceTags;
-import nuclearscience.registers.NuclearScienceTiles;
 import nuclearscience.registers.NuclearScienceBlocks;
+import nuclearscience.registers.NuclearScienceTiles;
 
 public class TilePlasma extends GenericTile {
 

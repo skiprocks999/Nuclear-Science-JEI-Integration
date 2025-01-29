@@ -1,5 +1,7 @@
 package nuclearscience.common.packet.type.client;
 
+import java.util.HashSet;
+
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -8,8 +10,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import nuclearscience.common.packet.NetworkHandler;
-
-import java.util.HashSet;
 
 public class PacketSetClientAtomicAssemblerWhitelistVals implements CustomPacketPayload {
 

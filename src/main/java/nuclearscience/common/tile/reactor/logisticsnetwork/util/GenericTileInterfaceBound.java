@@ -1,5 +1,9 @@
 package nuclearscience.common.tile.reactor.logisticsnetwork.util;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import electrodynamics.prefab.properties.Property;
 import electrodynamics.prefab.properties.PropertyTypes;
 import electrodynamics.prefab.tile.components.type.ComponentTickable;
@@ -11,10 +15,6 @@ import nuclearscience.api.network.reactorlogistics.Interface;
 import nuclearscience.common.network.ReactorLogisticsNetwork;
 import nuclearscience.common.tile.reactor.logisticsnetwork.TileReactorLogisticsCable;
 import nuclearscience.common.tile.reactor.logisticsnetwork.interfaces.GenericTileInterface;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public abstract class GenericTileInterfaceBound extends GenericTileLogisticsMember {
 

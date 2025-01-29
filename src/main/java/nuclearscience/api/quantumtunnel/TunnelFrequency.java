@@ -1,15 +1,16 @@
 package nuclearscience.api.quantumtunnel;
 
+import java.util.Objects;
+import java.util.UUID;
+
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.entity.player.Player;
-
-import java.util.Objects;
-import java.util.UUID;
 
 public class TunnelFrequency {
 

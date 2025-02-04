@@ -2,6 +2,7 @@ package nuclearscience.api.radiation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -124,14 +125,11 @@ public class RadiationManager implements IRadiationManager {
         /* Apply Radiation */
 
         BlockPos position;
-
         SimpleRadiationSource permanentSource;
-
 
         for (Map.Entry<BlockPos, SimpleRadiationSource> entry : world.getData(NuclearScienceAttachmentTypes.PERMANENT_RADIATION_SOURCES).entrySet()) {
             position = entry.getKey();
             permanentSource = entry.getValue();
-
             for (LivingEntity entity : world.getEntitiesOfClass(LivingEntity.class, new AABB(position.getX() - permanentSource.distance(), position.getY() - permanentSource.distance(), position.getZ() - permanentSource.distance(), position.getX() + permanentSource.distance() + 1, position.getY() + permanentSource.distance() + 1, position.getZ() + permanentSource.distance() + 1))) {
                 IRadiationRecipient capability = entity.getCapability(NuclearScienceCapabilities.CAPABILITY_RADIATIONRECIPIENT);
                 if (capability == null) {
@@ -139,9 +137,7 @@ public class RadiationManager implements IRadiationManager {
                 }
 
                 for (int i = 0; i < (int) Math.ceil(entity.getBbHeight()); i++) {
-
                     capability.recieveRadiation(entity, getAppliedRadiation(world, position, entity.getOnPos().above(i + 1), permanentSource.getRadiationAmount(), permanentSource.getRadiationStrength()), permanentSource.getRadiationStrength());
-
                 }
             }
         }
@@ -198,18 +194,16 @@ public class RadiationManager implements IRadiationManager {
         /* Handle Temporary Sources */
 
 
-        ArrayList<BlockPos> toRemove = new ArrayList<>();
-
         boolean changed = false;
-
-        for (Map.Entry<BlockPos, TemporaryRadiationSource> entry : temporarySources.entrySet()) {
+        for(Iterator<Map.Entry<BlockPos, TemporaryRadiationSource>> it = temporarySources.entrySet().iterator(); it.hasNext(); ) {
+            Map.Entry<BlockPos, TemporaryRadiationSource> entry = it.next();
             position = entry.getKey();
             temporarySource = entry.getValue();
-
-            temporarySource.ticks = temporarySource.ticks - 1;
+	
+            temporarySource.ticks = temporarySource.ticks - 1;	
             if (temporarySource.ticks < 0) {
                 changed = true;
-                toRemove.add(position);
+                it.remove();
                 if (temporarySource.leaveFading) {
                     FadingRadiationSource existing = fadingSources.getOrDefault(position, FadingRadiationSource.NONE);
                     fadingSources.put(position, new FadingRadiationSource(Math.max(temporarySource.distance, existing.distance), Math.max(temporarySource.strength, existing.strength), temporarySource.radiation + existing.radiation));
@@ -217,12 +211,6 @@ public class RadiationManager implements IRadiationManager {
             }
 
         }
-
-        for (BlockPos pos : toRemove) {
-            temporarySources.remove(pos);
-        }
-
-        toRemove.clear();
 
         if (changed) {
             world.setData(NuclearScienceAttachmentTypes.TEMPORARY_RADIATION_SOURCES, temporarySources);
@@ -237,8 +225,9 @@ public class RadiationManager implements IRadiationManager {
 
         HashMap<BlockPosVolume, Double> localizedDissipations = world.getData(NuclearScienceAttachmentTypes.LOCALIZED_DISSIPATIONS);
 
-        for (Map.Entry<BlockPos, FadingRadiationSource> entry : fadingSources.entrySet()) {
-
+        for(Iterator<Map.Entry<BlockPos, FadingRadiationSource>> it = fadingSources.entrySet().iterator(); it.hasNext(); ) {
+            Map.Entry<BlockPos, FadingRadiationSource> entry = it.next();
+            
             changed = true;
 
             position = entry.getKey();
@@ -259,16 +248,10 @@ public class RadiationManager implements IRadiationManager {
             }
 
             if (fadingSource.radiation <= 0) {
-                toRemove.add(position);
+                it.remove();
             }
 
         }
-
-        for (BlockPos pos : toRemove) {
-            fadingSources.remove(pos);
-        }
-
-        toRemove.clear();
 
         if (changed) {
             world.setData(NuclearScienceAttachmentTypes.FADING_RADIATION_SOURCES, fadingSources);
@@ -279,9 +262,8 @@ public class RadiationManager implements IRadiationManager {
     public static boolean isWithinRange(BlockPos start, BlockPos end, int distance) {
         if (Math.abs(end.getX() - start.getX()) > distance || Math.abs(end.getY() - start.getY()) > distance || Math.abs(end.getZ() - start.getZ()) > distance) {
             return false;
-        } else {
-            return true;
         }
+	return true;
     }
 
     public static List<Block> raycastToBlockPos(Level world, BlockPos start, BlockPos end) {
@@ -348,9 +330,8 @@ public class RadiationManager implements IRadiationManager {
 
         }
 
-        return amount;
+        return amount / entity.distSqr(source);
 
     }
-
 
 }

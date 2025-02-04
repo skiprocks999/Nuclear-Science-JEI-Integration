@@ -190,7 +190,7 @@ public class TileFissionReactorCore extends GenericTile {
                 // Implement some alarm sounds at this time
                 if (ticksOverheating > 10 * 20) {
 
-                    //meltdown();
+                    meltdown();
 
                 }
 

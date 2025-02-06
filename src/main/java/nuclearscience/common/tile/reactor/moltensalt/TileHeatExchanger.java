@@ -33,7 +33,7 @@ public class TileHeatExchanger extends GenericTile {
 	public static final int STEAM_GEN_DIAMETER = 5;
 	public static final int STEAM_GEN_HEIGHT = 2;
 	private ISteamReceiver[][][] cachedReceivers = new ISteamReceiver[STEAM_GEN_DIAMETER][STEAM_GEN_HEIGHT][STEAM_GEN_DIAMETER];
-	public Property<Integer> temperature = property(new Property<>(PropertyTypes.INTEGER, "temperature", 0));
+	public Property<Double> temperature = property(new Property<>(PropertyTypes.DOUBLE, "temperature", 0.0));
 
 	public TileHeatExchanger(BlockPos pos, BlockState state) {
 		super(NuclearScienceTiles.TILE_HEATEXCHANGER.get(), pos, state);
@@ -104,7 +104,7 @@ public class TileHeatExchanger extends GenericTile {
 							if (turbine.isStillValid()) {
 								cachedReceivers[i][j][k] = null;
 							}
-							turbine.receiveSteam((int) (Constants.MSRREACTOR_MAXENERGYTARGET / (STEAM_GEN_DIAMETER * STEAM_GEN_DIAMETER * 20.0 * (TileMSReactorCore.MELTDOWN_TEMPERATURE / (double) temperature.get()))), temperature.get());
+							turbine.receiveSteam((int) (Constants.MSRREACTOR_MAXENERGYTARGET / (STEAM_GEN_DIAMETER * STEAM_GEN_DIAMETER * 20.0 * (TileMSReactorCore.MELTDOWN_TEMPERATURE / temperature.get()))), temperature.get().intValue());
 						}
 						if (level.random.nextFloat() < temperature.get() / (TileMSReactorCore.MELTDOWN_TEMPERATURE * 20.0 * STEAM_GEN_DIAMETER * STEAM_GEN_DIAMETER * STEAM_GEN_HEIGHT)) {
 							level.setBlockAndUpdate(offpos, Blocks.AIR.defaultBlockState());
